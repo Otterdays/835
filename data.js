@@ -51,7 +51,7 @@ const contractData = {
         {
             id: "article-10",
             title: "Article 10: Term of Agreement",
-            content: "This Agreement shall become effective January 1, 2026, and shall remain in full force and effect through December 31, 2029. It shall automatically renew from year to year thereafter, unless either party provides written notice of its desire to modify or terminate at least sixty (60) days prior to the expiration date."
+            content: "This Agreement shall become effective January 1, 2026, and shall remain in full force and effect through December 31, 2029. It shall automatically renew from year to year thereafter, unless either party (or natee) provides written notice of its desire to modify or terminate at least sixty (60) days prior to the expiration date."
         }
     ]
 };
