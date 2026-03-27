@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating Engineers 835 Contract</title>
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="header-title">Contract Viewer</h1>
+            <p id="header-parties" class="subtitle">Loading parties...</p>
+            <p id="header-date" class="date">Loading dates...</p>
+        </header>
+
+        <div class="search-container">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input" placeholder="Search the contract...">
+        </div>
+
+        <div id="results-info" class="results-info"></div>
+
+        <div id="contract-container" class="contract-container">
+            <!-- Articles will be injected here via JS -->
+        </div>
+        
+        <div id="no-results" class="no-results">
+            No articles found matching your search.
+        </div>
+    </div>
+
+    <!-- Data and logic -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
