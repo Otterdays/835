@@ -321,6 +321,82 @@ body { word-wrap: break-word; overflow-x: hidden; }
     display: flex;
     flex-direction: column;
 }
+.stewards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.steward-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.6s ease both;
+    transition: transform 0.3s ease;
+}
+
+.steward-card:hover {
+    transform: translateY(-5px);
+}
+
+.steward-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.steward-info {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.steward-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.steward-role {
+    font-size: 1rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.steward-tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    padding: 0.5rem;
+    background: var(--bg-primary);
+    border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+    .steward-card {
+        flex-direction: row;
+        align-items: center;
+    }
+    .steward-img {
+        width: 40%;
+        border-bottom: none;
+        border-right: 1px solid var(--border-color);
+    }
+    .steward-info {
+        width: 60%;
+        text-align: left;
+        padding: 2.5rem;
+    }
+}
 
 .gallery-container {
     display: flex;

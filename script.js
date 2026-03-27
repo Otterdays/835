@@ -110,11 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('close-btn');
     const linkContract = document.getElementById('link-contract');
     const linkGallery = document.getElementById('link-gallery');
+    const linkStewards = document.getElementById('link-stewards');
     const linkEmployees = document.getElementById('link-employees');
     const searchContainer = document.querySelector('.search-container');
     const headerTitle = document.getElementById('header-title');
     const headerParties = document.getElementById('header-parties');
     const employeesContainer = document.getElementById('employees-container');
+    const stewardsContainer = document.getElementById('stewards-container');
     const galleryContainer = document.getElementById('gallery-container');
 
     function toggleMenu() {
@@ -130,11 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         linkContract.classList.add('active');
         linkGallery.classList.remove('active');
+        linkStewards.classList.remove('active');
         linkEmployees.classList.remove('active');
         searchContainer.style.display = 'block';
         headerTitle.textContent = contractData.title;
         headerParties.textContent = contractData.parties;
         employeesContainer.style.display = 'none';
+        stewardsContainer.style.display = 'none';
         galleryContainer.style.display = 'none';
         container.style.display = 'flex';
         toggleMenu();
@@ -148,16 +152,37 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         linkGallery.classList.add('active');
         linkContract.classList.remove('active');
+        linkStewards.classList.remove('active');
         linkEmployees.classList.remove('active');
         searchContainer.style.display = 'none';
         headerTitle.textContent = "Scanned Pages";
         headerParties.textContent = "Original Contract Documents";
         container.style.display = 'none';
         employeesContainer.style.display = 'none';
+        stewardsContainer.style.display = 'none';
         resultsInfo.style.display = 'none';
         noResults.style.display = 'none';
         galleryContainer.style.display = 'flex';
         renderGallery(contractImages);
+        toggleMenu();
+    });
+
+    linkStewards.addEventListener('click', (e) => {
+        e.preventDefault();
+        linkStewards.classList.add('active');
+        linkContract.classList.remove('active');
+        linkGallery.classList.remove('active');
+        linkEmployees.classList.remove('active');
+        searchContainer.style.display = 'none';
+        headerTitle.textContent = "Shop Stewards";
+        headerParties.textContent = "Your Union Leadership";
+        container.style.display = 'none';
+        employeesContainer.style.display = 'none';
+        galleryContainer.style.display = 'none';
+        resultsInfo.style.display = 'none';
+        noResults.style.display = 'none';
+        stewardsContainer.style.display = 'flex';
+        renderStewards(shopStewards);
         toggleMenu();
     });
 
@@ -166,11 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
         linkEmployees.classList.add('active');
         linkContract.classList.remove('active');
         linkGallery.classList.remove('active');
+        linkStewards.classList.remove('active');
         searchContainer.style.display = 'none';
         headerTitle.textContent = "Employees";
         headerParties.textContent = "RCF Location Roster";
         container.style.display = 'none';
         galleryContainer.style.display = 'none';
+        stewardsContainer.style.display = 'none';
         resultsInfo.style.display = 'none';
         noResults.style.display = 'none';
         employeesContainer.style.display = 'flex';
@@ -200,6 +227,41 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(name);
             card.appendChild(loc);
             employeesContainer.appendChild(card);
+        });
+    }
+
+    function renderStewards(stewards) {
+        stewardsContainer.innerHTML = '';
+        stewards.forEach((steward, index) => {
+            const card = document.createElement('div');
+            card.className = 'steward-card';
+            card.style.animationDelay = `${index * 0.1}s`;
+
+            const img = document.createElement('img');
+            img.src = steward.image;
+            img.className = 'steward-img';
+
+            const info = document.createElement('div');
+            info.className = 'steward-info';
+
+            const name = document.createElement('div');
+            name.className = 'steward-name';
+            name.textContent = steward.name;
+
+            const role = document.createElement('div');
+            role.className = 'steward-role';
+            role.textContent = `${steward.role} - ${steward.location}`;
+
+            const tagline = document.createElement('div');
+            tagline.className = 'steward-tagline';
+            tagline.textContent = steward.tagline;
+
+            info.appendChild(name);
+            info.appendChild(role);
+            info.appendChild(tagline);
+            card.appendChild(img);
+            card.appendChild(info);
+            stewardsContainer.appendChild(card);
         });
     }
 

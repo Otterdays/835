@@ -46,7 +46,25 @@ const employeesData = [
     { name: "justin", location: "RCF" },
     { name: "jim", location: "RCF" },
     { name: "monica", location: "RCF" },
-    { name: "bill", location: "RCF" }
+    { name: "bill", location: "RCF" },
+    { name: "trevor", location: "CFCF" }
+];
+
+const shopStewards = [
+    { 
+        name: "Trevor", 
+        role: "Lead Shop Steward", 
+        location: "CFCF", 
+        image: "trevor.jpg",
+        tagline: "#TREVOR4EVER - Ready to fight for your rights!"
+    },
+    { 
+        name: "Justin", 
+        role: "Shop Steward", 
+        location: "RCF", 
+        image: "justin.jpg",
+        tagline: "JUSTIN BE BUSSIN - Real Work. Real Respect. Real Results."
+    }
 ];
 
 const contractImages = [

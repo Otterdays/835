@@ -16,6 +16,7 @@ Building the Contract Viewer for Operating Engineers 835
 - [2026-03-27] Freshened up README with GitHub badges, styled layout, and click-able live links
 - [2026-03-27] Added interactive slide-out sidebar menu featuring views for Contract and new RCF Employees data
 - [2026-03-27] Refined CSS media queries for improved mobile interface responsiveness and button overlap prevention
+- [2026-03-27] Added 'Shop Stewards' profile section with leadership posters for Trevor (CFCF) and Justin (RCF)
 - [2026-03-27] Added interactive 'Scanned Pages' gallery to display original contract images (page_1.jpg)
 - [2026-03-27] Synthesized Page 1 of the official contract from user-provided image (page_1.jpg)
 - [2026-03-27] Cleared sample contract data and replaced with authentic Article I: Recognition & Scope
