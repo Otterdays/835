@@ -42,18 +42,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function highlightText(text, query) {
-        if (!query) return escapeHTML(text);
+        if (!text) return '';
+        const escapedText = escapeHTML(text).replace(/\n/g, '<br>');
+        if (!query) return escapedText;
         
         // Escape regex special characters
         const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(${escapedQuery})`, 'gi');
+        
+        // When highlighting, we need to be careful not to break the <br> tags we just inserted
+        // or highlight parts of them. A simpler way: split by query on the original text,
+        // escape/newline-replace the non-matching parts, and wrap matching parts in <mark>.
         
         const parts = text.split(regex);
         return parts.map(part => {
             if (part.toLowerCase() === query.toLowerCase()) {
                 return `<mark>${escapeHTML(part)}</mark>`;
             }
-            return escapeHTML(part);
+            return escapeHTML(part).replace(/\n/g, '<br>');
         }).join('');
     }
 
@@ -81,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title.className = 'article-title';
             title.innerHTML = highlightText(article.title, query);
 
-            const content = document.createElement('p');
+            const content = document.createElement('div');
             content.className = 'article-content';
             content.innerHTML = highlightText(article.content, query);
 
@@ -103,11 +109,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('panel-overlay');
     const closeBtn = document.getElementById('close-btn');
     const linkContract = document.getElementById('link-contract');
+    const linkGallery = document.getElementById('link-gallery');
     const linkEmployees = document.getElementById('link-employees');
     const searchContainer = document.querySelector('.search-container');
     const headerTitle = document.getElementById('header-title');
     const headerParties = document.getElementById('header-parties');
     const employeesContainer = document.getElementById('employees-container');
+    const galleryContainer = document.getElementById('gallery-container');
 
     function toggleMenu() {
         sidePanel.classList.toggle('open');
@@ -121,11 +129,13 @@ document.addEventListener('DOMContentLoaded', () => {
     linkContract.addEventListener('click', (e) => {
         e.preventDefault();
         linkContract.classList.add('active');
+        linkGallery.classList.remove('active');
         linkEmployees.classList.remove('active');
         searchContainer.style.display = 'block';
         headerTitle.textContent = contractData.title;
         headerParties.textContent = contractData.parties;
         employeesContainer.style.display = 'none';
+        galleryContainer.style.display = 'none';
         container.style.display = 'flex';
         toggleMenu();
         // Reset search
@@ -134,14 +144,33 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsInfo.style.display = 'none';
     });
 
+    linkGallery.addEventListener('click', (e) => {
+        e.preventDefault();
+        linkGallery.classList.add('active');
+        linkContract.classList.remove('active');
+        linkEmployees.classList.remove('active');
+        searchContainer.style.display = 'none';
+        headerTitle.textContent = "Scanned Pages";
+        headerParties.textContent = "Original Contract Documents";
+        container.style.display = 'none';
+        employeesContainer.style.display = 'none';
+        resultsInfo.style.display = 'none';
+        noResults.style.display = 'none';
+        galleryContainer.style.display = 'flex';
+        renderGallery(contractImages);
+        toggleMenu();
+    });
+
     linkEmployees.addEventListener('click', (e) => {
         e.preventDefault();
         linkEmployees.classList.add('active');
         linkContract.classList.remove('active');
+        linkGallery.classList.remove('active');
         searchContainer.style.display = 'none';
         headerTitle.textContent = "Employees";
         headerParties.textContent = "RCF Location Roster";
         container.style.display = 'none';
+        galleryContainer.style.display = 'none';
         resultsInfo.style.display = 'none';
         noResults.style.display = 'none';
         employeesContainer.style.display = 'flex';
@@ -171,6 +200,33 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(name);
             card.appendChild(loc);
             employeesContainer.appendChild(card);
+        });
+    }
+
+    function renderGallery(images) {
+        galleryContainer.innerHTML = '';
+        images.forEach((img, index) => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            item.style.animationDelay = `${index * 0.1}s`;
+
+            const image = document.createElement('img');
+            image.src = img.url;
+            image.alt = img.caption;
+            image.className = 'gallery-img';
+
+            const caption = document.createElement('div');
+            caption.className = 'gallery-caption';
+            caption.textContent = img.caption;
+
+            item.appendChild(image);
+            item.appendChild(caption);
+            galleryContainer.appendChild(item);
+            
+            // Simple click-to-view-full-size logic
+            image.addEventListener('click', () => {
+                window.open(img.url, '_blank');
+            });
         });
     }
 });

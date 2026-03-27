@@ -321,3 +321,41 @@ body { word-wrap: break-word; overflow-x: hidden; }
     display: flex;
     flex-direction: column;
 }
+
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.gallery-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    animation: fadeInUp 0.5s ease both;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gallery-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.gallery-img:hover {
+    transform: scale(1.02);
+}
+
+.gallery-caption {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+}
