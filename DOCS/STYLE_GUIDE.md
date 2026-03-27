@@ -8,7 +8,7 @@
 - `data.js`: Contains the JSON representation of the contract
 
 ## Design Philosophy
-- Premium dark mode aesthetic
+- Premium light mode aesthetic (high-contrast for older crowds)
 - Smooth transitions
 - Fast search response
 - Legible typography
