@@ -96,4 +96,81 @@ document.addEventListener('DOMContentLoaded', () => {
             noResults.style.display = 'none';
         }
     }
+
+    // Sidebar and Navigation Logic
+    const menuBtn = document.getElementById('menu-btn');
+    const sidePanel = document.getElementById('side-panel');
+    const overlay = document.getElementById('panel-overlay');
+    const closeBtn = document.getElementById('close-btn');
+    const linkContract = document.getElementById('link-contract');
+    const linkEmployees = document.getElementById('link-employees');
+    const searchContainer = document.querySelector('.search-container');
+    const headerTitle = document.getElementById('header-title');
+    const headerParties = document.getElementById('header-parties');
+    const employeesContainer = document.getElementById('employees-container');
+
+    function toggleMenu() {
+        sidePanel.classList.toggle('open');
+        overlay.classList.toggle('active');
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+    closeBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    linkContract.addEventListener('click', (e) => {
+        e.preventDefault();
+        linkContract.classList.add('active');
+        linkEmployees.classList.remove('active');
+        searchContainer.style.display = 'block';
+        headerTitle.textContent = contractData.title;
+        headerParties.textContent = contractData.parties;
+        employeesContainer.style.display = 'none';
+        container.style.display = 'flex';
+        toggleMenu();
+        // Reset search
+        searchInput.value = '';
+        renderArticles(contractData.articles);
+        resultsInfo.style.display = 'none';
+    });
+
+    linkEmployees.addEventListener('click', (e) => {
+        e.preventDefault();
+        linkEmployees.classList.add('active');
+        linkContract.classList.remove('active');
+        searchContainer.style.display = 'none';
+        headerTitle.textContent = "Employees";
+        headerParties.textContent = "RCF Location Roster";
+        container.style.display = 'none';
+        resultsInfo.style.display = 'none';
+        noResults.style.display = 'none';
+        employeesContainer.style.display = 'flex';
+        renderEmployees(employeesData);
+        toggleMenu();
+    });
+
+    function renderEmployees(employees) {
+        employeesContainer.innerHTML = '';
+        if (employees.length === 0) {
+            employeesContainer.innerHTML = '<div class="no-results" style="display:block;">No employees found.</div>';
+            return;
+        }
+        employees.forEach((emp, index) => {
+            const card = document.createElement('div');
+            card.className = 'employee-card';
+            card.style.animationDelay = `${index * 0.05}s`;
+            
+            const name = document.createElement('div');
+            name.className = 'employee-name';
+            name.textContent = emp.name;
+            
+            const loc = document.createElement('div');
+            loc.className = 'employee-location';
+            loc.textContent = emp.location;
+            
+            card.appendChild(name);
+            card.appendChild(loc);
+            employeesContainer.appendChild(card);
+        });
+    }
 });

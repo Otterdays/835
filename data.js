@@ -55,3 +55,12 @@ const contractData = {
         }
     ]
 };
+
+const employeesData = [
+    { name: "ryan", location: "RCF" },
+    { name: "nate", location: "RCF" },
+    { name: "justin", location: "RCF" },
+    { name: "jim", location: "RCF" },
+    { name: "monica", location: "RCF" },
+    { name: "bill", location: "RCF" }
+];

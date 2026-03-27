@@ -15,3 +15,4 @@ Building the Contract Viewer for Operating Engineers 835
 - [2026-03-27] Migrated design to a light theme for improved readability for older crowds
 - [2026-03-27] Inserted hidden "natee" text string into sample data (Article 10) for search testing
 - [2026-03-27] Freshened up README with GitHub badges, styled layout, and click-able live links
+- [2026-03-27] Added interactive slide-out sidebar menu featuring views for Contract and new RCF Employees data

@@ -9,7 +9,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <button id="menu-btn" class="menu-btn" aria-label="Open Menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+    
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>Navigation</h2>
+            <button id="close-btn" class="close-btn">&times;</button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" id="link-contract" class="active">Contract Viewer</a></li>
+            <li><a href="#" id="link-employees">Employees (RCF)</a></li>
+        </ul>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <div class="container" id="main-container">
         <header>
             <h1 id="header-title">Contract Viewer</h1>
             <p id="header-parties" class="subtitle">Loading parties...</p>
@@ -31,7 +51,11 @@
         </div>
         
         <div id="no-results" class="no-results">
-            No articles found matching your search.
+            No results found matching your search.
+        </div>
+
+        <div id="employees-container" class="employees-container" style="display: none;">
+            <!-- Employees will be injected here via JS -->
         </div>
     </div>
 
