@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Floating Desk Elements
     const floatingDesk = document.getElementById('floating-desk');
     const deskList = document.getElementById('desk-list');
+    
+    // Quick Jump Elements
+    const quickJumpSelect = document.getElementById('quick-jump-select');
+    const quickJumpContainer = document.getElementById('quick-jump-container');
+    
     let observer;
 
     // Initial render
@@ -85,7 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDesk(articles) {
         if (!deskList || !floatingDesk) return;
         deskList.innerHTML = '';
+        
+        // Reset and populate Quick Jump Select (Mobile)
+        if (quickJumpSelect) {
+            quickJumpSelect.innerHTML = '<option value="" disabled selected>Jump to Article...</option>';
+        }
+
         articles.forEach(article => {
+            // Desk Item (Desktop)
             const li = document.createElement('li');
             li.className = 'desk-item';
             li.textContent = article.title.replace('ARTICLE ', 'ART ');
@@ -97,13 +109,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
             deskList.appendChild(li);
+
+            // Select Option (Mobile)
+            if (quickJumpSelect) {
+                const option = document.createElement('option');
+                option.value = `view-${article.id}`;
+                option.textContent = article.title;
+                quickJumpSelect.appendChild(option);
+            }
         });
         
         if (articles.length > 1) {
             floatingDesk.classList.add('visible');
+            if (quickJumpContainer) quickJumpContainer.style.display = ''; // Reset to CSS default (block on mobile)
         } else {
             floatingDesk.classList.remove('visible');
+            if (quickJumpContainer) quickJumpContainer.style.display = 'none';
         }
+    }
+
+    if (quickJumpSelect) {
+        quickJumpSelect.addEventListener('change', (e) => {
+            const targetId = e.target.value;
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Briefly reset the select after a delay or just leave it
+                setTimeout(() => { quickJumpSelect.selectedIndex = 0; }, 1000);
+            }
+        });
     }
 
     function setupObserver() {
@@ -205,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryContainer.style.display = 'none';
         container.style.display = 'flex';
         floatingDesk.classList.add('visible');
+        if (quickJumpContainer) quickJumpContainer.style.display = ''; 
         toggleMenu();
         // Reset search
         searchInput.value = '';
@@ -228,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noResults.style.display = 'none';
         galleryContainer.style.display = 'flex';
         floatingDesk.classList.remove('visible');
+        if (quickJumpContainer) quickJumpContainer.style.display = 'none';
         renderGallery(contractImages);
         toggleMenu();
     });
@@ -248,6 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noResults.style.display = 'none';
         stewardsContainer.style.display = 'flex';
         floatingDesk.classList.remove('visible');
+        if (quickJumpContainer) quickJumpContainer.style.display = 'none';
         renderStewards(shopStewards);
         toggleMenu();
     });
@@ -268,6 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
         noResults.style.display = 'none';
         employeesContainer.style.display = 'flex';
         floatingDesk.classList.remove('visible');
+        if (quickJumpContainer) quickJumpContainer.style.display = 'none';
         renderEmployees(employeesData);
         toggleMenu();
     });

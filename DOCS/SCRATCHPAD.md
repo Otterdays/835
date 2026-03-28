@@ -1,17 +1,24 @@
 [AMENDED 2026-03-28]:
 ## Current Task:
-Fixed floating desk loading bug and pushing changes up.
+Implemented mobile-compatible Quick Jump dropdown.
 
 ## Next Steps:
 - Push all changes to remote repo `Otterdays/835`
+- Review visual polish on mobile viewports
 
 ## Actions Log:
+- [2026-03-28] Added a mobile-specific "Quick Jump" dropdown that appears on smaller screens to allow easy document traversal.
 - [2026-03-28] Fixed DOM load timing bug in initial rendering of the floating desk by hoisting DOM element assignments.
 - [2026-03-28] Synthesized official contract text for Pages 2 through 8 from user-provided images.
 - [2026-03-28] Implemented "Floating Navigation Desk" - a live, side-fixed table of contents that tracks the current article in view using Intersection Observer.
 - [2026-03-28] Added smooth-scroll anchor links to the navigation desk for rapid document traversal.
 - [2026-03-28] Highlighting active article cards with premium border/glow effects during scroll.
 - [2026-03-28] Expanded the 'Scanned Pages' gallery to include all 8 pages with descriptive captions.
+
+## [0.3.0] - 2026-03-28
+- Implemented Mobile Quick Jump dropdown menu.
+- Optimized responsive layout for smaller viewports.
+- Enhanced navigation visibility across different views.
 
 ## [0.2.0] - 2026-03-28
 - Synthesized Pages 2-8 of the official contract.
