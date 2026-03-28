@@ -1,15 +1,28 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 # Scratchpad
-
+[AMENDED 2026-03-28]:
 ## Current Task:
-Building the Contract Viewer for Operating Engineers 835
+Synthesized contract pages 2-8 and implemented live navigation desk.
 
 ## Next Steps:
-- Create HTML index
-- Create Vanilla CSS with premium design (dark theme)
-- Create script.js to render contract and implement search
+- Verify remaining pages (if any)
+- Add more interactivity to the Shop Stewards profiles
+- Implement custom print stylesheet for the contract
 
 ## Actions Log:
+- [2026-03-28] Synthesized official contract text for Pages 2 through 8 from user-provided images.
+- [2026-03-28] Implemented "Floating Navigation Desk" - a live, side-fixed table of contents that tracks the current article in view using Intersection Observer.
+- [2026-03-28] Added smooth-scroll anchor links to the navigation desk for rapid document traversal.
+- [2026-03-28] Highlighting active article cards with premium border/glow effects during scroll.
+- [2026-03-28] Expanded the 'Scanned Pages' gallery to include all 8 pages with descriptive captions.
+
+## [0.2.0] - 2026-03-28
+- Synthesized Pages 2-8 of the official contract.
+- Implemented Floating Navigation Desk (Live Side Table of Contents).
+- Added smooth scrolling and active-state tracking for contract articles.
+- Expanded scanned document gallery to 8 pages.
+
+## [0.1.0] - 2026-03-27
 - [2026-03-27] Deployed/Pushed basic implementation to remote repository: Otterdays/835
 - [2026-03-27] Migrated design to a light theme for improved readability for older crowds
 - [2026-03-27] Inserted hidden "natee" text string into sample data (Article 10) for search testing

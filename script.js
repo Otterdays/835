@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     const noResults = document.getElementById('no-results');
     const resultsInfo = document.getElementById('results-info');
+    
+    // Floating Desk Elements
+    const floatingDesk = document.getElementById('floating-desk');
+    const deskList = document.getElementById('desk-list');
+    let observer;
 
     // Initial render
     renderArticles(contractData.articles);
@@ -75,12 +80,66 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
+    // Floating Desk Logic
+
+    function updateDesk(articles) {
+        if (!deskList || !floatingDesk) return;
+        deskList.innerHTML = '';
+        articles.forEach(article => {
+            const li = document.createElement('li');
+            li.className = 'desk-item';
+            li.textContent = article.title.replace('ARTICLE ', 'ART ');
+            li.dataset.target = `view-${article.id}`;
+            li.onclick = () => {
+                const target = document.getElementById(`view-${article.id}`);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            };
+            deskList.appendChild(li);
+        });
+        
+        if (articles.length > 1) {
+            floatingDesk.classList.add('visible');
+        } else {
+            floatingDesk.classList.remove('visible');
+        }
+    }
+
+    function setupObserver() {
+        if (observer) observer.disconnect();
+
+        observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Update classes on cards
+                    document.querySelectorAll('.article-card').forEach(c => c.classList.remove('active-article'));
+                    entry.target.classList.add('active-article');
+
+                    // Update desk active state
+                    document.querySelectorAll('.desk-item').forEach(item => {
+                        item.classList.toggle('active', item.dataset.target === entry.target.id);
+                        if (item.classList.contains('active')) {
+                            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '-10% 0px -40% 0px'
+        });
+
+        document.querySelectorAll('.article-card').forEach(card => observer.observe(card));
+    }
+
     function renderArticles(articles, query = '') {
         container.innerHTML = '';
         
         articles.forEach((article, index) => {
             const card = document.createElement('div');
             card.className = 'article-card';
+            card.id = `view-${article.id}`; // Match the ID for observer
             card.style.animationDelay = `${index * 0.05}s`;
 
             const title = document.createElement('h2');
@@ -100,6 +159,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (articles.length > 0) {
             container.style.display = 'flex';
             noResults.style.display = 'none';
+            setupObserver(); // Re-setup observer after re-render
+            updateDesk(articles);
+        } else {
+            if (floatingDesk) floatingDesk.classList.remove('visible');
         }
     }
 
@@ -141,6 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stewardsContainer.style.display = 'none';
         galleryContainer.style.display = 'none';
         container.style.display = 'flex';
+        floatingDesk.classList.add('visible');
         toggleMenu();
         // Reset search
         searchInput.value = '';
@@ -163,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsInfo.style.display = 'none';
         noResults.style.display = 'none';
         galleryContainer.style.display = 'flex';
+        floatingDesk.classList.remove('visible');
         renderGallery(contractImages);
         toggleMenu();
     });
@@ -182,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsInfo.style.display = 'none';
         noResults.style.display = 'none';
         stewardsContainer.style.display = 'flex';
+        floatingDesk.classList.remove('visible');
         renderStewards(shopStewards);
         toggleMenu();
     });
@@ -201,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultsInfo.style.display = 'none';
         noResults.style.display = 'none';
         employeesContainer.style.display = 'flex';
+        floatingDesk.classList.remove('visible');
         renderEmployees(employeesData);
         toggleMenu();
     });
