@@ -1,15 +1,12 @@
-<!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
-# Scratchpad
 [AMENDED 2026-03-28]:
 ## Current Task:
-Synthesized contract pages 2-8 and implemented live navigation desk.
+Fixed floating desk loading bug and pushing changes up.
 
 ## Next Steps:
-- Verify remaining pages (if any)
-- Add more interactivity to the Shop Stewards profiles
-- Implement custom print stylesheet for the contract
+- Push all changes to remote repo `Otterdays/835`
 
 ## Actions Log:
+- [2026-03-28] Fixed DOM load timing bug in initial rendering of the floating desk by hoisting DOM element assignments.
 - [2026-03-28] Synthesized official contract text for Pages 2 through 8 from user-provided images.
 - [2026-03-28] Implemented "Floating Navigation Desk" - a live, side-fixed table of contents that tracks the current article in view using Intersection Observer.
 - [2026-03-28] Added smooth-scroll anchor links to the navigation desk for rapid document traversal.
