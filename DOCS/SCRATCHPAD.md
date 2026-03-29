@@ -1,12 +1,13 @@
-[AMENDED 2026-03-28]:
+[AMENDED 2026-03-29]:
 ## Current Task:
-Implemented mobile-compatible Quick Jump dropdown.
+Implemented side-by-side Split View reading mode.
 
 ## Next Steps:
 - Push all changes to remote repo `Otterdays/835`
-- Review visual polish on mobile viewports
 
 ## Actions Log:
+- [2026-03-29] Added Split View Mode with a floating action button on desktop viewports.
+- [2026-03-29] Upgraded contract container layout to flex row when split mode is active.
 - [2026-03-28] Added a mobile-specific "Quick Jump" dropdown that appears on smaller screens to allow easy document traversal.
 - [2026-03-28] Fixed DOM load timing bug in initial rendering of the floating desk by hoisting DOM element assignments.
 - [2026-03-28] Synthesized official contract text for Pages 2 through 8 from user-provided images.
@@ -14,6 +15,11 @@ Implemented mobile-compatible Quick Jump dropdown.
 - [2026-03-28] Added smooth-scroll anchor links to the navigation desk for rapid document traversal.
 - [2026-03-28] Highlighting active article cards with premium border/glow effects during scroll.
 - [2026-03-28] Expanded the 'Scanned Pages' gallery to include all 8 pages with descriptive captions.
+
+## [0.4.0] - 2026-03-29
+- Added Split View toggle for side-by-side article reading.
+- Updated main container responsive layout with dynamic width adjustments up to 1400px.
+- Enhanced Javascript renderer to support mirroring articles across split panes.
 
 ## [0.3.0] - 2026-03-28
 - Implemented Mobile Quick Jump dropdown menu.

@@ -9,6 +9,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const noResults = document.getElementById('no-results');
     const resultsInfo = document.getElementById('results-info');
     
+    // Split View Elements
+    const splitViewBtn = document.getElementById('split-view-btn');
+    const splitViewWrapper = document.getElementById('split-view-wrapper');
+    const containerRight = document.getElementById('contract-container-right');
+    const mainContainer = document.getElementById('main-container');
+    let isSplitView = false;
+    
+    if (splitViewBtn) {
+        splitViewBtn.addEventListener('click', () => {
+            isSplitView = !isSplitView;
+            splitViewBtn.classList.toggle('active', isSplitView);
+            mainContainer.classList.toggle('split-mode', isSplitView);
+            splitViewWrapper.classList.toggle('is-split', isSplitView);
+            
+            if (isSplitView) {
+                if(floatingDesk) floatingDesk.style.opacity = '0';
+                if(floatingDesk) floatingDesk.style.pointerEvents = 'none';
+            } else {
+                if(floatingDesk) floatingDesk.style.opacity = '1';
+                if(floatingDesk) floatingDesk.style.pointerEvents = 'auto';
+            }
+            
+            // Re-render based on current search
+            const query = searchInput.value.toLowerCase().trim();
+            const filtered = query ? contractData.articles.filter(article => 
+                article.title.toLowerCase().includes(query) || 
+                article.content.toLowerCase().includes(query)
+            ) : contractData.articles;
+            
+            renderArticles(filtered, query);
+        });
+    }
+    
     // Floating Desk Elements
     const floatingDesk = document.getElementById('floating-desk');
     const deskList = document.getElementById('desk-list');
@@ -44,10 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (filtered.length === 0) {
             noResults.style.display = 'block';
-            container.style.display = 'none';
+            splitViewWrapper.style.display = 'none';
         } else {
             noResults.style.display = 'none';
-            container.style.display = 'flex';
+            splitViewWrapper.style.display = 'flex';
         }
     });
 
@@ -169,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderArticles(articles, query = '') {
         container.innerHTML = '';
+        if (containerRight) containerRight.innerHTML = '';
         
         articles.forEach((article, index) => {
             const card = document.createElement('div');
@@ -187,11 +221,17 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(title);
             card.appendChild(content);
             container.appendChild(card);
+            
+            if (isSplitView && containerRight) {
+                const rightCard = card.cloneNode(true);
+                rightCard.id = `view-right-${article.id}`;
+                containerRight.appendChild(rightCard);
+            }
         });
 
         // Ensure container is visible if articles exist
         if (articles.length > 0) {
-            container.style.display = 'flex';
+            splitViewWrapper.style.display = 'flex';
             noResults.style.display = 'none';
             setupObserver(); // Re-setup observer after re-render
             updateDesk(articles);
@@ -237,7 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
         employeesContainer.style.display = 'none';
         stewardsContainer.style.display = 'none';
         galleryContainer.style.display = 'none';
-        container.style.display = 'flex';
+        splitViewWrapper.style.display = 'flex';
+        if (splitViewBtn) splitViewBtn.style.display = 'flex';
         floatingDesk.classList.add('visible');
         if (quickJumpContainer) quickJumpContainer.style.display = ''; 
         toggleMenu();
@@ -256,7 +297,8 @@ document.addEventListener('DOMContentLoaded', () => {
         searchContainer.style.display = 'none';
         headerTitle.textContent = "Scanned Pages";
         headerParties.textContent = "Original Contract Documents";
-        container.style.display = 'none';
+        splitViewWrapper.style.display = 'none';
+        if (splitViewBtn) splitViewBtn.style.display = 'none';
         employeesContainer.style.display = 'none';
         stewardsContainer.style.display = 'none';
         resultsInfo.style.display = 'none';
@@ -277,7 +319,8 @@ document.addEventListener('DOMContentLoaded', () => {
         searchContainer.style.display = 'none';
         headerTitle.textContent = "Shop Stewards";
         headerParties.textContent = "Your Union Leadership";
-        container.style.display = 'none';
+        splitViewWrapper.style.display = 'none';
+        if (splitViewBtn) splitViewBtn.style.display = 'none';
         employeesContainer.style.display = 'none';
         galleryContainer.style.display = 'none';
         resultsInfo.style.display = 'none';
@@ -298,7 +341,8 @@ document.addEventListener('DOMContentLoaded', () => {
         searchContainer.style.display = 'none';
         headerTitle.textContent = "Employees";
         headerParties.textContent = "RCF Location Roster";
-        container.style.display = 'none';
+        splitViewWrapper.style.display = 'none';
+        if (splitViewBtn) splitViewBtn.style.display = 'none';
         galleryContainer.style.display = 'none';
         stewardsContainer.style.display = 'none';
         resultsInfo.style.display = 'none';

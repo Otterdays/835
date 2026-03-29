@@ -31,6 +31,12 @@ body {
     max-width: 800px;
     width: 100%;
     padding: 2rem 1.5rem;
+    transition: max-width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.container.split-mode {
+    max-width: 1400px;
+    width: 95%;
 }
 
 header {
@@ -252,6 +258,90 @@ body { word-wrap: break-word; overflow-x: hidden; }
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
+}
+
+/* Split View Styles */
+.split-view-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.secondary-pane {
+    display: none;
+}
+
+.split-view-wrapper.is-split {
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.split-view-wrapper.is-split .contract-container {
+    flex: 1;
+    height: 75vh;
+    overflow-y: auto;
+    padding-right: 1.5rem;
+    padding-bottom: 2rem;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 var(--bg-primary);
+}
+
+.split-view-wrapper.is-split .contract-container::-webkit-scrollbar {
+    width: 8px;
+}
+.split-view-wrapper.is-split .contract-container::-webkit-scrollbar-track {
+    background: var(--bg-primary); 
+    border-radius: 4px;
+}
+.split-view-wrapper.is-split .contract-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1; 
+    border-radius: 4px;
+}
+.split-view-wrapper.is-split .contract-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; 
+}
+
+.split-view-wrapper.is-split .secondary-pane {
+    display: flex;
+}
+
+/* Floating Split View Button */
+.split-view-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.split-view-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+}
+
+.split-view-btn.active {
+    background: var(--text-primary);
+    box-shadow: 0 4px 15px rgba(17, 24, 39, 0.4);
+    transform: rotate(90deg);
+}
+
+@media (max-width: 1024px) {
+    .split-view-btn {
+        display: none;
+    }
 }
 
 .side-panel.open {
