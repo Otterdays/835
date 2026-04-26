@@ -10,5 +10,5 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 ## Status:
 - Initialized documentation structure
 - Initialized web app structure
-- [2026-04-26] Added employees Anthony and Jerome; implemented `role` field display on the Employees page.
-- [2026-04-26] Added Jason and Andrew as Assistant Shop Stewards; updated Justin to Assistant Shop Steward.
+- [UPDATED 2026-04-26]: Expanded Shop Steward roster: Trevor (Lead), Justin (RCF), Jason (CFCF), and Andrew (PICC).
+- [UPDATED 2026-04-26]: Reorganized Site Roster: Alphabetical sorting, grouped by facility (RCF, CFCF, PICC) with dedicated headings, and expanded horizontal grid layout. Added Andrew (Locksmith, PICC) and Jason (Locksmith, CFCF).

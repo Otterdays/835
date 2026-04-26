@@ -343,15 +343,19 @@ Tool Identification - 8
 };
 
 const employeesData = [
-    { name: "ryan", location: "RCF", role: "Maintenance" },
-    { name: "nate", location: "RCF", role: "Maintenance" },
-    { name: "justin", location: "RCF", role: "Assistant Shop Steward" },
-    { name: "jim", location: "RCF", role: "Maintenance" },
-    { name: "monica", location: "RCF", role: "Maintenance" },
-    { name: "bill", location: "RCF", role: "Maintenance" },
-    { name: "trevor", location: "CFCF", role: "Lead Shop Steward" },
+    { name: "andrew", location: "PICC", role: "Assistant Shop Steward / Locksmith" },
     { name: "anthony", location: "RCF", role: "Electrician" },
-    { name: "jerome", location: "RCF", role: "Helper" }
+    { name: "bill", location: "RCF", role: "Maintenance" },
+    { name: "jason", location: "CFCF", role: "Assistant Shop Steward / Locksmith" },
+    { name: "jerome", location: "RCF", role: "Helper" },
+    { name: "jim", location: "RCF", role: "Engineer" },
+    { name: "justin", location: "RCF", role: "Assistant Shop Steward / Helper" },
+    { name: "monica", location: "RCF", role: "Data Clerk" },
+    { name: "nate", location: "RCF", role: "Painter" },
+    { name: "nick", location: "RCF", role: "Painter" },
+    { name: "ryan", location: "RCF", role: "Plumber" },
+    { name: "trevor", location: "CFCF", role: "Lead Shop Steward" },
+    { name: "vetter", location: "RCF", role: "Laborer" }
 ];
 
 const shopStewards = [
@@ -372,16 +376,16 @@ const shopStewards = [
     { 
         name: "Jason", 
         role: "Assistant Shop Steward", 
-        location: "RCF", 
+        location: "CFCF", 
         image: "jason.jpg",
-        tagline: "JASON IN THE HOUSE - Committed to protecting our union rights at RCF."
+        tagline: "JASON IN THE HOUSE - Keeping the locks secure and the contract strong at CFCF."
     },
     { 
         name: "Andrew", 
         role: "Assistant Shop Steward", 
-        location: "RCF", 
+        location: "PICC", 
         image: "andrew.jpg",
-        tagline: "ANDREW ANSWERS - Here to help every member get a fair shake."
+        tagline: "ANDREW ANSWERS - Unlocking fair treatment for every member at PICC."
     }
 ];
 

@@ -7,31 +7,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const viewDescription = document.getElementById('view-description');
     const statEmployees = document.getElementById('stat-employees');
 
-    headerTitle.textContent = 'Employees';
-    headerParties.textContent = 'Current RCF employee roster for quick location reference.';
-    headerDate.textContent = `${employeesData.length} employees listed`;
-    headerStatus.textContent = 'RCF Roster';
-    viewDescription.textContent = 'Fast internal lookup for names and location assignments.';
+    headerTitle.textContent = 'Site Roster';
+    headerParties.textContent = 'Employee directory across CFCF, RCF, and PICC.';
+    headerDate.textContent = `${employeesData.length} total staff members`;
+    headerStatus.textContent = 'Facility Directory';
+    viewDescription.textContent = 'Browse the complete team grouped by facility assignment.';
     if (statEmployees) {
         statEmployees.textContent = employeesData.length;
     }
 
+    const locations = ['RCF', 'CFCF', 'PICC'];
     employeesContainer.innerHTML = '';
-    employeesData.forEach((employee, index) => {
-        const card = document.createElement('div');
-        card.className = 'employee-card';
-        card.style.animationDelay = `${index * 0.05}s`;
 
-        const name = document.createElement('div');
-        name.className = 'employee-name';
-        name.textContent = employee.name;
+    locations.forEach((loc) => {
+        const filtered = employeesData.filter(e => e.location === loc);
+        if (filtered.length === 0) return;
 
-        const location = document.createElement('div');
-        location.className = 'employee-location';
-        location.textContent = `${employee.role} · ${employee.location}`;
+        const section = document.createElement('section');
+        section.className = 'location-group';
+        
+        const heading = document.createElement('h2');
+        heading.className = 'location-heading';
+        heading.textContent = `${loc} Crew`;
+        section.appendChild(heading);
 
-        card.appendChild(name);
-        card.appendChild(location);
-        employeesContainer.appendChild(card);
+        const grid = document.createElement('div');
+        grid.className = 'employee-grid';
+        
+        filtered.forEach((employee, index) => {
+            const card = document.createElement('div');
+            card.className = 'employee-card';
+            card.style.animationDelay = `${index * 0.05}s`;
+
+            const name = document.createElement('div');
+            name.className = 'employee-name';
+            name.textContent = employee.name;
+
+            const role = document.createElement('div');
+            role.className = 'employee-role';
+            role.textContent = employee.role;
+
+            card.appendChild(name);
+            card.appendChild(role);
+            grid.appendChild(card);
+        });
+
+        section.appendChild(grid);
+        employeesContainer.appendChild(section);
     });
 });
