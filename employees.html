@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees (RCF) — Local 835</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>Navigation</h2>
+            <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contract.html">Contract (2022–26)</a></li>
+            <li><a href="scans.html">Scanned Pages</a></li>
+            <li class="nav-item-muted" title="2018–2022 CBA — coming later" aria-label="2018 through 2022 CBA, not yet available">
+                <span class="nav-link nav-link--disabled">2018–2022 <span class="nav-soon">soon</span></span>
+            </li>
+            <li><a href="tool-program.html">Tool Program</a></li>
+            <li><a href="stewards.html">Shop Stewards</a></li>
+            <li><a href="employees.html" class="active">Employees (RCF)</a></li>
+        </ul>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <div class="container" id="main-container">
+        <header class="hero-header doc-hero">
+            <div class="hero-heading">
+                <div class="eyebrow-row">
+                    <span class="eyebrow">Operating Engineers Local 835</span>
+                    <span id="header-status" class="status-chip">RCF roster</span>
+                </div>
+                <h1 id="header-title">Employees</h1>
+                <p id="header-parties" class="subtitle">Loading…</p>
+                <div class="hero-meta">
+                    <p id="header-date" class="date">Loading…</p>
+                    <p id="view-description" class="view-description">Loading…</p>
+                </div>
+            </div>
+            <div class="hero-stats hero-stats--compact" aria-label="Employee count">
+                <div class="stat-card">
+                    <span class="stat-label">Employees</span>
+                    <strong id="stat-employees" class="stat-value">0</strong>
+                </div>
+            </div>
+        </header>
+
+        <div id="employees-container" class="employees-container"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="js/shell.js"></script>
+    <script src="js/employees-app.js"></script>
+</body>
+</html>

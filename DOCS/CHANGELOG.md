@@ -1,6 +1,9 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 # Changelog
 
+## [0.8.0] - 2026-04-26
+- **Gateway architecture:** `index.html` is a lightweight home with portal cards; contract / scans / tool / stewards / employees each have dedicated HTML and load only `js/*-app.js` + shared `js/shell.js`, `js/paneled-archive.js`, `js/image-modal.js` as needed. Removed monolithic `script.js`.
+
 ## [0.7.1] - 2026-04-26
 - Nav and header: “Scanned Pages” without year suffix; gallery copy framed as the general full-page scan library. Stat label “Scanned pages”; rail/accessibility labels generalized.
 

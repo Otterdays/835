@@ -1,5 +1,9 @@
 [AMENDED 2026-04-26]:
 ## Current Task:
+Multi-page document center: gateway `index.html`, `contract.html`, `scans.html`, `tool-program.html`, `stewards.html`, `employees.html`; `js/*` split; `script.js` removed.
+
+[AMENDED 2026-04-26]:
+## Current Task:
 Scanned Pages nav label generic (no year in link); gallery `viewMeta` describes general scan library; stat/rail strings updated.
 
 [AMENDED 2026-04-26]:

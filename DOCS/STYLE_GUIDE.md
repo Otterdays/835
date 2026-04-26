@@ -5,6 +5,8 @@
 - `index.html`: Main layout
 - `style.css`: Styles using CSS variables for theme and responsive layout
 - `script.js`: DOM manipulation
+
+[AMENDED 2026-04-26]: Per-page scripts under `js/*-app.js` plus shared `js/shell.js`, `js/paneled-archive.js`, `js/image-modal.js`. Legacy monolithic `script.js` removed.
 - `data.js`: Contains the JSON representation of the contract
 
 ## Design Philosophy
