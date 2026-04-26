@@ -209,5 +209,24 @@ const contractImages = [
     { url: "page_5.jpg", caption: "Page 5: Probationary Employee & Union Business" },
     { url: "page_6.jpg", caption: "Page 6: Stewards/Negotiations & Time Bank" },
     { url: "page_7.jpg", caption: "Page 7: Time Bank (accrual and usage)" },
-    { url: "page_8.jpg", caption: "Page 8: Time Bank (carryover and redemption)" }
+    { url: "page_8.jpg", caption: "Page 8: Time Bank (carryover and redemption)" },
+    { url: "page_9.jpg", caption: "Page 9: Emergency UTO; Article XII No Strike/No Lockout" },
+    { url: "page_10.jpg", caption: "Page 10: Articles XII–XV (subcontracting, management rights, paid leaves)" },
+    { url: "page_11.jpg", caption: "Page 11: Article XV — military & funeral leave (cont.)" },
+    { url: "page_12.jpg", caption: "Page 12: Jury duty; Article XVI shift differential; Article XVII hours" },
+    { url: "page_13.jpg", caption: "Page 13: Hours (cont.); Article XVIII call-in; Article XIX holidays (start)" },
+    {
+        section: "Tool Control Program (U.S. Facilities, 2009)",
+        url: "tool_control_program_1.jpg",
+        caption: "Tool Control Program — cover (CFCF/RCF)"
+    },
+    {
+        url: "tool_control_program_2.jpg",
+        caption: "Tool Control Program — Tab H table of contents (rev. Feb 2009)"
+    },
+    {
+        section: "Tool policy reference (1998)",
+        url: "tool_disciplinary_steps_1.jpg",
+        caption: "Lost tool disciplinary steps (Apr 14, 1998)"
+    }
 ];

@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         gallery: {
             title: 'Scanned Pages',
-            parties: 'Original contract pages for visual verification and print-reference review.',
-            date: `${contractImages.length} scanned pages`,
+            parties: 'CBA pages plus facility tool-control and related policy scans.',
+            date: `${contractImages.length} scans`,
             status: 'Scanned Archive',
-            description: 'Open full-page scans inside viewer when exact source formatting matters.'
+            description: 'Open full-page scans in the lightbox. Policies are grouped under section headings below.'
         },
         stewards: {
             title: 'Shop Stewards',
@@ -516,8 +516,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderGallery(images) {
         galleryContainer.innerHTML = '';
+        let lastSection = null;
 
         images.forEach((imageData, index) => {
+            if (imageData.section && imageData.section !== lastSection) {
+                const sectionEl = document.createElement('h3');
+                sectionEl.className = 'gallery-section-title';
+                sectionEl.textContent = imageData.section;
+                galleryContainer.appendChild(sectionEl);
+                lastSection = imageData.section;
+            }
+
             const item = document.createElement('div');
             item.className = 'gallery-item';
             item.style.animationDelay = `${index * 0.08}s`;
