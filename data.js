@@ -170,7 +170,161 @@ Section 13. Employees are entitled to redeem up to one-half (1/2) of their avail
 Section 14. Employees who voluntarily terminate employment after providing the required two week advance notice will be paid for available, unused Scheduled Time Off, and unused Unscheduled Time Off, accrued to the date of separation, provided that they work the two week notice period. Employees who are terminated by layoff will be paid for available, unused Scheduled Time Off and unused Unscheduled Time Off, accrued to the date of separation. Employees who are discharged for cause, or who fail to give or work the required two (2) weeks notice or fail to return company or customer property, will not be paid for any paid time off.
 
 Section 15. Emergency Unscheduled Time Off ("EUTO")
-The provisions of Sections 5 and 6 of this Article do not cover a situation in which an employee who is already at work needs emergency time off from that shift, due to personal illness or to household emergencies, etc. In these cases, the employee is unable to give management the required notice. Therefore, the following procedures are being established to provide uniform handling of such situations.`
+The provisions of Sections 5 and 6 of this Article do not cover a situation in which an employee who is already at work needs emergency time off from that shift, due to personal illness or to household emergencies, etc. In these cases, the employee is unable to give management the required notice. Therefore, the following procedures are being established to provide uniform handling of such situations.
+
+(1) While at work, the employee shall notify his or her supervisor in writing (Leave Request Form) as soon as the situation becomes known, and shall tell the supervisor how much time he or she is requesting off on that shift.
+(2) The employee will be required to provide documentation of the nature of the emergency. The required documentation will be reviewed by management to determine whether the emergency time off will be treated as authorized or not authorized. All Emergency UTO time will be submitted as unpaid leave until the documentation is approved by management.
+(3) Authorized Emergency UTO will not be subject to disciplinary action, and will be changed from unpaid to paid time, providing that the employee has sufficient accrued UTO time at the beginning of the pay period to cover this absence and any prior absence during the pay period.
+(4) If documentation is not presented by the employee as soon as is practicable, but not to exceed within 7 (seven) calendar days of the employee's return to work, the Emergency UTO will be characterized as unauthorized and unpaid, and will be subject to discipline as a Time/Attendance violation.
+(5) If, in the opinion of management, documentation presented is not sufficient to establish authorization, the Emergency UTO will be characterized as unauthorized and unpaid, and will be subject to discipline as a Time/Attendance violation. The Employer will not unreasonably withhold authorization.
+(6) If the absence is characterized as unauthorized and unpaid, the employee will not be paid for the Emergency UTO, even if he or she has accrued UTO time available.
+(7) If the absence is characterized as unauthorized and unpaid, and occurs on the employee's scheduled shift immediately prior to a holiday, the employee will not be paid holiday pay for that holiday.
+(8) Presentation by the employee of false documentation in any situation covered by this policy will be cause for disciplinary action, up to and including termination.
+(9) Emergency UTO may not extend beyond the single shift in which it occurs. If the employee requires additional time off in connection with the same incident, the existing contractual provisions for request and usage of time off apply.
+(10) Employees who have been notified, under the provisions of the Substance Abuse Policy, that they are required to take a substance abuse test, may not use Emergency UTO for that time period.
+(11) Emergency UTO, if authorized, may be used for the amount of time required, and is not required to be used in two-hour increments. This provision shall not be construed to modify Article XI, Section 3 of the CBA, providing that sixteen (16) hours of Unscheduled Time Off may be used in two-hour increments.
+(12) Emergency UTO shall be capped at six (6) instances per calendar year.`
+},StartLine:171,TargetContent:`
+        },
+        {
+            id: "article-12",
+            title: "ARTICLE XII. NO STRIKE/NO LOCKOUT",
+            content: `Section 1. The Union agrees that during the term of this Agreement it will not cause, sanction, or permit, nor will any member of the Union cause or take part in any strike, work slowdown, or stoppage, sit-down, walkout, picket, sympathy strike, or any curtailment of work, or any restriction of services or interference with services in any of the Company's premises.
+
+Section 2. The Company agrees that during the term of this Agreement, it will not lockout the employees covered by this Agreement.
+
+Section 3. Both parties agree to comply with this Article during the term of the Agreement or until arbitration has been exhausted and the party against whom the decision has been rendered refuses or fails to abide or comply with such decision.`
+        },
+        {
+            id: "article-13",
+            title: "ARTICLE XIII. SUBCONTRACTING",
+            content: `Section 1. The Employer will endeavor to do all its maintenance work covered by Employer's contract with the City of Philadelphia with its own forces. No maintenance work shall be performed by outside contractors in lieu of working overtime by its own work force. However, this would not apply when there are restrictive time limits on a job which is not within the limits of the work force or in cases where special skills, tools, or equipment may be required, or where the City of Philadelphia specifically requires the use of a subcontractor.
+
+Section 2. The Employer will give the Union notice at a reasonable time prior to the subcontracting of any maintenance work which would have a direct impact on the employees covered by this Agreement. Also, when equipment is purchased installed, the seller may install the equipment to protect guarantee rights, and in addition to do such work as may be covered by the warranty.`
+        },
+        {
+            id: "article-14",
+            title: "ARTICLE XIV. MANAGEMENT RIGHTS",
+            content: `Section 1. Except as otherwise expressly provided in this Agreement, nothing herein shall limit the Company in the exercise of the rights and functions of ownership or management.`
+        },
+        {
+            id: "article-15",
+            title: "ARTICLE XV. PAID LEAVES OF ABSENCE",
+            content: `Section 1. All Requests for Leaves of Absence as authorized below shall be made in writing on a Request for Leave Form and submitted to the appropriate Assistant Project Manager for approval. Such approval shall not be unreasonably withheld.
+
+Section 2. Employees in an approved leave of absence shall accumulate seniority during such absence.
+
+Section 3. Military Leave:
+(a) Employees who have short term (i.e., no longer than 14 calendar days) military reserve or national guard training/service may be granted up to ten working days military leave. Upon return to work, the employee will be paid the difference between his or her military pay and the regular rate of pay, plus shift differential, if applicable, for their position, up to eight (8) hours per day, for up to ten (10) work days. Employees who must serve in excess of ten (10) work days will be granted unpaid leave for the military service period exceeding ten (10) days.
+(b) The employees regular rate of pay will be at the regular hourly rate, plus shift differential, if applicable, up to eight (8) hours per day.
+(c) The employee will be paid only for those days which he would normally have been scheduled to work, up to ten (10) work days.
+(d) Military duty pay will be computed based on the regular rate of military pay, exclusive of all allowances for rations, subsistence, and travel.
+(e) In order to receive payment under this Section, an employee must give the Company prior notice to such military duty and, upon his return to work, must furnish the Company with a statement of his military duty pay while on such duty.
+
+Section 4. Funeral Leave:
+(a) In the event of the death of an immediate family member, employees are authorized paid leave to attend the funeral. Employees are authorized up to four (4) working days to attend a funeral within a 400 mile radius; or up to five (5) working days for a funeral over 400 miles away.
+(b) Immediate family member is defined as the employee's spouse, parents, brother, sister, children, or legal guardian.
+(c) In the event of the death of other family members, employees are authorized paid leave to attend the funeral, as follows:
+Parents-in-Law, Grandparents - Three (3) days
+Brother-in-Law, Sister-in-Law - One (1) day
+(d) Employees should notify their Assistant Project Manager of a Request for Funeral Leave as soon as possible under the circumstances.
+(e) The employee's rate of pay will be at the regular hourly rate, plus shift differential, if applicable, up to eight (8) hours per day.
+
+Section 5. Jury Duty:
+(a) Employees who are required to serve on Jury Duty may be granted up to ten (10) working days paid leave. The employee will be paid the difference between the jury pay and expenses they receive and their regular rate of pay, plus shift differential, if applicable. Periods of Jury Duty in excess of ten (10) working days will be granted as unpaid leave.
+(b) The employees regular rate of pay will be at the regular hourly rate, plus shift differential, if applicable, up to eight (8) hours per day.
+(c) The employee will be paid only for those days which normally would have been scheduled for work.
+(d) In order to receive approval under this Section, the employee is required to present a notice issued by the Clerk of Court calling him/her to jury duty to their Assistant Project Manager as soon as possible after receipt, but no later than ten (10) working days prior to service.
+(e) In order to receive payment under this Section, the employee is required to present notice from the Clerk of Court stating the number of days served and the compensation received.`
+        },
+        {
+            id: "article-16",
+            title: "ARTICLE XVI. SHIFT DIFFERENTIAL",
+            content: `Shift differential is included in the employee's hourly rate. Employees whose shift starts after 12:00 p.m., (e.g., 12:01 p.m. or later) will receive the shift differential of $1.50 per hour for that shift.`
+        },
+        {
+            id: "article-17",
+            title: "ARTICLE XVII. HOURS OF WORK",
+            content: `Section 1. The Employer shall be free to fix the hours of employment provided that a normal work week for each employee shall consist of forty (40) hours. The work week commences at 0001 hours, Monday, and ends at 2400 hours the following Sunday.
+
+Section 2. For the purpose of computing overtime hours, all Scheduled Time Off and Unscheduled Time Off, exclusive of Scheduled Time Off and Unscheduled Time Off cashed in, and paid holidays, shall be included in hours worked. Time and one-half shall be paid for all hours worked in excess of eight hours per day on weekday shifts and in excess of 12 hours per day on regularly scheduled 12-hour weekend shifts. In addition, time and one-half shall be paid for hours worked in excess of 40 in the workweek. Employees whose shifts start after 12:00 p.m., (e.g., 12:01 p.m. or later) will receive the shift differential of $1.50 per hour for that shift.
+
+Section 3. The Employer will endeavor to arrange regular shifts and work schedules and will not make indiscriminate changes of such schedules. A shift shall be considered as worked on the calendar day on which it begins.
+
+Section 4. Kitchen Equipment workers will work an eight (8) hour day between the hours of 6:00 a.m. and 8:30 p.m. Monday through Friday. Individual work schedules will be established by the Project Manager, and will be based on the kitchen equipment work requirements. Kitchen Equipment workers will receive the applicable shift differential whenever they are required to work outside of their normally assigned hours.
+
+Section 5. There will be a paid thirty (30) minute lunch period. Employees must not leave the site (or go building to building) during the lunch period. Employees may leave the building after notifying supervision as to general location of where they will be. However, a supervisor may require that the employee remain in the building for extenuating circumstances or safety reasons which shall not be unreasonable.
+
+Section 6. Personnel Files: Verbal warnings, written warnings, and suspensions will not be considered in progressive discipline after 12 months from the date of the last incident upon which they were based.
+
+Section 7. Payroll discrepancies will be promptly investigated by Headquarters, upon notice from the employee through her or his supervisor. The employee shall provide information about the specifics of the discrepancy. If the discrepancy is found to be the fault of the company, a supplementary check will be mailed within 3 work days of receipt by Headquarters of the complaint.
+
+Section 8. The following number of employees may be permitted off simultaneously on any non-holiday:
+
+Three (3) bargaining unit employees from CFCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from CFCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from CFCF on the 12:00 am to 8:00 am shift
+
+Two (2) bargaining unit employees from RCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from RCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from RCF on the 12:00 am to 8:00 am shift`
+        },
+        {
+            id: "article-18",
+            title: "ARTICLE XVIII. CALL-IN PAY",
+            content: `Section 1. An employee recalled to work after completion of his/her regular shift, or called back to work on his/her regularly scheduled day off shall be guaranteed a minimum of four (4) hours pay at the appropriate pay rate.
+
+Section 2. The employee shall receive the appropriate overtime rate for all hours worked.`
+        },
+        {
+            id: "article-19",
+            title: "ARTICLE XIX. HOLIDAYS",
+            content: `[Article begins]`
+        },
+        {
+            id: "article-20",
+            title: "TOOL CONTROL PROGRAM",
+            content: `Tab H
+Tool Control Policy
+Table of Contents
+
+Purpose - 4
+Procedure - 4
+  U.S. Facilities, Inc. Employee Responsibilities - 4
+  Lost Tools - 4
+  Inventory Control - 5
+  New Tools - 5
+  Forms - 5
+Responsible Staff - 5
+  APM - 5
+  Shift Supervisor - 5
+  All U.S. Facilities, Inc. Employees - 6
+  System for Managing Tools - 6
+  Tool Control Audits by Employees - 6
+  Setting up Tool Control System - 6
+Establishment of Tool Classification - 7
+  Class A - 7
+  Class B - 7
+  Class C - 7
+Establishment of Tool Quotas - 7
+Tool Procurement - 8
+Tool Identification - 8
+  Class A - 8
+  Class B - 8
+  Class C - 8
+  CFCF - 8`
+        },
+        {
+            id: "article-21",
+            title: "LOST TOOL DISCIPLINARY STEPS",
+            content: `1) Tool is lost and reported prior to the end of the shift.
+- Employee is disciplined following the progressive disciplinary policy
+
+2) Tool is lost and reported at the end of the shift.
+- Employee is suspended for a maximum of 5 days
+
+3) Tool is lost and employee fails to report it or does not report it lost until the start of his next scheduled work day or later.
+- Employee is terminated`
         }
     ]
 };

@@ -21,8 +21,9 @@ Paneled Scanned Pages + dedicated Tool Program nav: `cbaScannedPages` / `toolPro
 
 ## Actions Log:
 - [2026-04-26] Replaced flat gallery with two-column panel (filter, rail list, detail + image). Added sidebar nav "Tool Program" and fifth stat card. Split data into `cbaScannedPages` and `toolProgramScans` with per-page `description` text.
+- [2026-04-26] Digitized CBA pages 9–13 and facility tool policies into `data.js` as Articles XII–XXI.
+- [2026-04-26] Updated `STYLE_GUIDE.md` with mandatory digitization rules for future imports.
 - [2026-04-26] Extended `contractImages` with pages 9–13 and three facility policy images; optional `section` labels and `renderGallery` headings.
-- [2026-04-26] Adjusted gallery view copy in `viewMeta` (scan count and description).
 
 [AMENDED 2026-03-29]:
 ## Current Task:
