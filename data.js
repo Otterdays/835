@@ -2,6 +2,7 @@ const contractData = {
     title: "AGREEMENT",
     parties: "This Agreement entered into this First day of July 1, 2022 between U.S. Facilities, Inc., hereinafter referred to as the \"Employer\", and the International Union of Operating Engineers, Local 835, AFL-CIO, hereinafter referred to as the \"Union\", hereby agree to be bound by the terms and conditions set forth hereinafter and further agree that this Agreement shall be binding upon both the Employer and the Union.",
     effectiveDate: "Effective July 1, 2022",
+    termLabel: "2022–2026",
     articles: [
         {
             id: "article-1",
@@ -203,12 +204,12 @@ const shopStewards = [
 
 const cbaScannedPages = [
     {
-        section: "2022 collective agreement (scanned)",
+        section: "2022–2026 CBA (scanned — in progress, pages 1–13+)",
         id: "cba-p1",
         url: "page_1.jpg",
         label: "Page 1",
         title: "Agreement & Article I — Recognition",
-        description: "Title block for the 2022 agreement and Article I: union recognition, covered job classifications at CFCF/RCF, and Maintenance Trades Helper alignment and bidding."
+        description: "Title block for the 2022–2026 term agreement and Article I: union recognition, covered job classifications at CFCF/RCF, and Maintenance Trades Helper alignment and bidding. More page scans to follow as the set is completed."
     },
     {
         id: "cba-p2",

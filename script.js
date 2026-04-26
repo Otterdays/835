@@ -53,18 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const viewMeta = {
         contract: {
-            title: 'Operating Engineers Local 835 Agreement',
+            title: '2022–2026 Agreement',
             parties: 'U.S. Facilities, Inc. and International Union of Operating Engineers, Local 835, AFL-CIO.',
-            date: contractData.effectiveDate,
-            status: 'Active Agreement',
-            description: 'Search clauses, compare article language, and move through sections without losing place.'
+            date: `${contractData.effectiveDate} · ${contractData.termLabel} term`,
+            status: 'Current CBA (2022–26)',
+            description: 'Search clauses, compare article language, and move through sections without losing place. Text and scans are the 2022–2026 contract in progress; more articles and pages as you add them.'
         },
         gallery: {
-            title: 'Scanned Pages',
-            parties: '2022 CBA full-page scans (select a page to read notes and open the image).',
-            date: `${cbaScannedPages.length} CBA page scans`,
+            title: 'Scanned Pages (2022–26)',
+            parties: '2022–2026 CBA: full-page scans on file (pages 1–13 to date, more to come).',
+            date: `${cbaScannedPages.length} CBA page scans — ${contractData.termLabel} term`,
             status: 'Scanned Archive',
-            description: 'Use the list to pick a page, read the description, and open the scan full size. Filter scales as you add more scans.'
+            description: 'This archive is the 2022–2026 contract only. Use the list to open a page, read notes, and view the scan. Filter as the list grows.'
         },
         toolProgram: {
             title: 'Tool Control Program',

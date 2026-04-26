@@ -1,5 +1,15 @@
 [AMENDED 2026-04-26]:
 ## Current Task:
+CBA term labeling: 2022–2026 on contract + scans, disabled 2018–2022 nav placeholder; `termLabel` on `contractData`.
+
+## Next Steps:
+- (none)
+
+## Actions Log:
+- [2026-04-26] Added `termLabel: "2022–2026"`, relabeled nav and viewMeta; disabled 2018–2022 side nav row.
+
+[AMENDED 2026-04-26]:
+## Current Task:
 Paneled Scanned Pages + dedicated Tool Program nav: `cbaScannedPages` / `toolProgramScans` in `data.js`, `renderPaneledArchive`, wider container on archive views.
 
 ## Next Steps:

@@ -672,6 +672,36 @@ mark {
     border-color: rgba(255, 255, 255, 0.08);
 }
 
+.nav-item-muted {
+    list-style: none;
+}
+
+.nav-link.nav-link--disabled {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.9rem 1rem;
+    color: rgba(220, 231, 245, 0.35);
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: not-allowed;
+    user-select: none;
+    pointer-events: none;
+}
+
+.nav-soon {
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(220, 231, 245, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 0.15rem 0.35rem;
+}
+
 .split-view-btn {
     right: 2rem;
     bottom: 2rem;
