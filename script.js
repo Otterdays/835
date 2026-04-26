@@ -1,246 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Populate header
-    document.getElementById('header-title').textContent = contractData.title;
-    document.getElementById('header-parties').textContent = contractData.parties;
-    document.getElementById('header-date').textContent = contractData.effectiveDate;
-
     const container = document.getElementById('contract-container');
+    const containerRight = document.getElementById('contract-container-right');
     const searchInput = document.getElementById('search-input');
+    const clearSearchBtn = document.getElementById('clear-search-btn');
     const noResults = document.getElementById('no-results');
     const resultsInfo = document.getElementById('results-info');
-    
-    // Split View Elements
-    const splitViewBtn = document.getElementById('split-view-btn');
-    const splitViewWrapper = document.getElementById('split-view-wrapper');
-    const containerRight = document.getElementById('contract-container-right');
-    const mainContainer = document.getElementById('main-container');
-    let isSplitView = false;
-    
-    if (splitViewBtn) {
-        splitViewBtn.addEventListener('click', () => {
-            isSplitView = !isSplitView;
-            splitViewBtn.classList.toggle('active', isSplitView);
-            mainContainer.classList.toggle('split-mode', isSplitView);
-            splitViewWrapper.classList.toggle('is-split', isSplitView);
-            
-            if (isSplitView) {
-                if(floatingDesk) floatingDesk.style.opacity = '0';
-                if(floatingDesk) floatingDesk.style.pointerEvents = 'none';
-            } else {
-                if(floatingDesk) floatingDesk.style.opacity = '1';
-                if(floatingDesk) floatingDesk.style.pointerEvents = 'auto';
-            }
-            
-            // Re-render based on current search
-            const query = searchInput.value.toLowerCase().trim();
-            const filtered = query ? contractData.articles.filter(article => 
-                article.title.toLowerCase().includes(query) || 
-                article.content.toLowerCase().includes(query)
-            ) : contractData.articles;
-            
-            renderArticles(filtered, query);
-        });
-    }
-    
-    // Floating Desk Elements
-    const floatingDesk = document.getElementById('floating-desk');
-    const deskList = document.getElementById('desk-list');
-    
-    // Quick Jump Elements
+    const currentArticleLabel = document.getElementById('current-article-label');
     const quickJumpSelect = document.getElementById('quick-jump-select');
     const quickJumpContainer = document.getElementById('quick-jump-container');
-    
-    let observer;
+    const floatingDesk = document.getElementById('floating-desk');
+    const deskList = document.getElementById('desk-list');
+    const contractToolbar = document.getElementById('contract-toolbar');
+    const splitViewBtn = document.getElementById('split-view-btn');
+    const splitViewWrapper = document.getElementById('split-view-wrapper');
+    const mainContainer = document.getElementById('main-container');
 
-    // Initial render
-    renderArticles(contractData.articles);
-
-    // Search functionality
-    searchInput.addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase().trim();
-        
-        if (!query) {
-            renderArticles(contractData.articles);
-            resultsInfo.style.display = 'none';
-            return;
-        }
-
-        const filtered = contractData.articles.filter(article => 
-            article.title.toLowerCase().includes(query) || 
-            article.content.toLowerCase().includes(query)
-        );
-
-        renderArticles(filtered, query);
-
-        resultsInfo.textContent = `Found ${filtered.length} matching article(s)`;
-        resultsInfo.style.display = 'block';
-
-        if (filtered.length === 0) {
-            noResults.style.display = 'block';
-            splitViewWrapper.style.display = 'none';
-        } else {
-            noResults.style.display = 'none';
-            splitViewWrapper.style.display = 'flex';
-        }
-    });
-
-    function highlightText(text, query) {
-        if (!text) return '';
-        const escapedText = escapeHTML(text).replace(/\n/g, '<br>');
-        if (!query) return escapedText;
-        
-        // Escape regex special characters
-        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapedQuery})`, 'gi');
-        
-        // When highlighting, we need to be careful not to break the <br> tags we just inserted
-        // or highlight parts of them. A simpler way: split by query on the original text,
-        // escape/newline-replace the non-matching parts, and wrap matching parts in <mark>.
-        
-        const parts = text.split(regex);
-        return parts.map(part => {
-            if (part.toLowerCase() === query.toLowerCase()) {
-                return `<mark>${escapeHTML(part)}</mark>`;
-            }
-            return escapeHTML(part).replace(/\n/g, '<br>');
-        }).join('');
-    }
-
-    function escapeHTML(str) {
-        return str.replace(/[&<>'"]/g, 
-            tag => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                "'": '&#39;',
-                '"': '&quot;'
-            }[tag] || tag)
-        );
-    }
-
-    // Floating Desk Logic
-
-    function updateDesk(articles) {
-        if (!deskList || !floatingDesk) return;
-        deskList.innerHTML = '';
-        
-        // Reset and populate Quick Jump Select (Mobile)
-        if (quickJumpSelect) {
-            quickJumpSelect.innerHTML = '<option value="" disabled selected>Jump to Article...</option>';
-        }
-
-        articles.forEach(article => {
-            // Desk Item (Desktop)
-            const li = document.createElement('li');
-            li.className = 'desk-item';
-            li.textContent = article.title.replace('ARTICLE ', 'ART ');
-            li.dataset.target = `view-${article.id}`;
-            li.onclick = () => {
-                const target = document.getElementById(`view-${article.id}`);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            };
-            deskList.appendChild(li);
-
-            // Select Option (Mobile)
-            if (quickJumpSelect) {
-                const option = document.createElement('option');
-                option.value = `view-${article.id}`;
-                option.textContent = article.title;
-                quickJumpSelect.appendChild(option);
-            }
-        });
-        
-        if (articles.length > 1) {
-            floatingDesk.classList.add('visible');
-            if (quickJumpContainer) quickJumpContainer.style.display = ''; // Reset to CSS default (block on mobile)
-        } else {
-            floatingDesk.classList.remove('visible');
-            if (quickJumpContainer) quickJumpContainer.style.display = 'none';
-        }
-    }
-
-    if (quickJumpSelect) {
-        quickJumpSelect.addEventListener('change', (e) => {
-            const targetId = e.target.value;
-            const target = document.getElementById(targetId);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Briefly reset the select after a delay or just leave it
-                setTimeout(() => { quickJumpSelect.selectedIndex = 0; }, 1000);
-            }
-        });
-    }
-
-    function setupObserver() {
-        if (observer) observer.disconnect();
-
-        observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Update classes on cards
-                    document.querySelectorAll('.article-card').forEach(c => c.classList.remove('active-article'));
-                    entry.target.classList.add('active-article');
-
-                    // Update desk active state
-                    document.querySelectorAll('.desk-item').forEach(item => {
-                        item.classList.toggle('active', item.dataset.target === entry.target.id);
-                        if (item.classList.contains('active')) {
-                            item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }
-                    });
-                }
-            });
-        }, {
-            threshold: 0.3,
-            rootMargin: '-10% 0px -40% 0px'
-        });
-
-        document.querySelectorAll('.article-card').forEach(card => observer.observe(card));
-    }
-
-    function renderArticles(articles, query = '') {
-        container.innerHTML = '';
-        if (containerRight) containerRight.innerHTML = '';
-        
-        articles.forEach((article, index) => {
-            const card = document.createElement('div');
-            card.className = 'article-card';
-            card.id = `view-${article.id}`; // Match the ID for observer
-            card.style.animationDelay = `${index * 0.05}s`;
-
-            const title = document.createElement('h2');
-            title.className = 'article-title';
-            title.innerHTML = highlightText(article.title, query);
-
-            const content = document.createElement('div');
-            content.className = 'article-content';
-            content.innerHTML = highlightText(article.content, query);
-
-            card.appendChild(title);
-            card.appendChild(content);
-            container.appendChild(card);
-            
-            if (isSplitView && containerRight) {
-                const rightCard = card.cloneNode(true);
-                rightCard.id = `view-right-${article.id}`;
-                containerRight.appendChild(rightCard);
-            }
-        });
-
-        // Ensure container is visible if articles exist
-        if (articles.length > 0) {
-            splitViewWrapper.style.display = 'flex';
-            noResults.style.display = 'none';
-            setupObserver(); // Re-setup observer after re-render
-            updateDesk(articles);
-        } else {
-            if (floatingDesk) floatingDesk.classList.remove('visible');
-        }
-    }
-
-    // Sidebar and Navigation Logic
     const menuBtn = document.getElementById('menu-btn');
     const sidePanel = document.getElementById('side-panel');
     const overlay = document.getElementById('panel-overlay');
@@ -249,146 +23,472 @@ document.addEventListener('DOMContentLoaded', () => {
     const linkGallery = document.getElementById('link-gallery');
     const linkStewards = document.getElementById('link-stewards');
     const linkEmployees = document.getElementById('link-employees');
-    const searchContainer = document.querySelector('.search-container');
+
     const headerTitle = document.getElementById('header-title');
     const headerParties = document.getElementById('header-parties');
+    const headerDate = document.getElementById('header-date');
+    const headerStatus = document.getElementById('header-status');
+    const viewDescription = document.getElementById('view-description');
+
+    const statArticles = document.getElementById('stat-articles');
+    const statPages = document.getElementById('stat-pages');
+    const statStewards = document.getElementById('stat-stewards');
+    const statEmployees = document.getElementById('stat-employees');
+
     const employeesContainer = document.getElementById('employees-container');
     const stewardsContainer = document.getElementById('stewards-container');
     const galleryContainer = document.getElementById('gallery-container');
 
-    function toggleMenu() {
-        sidePanel.classList.toggle('open');
-        overlay.classList.toggle('active');
+    const imageModal = document.getElementById('image-modal');
+    const imageModalImg = document.getElementById('image-modal-img');
+    const imageModalCaption = document.getElementById('image-modal-caption');
+    const imageModalClose = document.getElementById('image-modal-close');
+
+    const articleOrderMap = new Map(
+        contractData.articles.map((article, index) => [article.id, String(index + 1).padStart(2, '0')])
+    );
+
+    const viewMeta = {
+        contract: {
+            title: 'Operating Engineers Local 835 Agreement',
+            parties: 'U.S. Facilities, Inc. and International Union of Operating Engineers, Local 835, AFL-CIO.',
+            date: contractData.effectiveDate,
+            status: 'Active Agreement',
+            description: 'Search clauses, compare article language, and move through sections without losing place.'
+        },
+        gallery: {
+            title: 'Scanned Pages',
+            parties: 'Original contract pages for visual verification and print-reference review.',
+            date: `${contractImages.length} scanned pages`,
+            status: 'Scanned Archive',
+            description: 'Open full-page scans inside viewer when exact source formatting matters.'
+        },
+        stewards: {
+            title: 'Shop Stewards',
+            parties: 'Current representation contacts for Local 835 members.',
+            date: `${shopStewards.length} active steward profiles`,
+            status: 'Leadership Contacts',
+            description: 'Review site leadership and coverage locations in single roster.'
+        },
+        employees: {
+            title: 'Employees',
+            parties: 'Current RCF employee roster for quick location reference.',
+            date: `${employeesData.length} employees listed`,
+            status: 'RCF Roster',
+            description: 'Fast internal lookup for names and location assignments.'
+        }
+    };
+
+    let observer;
+    let isSplitView = false;
+    let activeView = 'contract';
+
+    statArticles.textContent = contractData.articles.length;
+    statPages.textContent = contractImages.length;
+    statStewards.textContent = shopStewards.length;
+    statEmployees.textContent = employeesData.length;
+
+    applyViewMeta(activeView);
+    renderEmployees(employeesData);
+    renderStewards(shopStewards);
+    renderGallery(contractImages);
+    updateContractView();
+
+    if (splitViewBtn) {
+        splitViewBtn.addEventListener('click', () => {
+            setSplitView(!isSplitView);
+        });
     }
 
-    menuBtn.addEventListener('click', toggleMenu);
-    closeBtn.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
+    searchInput.addEventListener('input', () => {
+        updateContractView();
+    });
 
-    linkContract.addEventListener('click', (e) => {
-        e.preventDefault();
-        linkContract.classList.add('active');
-        linkGallery.classList.remove('active');
-        linkStewards.classList.remove('active');
-        linkEmployees.classList.remove('active');
-        searchContainer.style.display = 'block';
-        headerTitle.textContent = contractData.title;
-        headerParties.textContent = contractData.parties;
-        employeesContainer.style.display = 'none';
-        stewardsContainer.style.display = 'none';
-        galleryContainer.style.display = 'none';
-        splitViewWrapper.style.display = 'flex';
-        if (splitViewBtn) splitViewBtn.style.display = 'flex';
-        floatingDesk.classList.add('visible');
-        if (quickJumpContainer) quickJumpContainer.style.display = ''; 
-        toggleMenu();
-        // Reset search
+    clearSearchBtn.addEventListener('click', () => {
+        clearSearch(true);
+    });
+
+    if (quickJumpSelect) {
+        quickJumpSelect.addEventListener('change', (event) => {
+            const target = document.getElementById(event.target.value);
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => {
+                quickJumpSelect.selectedIndex = 0;
+            }, 800);
+        });
+    }
+
+    menuBtn.addEventListener('click', () => setMenuState(!sidePanel.classList.contains('open')));
+    closeBtn.addEventListener('click', () => setMenuState(false));
+    overlay.addEventListener('click', () => setMenuState(false));
+
+    linkContract.addEventListener('click', (event) => {
+        event.preventDefault();
+        setView('contract');
+    });
+
+    linkGallery.addEventListener('click', (event) => {
+        event.preventDefault();
+        setView('gallery');
+    });
+
+    linkStewards.addEventListener('click', (event) => {
+        event.preventDefault();
+        setView('stewards');
+    });
+
+    linkEmployees.addEventListener('click', (event) => {
+        event.preventDefault();
+        setView('employees');
+    });
+
+    imageModalClose.addEventListener('click', closeImageModal);
+    imageModal.addEventListener('click', (event) => {
+        if (event.target === imageModal) {
+            closeImageModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === '/' && activeView === 'contract' && !isTypingTarget(event.target)) {
+            event.preventDefault();
+            searchInput.focus();
+            searchInput.select();
+            return;
+        }
+
+        if (event.key !== 'Escape') {
+            return;
+        }
+
+        if (imageModal.classList.contains('is-open')) {
+            closeImageModal();
+            return;
+        }
+
+        if (sidePanel.classList.contains('open')) {
+            setMenuState(false);
+            return;
+        }
+
+        if (activeView === 'contract' && searchInput.value) {
+            clearSearch(false);
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth <= 1024 && isSplitView) {
+            setSplitView(false);
+        }
+    });
+
+    function applyViewMeta(view) {
+        const meta = viewMeta[view];
+        headerTitle.textContent = meta.title;
+        headerParties.textContent = meta.parties;
+        headerDate.textContent = meta.date;
+        headerStatus.textContent = meta.status;
+        viewDescription.textContent = meta.description;
+    }
+
+    function setView(view) {
+        activeView = view;
+        applyViewMeta(view);
+        setActiveLink(view);
+        setMenuState(false);
+
+        const isContractView = view === 'contract';
+        contractToolbar.hidden = !isContractView;
+        splitViewWrapper.style.display = isContractView ? 'flex' : 'none';
+        if (splitViewBtn) {
+            splitViewBtn.hidden = !isContractView;
+        }
+
+        employeesContainer.style.display = view === 'employees' ? 'flex' : 'none';
+        stewardsContainer.style.display = view === 'stewards' ? 'flex' : 'none';
+        galleryContainer.style.display = view === 'gallery' ? 'flex' : 'none';
+        noResults.style.display = 'none';
+
+        if (view === 'contract') {
+            updateContractView();
+            return;
+        }
+
+        floatingDesk.classList.remove('visible');
+        currentArticleLabel.textContent = viewMeta[view].description;
+    }
+
+    function setActiveLink(view) {
+        linkContract.classList.toggle('active', view === 'contract');
+        linkGallery.classList.toggle('active', view === 'gallery');
+        linkStewards.classList.toggle('active', view === 'stewards');
+        linkEmployees.classList.toggle('active', view === 'employees');
+    }
+
+    function setMenuState(isOpen) {
+        sidePanel.classList.toggle('open', isOpen);
+        overlay.classList.toggle('active', isOpen);
+        menuBtn.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    function normalizeQuery(value = searchInput.value) {
+        return value.toLowerCase().trim();
+    }
+
+    function clearSearch(shouldFocusInput) {
         searchInput.value = '';
-        renderArticles(contractData.articles);
-        resultsInfo.style.display = 'none';
-    });
+        updateContractView();
+        if (shouldFocusInput) {
+            searchInput.focus();
+        }
+    }
 
-    linkGallery.addEventListener('click', (e) => {
-        e.preventDefault();
-        linkGallery.classList.add('active');
-        linkContract.classList.remove('active');
-        linkStewards.classList.remove('active');
-        linkEmployees.classList.remove('active');
-        searchContainer.style.display = 'none';
-        headerTitle.textContent = "Scanned Pages";
-        headerParties.textContent = "Original Contract Documents";
-        splitViewWrapper.style.display = 'none';
-        if (splitViewBtn) splitViewBtn.style.display = 'none';
-        employeesContainer.style.display = 'none';
-        stewardsContainer.style.display = 'none';
-        resultsInfo.style.display = 'none';
-        noResults.style.display = 'none';
-        galleryContainer.style.display = 'flex';
-        floatingDesk.classList.remove('visible');
-        if (quickJumpContainer) quickJumpContainer.style.display = 'none';
-        renderGallery(contractImages);
-        toggleMenu();
-    });
+    function updateContractView() {
+        const query = normalizeQuery();
+        const filteredArticles = getFilteredArticles(query);
 
-    linkStewards.addEventListener('click', (e) => {
-        e.preventDefault();
-        linkStewards.classList.add('active');
-        linkContract.classList.remove('active');
-        linkGallery.classList.remove('active');
-        linkEmployees.classList.remove('active');
-        searchContainer.style.display = 'none';
-        headerTitle.textContent = "Shop Stewards";
-        headerParties.textContent = "Your Union Leadership";
-        splitViewWrapper.style.display = 'none';
-        if (splitViewBtn) splitViewBtn.style.display = 'none';
-        employeesContainer.style.display = 'none';
-        galleryContainer.style.display = 'none';
-        resultsInfo.style.display = 'none';
-        noResults.style.display = 'none';
-        stewardsContainer.style.display = 'flex';
-        floatingDesk.classList.remove('visible');
-        if (quickJumpContainer) quickJumpContainer.style.display = 'none';
-        renderStewards(shopStewards);
-        toggleMenu();
-    });
+        renderArticles(filteredArticles, query);
 
-    linkEmployees.addEventListener('click', (e) => {
-        e.preventDefault();
-        linkEmployees.classList.add('active');
-        linkContract.classList.remove('active');
-        linkGallery.classList.remove('active');
-        linkStewards.classList.remove('active');
-        searchContainer.style.display = 'none';
-        headerTitle.textContent = "Employees";
-        headerParties.textContent = "RCF Location Roster";
-        splitViewWrapper.style.display = 'none';
-        if (splitViewBtn) splitViewBtn.style.display = 'none';
-        galleryContainer.style.display = 'none';
-        stewardsContainer.style.display = 'none';
-        resultsInfo.style.display = 'none';
-        noResults.style.display = 'none';
-        employeesContainer.style.display = 'flex';
-        floatingDesk.classList.remove('visible');
-        if (quickJumpContainer) quickJumpContainer.style.display = 'none';
-        renderEmployees(employeesData);
-        toggleMenu();
-    });
+        const hasResults = filteredArticles.length > 0;
+        splitViewWrapper.style.display = hasResults ? 'flex' : 'none';
+        noResults.style.display = hasResults ? 'none' : 'block';
+
+        updateResultsInfo(query, filteredArticles.length);
+        currentArticleLabel.textContent = hasResults ? filteredArticles[0].title : 'No article matches current search.';
+        clearSearchBtn.hidden = !query;
+        syncNavigationVisibility(filteredArticles.length);
+    }
+
+    function getFilteredArticles(query) {
+        if (!query) {
+            return contractData.articles;
+        }
+
+        return contractData.articles.filter((article) =>
+            article.title.toLowerCase().includes(query) ||
+            article.content.toLowerCase().includes(query)
+        );
+    }
+
+    function updateResultsInfo(query, count) {
+        const total = contractData.articles.length;
+        const articleLabel = count === 1 ? 'article' : 'articles';
+        const verb = count === 1 ? 'matches' : 'match';
+
+        if (query) {
+            resultsInfo.textContent = `${count} of ${total} ${articleLabel} ${verb} "${query}"`;
+            return;
+        }
+
+        resultsInfo.textContent = `All ${total} articles ready`;
+    }
+
+    function syncNavigationVisibility(articleCount) {
+        const showNavigation = activeView === 'contract' && articleCount > 1;
+        quickJumpContainer.hidden = !showNavigation;
+        floatingDesk.classList.toggle('visible', showNavigation && !isSplitView);
+    }
+
+    function highlightText(text, query) {
+        if (!text) return '';
+
+        if (!query) {
+            return escapeHTML(text).replace(/\n/g, '<br>');
+        }
+
+        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+
+        return text.split(regex).map((part) => {
+            if (part.toLowerCase() === query.toLowerCase()) {
+                return `<mark>${escapeHTML(part)}</mark>`;
+            }
+            return escapeHTML(part).replace(/\n/g, '<br>');
+        }).join('');
+    }
+
+    function escapeHTML(value) {
+        return value.replace(/[&<>'"]/g, (char) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        }[char] || char));
+    }
+
+    function renderArticles(articles, query = '') {
+        container.innerHTML = '';
+        containerRight.innerHTML = '';
+
+        articles.forEach((article, index) => {
+            const card = buildArticleCard(article, index, query);
+            container.appendChild(card);
+
+            if (isSplitView) {
+                const rightCard = card.cloneNode(true);
+                rightCard.id = `view-right-${article.id}`;
+                rightCard.classList.remove('active-article');
+                containerRight.appendChild(rightCard);
+            }
+        });
+
+        updateDesk(articles);
+
+        if (articles.length > 0) {
+            setupObserver();
+        } else if (observer) {
+            observer.disconnect();
+        }
+    }
+
+    function buildArticleCard(article, animationIndex, query) {
+        const card = document.createElement('article');
+        card.className = 'article-card';
+        card.id = `view-${article.id}`;
+        card.dataset.articleId = article.id;
+        card.dataset.articleTitle = article.title;
+        card.style.animationDelay = `${animationIndex * 0.04}s`;
+
+        const meta = document.createElement('div');
+        meta.className = 'article-meta';
+        meta.textContent = `Article ${articleOrderMap.get(article.id)}`;
+
+        const title = document.createElement('h2');
+        title.className = 'article-title';
+        title.innerHTML = highlightText(article.title, query);
+
+        const content = document.createElement('div');
+        content.className = 'article-content';
+        content.innerHTML = highlightText(article.content, query);
+
+        card.appendChild(meta);
+        card.appendChild(title);
+        card.appendChild(content);
+
+        return card;
+    }
+
+    function updateDesk(articles) {
+        deskList.innerHTML = '';
+        quickJumpSelect.innerHTML = '<option value="" disabled selected>Jump to Article...</option>';
+
+        articles.forEach((article) => {
+            const item = document.createElement('li');
+            item.className = 'desk-item';
+            item.textContent = article.title.replace('ARTICLE ', 'ART ');
+            item.dataset.target = `view-${article.id}`;
+            item.addEventListener('click', () => scrollToArticle(`view-${article.id}`));
+            deskList.appendChild(item);
+
+            const option = document.createElement('option');
+            option.value = `view-${article.id}`;
+            option.textContent = article.title;
+            quickJumpSelect.appendChild(option);
+        });
+    }
+
+    function scrollToArticle(targetId) {
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function setupObserver() {
+        if (observer) {
+            observer.disconnect();
+        }
+
+        observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const activeId = entry.target.dataset.articleId;
+                const activeTitle = entry.target.dataset.articleTitle;
+
+                document.querySelectorAll('#contract-container .article-card').forEach((card) => {
+                    card.classList.toggle('active-article', card.dataset.articleId === activeId);
+                });
+
+                document.querySelectorAll('#contract-container-right .article-card').forEach((card) => {
+                    card.classList.toggle('active-article', card.id === `view-right-${activeId}`);
+                });
+
+                document.querySelectorAll('.desk-item').forEach((item) => {
+                    const isActive = item.dataset.target === `view-${activeId}`;
+                    item.classList.toggle('active', isActive);
+                    if (isActive) {
+                        item.scrollIntoView({ block: 'nearest' });
+                    }
+                });
+
+                currentArticleLabel.textContent = activeTitle;
+            });
+        }, {
+            threshold: 0.25,
+            root: isSplitView ? container : null,
+            rootMargin: '-10% 0px -55% 0px'
+        });
+
+        document.querySelectorAll('#contract-container .article-card').forEach((card) => observer.observe(card));
+    }
+
+    function setSplitView(nextState) {
+        isSplitView = Boolean(nextState) && activeView === 'contract' && window.innerWidth > 1024;
+
+        splitViewBtn.classList.toggle('active', isSplitView);
+        mainContainer.classList.toggle('split-mode', isSplitView);
+        splitViewWrapper.classList.toggle('is-split', isSplitView);
+
+        if (activeView === 'contract') {
+            updateContractView();
+        }
+    }
 
     function renderEmployees(employees) {
         employeesContainer.innerHTML = '';
+
         if (employees.length === 0) {
             employeesContainer.innerHTML = '<div class="no-results" style="display:block;">No employees found.</div>';
             return;
         }
-        employees.forEach((emp, index) => {
+
+        employees.forEach((employee, index) => {
             const card = document.createElement('div');
             card.className = 'employee-card';
             card.style.animationDelay = `${index * 0.05}s`;
-            
+
             const name = document.createElement('div');
             name.className = 'employee-name';
-            name.textContent = emp.name;
-            
-            const loc = document.createElement('div');
-            loc.className = 'employee-location';
-            loc.textContent = emp.location;
-            
+            name.textContent = employee.name;
+
+            const location = document.createElement('div');
+            location.className = 'employee-location';
+            location.textContent = employee.location;
+
             card.appendChild(name);
-            card.appendChild(loc);
+            card.appendChild(location);
             employeesContainer.appendChild(card);
         });
     }
 
     function renderStewards(stewards) {
         stewardsContainer.innerHTML = '';
+
         stewards.forEach((steward, index) => {
             const card = document.createElement('div');
             card.className = 'steward-card';
-            card.style.animationDelay = `${index * 0.1}s`;
+            card.style.animationDelay = `${index * 0.08}s`;
 
-            const img = document.createElement('img');
-            img.src = steward.image;
-            img.className = 'steward-img';
+            const image = document.createElement('img');
+            image.src = steward.image;
+            image.alt = `${steward.name} portrait`;
+            image.className = 'steward-img';
 
             const info = document.createElement('div');
             info.className = 'steward-info';
@@ -408,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
             info.appendChild(name);
             info.appendChild(role);
             info.appendChild(tagline);
-            card.appendChild(img);
+            card.appendChild(image);
             card.appendChild(info);
             stewardsContainer.appendChild(card);
         });
@@ -416,28 +516,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderGallery(images) {
         galleryContainer.innerHTML = '';
-        images.forEach((img, index) => {
+
+        images.forEach((imageData, index) => {
             const item = document.createElement('div');
             item.className = 'gallery-item';
-            item.style.animationDelay = `${index * 0.1}s`;
+            item.style.animationDelay = `${index * 0.08}s`;
 
             const image = document.createElement('img');
-            image.src = img.url;
-            image.alt = img.caption;
+            image.src = imageData.url;
+            image.alt = imageData.caption;
             image.className = 'gallery-img';
+            image.addEventListener('click', () => openImageModal(imageData.url, imageData.caption));
 
             const caption = document.createElement('div');
             caption.className = 'gallery-caption';
-            caption.textContent = img.caption;
+            caption.textContent = imageData.caption;
 
             item.appendChild(image);
             item.appendChild(caption);
             galleryContainer.appendChild(item);
-            
-            // Simple click-to-view-full-size logic
-            image.addEventListener('click', () => {
-                window.open(img.url, '_blank');
-            });
         });
+    }
+
+    function openImageModal(src, caption) {
+        imageModalImg.src = src;
+        imageModalImg.alt = caption;
+        imageModalCaption.textContent = caption;
+        imageModal.classList.add('is-open');
+        imageModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+        imageModal.classList.remove('is-open');
+        imageModal.setAttribute('aria-hidden', 'true');
+        imageModalImg.src = '';
+        imageModalImg.alt = '';
+        document.body.style.overflow = '';
+    }
+
+    function isTypingTarget(target) {
+        if (!target) return false;
+
+        const tagName = target.tagName;
+        return tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT' || target.isContentEditable;
     }
 });

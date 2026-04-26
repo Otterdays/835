@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operating Engineers 835 Contract</title>
-    <!-- Google Fonts for Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="menu-btn" class="menu-btn" aria-label="Open Menu">
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -20,7 +19,7 @@
     <div id="side-panel" class="side-panel">
         <div class="panel-header">
             <h2>Navigation</h2>
-            <button id="close-btn" class="close-btn">&times;</button>
+            <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
         </div>
         <ul class="nav-links">
             <li><a href="#" id="link-contract" class="active">Contract Viewer</a></li>
@@ -32,28 +31,75 @@
     <div id="panel-overlay" class="panel-overlay"></div>
 
     <div class="container" id="main-container">
-        <header>
-            <h1 id="header-title">Contract Viewer</h1>
-            <p id="header-parties" class="subtitle">Loading parties...</p>
-            <p id="header-date" class="date">Loading dates...</p>
+        <header class="hero-header">
+            <div class="hero-heading">
+                <div class="eyebrow-row">
+                    <span class="eyebrow">Operating Engineers Local 835</span>
+                    <span id="header-status" class="status-chip">Agreement Portal</span>
+                </div>
+                <h1 id="header-title">Contract Viewer</h1>
+                <p id="header-parties" class="subtitle">Loading parties...</p>
+                <div class="hero-meta">
+                    <p id="header-date" class="date">Loading dates...</p>
+                    <p id="view-description" class="view-description">Search clauses, compare article language, and inspect original scanned pages.</p>
+                </div>
+            </div>
+
+            <div class="hero-stats" aria-label="Portal summary">
+                <div class="stat-card">
+                    <span class="stat-label">Articles</span>
+                    <strong id="stat-articles" class="stat-value">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Scanned Pages</span>
+                    <strong id="stat-pages" class="stat-value">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Stewards</span>
+                    <strong id="stat-stewards" class="stat-value">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Employees</span>
+                    <strong id="stat-employees" class="stat-value">0</strong>
+                </div>
+            </div>
         </header>
 
-        <div class="search-container">
-            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" id="search-input" placeholder="Search the contract...">
-        </div>
+        <section id="contract-toolbar" class="contract-toolbar" aria-label="Contract tools">
+            <div class="toolbar-topline">
+                <div>
+                    <p class="toolbar-label">Document Tools</p>
+                    <p class="toolbar-description">Search language, jump between articles, and keep current section in view.</p>
+                </div>
+                <div class="toolbar-hints" aria-label="Keyboard shortcuts">
+                    <span class="hint-chip">/ Search</span>
+                    <span class="hint-chip">Esc Clear</span>
+                </div>
+            </div>
 
-        <div id="quick-jump-container" class="quick-jump-container">
-            <select id="quick-jump-select" class="quick-jump-select">
-                <option value="" disabled selected>Jump to Article...</option>
-                <!-- Options injected by JS -->
-            </select>
-        </div>
+            <div class="search-container">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="search-input" placeholder="Search contract language, topics, or article titles">
+                <button id="clear-search-btn" class="clear-search-btn" type="button" aria-label="Clear search" hidden>Clear</button>
+            </div>
 
-        <div id="results-info" class="results-info"></div>
+            <div class="toolbar-secondary">
+                <div id="quick-jump-container" class="quick-jump-container">
+                    <select id="quick-jump-select" class="quick-jump-select" aria-label="Jump to article">
+                        <option value="" disabled selected>Jump to Article...</option>
+                        <!-- Options injected by JS -->
+                    </select>
+                </div>
+
+                <div class="toolbar-status">
+                    <div id="results-info" class="results-info"></div>
+                    <div id="current-article-label" class="current-article-label">All articles in view</div>
+                </div>
+            </div>
+        </section>
 
         <div id="split-view-wrapper" class="split-view-wrapper">
             <div id="contract-container" class="contract-container">
@@ -65,7 +111,7 @@
         </div>
         
         <div id="no-results" class="no-results">
-            No results found matching your search.
+            No matching articles. Try broader terms or open scanned pages for original formatting.
         </div>
 
         <div id="employees-container" class="employees-container" style="display: none;">
@@ -82,7 +128,7 @@
     </div>
 
     <!-- Floating Split View Button -->
-    <button id="split-view-btn" class="split-view-btn" aria-label="Toggle Split View">
+    <button id="split-view-btn" class="split-view-btn" type="button" aria-label="Toggle Split View">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" class="icon">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="12" y1="3" x2="12" y2="21"></line>
@@ -98,6 +144,14 @@
         <ul id="desk-list" class="desk-list">
             <!-- Dynamic list of articles -->
         </ul>
+    </div>
+
+    <div id="image-modal" class="image-modal" aria-hidden="true" role="dialog" aria-labelledby="image-modal-caption">
+        <button id="image-modal-close" class="image-modal-close" type="button" aria-label="Close image viewer">&times;</button>
+        <div class="image-modal-body">
+            <img id="image-modal-img" class="image-modal-img" alt="">
+            <p id="image-modal-caption" class="image-modal-caption"></p>
+        </div>
     </div>
 
     <!-- Data and logic -->
