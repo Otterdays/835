@@ -201,32 +201,123 @@ const shopStewards = [
     }
 ];
 
-const contractImages = [
-    { url: "page_1.jpg", caption: "Page 1: Agreement & Article I" },
-    { url: "page_2.jpg", caption: "Page 2: Union Security & Non-Discrimination" },
-    { url: "page_3.jpg", caption: "Page 3: Grievance Procedure" },
-    { url: "page_4.jpg", caption: "Page 4: Grievance (cont.) & Seniority Rights" },
-    { url: "page_5.jpg", caption: "Page 5: Probationary Employee & Union Business" },
-    { url: "page_6.jpg", caption: "Page 6: Stewards/Negotiations & Time Bank" },
-    { url: "page_7.jpg", caption: "Page 7: Time Bank (accrual and usage)" },
-    { url: "page_8.jpg", caption: "Page 8: Time Bank (carryover and redemption)" },
-    { url: "page_9.jpg", caption: "Page 9: Emergency UTO; Article XII No Strike/No Lockout" },
-    { url: "page_10.jpg", caption: "Page 10: Articles XII–XV (subcontracting, management rights, paid leaves)" },
-    { url: "page_11.jpg", caption: "Page 11: Article XV — military & funeral leave (cont.)" },
-    { url: "page_12.jpg", caption: "Page 12: Jury duty; Article XVI shift differential; Article XVII hours" },
-    { url: "page_13.jpg", caption: "Page 13: Hours (cont.); Article XVIII call-in; Article XIX holidays (start)" },
+const cbaScannedPages = [
     {
-        section: "Tool Control Program (U.S. Facilities, 2009)",
+        section: "2022 collective agreement (scanned)",
+        id: "cba-p1",
+        url: "page_1.jpg",
+        label: "Page 1",
+        title: "Agreement & Article I — Recognition",
+        description: "Title block for the 2022 agreement and Article I: union recognition, covered job classifications at CFCF/RCF, and Maintenance Trades Helper alignment and bidding."
+    },
+    {
+        id: "cba-p2",
+        url: "page_2.jpg",
+        label: "Page 2",
+        title: "Union security & non-discrimination",
+        description: "Article II: union membership, hiring referrals, and City background rules. Article III: non-discrimination and inclusive language in the contract."
+    },
+    {
+        id: "cba-p3",
+        url: "page_3.jpg",
+        label: "Page 3",
+        title: "Grievance procedure (Steps 1–2)",
+        description: "Article IV opening: time limits, Shop Steward access at each step, written grievance to the Assistant Project Manager, and first-step timing and meetings."
+    },
+    {
+        id: "cba-p4",
+        url: "page_4.jpg",
+        label: "Page 4",
+        title: "Grievance (HR & arbitration) & seniority",
+        description: "Article IV continued: Director of Human Resources step, optional AAA arbitration, fee allocation, and Article V: seniority for layoff, bumping, and recall, including Shop Steward protection."
+    },
+    {
+        id: "cba-p5",
+        url: "page_5.jpg",
+        label: "Page 5",
+        title: "Probation & union access",
+        description: "Article VII: probation periods and new-classification rules. Article VIII: union representative access to the work site and customer/approval requirements."
+    },
+    {
+        id: "cba-p6",
+        url: "page_6.jpg",
+        label: "Page 6",
+        title: "Stewards, injuries, time bank (start)",
+        description: "Article IX: stewards/negotiations pay and meetings. Article X: injury reporting, safety, and pay during treatment. Article XI: Time Bank (STO/UTO tables and accrual basics)."
+    },
+    {
+        id: "cba-p7",
+        url: "page_7.jpg",
+        label: "Page 7",
+        title: "Time Bank — accrual & usage",
+        description: "Article XI: requesting STO/UTO, notice rules, absences over multiple days, carryover caps, and cash redemption. Continues STO posting periods and UTO for planned time."
+    },
+    {
+        id: "cba-p8",
+        url: "page_8.jpg",
+        label: "Page 8",
+        title: "Time Bank — carryover, separation, EUTO intro",
+        description: "Article XI: separation payouts, forfeit rules, and the start of Section 15 (Emergency UTO) where in-shift emergencies differ from standard UTO notice."
+    },
+    {
+        id: "cba-p9",
+        url: "page_9.jpg",
+        label: "Page 9",
+        title: "Emergency UTO & no strike / no lockout",
+        description: "Article XI Section 15: EUTO rules (notification, documentation, pay conversion, annual cap, and interaction with other policies) and Article XII: no strike, no lockout, and process through arbitration."
+    },
+    {
+        id: "cba-p10",
+        url: "page_10.jpg",
+        label: "Page 10",
+        title: "Subcontracting, management rights, paid leaves (start)",
+        description: "Article XIII: subcontracting notice and in-house work expectations. Article XIV: management rights. Article XV: paid leaves — requests, seniority during leave, and start of military leave."
+    },
+    {
+        id: "cba-p11",
+        url: "page_11.jpg",
+        label: "Page 11",
+        title: "Military, funeral, and jury (start)",
+        description: "Article XV continued: military pay makeup and documentation; funeral leave for immediate and extended family; start of jury duty (Section 5 header)."
+    },
+    {
+        id: "cba-p12",
+        url: "page_12.jpg",
+        label: "Page 12",
+        title: "Jury duty, shift pay, hours & overtime",
+        description: "Article XV jury duty pay and proof. Article XVI: shift differential ($1.50/hr after noon starts). Article XVII: workweek, overtime triggers (8/12/40), and schedule stability."
+    },
+    {
+        id: "cba-p13",
+        url: "page_13.jpg",
+        label: "Page 13",
+        title: "Hours (kitchen), files, call-in, holidays (start)",
+        description: "Article XVII continued: kitchen equipment hours, lunch on-site, personnel file discipline aging, payroll corrections, manning CFCF/RCF, Article XVIII call-in minimums, and heading for Article XIX holidays."
+    }
+];
+
+const toolProgramScans = [
+    {
+        section: "Tab H — Tool Control Program",
+        id: "tcp-cover",
         url: "tool_control_program_1.jpg",
-        caption: "Tool Control Program — cover (CFCF/RCF)"
+        label: "Cover",
+        title: "Tool Control Program (cover)",
+        description: "U.S. Facilities, Inc. cover sheet for the Tool Control Program at CFCF and RCF, Philadelphia. Use this for orientation to which facility document set you are viewing before opening policy detail pages (Tab H, revised 2009)."
     },
     {
+        id: "tcp-toc",
         url: "tool_control_program_2.jpg",
-        caption: "Tool Control Program — Tab H table of contents (rev. Feb 2009)"
+        label: "Table of contents",
+        title: "Tool Control Policy — table of contents",
+        description: "Revised February 2009; original procedure dated April 14, 1998. Outlines purpose, lost tools, inventory, staff roles, tool classes (A/B/C), quotas, procurement, and CFCF-specific identification rules — roadmap for the full policy when more pages are added."
     },
     {
-        section: "Tool policy reference (1998)",
+        section: "Reference slip",
+        id: "tcp-disc",
         url: "tool_disciplinary_steps_1.jpg",
-        caption: "Lost tool disciplinary steps (Apr 14, 1998)"
+        label: "Lost tool steps",
+        title: "Lost tool disciplinary steps (1998)",
+        description: "Dated Apr 14, 1998. Summarizes progressive outcomes for lost tools: report before end of shift (standard progressive discipline), report at end of shift (up to 5 days suspension), or late/no report to next workday (termination). Cross-reference to Tab H and your shop steward for current practice."
     }
 ];

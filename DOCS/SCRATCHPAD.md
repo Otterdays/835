@@ -1,11 +1,12 @@
 [AMENDED 2026-04-26]:
 ## Current Task:
-Gallery update: CBA pages 9–13 plus Tool Control Program (2009) scans and Lost Tool Disciplinary Steps slip (1998); section headings in Scanned Pages view.
+Paneled Scanned Pages + dedicated Tool Program nav: `cbaScannedPages` / `toolProgramScans` in `data.js`, `renderPaneledArchive`, wider container on archive views.
 
 ## Next Steps:
-- None for this batch (pushed after commit).
+- Push when ready.
 
 ## Actions Log:
+- [2026-04-26] Replaced flat gallery with two-column panel (filter, rail list, detail + image). Added sidebar nav "Tool Program" and fifth stat card. Split data into `cbaScannedPages` and `toolProgramScans` with per-page `description` text.
 - [2026-04-26] Extended `contractImages` with pages 9–13 and three facility policy images; optional `section` labels and `renderGallery` headings.
 - [2026-04-26] Adjusted gallery view copy in `viewMeta` (scan count and description).
 

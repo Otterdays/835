@@ -24,6 +24,7 @@
         <ul class="nav-links">
             <li><a href="#" id="link-contract" class="active">Contract Viewer</a></li>
             <li><a href="#" id="link-gallery">Scanned Pages</a></li>
+            <li><a href="#" id="link-toolprogram">Tool Program</a></li>
             <li><a href="#" id="link-stewards">Shop Stewards</a></li>
             <li><a href="#" id="link-employees">Employees (RCF)</a></li>
         </ul>
@@ -51,8 +52,12 @@
                     <strong id="stat-articles" class="stat-value">0</strong>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-label">Scanned Pages</span>
+                    <span class="stat-label">CBA scans</span>
                     <strong id="stat-pages" class="stat-value">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Tool program</span>
+                    <strong id="stat-toolpages" class="stat-value">0</strong>
                 </div>
                 <div class="stat-card">
                     <span class="stat-label">Stewards</span>
@@ -122,8 +127,12 @@
             <!-- Shop Stewards will be injected here via JS -->
         </div>
 
-        <div id="gallery-container" class="gallery-container" style="display: none;">
-            <!-- Gallery images will be injected here via JS -->
+        <div id="gallery-container" class="gallery-container scan-root" style="display: none;" aria-label="CBA scanned pages">
+            <!-- Paneled scan UI injected by JS -->
+        </div>
+
+        <div id="toolprogram-container" class="gallery-container scan-root" style="display: none;" aria-label="Tool control program scans">
+            <!-- Tool program panel UI injected by JS -->
         </div>
     </div>
 

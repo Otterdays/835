@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('close-btn');
     const linkContract = document.getElementById('link-contract');
     const linkGallery = document.getElementById('link-gallery');
+    const linkToolProgram = document.getElementById('link-toolprogram');
     const linkStewards = document.getElementById('link-stewards');
     const linkEmployees = document.getElementById('link-employees');
 
@@ -32,12 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const statArticles = document.getElementById('stat-articles');
     const statPages = document.getElementById('stat-pages');
+    const statToolPages = document.getElementById('stat-toolpages');
     const statStewards = document.getElementById('stat-stewards');
     const statEmployees = document.getElementById('stat-employees');
 
     const employeesContainer = document.getElementById('employees-container');
     const stewardsContainer = document.getElementById('stewards-container');
     const galleryContainer = document.getElementById('gallery-container');
+    const toolProgramContainer = document.getElementById('toolprogram-container');
 
     const imageModal = document.getElementById('image-modal');
     const imageModalImg = document.getElementById('image-modal-img');
@@ -58,10 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         gallery: {
             title: 'Scanned Pages',
-            parties: 'CBA pages plus facility tool-control and related policy scans.',
-            date: `${contractImages.length} scans`,
+            parties: '2022 CBA full-page scans (select a page to read notes and open the image).',
+            date: `${cbaScannedPages.length} CBA page scans`,
             status: 'Scanned Archive',
-            description: 'Open full-page scans in the lightbox. Policies are grouped under section headings below.'
+            description: 'Use the list to pick a page, read the description, and open the scan full size. Filter scales as you add more scans.'
+        },
+        toolProgram: {
+            title: 'Tool Control Program',
+            parties: 'U.S. Facilities Tab H — tool control and lost-tool policy references (2009/1998).',
+            date: `${toolProgramScans.length} policy scans`,
+            status: 'Facility policy',
+            description: 'Same panel as CBA scans: pick an entry, read notes, open the full image. Add more entries in data.js (toolProgramScans) to grow this list.'
         },
         stewards: {
             title: 'Shop Stewards',
@@ -84,14 +94,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeView = 'contract';
 
     statArticles.textContent = contractData.articles.length;
-    statPages.textContent = contractImages.length;
+    statPages.textContent = cbaScannedPages.length;
+    statToolPages.textContent = toolProgramScans.length;
     statStewards.textContent = shopStewards.length;
     statEmployees.textContent = employeesData.length;
 
     applyViewMeta(activeView);
     renderEmployees(employeesData);
     renderStewards(shopStewards);
-    renderGallery(contractImages);
+    renderPaneledArchive(galleryContainer, cbaScannedPages, {
+        idPrefix: 'cba',
+        filterPlaceholder: 'Filter by page label, title, or description…',
+        railLabel: 'CBA scan list',
+        emptyFilterMessage: 'No CBA pages match this filter. Clear the search or try other words.'
+    });
+    renderPaneledArchive(toolProgramContainer, toolProgramScans, {
+        idPrefix: 'tcp',
+        filterPlaceholder: 'Filter tool program entries…',
+        railLabel: 'Tool program list',
+        emptyFilterMessage: 'No entries match. Clear the search box.',
+        showFilter: true
+    });
     updateContractView();
 
     if (splitViewBtn) {
@@ -132,6 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
     linkGallery.addEventListener('click', (event) => {
         event.preventDefault();
         setView('gallery');
+    });
+
+    linkToolProgram.addEventListener('click', (event) => {
+        event.preventDefault();
+        setView('toolProgram');
     });
 
     linkStewards.addEventListener('click', (event) => {
@@ -209,7 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
         employeesContainer.style.display = view === 'employees' ? 'flex' : 'none';
         stewardsContainer.style.display = view === 'stewards' ? 'flex' : 'none';
         galleryContainer.style.display = view === 'gallery' ? 'flex' : 'none';
+        toolProgramContainer.style.display = view === 'toolProgram' ? 'flex' : 'none';
         noResults.style.display = 'none';
+
+        mainContainer.classList.toggle('archive-wide', view === 'gallery' || view === 'toolProgram');
 
         if (view === 'contract') {
             updateContractView();
@@ -223,6 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setActiveLink(view) {
         linkContract.classList.toggle('active', view === 'contract');
         linkGallery.classList.toggle('active', view === 'gallery');
+        linkToolProgram.classList.toggle('active', view === 'toolProgram');
         linkStewards.classList.toggle('active', view === 'stewards');
         linkEmployees.classList.toggle('active', view === 'employees');
     }
@@ -514,37 +546,216 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function renderGallery(images) {
-        galleryContainer.innerHTML = '';
-        let lastSection = null;
+    function filterScanQuery(value) {
+        return (value || '').toLowerCase().trim();
+    }
 
-        images.forEach((imageData, index) => {
-            if (imageData.section && imageData.section !== lastSection) {
-                const sectionEl = document.createElement('h3');
-                sectionEl.className = 'gallery-section-title';
-                sectionEl.textContent = imageData.section;
-                galleryContainer.appendChild(sectionEl);
-                lastSection = imageData.section;
+    function renderPaneledArchive(container, items, options = {}) {
+        const {
+            idPrefix = 'scan',
+            showFilter = true,
+            filterPlaceholder = 'Filter list…',
+            railLabel = 'Document list',
+            emptyFilterMessage = 'No items match this filter.'
+        } = options;
+
+        container.innerHTML = '';
+
+        if (!items.length) {
+            const empty = document.createElement('p');
+            empty.className = 'scan-empty-msg';
+            empty.textContent = 'No documents loaded.';
+            container.appendChild(empty);
+            return;
+        }
+
+        const byId = new Map(items.map((it) => [it.id, it]));
+        const root = document.createElement('div');
+        root.className = 'scan-archive';
+
+        let filterInput;
+        if (showFilter) {
+            const toolbar = document.createElement('div');
+            toolbar.className = 'scan-toolbar';
+            filterInput = document.createElement('input');
+            filterInput.type = 'search';
+            filterInput.className = 'scan-filter';
+            filterInput.placeholder = filterPlaceholder;
+            filterInput.setAttribute('aria-label', 'Filter this document list');
+            toolbar.appendChild(filterInput);
+            root.appendChild(toolbar);
+        }
+
+        const panels = document.createElement('div');
+        panels.className = 'scan-panels';
+
+        const rail = document.createElement('aside');
+        rail.className = 'scan-rail';
+        rail.setAttribute('aria-label', railLabel);
+
+        const railScroll = document.createElement('div');
+        railScroll.className = 'scan-rail-scroll';
+
+        const detail = document.createElement('div');
+        detail.className = 'scan-detail';
+
+        const detailTitle = document.createElement('h2');
+        detailTitle.className = 'scan-detail-title';
+        detailTitle.id = `${idPrefix}-detail-title`;
+
+        const detailBody = document.createElement('div');
+        detailBody.className = 'scan-detail-body';
+        detailBody.id = `${idPrefix}-detail-body`;
+
+        const figure = document.createElement('figure');
+        figure.className = 'scan-detail-figure';
+
+        const img = document.createElement('img');
+        img.className = 'scan-detail-img';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.alt = '';
+
+        const openBtn = document.createElement('button');
+        openBtn.type = 'button';
+        openBtn.className = 'scan-open-full';
+        openBtn.textContent = 'Open full size';
+
+        figure.appendChild(img);
+        const figActions = document.createElement('div');
+        figActions.className = 'scan-detail-actions';
+        figActions.appendChild(openBtn);
+        figure.appendChild(figActions);
+
+        detail.appendChild(detailTitle);
+        detail.appendChild(detailBody);
+        detail.appendChild(figure);
+
+        rail.appendChild(railScroll);
+        panels.appendChild(rail);
+        panels.appendChild(detail);
+        root.appendChild(panels);
+        container.appendChild(root);
+
+        let lastSection = null;
+        const railButtonRows = [];
+
+        function buildDescriptionBlocks(text) {
+            detailBody.innerHTML = '';
+            const parts = String(text).split(/\n{2,}/).map((s) => s.trim()).filter(Boolean);
+            const useParts = parts.length > 0 ? parts : (text ? [String(text).trim()] : []);
+            useParts.forEach((block) => {
+                const p = document.createElement('p');
+                p.textContent = block;
+                detailBody.appendChild(p);
+            });
+        }
+
+        function markActiveButton(activeId) {
+            railButtonRows.forEach(({ btn, item }) => {
+                const on = item.id === activeId;
+                btn.classList.toggle('is-active', on);
+            });
+        }
+
+        let selectedId = items[0].id;
+
+        function selectItem(id) {
+            const item = byId.get(id);
+            if (!item) {
+                return;
             }
 
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            item.style.animationDelay = `${index * 0.08}s`;
+            selectedId = id;
+            detailTitle.textContent = item.title;
+            buildDescriptionBlocks(item.description);
+            img.src = item.url;
+            img.alt = item.title;
+            figure.style.display = '';
+            openBtn.disabled = false;
 
-            const image = document.createElement('img');
-            image.src = imageData.url;
-            image.alt = imageData.caption;
-            image.className = 'gallery-img';
-            image.addEventListener('click', () => openImageModal(imageData.url, imageData.caption));
+            openBtn.onclick = () => openImageModal(item.url, item.title);
+            img.onclick = () => openImageModal(item.url, item.title);
 
-            const caption = document.createElement('div');
-            caption.className = 'gallery-caption';
-            caption.textContent = imageData.caption;
+            markActiveButton(id);
+        }
 
-            item.appendChild(image);
-            item.appendChild(caption);
-            galleryContainer.appendChild(item);
-        });
+        function setEmptyFilterState() {
+            detailTitle.textContent = 'No matches';
+            detailBody.innerHTML = '';
+            const p = document.createElement('p');
+            p.className = 'scan-empty-msg';
+            p.textContent = emptyFilterMessage;
+            detailBody.appendChild(p);
+            img.removeAttribute('src');
+            img.alt = '';
+            figure.style.display = 'none';
+            openBtn.disabled = true;
+        }
+
+        function matchesItem(item) {
+            if (!filterInput) {
+                return true;
+            }
+            const q = filterScanQuery(filterInput.value);
+            if (!q) {
+                return true;
+            }
+            const basket = (
+                [item.label, item.title, item.description, item.section || ''].join(' ')
+            );
+            return basket.toLowerCase().includes(q);
+        }
+
+        function applyRail() {
+            const visible = items.filter((it) => matchesItem(it));
+            railScroll.innerHTML = '';
+            railButtonRows.length = 0;
+            lastSection = null;
+
+            if (visible.length === 0) {
+                setEmptyFilterState();
+                return;
+            }
+
+            const nextId = visible.some((v) => v.id === selectedId) ? selectedId : visible[0].id;
+
+            visible.forEach((item, index) => {
+                if (item.section && item.section !== lastSection) {
+                    const sec = document.createElement('div');
+                    sec.className = 'scan-rail-section';
+                    sec.textContent = item.section;
+                    railScroll.appendChild(sec);
+                    lastSection = item.section;
+                }
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'scan-rail-item';
+                btn.style.animationDelay = `${index * 0.04}s`;
+                const lab = document.createElement('span');
+                lab.className = 'scan-rail-label';
+                lab.textContent = item.label;
+                const sub = document.createElement('span');
+                sub.className = 'scan-rail-sub';
+                sub.textContent = item.title;
+                btn.appendChild(lab);
+                btn.appendChild(sub);
+                btn.addEventListener('click', () => selectItem(item.id));
+                railScroll.appendChild(btn);
+                railButtonRows.push({ btn, item });
+            });
+
+            selectItem(nextId);
+        }
+
+        if (filterInput) {
+            filterInput.addEventListener('input', () => {
+                applyRail();
+            });
+        }
+
+        applyRail();
     }
 
     function openImageModal(src, caption) {
