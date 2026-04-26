@@ -60,18 +60,18 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Search clauses, compare article language, and move through sections without losing place. Text and scans are the 2022–2026 contract in progress; more articles and pages as you add them.'
         },
         gallery: {
-            title: 'Scanned Pages (2022–26)',
-            parties: '2022–2026 CBA: full-page scans on file (pages 1–13 to date, more to come).',
-            date: `${cbaScannedPages.length} CBA page scans — ${contractData.termLabel} term`,
+            title: 'Scanned Pages',
+            parties: 'Full-page source scans for everything you host here — starting with the 2022–2026 CBA; add more years and document types over time.',
+            date: `${cbaScannedPages.length} page scans in library`,
             status: 'Scanned Archive',
-            description: 'This archive is the 2022–2026 contract only. Use the list to open a page, read notes, and view the scan. Filter as the list grows.'
+            description: 'All full-page images you publish in this list — agreement pages, exhibits, and anything else. Pick a row, read the notes, open full size, or use the filter as the set grows.'
         },
         toolProgram: {
             title: 'Tool Control Program',
             parties: 'U.S. Facilities Tab H — tool control and lost-tool policy references (2009/1998).',
             date: `${toolProgramScans.length} policy scans`,
             status: 'Facility policy',
-            description: 'Same panel as CBA scans: pick an entry, read notes, open the full image. Add more entries in data.js (toolProgramScans) to grow this list.'
+            description: 'Same panel layout as Scanned Pages: pick an entry, read notes, open the full image. Add more entries in data.js (toolProgramScans) to grow this list.'
         },
         stewards: {
             title: 'Shop Stewards',
@@ -104,9 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
     renderStewards(shopStewards);
     renderPaneledArchive(galleryContainer, cbaScannedPages, {
         idPrefix: 'cba',
-        filterPlaceholder: 'Filter by page label, title, or description…',
-        railLabel: 'CBA scan list',
-        emptyFilterMessage: 'No CBA pages match this filter. Clear the search or try other words.'
+        filterPlaceholder: 'Filter by label, title, or description…',
+        railLabel: 'Scanned pages list',
+        emptyFilterMessage: 'No pages match this filter. Clear the search or try other words.'
     });
     renderPaneledArchive(toolProgramContainer, toolProgramScans, {
         idPrefix: 'tcp',

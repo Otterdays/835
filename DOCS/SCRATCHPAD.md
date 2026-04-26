@@ -1,5 +1,9 @@
 [AMENDED 2026-04-26]:
 ## Current Task:
+Scanned Pages nav label generic (no year in link); gallery `viewMeta` describes general scan library; stat/rail strings updated.
+
+[AMENDED 2026-04-26]:
+## Current Task:
 CBA term labeling: 2022–2026 on contract + scans, disabled 2018–2022 nav placeholder; `termLabel` on `contractData`.
 
 ## Next Steps:

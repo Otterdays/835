@@ -1,6 +1,9 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 # Changelog
 
+## [0.7.1] - 2026-04-26
+- Nav and header: “Scanned Pages” without year suffix; gallery copy framed as the general full-page scan library. Stat label “Scanned pages”; rail/accessibility labels generalized.
+
 ## [0.7.0] - 2026-04-26
 - UI labels current CBA and scans as 2022–2026 term (`contractData.termLabel`); Scanned section rail: “2022–2026 CBA (scanned — in progress, pages 1–13+)”.
 - Nav: “Contract Viewer” / “Scanned Pages” relabeled (2022–26); disabled placeholder row for 2018–2022 (with “soon” tag).
