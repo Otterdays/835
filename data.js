@@ -184,7 +184,6 @@ The provisions of Sections 5 and 6 of this Article do not cover a situation in w
 (10) Employees who have been notified, under the provisions of the Substance Abuse Policy, that they are required to take a substance abuse test, may not use Emergency UTO for that time period.
 (11) Emergency UTO, if authorized, may be used for the amount of time required, and is not required to be used in two-hour increments. This provision shall not be construed to modify Article XI, Section 3 of the CBA, providing that sixteen (16) hours of Unscheduled Time Off may be used in two-hour increments.
 (12) Emergency UTO shall be capped at six (6) instances per calendar year.`
-},StartLine:171,TargetContent:`
         },
         {
             id: "article-12",
