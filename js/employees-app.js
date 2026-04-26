@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const location = document.createElement('div');
         location.className = 'employee-location';
-        location.textContent = employee.location;
+        location.textContent = `${employee.role} · ${employee.location}`;
 
         card.appendChild(name);
         card.appendChild(location);

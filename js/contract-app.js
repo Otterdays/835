@@ -23,20 +23,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const statArticles = document.getElementById('stat-articles');
 
-    const articleOrderMap = new Map(
-        contractData.articles.map((article, index) => [article.id, String(index + 1).padStart(2, '0')])
-    );
+    const cbaArticleCount = () =>
+        contractData.articles.filter((a) => !a.separateFromMainAgreement).length;
+    const separatePaperSectionCount = () =>
+        contractData.articles.filter((a) => a.separateFromMainAgreement).length;
+
+    function getArticleMetaLine(article) {
+        if (article.separateFromMainAgreement) {
+            const i = article.separatePaperIndex;
+            const t = article.separatePaperTotal;
+            return t ? `Separate contract paper ${i}/${t} (not a CBA article #)` : 'Separate contract paper';
+        }
+        const idx = contractData.articles.findIndex((a) => a.id === article.id);
+        const n = contractData.articles.slice(0, idx + 1).filter((a) => !a.separateFromMainAgreement)
+            .length;
+        return `CBA article ${String(n).padStart(2, '0')}`;
+    }
+
+    function deskTitle(article) {
+        if (article.navLabel) {
+            return article.navLabel;
+        }
+        return article.title.replace('ARTICLE ', 'ART ');
+    }
+
+    function buildSeparatePaperBanner() {
+        const el = document.createElement('div');
+        el.className = 'article-separate-paper-banner';
+        el.setAttribute('role', 'region');
+        el.setAttribute('aria-label', 'Separate contract paper');
+        el.textContent = contractData.separatePapersIntro || '';
+        return el;
+    }
 
     let observer;
     let isSplitView = false;
 
+    const cbaN = cbaArticleCount();
+    const sepN = separatePaperSectionCount();
     headerTitle.textContent = '2022–2026 Agreement';
     headerParties.textContent = 'U.S. Facilities, Inc. and International Union of Operating Engineers, Local 835, AFL-CIO.';
-    headerDate.textContent = `${contractData.effectiveDate} · ${contractData.termLabel} term · ${contractData.articles.length} articles`;
+    headerDate.textContent = `${contractData.effectiveDate} · ${contractData.termLabel} term · ${cbaN} CBA articles`;
     headerStatus.textContent = 'Current CBA (2022–26)';
-    viewDescription.textContent = 'Search clauses, compare article language, and move through sections without losing place. More articles and scans as you add them.';
+    viewDescription.textContent = 'Master agreement: Articles I–XIX. Use the search bar to find specific clauses or terms. Scanned pages and facility-specific tool policies are located in their respective sections.';
     if (statArticles) {
-        statArticles.textContent = contractData.articles.length;
+        statArticles.textContent = String(cbaN);
     }
 
     updateContractView();
@@ -129,15 +160,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateResultsInfo(query, count) {
         const total = contractData.articles.length;
-        const articleLabel = count === 1 ? 'article' : 'articles';
+        const sectionLabel = count === 1 ? 'section' : 'sections';
         const verb = count === 1 ? 'matches' : 'match';
 
         if (query) {
-            resultsInfo.textContent = `${count} of ${total} ${articleLabel} ${verb} "${query}"`;
+            resultsInfo.textContent = `${count} of ${total} ${sectionLabel} ${verb} "${query}"`;
             return;
         }
 
-        resultsInfo.textContent = `All ${total} articles ready`;
+        resultsInfo.textContent = `All ${total} sections ready (CBA + separate paper parts)`;
     }
 
     function syncNavigationVisibility(articleCount) {
@@ -179,6 +210,19 @@ document.addEventListener('DOMContentLoaded', () => {
         containerRight.innerHTML = '';
 
         articles.forEach((article, index) => {
+            const isFirstSeparateInList = Boolean(
+                article.separateFromMainAgreement &&
+                contractData.separatePapersIntro &&
+                (index === 0 || !articles[index - 1].separateFromMainAgreement)
+            );
+            if (isFirstSeparateInList) {
+                const banner = buildSeparatePaperBanner();
+                container.appendChild(banner);
+                if (isSplitView) {
+                    containerRight.appendChild(banner.cloneNode(true));
+                }
+            }
+
             const card = buildArticleCard(article, index, query);
             container.appendChild(card);
 
@@ -202,6 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function buildArticleCard(article, animationIndex, query) {
         const card = document.createElement('article');
         card.className = 'article-card';
+        if (article.separateFromMainAgreement) {
+            card.classList.add('article-card--separate-paper');
+        }
         card.id = `view-${article.id}`;
         card.dataset.articleId = article.id;
         card.dataset.articleTitle = article.title;
@@ -209,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const meta = document.createElement('div');
         meta.className = 'article-meta';
-        meta.textContent = `Article ${articleOrderMap.get(article.id)}`;
+        meta.textContent = getArticleMetaLine(article);
 
         const title = document.createElement('h2');
         title.className = 'article-title';
@@ -233,14 +280,14 @@ document.addEventListener('DOMContentLoaded', () => {
         articles.forEach((article) => {
             const item = document.createElement('li');
             item.className = 'desk-item';
-            item.textContent = article.title.replace('ARTICLE ', 'ART ');
+            item.textContent = deskTitle(article);
             item.dataset.target = `view-${article.id}`;
             item.addEventListener('click', () => scrollToArticle(`view-${article.id}`));
             deskList.appendChild(item);
 
             const option = document.createElement('option');
             option.value = `view-${article.id}`;
-            option.textContent = article.title;
+            option.textContent = deskTitle(article);
             quickJumpSelect.appendChild(option);
         });
     }

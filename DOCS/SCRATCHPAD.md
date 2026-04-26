@@ -1,5 +1,19 @@
 [AMENDED 2026-04-26]:
 ## Current Task:
+Integrated Tool Control Program text: removed tool-related "separate papers" from the main contract viewer and moved their transcriptions directly into the Tool Control Program page (`toolProgramScans` data + `paneled-archive.js` renderer).
+
+## Next Steps:
+- Verify that transcriptions show up under Tool Program images.
+- Ensure search on Tool Program page includes transcribed text.
+
+## Actions Log:
+- [2026-04-26] Added employees Anthony and Jerome; implemented `role` field display on the Employees page.
+- [2026-04-26] Added Jason and Andrew as Assistant Shop Stewards; updated Justin to Assistant Shop Steward.
+- [2026-04-26] Integrated Tool Control Program text: removed tool docs from main viewer; added `transcription` support to `paneled-archive.js` and `data.js`.
+- [2026-04-26] Reframed old “article 20/21” as a second contract paper; stat shows 19 CBA articles; intro paragraph + in-section copy + nav labels make the distinction explicit.
+
+[AMENDED 2026-04-26]:
+## Current Task:
 Multi-page document center: gateway `index.html`, `contract.html`, `scans.html`, `tool-program.html`, `stewards.html`, `employees.html`; `js/*` split; `script.js` removed.
 
 [AMENDED 2026-04-26]:

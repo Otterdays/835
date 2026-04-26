@@ -1,6 +1,10 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 # Changelog
 
+## [0.8.1] - 2026-04-26
+- **Separate contract document:** The former “article 20 / 21” content is not part of the master CBA (I–XIX). It is modeled as a second, two-section tool paper (`separate-paper-tool-control`, `separate-paper-lost-tool`) with `separatePapersIntro`, a list banner, distinct card styling, and copy/stats that count CBA articles vs. separate-paper parts.
+- [AMENDED] Repaired `data.js` parse error (extra `}` after Article XIX) that dropped the two separate-paper entries and prevented `toolProgramScans` from loading.
+
 ## [0.8.0] - 2026-04-26
 - **Gateway architecture:** `index.html` is a lightweight home with portal cards; contract / scans / tool / stewards / employees each have dedicated HTML and load only `js/*-app.js` + shared `js/shell.js`, `js/paneled-archive.js`, `js/image-modal.js` as needed. Removed monolithic `script.js`.
 

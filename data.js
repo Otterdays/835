@@ -3,6 +3,8 @@ const contractData = {
     parties: "This Agreement entered into this First day of July 1, 2022 between U.S. Facilities, Inc., hereinafter referred to as the \"Employer\", and the International Union of Operating Engineers, Local 835, AFL-CIO, hereinafter referred to as the \"Union\", hereby agree to be bound by the terms and conditions set forth hereinafter and further agree that this Agreement shall be binding upon both the Employer and the Union.",
     effectiveDate: "Effective July 1, 2022",
     termLabel: "2022–2026",
+    separatePapersIntro:
+        "What follows is a second contract document — a facility / tool policy paper — not “Article 20” or “Article 21” of the master CBA. It is its own two-part paper (Tool Control Program; Lost tool steps). The master agreement is Articles I through XIX. Add your full scans and PDFs in Scanned pages and Tool program as you archive them; paste additional text into these two sections or split them if you get more addenda.",
     articles: [
         {
             id: "article-1",
@@ -281,9 +283,15 @@ Section 2. The employee shall receive the appropriate overtime rate for all hour
             content: `[Article begins]`
         },
         {
-            id: "article-20",
-            title: "TOOL CONTROL PROGRAM",
-            content: `Tab H
+            id: "separate-paper-tool-control",
+            separateFromMainAgreement: true,
+            separatePaperIndex: 1,
+            separatePaperTotal: 2,
+            navLabel: "Tool control (separate paper 1/2)",
+            title: "Separate contract paper (1/2) — Tool Control Program (Tab H)",
+            content: `This block is the first of two parts of a stand-alone tool-policy contract document. It is not "Article 20" of the 2022–2026 master CBA. Place longer extracts, sign-off pages, and your scans in Tool program and Scanned pages as you add files.
+
+Tab H
 Tool Control Policy
 Table of Contents
 
@@ -314,9 +322,15 @@ Tool Identification - 8
   CFCF - 8`
         },
         {
-            id: "article-21",
-            title: "LOST TOOL DISCIPLINARY STEPS",
-            content: `1) Tool is lost and reported prior to the end of the shift.
+            id: "separate-paper-lost-tool",
+            separateFromMainAgreement: true,
+            separatePaperIndex: 2,
+            separatePaperTotal: 2,
+            navLabel: "Lost tool steps (separate paper 2/2)",
+            title: "Separate contract paper (2/2) — Lost tool disciplinary steps",
+            content: `This block is the second of two parts of the same stand-alone tool-policy document as the Tool Control section above. It is not "Article 21" of the master CBA. Add dated exhibits or HR copies here and in the scan library as you get them.
+
+1) Tool is lost and reported prior to the end of the shift.
 - Employee is disciplined following the progressive disciplinary policy
 
 2) Tool is lost and reported at the end of the shift.
@@ -329,13 +343,15 @@ Tool Identification - 8
 };
 
 const employeesData = [
-    { name: "ryan", location: "RCF" },
-    { name: "nate", location: "RCF" },
-    { name: "justin", location: "RCF" },
-    { name: "jim", location: "RCF" },
-    { name: "monica", location: "RCF" },
-    { name: "bill", location: "RCF" },
-    { name: "trevor", location: "CFCF" }
+    { name: "ryan", location: "RCF", role: "Maintenance" },
+    { name: "nate", location: "RCF", role: "Maintenance" },
+    { name: "justin", location: "RCF", role: "Assistant Shop Steward" },
+    { name: "jim", location: "RCF", role: "Maintenance" },
+    { name: "monica", location: "RCF", role: "Maintenance" },
+    { name: "bill", location: "RCF", role: "Maintenance" },
+    { name: "trevor", location: "CFCF", role: "Lead Shop Steward" },
+    { name: "anthony", location: "RCF", role: "Electrician" },
+    { name: "jerome", location: "RCF", role: "Helper" }
 ];
 
 const shopStewards = [
@@ -348,10 +364,24 @@ const shopStewards = [
     },
     { 
         name: "Justin", 
-        role: "Shop Steward", 
+        role: "Assistant Shop Steward", 
         location: "RCF", 
         image: "justin.jpg",
         tagline: "JUSTIN BE BUSSIN - Real Work. Real Respect. Real Results."
+    },
+    { 
+        name: "Jason", 
+        role: "Assistant Shop Steward", 
+        location: "RCF", 
+        image: "jason.jpg",
+        tagline: "JASON IN THE HOUSE - Committed to protecting our union rights at RCF."
+    },
+    { 
+        name: "Andrew", 
+        role: "Assistant Shop Steward", 
+        location: "RCF", 
+        image: "andrew.jpg",
+        tagline: "ANDREW ANSWERS - Here to help every member get a fair shake."
     }
 ];
 
@@ -464,7 +494,36 @@ const toolProgramScans = [
         url: "tool_control_program_2.jpg",
         label: "Table of contents",
         title: "Tool Control Policy — table of contents",
-        description: "Revised February 2009; original procedure dated April 14, 1998. Outlines purpose, lost tools, inventory, staff roles, tool classes (A/B/C), quotas, procurement, and CFCF-specific identification rules — roadmap for the full policy when more pages are added."
+        description: "Revised February 2009; original procedure dated April 14, 1998. Outlines purpose, lost tools, inventory, staff roles, tool classes (A/B/C), quotas, procurement, and CFCF-specific identification rules — roadmap for the full policy when more pages are added.",
+        transcription: `Tab H
+Tool Control Policy
+Table of Contents
+
+Purpose - 4
+Procedure - 4
+  U.S. Facilities, Inc. Employee Responsibilities - 4
+  Lost Tools - 4
+  Inventory Control - 5
+  New Tools - 5
+  Forms - 5
+Responsible Staff - 5
+  APM - 5
+  Shift Supervisor - 5
+  All U.S. Facilities, Inc. Employees - 6
+  System for Managing Tools - 6
+  Tool Control Audits by Employees - 6
+  Setting up Tool Control System - 6
+Establishment of Tool Classification - 7
+  Class A - 7
+  Class B - 7
+  Class C - 7
+Establishment of Tool Quotas - 7
+Tool Procurement - 8
+Tool Identification - 8
+  Class A - 8
+  Class B - 8
+  Class C - 8
+  CFCF - 8`
     },
     {
         section: "Reference slip",
@@ -472,6 +531,14 @@ const toolProgramScans = [
         url: "tool_disciplinary_steps_1.jpg",
         label: "Lost tool steps",
         title: "Lost tool disciplinary steps (1998)",
-        description: "Dated Apr 14, 1998. Summarizes progressive outcomes for lost tools: report before end of shift (standard progressive discipline), report at end of shift (up to 5 days suspension), or late/no report to next workday (termination). Cross-reference to Tab H and your shop steward for current practice."
+        description: "Dated Apr 14, 1998. Summarizes progressive outcomes for lost tools: report before end of shift (standard progressive discipline), report at end of shift (up to 5 days suspension), or late/no report to next workday (termination). Cross-reference to Tab H and your shop steward for current practice.",
+        transcription: `1) Tool is lost and reported prior to the end of the shift.
+- Employee is disciplined following the progressive disciplinary policy
+
+2) Tool is lost and reported at the end of the shift.
+- Employee is suspended for a maximum of 5 days
+
+3) Tool is lost and employee fails to report it or does not report it lost until the start of his next scheduled work day or later.
+- Employee is terminated`
     }
 ];
