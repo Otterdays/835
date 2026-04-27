@@ -7,8 +7,8 @@ Integrated Tool Control Program text: removed tool-related "separate papers" fro
 - Ensure search on Tool Program page includes transcribed text.
 
 ## Actions Log:
+- [2026-04-27] Added `suggestions.html` (barebones preview); updated all sidebar navigation links across HTML files.
 - [2026-04-26] Reorganized `employeesData`: sorted alphabetically and grouped by location (RCF, CFCF, PICC); updated `employees-app.js` with location headings and wider grid layout.
-- [2026-04-26] Updated Jason (CFCF) and Andrew (PICC) building assignments and Locksmith roles.
 - [2026-04-26] Integrated Tool Control Program text: removed tool docs from main viewer; added `transcription` support to `paneled-archive.js` and `data.js`.
 - [2026-04-26] Reframed old “article 20/21” as a second contract paper; stat shows 19 CBA articles; intro paragraph + in-section copy + nav labels make the distinction explicit.
 
