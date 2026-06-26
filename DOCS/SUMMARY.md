@@ -7,6 +7,8 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 
 [AMENDED 2026-04-26]: Scanned archive now includes CBA pages 9–13. Tool Control Program (2009) and lost-tool disciplinary steps (1998) textual data has been integrated directly into the Tool Program viewer page, removing them from the main contract viewer to maintain CBA focus.
 
+[AMENDED 2026-06-26]: UX pass — grouped sidebar nav (`nav-config.js`), home portal sections, quick actions, roster/steward filters, live suggestions form (share/copy).
+
 ## Status:
 - Initialized documentation structure
 - Initialized web app structure

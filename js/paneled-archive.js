@@ -234,5 +234,16 @@ function renderPaneledArchive(container, items, options = {}) {
         });
     }
 
+    const initialParam =
+        options.initialItemId ||
+        new URLSearchParams(window.location.search).get('item') ||
+        window.location.hash.replace(/^#/, '');
+    if (initialParam && byId.has(initialParam)) {
+        selectedId = initialParam;
+        if (filterInput) {
+            filterInput.value = '';
+        }
+    }
+
     applyRail();
 }

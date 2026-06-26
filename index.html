@@ -21,18 +21,7 @@
             <h2>Navigation</h2>
             <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="contract.html">Contract (2022–26)</a></li>
-            <li><a href="scans.html">Scanned Pages</a></li>
-            <li class="nav-item-muted" title="2018–2022 CBA — coming later" aria-label="2018 through 2022 CBA, not yet available">
-                <span class="nav-link nav-link--disabled">2018–2022 <span class="nav-soon">soon</span></span>
-            </li>
-            <li><a href="tool-program.html">Tool Program</a></li>
-            <li><a href="stewards.html">Shop Stewards</a></li>
-            <li><a href="employees.html">Site Roster</a></li>
-            <li><a href="suggestions.html">Suggestions</a></li>
-        </ul>
+        <ul class="nav-links" id="nav-links" aria-label="Site navigation"></ul>
     </div>
     <div id="panel-overlay" class="panel-overlay"></div>
 
@@ -48,10 +37,29 @@
             </div>
         </header>
 
-        <section class="portal-section" aria-label="Document quick links">
-            <p class="portal-intro">Choose a document set:</p>
+        <nav class="gateway-actions" aria-label="Quick actions">
+            <button type="button" class="gateway-action gateway-action--search" id="gateway-search-btn">
+                <span class="gateway-action-label">Search everything</span>
+                <span class="gateway-action-hint">Ctrl+K or / — contract, scans, roster</span>
+            </button>
+            <a class="gateway-action" href="contract.html?focus=search">
+                <span class="gateway-action-label">Search CBA</span>
+                <span class="gateway-action-hint">Jump in and search articles</span>
+            </a>
+            <a class="gateway-action" href="stewards.html">
+                <span class="gateway-action-label">Find steward</span>
+                <span class="gateway-action-hint">Filter by CFCF, RCF, PICC</span>
+            </a>
+            <a class="gateway-action" href="employees.html">
+                <span class="gateway-action-label">Site roster</span>
+                <span class="gateway-action-hint">Names by facility</span>
+            </a>
+        </nav>
+
+        <section class="portal-section" aria-label="Documents and archives">
+            <p class="portal-intro">Documents &amp; archives</p>
             <div class="portal-grid">
-                <a class="portal-card" href="contract.html">
+                <a class="portal-card portal-card--featured" href="contract.html">
                     <span class="portal-kicker">Collective agreement</span>
                     <h2 class="portal-title">2022–2026 CBA</h2>
                     <p class="portal-desc">Searchable articles, split view, and on-page table of contents for the current term.</p>
@@ -69,24 +77,6 @@
                     <p class="portal-desc">Tool control polices, lost-tool steps, and related scans (2009 / 1998 references).</p>
                     <span class="portal-cta" aria-hidden="true">Open →</span>
                 </a>
-                <a class="portal-card" href="stewards.html">
-                    <span class="portal-kicker">Leadership</span>
-                    <h2 class="portal-title">Shop stewards</h2>
-                    <p class="portal-desc">Who represents members at CFCF and RCF.</p>
-                    <span class="portal-cta" aria-hidden="true">Open →</span>
-                </a>
-                <a class="portal-card" href="employees.html">
-                    <span class="portal-kicker">Roster</span>
-                    <h2 class="portal-title">Site Roster</h2>
-                    <p class="portal-desc">Quick name and location list for the entire facility team across CFCF, RCF, and PICC.</p>
-                    <span class="portal-cta" aria-hidden="true">Open →</span>
-                </a>
-                <a class="portal-card" href="suggestions.html">
-                    <span class="portal-kicker">Feedback</span>
-                    <h2 class="portal-title">Suggestions</h2>
-                    <p class="portal-desc">Have an idea for the contract or the site? Submit your thoughts for the next negotiation.</p>
-                    <span class="portal-cta" aria-hidden="true">Open →</span>
-                </a>
                 <div class="portal-card portal-card--disabled" aria-label="2018 through 2022 CBA, not yet available" title="2018–2022 CBA — coming later">
                     <span class="portal-kicker">Archive</span>
                     <h2 class="portal-title">2018–2022 CBA</h2>
@@ -95,8 +85,40 @@
                 </div>
             </div>
         </section>
+
+        <section class="portal-section" aria-label="Members and contacts">
+            <p class="portal-intro">Members &amp; contacts</p>
+            <div class="portal-grid portal-grid--compact">
+                <a class="portal-card" href="stewards.html">
+                    <span class="portal-kicker">Leadership</span>
+                    <h2 class="portal-title">Shop stewards</h2>
+                    <p class="portal-desc">Who represents members at CFCF, RCF, and PICC.</p>
+                    <span class="portal-cta" aria-hidden="true">Open →</span>
+                </a>
+                <a class="portal-card" href="employees.html">
+                    <span class="portal-kicker">Roster</span>
+                    <h2 class="portal-title">Site Roster</h2>
+                    <p class="portal-desc">Quick name and location list for the entire facility team.</p>
+                    <span class="portal-cta" aria-hidden="true">Open →</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="portal-section" aria-label="Feedback">
+            <p class="portal-intro">Feedback</p>
+            <div class="portal-grid portal-grid--compact">
+                <a class="portal-card" href="suggestions.html">
+                    <span class="portal-kicker">Member input</span>
+                    <h2 class="portal-title">Suggestions</h2>
+                    <p class="portal-desc">Ideas for the contract or this site — share via your phone or copy to email.</p>
+                    <span class="portal-cta" aria-hidden="true">Open →</span>
+                </a>
+            </div>
+        </section>
     </div>
 
+    <script src="js/nav-config.js"></script>
     <script src="js/shell.js"></script>
+    <script src="js/site-search.js"></script>
 </body>
 </html>

@@ -1,3 +1,12 @@
+[AMENDED 2026-06-26]: Sitewide search (`js/site-search.js`) — contract, scans, tool program, stewards, roster; Ctrl+K / `/`; deep links to target pages.
+
+[AMENDED 2026-06-26]:
+## Current Task:
+UX organization + interactivity: grouped nav, portal sections, roster search, steward filters, suggestions share/copy form, breadcrumbs.
+
+## Actions Log:
+- [2026-06-26] Sitewide search modal + index over `data.js`; deep links (`?q`, `?article`, `?item`, `?site`).
+
 [AMENDED 2026-04-26]:
 ## Current Task:
 Integrated Tool Control Program text: removed tool-related "separate papers" from the main contract viewer and moved their transcriptions directly into the Tool Control Program page (`toolProgramScans` data + `paneled-archive.js` renderer).

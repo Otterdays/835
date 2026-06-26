@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu">
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -21,19 +21,12 @@
             <h2>Navigation</h2>
             <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="contract.html">Contract (2022–26)</a></li>
-            <li><a href="scans.html">Scanned Pages</a></li>
-            <li><a href="tool-program.html">Tool Program</a></li>
-            <li><a href="stewards.html">Shop Stewards</a></li>
-            <li><a href="employees.html">Site Roster</a></li>
-            <li><a href="suggestions.html" class="active">Suggestions</a></li>
-        </ul>
+        <ul class="nav-links" id="nav-links" aria-label="Site navigation"></ul>
     </div>
     <div id="panel-overlay" class="panel-overlay"></div>
 
     <div class="container" id="main-container">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-page-title="Suggestions"></nav>
         <header class="hero-header doc-hero">
             <div class="hero-heading">
                 <div class="eyebrow-row">
@@ -41,27 +34,45 @@
                     <span class="status-chip" id="header-status">Member Feedback</span>
                 </div>
                 <h1 id="header-title">Member Suggestions</h1>
-                <p class="subtitle" id="view-description">Have an idea for the contract or the site? Submit your thoughts here. Note: This is currently a preview, submissions are not yet recorded.</p>
+                <p class="subtitle" id="view-description">Share ideas for the contract or this site. On mobile, Send opens your share sheet; on desktop, we copy your message so you can paste it into email or text.</p>
             </div>
         </header>
 
         <section class="suggestions-section">
             <div class="suggestion-card">
-                <h3>Submit a Suggestion</h3>
-                <p>This feature is coming soon. In the meantime, please contact your shop steward directly for urgent matters.</p>
-                <div style="margin-top: 1.5rem; opacity: 0.5;">
-                    <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Your Name (Optional)</label>
-                    <input type="text" disabled style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-soft);">
-                    
-                    <label style="display: block; margin: 1.5rem 0 0.5rem; font-weight: bold;">Message</label>
-                    <textarea disabled style="width: 100%; min-height: 150px; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-soft); resize: vertical;"></textarea>
-                    
-                    <button disabled style="margin-top: 1.5rem; padding: 0.75rem 1.5rem; background: var(--accent-strong); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: not-allowed;">Send Suggestion (Soon)</button>
-                </div>
+                <h3>Submit a suggestion</h3>
+                <p class="suggestion-lead">Urgent issues — contact your <a href="stewards.html">shop steward</a> directly.</p>
+
+                <form id="suggestion-form" class="suggestion-form">
+                    <label class="form-label" for="suggestion-topic">Topic</label>
+                    <select id="suggestion-topic" class="form-control">
+                        <option value="Contract negotiation">Contract negotiation</option>
+                        <option value="Website feedback">Website feedback</option>
+                        <option value="Workplace issue">Workplace issue</option>
+                        <option value="General">General</option>
+                    </select>
+
+                    <label class="form-label" for="suggestion-name">Your name (optional)</label>
+                    <input type="text" id="suggestion-name" class="form-control" placeholder="Optional">
+
+                    <label class="form-label" for="suggestion-message">Message</label>
+                    <textarea id="suggestion-message" class="form-control form-control--textarea" placeholder="What would you like the union to know?" required></textarea>
+
+                    <div class="suggestion-actions">
+                        <button type="submit" class="btn-primary">Send suggestion</button>
+                        <button type="button" id="suggestion-share-btn" class="btn-secondary">Share</button>
+                        <button type="button" id="suggestion-copy-btn" class="btn-secondary">Copy text</button>
+                    </div>
+
+                    <p id="suggestion-status" class="suggestion-status" hidden aria-live="polite"></p>
+                </form>
             </div>
         </section>
     </div>
 
+    <script src="js/nav-config.js"></script>
     <script src="js/shell.js"></script>
+    <script src="js/site-search.js"></script>
+    <script src="js/suggestions-app.js"></script>
 </body>
 </html>

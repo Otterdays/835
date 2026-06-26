@@ -70,7 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
         statArticles.textContent = String(cbaN);
     }
 
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('q')) {
+        searchInput.value = urlParams.get('q');
+    }
+    if (urlParams.get('focus') === 'search' && searchInput) {
+        searchInput.focus();
+    }
+
     updateContractView();
+
+    if (urlParams.get('article')) {
+        const articleId = urlParams.get('article');
+        window.requestAnimationFrame(() => {
+            const target = document.getElementById(`view-${articleId}`);
+            target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
 
     if (splitViewBtn) {
         splitViewBtn.addEventListener('click', () => {
