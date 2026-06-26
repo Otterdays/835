@@ -1,6 +1,16 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 # Changelog
 
+## [0.9.0] - 2026-06-26
+- **Sitewide search:** `js/site-search.js` — modal on every page; indexes CBA articles, `cbaScannedPages`, `toolProgramScans`, `shopStewards`, and `employeesData`. Lazy-loads `data.js` when needed. Open via search button (top-right), Ctrl+K, or `/` (non-contract pages). Arrow keys + Enter in results.
+- **Deep links from search results:** `contract.html?q=…&article=…`, `scans.html?item=…`, `tool-program.html?item=…`, `stewards.html?site=…`, `employees.html?q=…`.
+- **Navigation:** `js/nav-config.js` — single source for grouped sidebar; `js/shell.js` renders nav and breadcrumbs.
+- **Home (`index.html`):** Portal cards grouped (Documents / Members / Feedback); quick-action row including sitewide search.
+- **Roster (`employees.html`):** Live search + facility filter chips; URL `?q=` pre-fills filter.
+- **Stewards (`stewards.html`):** Site filter chips; URL `?site=` pre-selects facility.
+- **Suggestions (`suggestions.html`):** Working client-side form — Share API on mobile, copy-to-clipboard fallback; topic/name/message fields.
+- **Archive panels:** `paneled-archive.js` honors `?item=` and hash for initial scan selection.
+
 ## [0.8.1] - 2026-04-26
 - **Separate contract document:** The former “article 20 / 21” content is not part of the master CBA (I–XIX). It is modeled as a second, two-section tool paper (`separate-paper-tool-control`, `separate-paper-lost-tool`) with `separatePapersIntro`, a list banner, distinct card styling, and copy/stats that count CBA articles vs. separate-paper parts.
 - [AMENDED] Repaired `data.js` parse error (extra `}` after Article XIX) that dropped the two separate-paper entries and prevented `toolProgramScans` from loading.

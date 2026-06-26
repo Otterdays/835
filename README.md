@@ -11,10 +11,12 @@ A static **document center** for **Operating Engineers Local 835**: the home pag
 
 ## ✨ Features
 
-- **Gateway home** (`index.html`) — cards linking to each document set; no heavy data or search on first load.
-- **Contract viewer** (`contract.html`) — search, split view, floating article desk, article jump.
-- **Scanned pages** (`scans.html`) and **tool program** (`tool-program.html`) — paneled archive UI and image lightbox.
-- **Shop stewards** / **employees** — simple roster pages.
+- **Gateway home** (`index.html`) — grouped portal cards (Documents / Members / Feedback), quick actions, lightweight first load.
+- **Sitewide search** (`js/site-search.js`) — search contract, scans, tool program, stewards, and roster from any page (Ctrl+K, `/`, or top-right button). Lazy-loads `data.js` when needed.
+- **Contract viewer** (`contract.html`) — in-page search, split view, floating article desk, article jump (`?q=`, `?article=`).
+- **Scanned pages** (`scans.html`) and **tool program** (`tool-program.html`) — paneled archive UI, list filter, image lightbox (`?item=` deep links).
+- **Shop stewards** — site filter chips (`?site=`); **Site roster** — search + facility filters (`?q=`).
+- **Suggestions** — share/copy form (no backend).
 - **100% client-side** — works on GitHub Pages; use a local HTTP server when developing (see below).
 
 ## 🚀 Live Website
@@ -35,12 +37,13 @@ Open **http://localhost:3000** (avoid opening `file://` directly so scripts and 
 
 | File / folder | Role |
 |---------------|------|
-| `index.html` | Gateway: navigation + portal cards only (`js/shell.js` for the menu) |
+| `index.html` | Gateway: grouped portal cards + quick actions (`js/nav-config.js`, `js/shell.js`, `js/site-search.js`) |
 | `contract.html` | CBA viewer — `data.js`, `js/contract-app.js` |
 | `scans.html` | Full-page scans — `data.js`, `js/paneled-archive.js`, `js/image-modal.js`, `js/scans-app.js` |
 | `tool-program.html` | Tool policy scans — same archive + `js/tool-app.js` |
-| `stewards.html` / `employees.html` | Rosters — `data.js` + small page scripts |
+| `stewards.html` / `employees.html` | Rosters — `data.js` + filter/search page scripts |
+| `suggestions.html` | Member feedback form — `js/suggestions-app.js` |
 | `data.js` | Contract text, scan lists, stewards, employees (edit to add content) |
-| `js/` | Page-specific logic; shared pieces: `shell.js`, `image-modal.js`, `paneled-archive.js` |
+| `js/` | Page apps + shared: `nav-config.js`, `shell.js`, `site-search.js`, `paneled-archive.js`, `image-modal.js` |
 | `style.css` | Shared styling |
 | `DOCS/` | Project notes and changelog |

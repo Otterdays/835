@@ -1,3 +1,13 @@
+[AMENDED 2026-06-26]:
+## Current Task:
+Docs updated for sitewide search + June UX pass (nav, portal, filters, suggestions, deep links).
+
+## Next Steps:
+- (none)
+
+## Actions Log:
+- [2026-06-26] Updated `SUMMARY.md`, `CHANGELOG.md` [0.9.0], `ARCHITECTURE.md`, `STYLE_GUIDE.md`, `My_Thoughts.md`, `README.md`.
+
 [AMENDED 2026-06-26]: Sitewide search (`js/site-search.js`) — contract, scans, tool program, stewards, roster; Ctrl+K / `/`; deep links to target pages.
 
 [AMENDED 2026-06-26]:
