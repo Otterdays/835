@@ -8,6 +8,7 @@
 
 [AMENDED 2026-04-26]: Per-page scripts under `js/*-app.js` plus shared `js/shell.js`, `js/paneled-archive.js`, `js/image-modal.js`. Legacy monolithic `script.js` removed.
 [AMENDED 2026-06-26]: Shared `js/nav-config.js` (sidebar structure), `js/site-search.js` (sitewide modal). Page apps: `contract-app.js`, `scans-app.js`, `tool-app.js`, `stewards-app.js`, `employees-app.js`, `suggestions-app.js`.
+[AMENDED 2026-07-28]: `index.html` = login; `home.html` = gateway. `js/auth.js` + `js/login-app.js`. Media in `images/`.
 - `data.js`: Contract text, scan metadata, stewards, employees — also feeds sitewide search index when loaded
 
 ## Design Philosophy

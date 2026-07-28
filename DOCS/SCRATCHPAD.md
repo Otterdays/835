@@ -1,3 +1,64 @@
+[AMENDED 2026-07-28]:
+## Current Task:
+Secure Member Action Center roadmap implemented through Phase 6 scaffolding — exposure containment, Vercel/Mongo auth APIs, Action Center, evidence/bargaining tools, structured suggestions, smoke/deploy checks.
+
+## Next Steps:
+- Make GitHub repo private; disable public Pages.
+- Configure Vercel env (`MONGODB_URI`, `AUTH_SECRET`); `npm run seed:user`.
+- Digitize remaining Article XIX holiday pages when scans arrive.
+- Member-verify facility naming / PICC recognition documents.
+
+## Actions Log:
+- [2026-07-28] Mobile polish pass: safe-area insets, home/login/action/suggestions stacking, touch targets, 360–480px and landscape tweaks; `viewport-fit=cover` on all HTML.
+- [2026-07-28] Suggestions board: posts display on-page; name optional (defaults Anonymous); localStorage only.
+- [2026-07-28] Phase 0: `.gitignore` / `.vercelignore`; stripped sample creds; unlinked `source/` downloads.
+- [2026-07-28] Phase 1: `api/auth/*`, `middleware.js`, Mongo users + rate limit, client `js/auth.js` API mode.
+- [2026-07-28] Phases 2–3: `member-action.html`, `evidence-log.html`, `bargaining.html` + nav/home links.
+- [2026-07-28] Phases 4–5: Article XIX pending-OCR note; structured suggestions + privacy warning.
+- [2026-07-28] Phase 6: `tests/smoke.js`, `scripts/check-deploy.js`, security checklist doc.
+
+[AMENDED 2026-07-28]:
+## Current Task:
+Login redesign complete — State Road / Local 835 visual identity matches the homepage.
+
+## Next Steps:
+- Verify facility naming and U.S. Facilities wording with members before public launch.
+- Private repo + Vercel/Mongo (or host auth) before treating content as confidential.
+- Exclude `source/` from public deploy; strip on-page sample credentials before public URL.
+
+## Actions Log:
+- [2026-07-28] Rebuilt `index.html` sign-in as a Local 835 State Road layout; retained auth form IDs and visible temporary sample credentials.
+- [2026-07-28] Added responsive login cover/panel styling with reduced-motion support.
+
+[AMENDED 2026-07-28]:
+## Current Task:
+Homepage redesign complete — State Road / Local 835 identity, facility links, and compact resource list.
+
+## Next Steps:
+- Verify facility naming and U.S. Facilities wording with members before public launch.
+- Private repo + Vercel/Mongo (or host auth) before treating content as confidential.
+- Exclude `source/` from public deploy; strip on-page sample credentials before public URL.
+
+## Actions Log:
+- [2026-07-28] Rebuilt `home.html`: Local 835 hero, U.S. Facilities State Road context, CFCF/RCF/PICC steward deep links, and six resource destinations.
+- [2026-07-28] Added scoped responsive `.home-*` styling and reduced-motion support.
+
+[AMENDED 2026-07-28]:
+## Current Task:
+Site audit complete — structure OK; gate is deterrent-only. Fixed auth-in-head flash + `launch.bat` cwd.
+
+## Next Steps:
+- Private repo + Vercel/Mongo (or host auth) before treating content as confidential.
+- Exclude `source/` from public deploy; strip on-page sample credentials before public URL.
+- Later: replace `js/auth.js` credential check with Vercel API + Mongo.
+
+## Actions Log:
+- [2026-07-28] Full site audit → `DOCS/debugs/debug_2026-07-28_site-audit.md` (security + functional).
+- [2026-07-28] Moved `auth.js` to `<head>` on protected pages; `launch.bat` uses `cd /d "%~dp0"`.
+- [2026-07-28] Moved scans/photos to `images/`, petition docs to `source/`; updated `data.js` paths.
+- [2026-07-28] Gateway → `home.html`; `index.html` is branded login; `js/auth.js` + `js/login-app.js`; shell Sign out.
+- [2026-07-28] Docs: SUMMARY, CHANGELOG [1.0.0], ARCHITECTURE, README, AGENTS.md.
+
 [AMENDED 2026-06-26]:
 ## Current Task:
 Docs updated for sitewide search + June UX pass (nav, portal, filters, suggestions, deep links).
@@ -108,3 +169,14 @@ Implemented side-by-side Split View reading mode.
 - [2026-03-27] Synthesized Page 1 of the official contract from user-provided image (page_1.jpg)
 - [2026-03-27] Cleared sample contract data and replaced with authentic Article I: Recognition & Scope
 - [2026-03-27] Enhanced script.js to handle multiline contract content and preservation of formatting in search highlights
+<!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+<!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+[AMENDED 2026-07-28]:
+## Current Task:
+Publish the new IUOE Local 835 Word and Markdown working documents in the member website.
+
+## Actions Log:
+- [2026-07-28] Added `member-documents.html` with Working Packet and Petition & Meeting Motion entries.
+- [2026-07-28] Added Word download and Markdown source links for both documents.
+- [2026-07-28] Linked Member Documents from the homepage and shared Documents navigation.
+- [2026-07-28] Added both working documents to sitewide search.

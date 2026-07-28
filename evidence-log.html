@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Local 835 — Evidence log</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/auth.js"></script>
+</head>
+<body>
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>Navigation</h2>
+            <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="nav-links" id="nav-links" aria-label="Site navigation"></ul>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <div class="container" id="main-container">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-page-title="Evidence log"></nav>
+        <header class="hero-header doc-hero">
+            <div class="hero-heading">
+                <div class="eyebrow-row">
+                    <span class="eyebrow">Local 835</span>
+                    <span class="status-chip">Export only</span>
+                </div>
+                <h1>Evidence log</h1>
+                <p class="subtitle">Tag sources as Verified / Reported / Allegation / Question / Legal. Entries stay in this browser tab until you export — nothing is uploaded.</p>
+            </div>
+        </header>
+
+        <aside class="document-notice" aria-label="Guardrails">
+            <strong>Do not enter:</strong> inmate information, prison-security material, access codes, post orders, personal medical data, privileged legal advice, or secret recordings. Keep originals intact; export a working copy.
+        </aside>
+
+        <section class="action-section">
+            <form id="evidence-form" class="action-form">
+                <label class="form-label" for="ev-status">Source status</label>
+                <select id="ev-status" class="form-control" required>
+                    <option value="V">V — Verified</option>
+                    <option value="R">R — Reported</option>
+                    <option value="A">A — Allegation</option>
+                    <option value="Q">Q — Question</option>
+                    <option value="L">L — Legal issue</option>
+                </select>
+
+                <label class="form-label" for="ev-item">Item</label>
+                <input type="text" id="ev-item" class="form-control" required>
+
+                <label class="form-label" for="ev-source">Source / custodian</label>
+                <input type="text" id="ev-source" class="form-control">
+
+                <label class="form-label" for="ev-date">Date</label>
+                <input type="date" id="ev-date" class="form-control">
+
+                <label class="form-label" for="ev-proves">What it proves</label>
+                <textarea id="ev-proves" class="form-control form-control--textarea" rows="2"></textarea>
+
+                <label class="form-label" for="ev-not">What it does not prove</label>
+                <textarea id="ev-not" class="form-control form-control--textarea" rows="2"></textarea>
+
+                <label class="form-label" for="ev-follow">Follow-up</label>
+                <textarea id="ev-follow" class="form-control form-control--textarea" rows="2"></textarea>
+
+                <div class="suggestion-actions">
+                    <button type="submit" class="btn-primary">Add entry</button>
+                    <button type="button" id="ev-export-md" class="btn-secondary">Export Markdown</button>
+                    <button type="button" id="ev-export-json" class="btn-secondary">Export JSON</button>
+                    <button type="button" id="ev-clear" class="btn-secondary">Clear list</button>
+                </div>
+                <p id="ev-status" class="suggestion-status" hidden aria-live="polite"></p>
+            </form>
+
+            <div id="ev-list" class="evidence-list" aria-live="polite"></div>
+        </section>
+    </div>
+
+    <script src="js/nav-config.js"></script>
+    <script src="js/shell.js"></script>
+    <script src="js/site-search.js"></script>
+    <script src="js/evidence-log-app.js"></script>
+</body>
+</html>

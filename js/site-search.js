@@ -52,6 +52,27 @@
     const buildIndex = () => {
         index = [];
 
+        [
+            {
+                title: 'IUOE Local 835 Working Packet',
+                body: 'Meeting preparation facts questions document requests proposed member action legal review bargaining U.S. Facilities',
+                meta: 'Word and Markdown working draft'
+            },
+            {
+                title: 'Petition and Meeting Motion',
+                body: 'Member petition signature sheet floor motion minutes language bargaining disclosure legal consultation ratification',
+                meta: 'Word and Markdown working draft'
+            }
+        ].forEach((document) => {
+            index.push({
+                category: 'Member Documents',
+                title: document.title,
+                body: `${document.title}\n${document.body}`,
+                meta: document.meta,
+                href: () => 'member-documents.html'
+            });
+        });
+
         if (typeof contractData !== 'undefined' && contractData.articles) {
             contractData.articles.forEach((article) => {
                 index.push({
@@ -187,7 +208,7 @@
         activeIndex = -1;
 
         if (!tokens.length) {
-            statusEl.textContent = 'Type to search contract, scans, tool program, stewards, and roster.';
+            statusEl.textContent = 'Type to search member documents, contract, scans, tool program, stewards, and roster.';
             return;
         }
 
@@ -270,7 +291,7 @@
 
         try {
             await ensureData();
-            statusEl.textContent = 'Type to search contract, scans, tool program, stewards, and roster.';
+            statusEl.textContent = 'Type to search member documents, contract, scans, tool program, stewards, and roster.';
         } catch {
             statusEl.textContent = 'Search data failed to load. Refresh and try again.';
         }
@@ -334,7 +355,7 @@
 
         statusEl = document.createElement('p');
         statusEl.className = 'site-search-status';
-        statusEl.textContent = 'Type to search contract, scans, tool program, stewards, and roster.';
+        statusEl.textContent = 'Type to search member documents, contract, scans, tool program, stewards, and roster.';
 
         resultsEl = document.createElement('ul');
         resultsEl.id = 'site-search-results';
@@ -397,7 +418,7 @@
 
             if (event.key === '/' && !isTypingTarget(event.target) && !isOpen()) {
                 const onContract =
-                    (SITE_PAGE_IDS?.[window.location.pathname.split('/').pop() || 'index.html'] || '') ===
+                    (SITE_PAGE_IDS?.[window.location.pathname.split('/').pop() || 'home.html'] || '') ===
                     'contract';
                 if (!onContract) {
                     event.preventDefault();

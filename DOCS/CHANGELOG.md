@@ -1,6 +1,37 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 # Changelog
 
+## [1.2.0] - 2026-07-28
+- **Mobile:** Sitewide responsive polish — safe-area insets, home/login stacking, full-width touch CTAs, 360–480px and landscape tweaks; home place label no longer overlaps the menu button.
+- **Security:** Private-host roadmap Phase 0–1 — deploy exclusions for `source/`, removed public demo/sample-password surfaces, Vercel `api/auth/*` + Edge `middleware.js`, Mongo user seeding + login rate limits (`mongodb`, `jose`).
+- **Member Action Center:** `member-action.html` — Article IV grievance prep, issue→article links, steward prep export, PICC coverage notice.
+- **Evidence / bargaining:** Client-only evidence log export; factual bargaining checklists and meeting language.
+- **Suggestions:** Structured workplace fields + privacy warning (still share/copy only).
+- **Content:** Article XIX marked pending digitization beyond page 13 heading.
+- **Ops:** `npm run test:smoke`, `npm run check:deploy`, security checklist under `DOCS/debugs/`.
+
+## [1.1.1] - 2026-07-28
+- **Login:** Rebuilt `index.html` to match the State Road homepage—Local 835 cover, U.S. Facilities context, CFCF / RCF / PICC, and responsive split-screen sign-in.
+- **Compatibility:** Kept `login-form`, field, and submit IDs unchanged; temporary `admin` / `sample` hint remains visible for the current verification stage.
+
+## [1.1.0] - 2026-07-28
+- **Homepage:** Rebuilt `home.html` around Operating Engineers Local 835’s State Road work sites. Hero names U.S. Facilities and CFCF / RCF / PICC, with direct CBA and site-search actions.
+- **Facility access:** Added plain CFCF / RCF / PICC links to filtered shop-steward pages.
+- **Resources:** Replaced three portal-card grids and disabled prior-CBA placeholder with one compact six-link member-resource list.
+- **Visual:** Added scoped responsive `.home-*` styling, hero/CTA motion, and `prefers-reduced-motion` support.
+
+## [1.0.1] - 2026-07-28
+- **Audit:** Full site audit documented in `DOCS/debugs/debug_2026-07-28_site-audit.md` (structure pass; static assets bypass client gate — expected until server auth).
+- **Fix:** `js/auth.js` loaded in `<head>` on all pages (reduces unauthenticated content flash).
+- **Fix:** `launch.bat` now `cd /d "%~dp0"` before `npx serve`.
+
+## [1.0.0] - 2026-07-28
+- **Login gate:** `index.html` branded sign-in; hardcoded sample account `admin` / `sample` in `js/auth.js` (sessionStorage). Protected pages redirect when unsigned; signed-in users hitting login go to `home.html`.
+- **Gateway rename:** Former document portal is `home.html`; nav Home + breadcrumbs updated.
+- **Organize:** Scans and steward photos → `images/`; petition/packet drafts → `source/`. `data.js` image paths updated.
+- **Shell:** Sign out control in the side panel.
+- **Docs:** `AGENTS.md` added; README / ARCHITECTURE / SUMMARY updated for gate + folders.
+
 ## [0.9.0] - 2026-06-26
 - **Sitewide search:** `js/site-search.js` — modal on every page; indexes CBA articles, `cbaScannedPages`, `toolProgramScans`, `shopStewards`, and `employeesData`. Lazy-loads `data.js` when needed. Open via search button (top-right), Ctrl+K, or `/` (non-contract pages). Arrow keys + Enter in results.
 - **Deep links from search results:** `contract.html?q=…&article=…`, `scans.html?item=…`, `tool-program.html?item=…`, `stewards.html?site=…`, `employees.html?q=…`.

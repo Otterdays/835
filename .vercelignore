@@ -1,0 +1,14 @@
+source/
+DOCS/
+AGENTS.md
+.env
+.env.*
+local.auth.json
+*.md
+!README.md
+node_modules/
+.git/
+.github/
+coverage/
+scripts/
+tests/

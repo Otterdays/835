@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Local 835 — Member Action Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/auth.js"></script>
+</head>
+<body>
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>Navigation</h2>
+            <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="nav-links" id="nav-links" aria-label="Site navigation"></ul>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <div class="container" id="main-container">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-page-title="Member Action Center"></nav>
+        <header class="hero-header doc-hero">
+            <div class="hero-heading">
+                <div class="eyebrow-row">
+                    <span class="eyebrow">Local 835</span>
+                    <span class="status-chip">Member tools</span>
+                </div>
+                <h1>Member Action Center</h1>
+                <p class="subtitle">Prepare a workplace issue using the CBA — deadlines, article links, and steward handoff. This page is not legal advice.</p>
+            </div>
+        </header>
+
+        <aside class="document-notice" aria-label="Coverage notice">
+            <strong>Unit coverage (PICC).</strong>
+            Article I of the digitized 2022–2026 CBA names Curran-Fromhold and Riverside. PICC members must verify the amendment, side letter, recognition basis, or other governing document before assuming identical coverage. Confirm with your steward.
+        </aside>
+
+        <nav class="action-jump" aria-label="Sections">
+            <a href="#grievance">Grievance prep</a>
+            <a href="#issues">Issue → article</a>
+            <a href="#steward-prep">Steward prep</a>
+        </nav>
+
+        <section id="grievance" class="action-section" aria-labelledby="grievance-heading">
+            <h2 id="grievance-heading">Workplace issue / grievance preparation</h2>
+            <p class="action-lead">Article IV uses short calendar-day windows. Contact a steward promptly and confirm how “days” are counted for your case. Missed limits may stop a grievance unless the parties agree otherwise.</p>
+            <ol class="action-steps">
+                <li><strong>Step 1</strong> — Within <strong>7 calendar days</strong> of the events, discuss with the applicable supervisor. <a href="contract.html?article=article-4&amp;q=Step%201">Open Article IV</a></li>
+                <li><strong>Step 2</strong> — If unresolved, reduce to writing within <strong>7 calendar days</strong> of the Step 1 answer; employee + steward sign; submit to Assistant Project Manager.</li>
+                <li><strong>Step 3</strong> — Appeal in writing within <strong>7 calendar days</strong> of Step 2 to Director of Human Resources (or designee).</li>
+                <li><strong>Arbitration notice</strong> — If Step 3 is unacceptable, Union must notify Employer within <strong>30 calendar days</strong> of the Step 3 answer.</li>
+            </ol>
+
+            <form id="grievance-form" class="action-form">
+                <label class="form-label" for="grievance-incident-date">Incident / event date</label>
+                <input type="date" id="grievance-incident-date" class="form-control">
+
+                <label class="form-label" for="grievance-facility">Facility</label>
+                <select id="grievance-facility" class="form-control">
+                    <option value="">Select…</option>
+                    <option value="CFCF">CFCF</option>
+                    <option value="RCF">RCF</option>
+                    <option value="PICC">PICC</option>
+                </select>
+
+                <label class="form-label" for="grievance-summary">Factual summary (what happened — no character judgments)</label>
+                <textarea id="grievance-summary" class="form-control form-control--textarea" rows="4"></textarea>
+
+                <label class="form-label" for="grievance-remedy">Remedy requested</label>
+                <textarea id="grievance-remedy" class="form-control form-control--textarea" rows="2"></textarea>
+
+                <fieldset class="action-checklist">
+                    <legend>Worksheet checkpoints</legend>
+                    <label><input type="checkbox" id="chk-step1"> Step 1 supervisor discussion occurred / scheduled</label>
+                    <label><input type="checkbox" id="chk-written"> Written grievance drafted (date, statement, remedy)</label>
+                    <label><input type="checkbox" id="chk-steward"> Steward contacted</label>
+                    <label><input type="checkbox" id="chk-hr"> Prepared for HR / Step 3 if needed</label>
+                </fieldset>
+
+                <div class="suggestion-actions">
+                    <button type="button" id="grievance-copy-btn" class="btn-primary">Copy worksheet</button>
+                    <a class="btn-secondary" href="stewards.html">Find steward</a>
+                </div>
+                <p id="grievance-status" class="suggestion-status" hidden aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section id="issues" class="action-section" aria-labelledby="issues-heading">
+            <h2 id="issues-heading">Common issue → CBA article</h2>
+            <p class="action-lead">Jump to the digitized contract language. Use sitewide search (Ctrl+K) for more.</p>
+            <div class="home-destination-list action-issue-grid">
+                <a href="contract.html?article=article-4&amp;q=grievance"><span>Grievance procedure</span><span>Article IV</span></a>
+                <a href="contract.html?article=article-5&amp;q=layoff"><span>Layoff / bump / recall</span><span>Article V</span></a>
+                <a href="contract.html?article=article-9&amp;q=steward"><span>Steward &amp; discipline meetings</span><span>Article IX</span></a>
+                <a href="contract.html?article=article-11&amp;q=EUTO"><span>Time off / EUTO</span><span>Article XI</span></a>
+                <a href="contract.html?article=article-13&amp;q=subcontract"><span>Subcontracting</span><span>Article XIII</span></a>
+                <a href="contract.html?article=article-17&amp;q=overtime"><span>Hours / OT / personnel file</span><span>Article XVII</span></a>
+                <a href="tool-program.html"><span>Tool discipline</span><span>Tool Program</span></a>
+            </div>
+        </section>
+
+        <section id="steward-prep" class="action-section" aria-labelledby="steward-heading">
+            <h2 id="steward-heading">Prepare for a steward</h2>
+            <p class="action-lead">Fill this before you call or meet. Nothing is uploaded — copy the text and bring it with you.</p>
+            <form id="steward-form" class="action-form">
+                <label class="form-label" for="steward-facility">Facility</label>
+                <select id="steward-facility" class="form-control">
+                    <option value="CFCF">CFCF</option>
+                    <option value="RCF">RCF</option>
+                    <option value="PICC">PICC</option>
+                </select>
+
+                <label class="form-label" for="steward-when">Date / time of event</label>
+                <input type="text" id="steward-when" class="form-control" placeholder="e.g. 2026-07-20, 3rd shift">
+
+                <label class="form-label" for="steward-witnesses">Witnesses (names only)</label>
+                <input type="text" id="steward-witnesses" class="form-control">
+
+                <label class="form-label" for="steward-supervisor">Supervisor involved</label>
+                <input type="text" id="steward-supervisor" class="form-control">
+
+                <label class="form-label" for="steward-article">Suspected CBA article</label>
+                <input type="text" id="steward-article" class="form-control" placeholder="e.g. Article IV / XVII">
+
+                <label class="form-label" for="steward-remedy">Remedy requested</label>
+                <textarea id="steward-remedy" class="form-control form-control--textarea" rows="2"></textarea>
+
+                <label class="form-label" for="steward-step1">Initial supervisor discussion?</label>
+                <select id="steward-step1" class="form-control">
+                    <option value="Not yet">Not yet</option>
+                    <option value="Yes — occurred">Yes — occurred</option>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Not applicable">Not applicable</option>
+                </select>
+
+                <label class="form-label" for="steward-facts">Factual summary</label>
+                <textarea id="steward-facts" class="form-control form-control--textarea" rows="4"></textarea>
+
+                <div class="suggestion-actions">
+                    <button type="button" id="steward-copy-btn" class="btn-primary">Copy for steward</button>
+                    <a id="steward-site-link" class="btn-secondary" href="stewards.html?site=CFCF">Open CFCF stewards</a>
+                </div>
+                <p id="steward-status" class="suggestion-status" hidden aria-live="polite"></p>
+            </form>
+        </section>
+    </div>
+
+    <script src="js/nav-config.js"></script>
+    <script src="js/shell.js"></script>
+    <script src="js/site-search.js"></script>
+    <script src="js/member-action-app.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Local 835 — Document center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/auth.js"></script>
+</head>
+<body class="home-body">
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>Navigation</h2>
+            <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="nav-links" id="nav-links" aria-label="Site navigation"></ul>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <main class="home-main" id="main-container">
+        <header class="home-hero">
+            <div class="home-hero-content">
+                <p class="home-kicker">Members’ document center</p>
+                <p class="home-brand">Operating Engineers Local 835</p>
+                <h1>State Road document center</h1>
+                <p class="home-lead">
+                    Resources for U.S. Facilities members at CFCF, RCF, and PICC
+                    in Philadelphia.
+                </p>
+                <div class="home-hero-actions" aria-label="Primary actions">
+                    <a class="home-action home-action--primary" href="member-action.html">Member Action Center</a>
+                    <a class="home-action home-action--secondary" href="contract.html">Open CBA</a>
+                    <button class="home-action home-action--secondary" id="gateway-search-btn" type="button">
+                        Search everything
+                    </button>
+                </div>
+            </div>
+            <p class="home-hero-place">Philadelphia · State Road</p>
+        </header>
+
+        <section class="home-sites" aria-labelledby="sites-heading">
+            <div class="home-section-heading">
+                <p class="home-section-kicker">Our work sites</p>
+                <h2 id="sites-heading">State Road facilities</h2>
+                <p>Find representation and member information for the U.S. Facilities workforce.</p>
+            </div>
+            <div class="home-site-list">
+                <a class="home-site-link" href="stewards.html?site=CFCF">
+                    <span class="home-site-code">CFCF</span>
+                    <span class="home-site-name">Curran-Fromhold Correctional Facility</span>
+                    <span class="home-link-arrow" aria-hidden="true">→</span>
+                </a>
+                <a class="home-site-link" href="stewards.html?site=RCF">
+                    <span class="home-site-code">RCF</span>
+                    <span class="home-site-name">Riverside Correctional Facility</span>
+                    <span class="home-link-arrow" aria-hidden="true">→</span>
+                </a>
+                <a class="home-site-link" href="stewards.html?site=PICC">
+                    <span class="home-site-code">PICC</span>
+                    <span class="home-site-name">Philadelphia Industrial Correctional Center</span>
+                    <span class="home-link-arrow" aria-hidden="true">→</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="home-destinations" aria-labelledby="destinations-heading">
+            <div class="home-section-heading">
+                <p class="home-section-kicker">Member resources</p>
+                <h2 id="destinations-heading">Open what you need</h2>
+            </div>
+            <nav class="home-destination-list" aria-label="Member resources">
+                <a href="member-action.html"><span>Member Action Center</span><span>Grievance prep &amp; issue guides</span></a>
+                <a href="contract.html"><span>2022–2026 CBA</span><span>Agreement and articles</span></a>
+                <a href="scans.html"><span>Scanned pages</span><span>Original document pages</span></a>
+                <a href="tool-program.html"><span>Tool program</span><span>Tool control references</span></a>
+                <a href="bargaining.html"><span>Bargaining tools</span><span>Checklists &amp; document requests</span></a>
+                <a href="stewards.html"><span>Shop stewards</span><span>Representation by site</span></a>
+                <a href="employees.html"><span>Site roster</span><span>Names and facilities</span></a>
+                <a href="suggestions.html"><span>Suggestions</span><span>Share member input</span></a>
+            </nav>
+        </section>
+    </main>
+    <script src="js/nav-config.js"></script>
+    <script src="js/shell.js"></script>
+    <script src="js/site-search.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navRoot = document.getElementById('nav-links');
 
     const currentPageId = () => {
-        const file = window.location.pathname.split('/').pop() || 'index.html';
+        const file = window.location.pathname.split('/').pop() || 'home.html';
         return SITE_PAGE_IDS[file] || '';
     };
 
@@ -64,15 +64,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const renderLogout = () => {
+        if (!sidePanel || !window.Auth?.logout) {
+            return;
+        }
+        if (sidePanel.querySelector('.nav-logout')) {
+            return;
+        }
+
+        const wrap = document.createElement('div');
+        wrap.className = 'nav-logout';
+
+        const user = Auth.currentUser?.();
+        if (user?.username) {
+            const who = document.createElement('p');
+            who.className = 'nav-logout-user';
+            who.textContent = `Signed in as ${user.username}`;
+            wrap.appendChild(who);
+        }
+
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'nav-logout-btn';
+        btn.textContent = 'Sign out';
+        btn.addEventListener('click', () => {
+            const result = Auth.logout();
+            if (result && typeof result.then === 'function') {
+                result.catch((err) => console.error('Logout failed', err));
+            }
+        });
+        wrap.appendChild(btn);
+        sidePanel.appendChild(wrap);
+    };
+
     const renderBreadcrumb = () => {
         const crumb = document.querySelector('.breadcrumb[data-page-title]');
-        if (!crumb || currentPageId() === 'index') {
+        if (!crumb || currentPageId() === 'home') {
             return;
         }
 
         const title = crumb.dataset.pageTitle;
         crumb.innerHTML = '';
-        crumb.appendChild(makeCrumbLink('Home', 'index.html'));
+        crumb.appendChild(makeCrumbLink('Home', 'home.html'));
 
         const sep = document.createElement('span');
         sep.className = 'breadcrumb-sep';
@@ -94,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     renderNav();
+    renderLogout();
     renderBreadcrumb();
 
     if (!menuBtn || !sidePanel || !overlay) {
