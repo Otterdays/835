@@ -2,7 +2,8 @@
 // Vercel Edge Middleware — Sign-in service disabled: allow direct click-to-enter access.
 
 export default async function middleware(request) {
-    const { pathname } = request.nextUrl;
+    // Plain Request in non-Next.js projects — `request.nextUrl` is undefined here.
+    const { pathname } = new URL(request.url);
 
     // Protect offline drafts in source/
     if (pathname.startsWith('/source/')) {

@@ -11,6 +11,7 @@ Disable sign-in service across the application and convert landing page into an 
 
 ## Actions Log:
 - [2026-10-27] Began disabling sign-in service requirement per user request ("desable the signin service, just like click to enter").
+- [2026-10-27] Fixed Vercel 500 on every page: `middleware.js` used `request.nextUrl` (Next.js-only; undefined in plain static project) → TypeError on each request. Now `new URL(request.url)`. Root cause was not `AUTH_SECRET`; `/api/auth/*` (outside matcher) returned 401 while all matched paths 500'd.
 
 [AMENDED 2026-07-28]:
 ## Current Task:
