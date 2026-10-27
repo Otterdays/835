@@ -1,3 +1,17 @@
+[AMENDED 2026-10-27]:
+## Current Task:
+Disable sign-in service across the application and convert landing page into an open "Click to enter" entrance.
+
+## Next Steps:
+- Update `js/auth.js` to enable open access mode and bypass blocking redirects.
+- Redesign `index.html` panel into a direct "Click to enter" portal entrance.
+- Update `js/login-app.js` to handle click-to-enter transition directly.
+- Update `middleware.js` to allow open traffic while preserving sensitive file protection.
+- Run tests (`npm run test:smoke`, `npm run check:deploy`).
+
+## Actions Log:
+- [2026-10-27] Began disabling sign-in service requirement per user request ("desable the signin service, just like click to enter").
+
 [AMENDED 2026-07-28]:
 ## Current Task:
 Secure Member Action Center roadmap implemented through Phase 6 scaffolding — exposure containment, Vercel/Mongo auth APIs, Action Center, evidence/bargaining tools, structured suggestions, smoke/deploy checks.

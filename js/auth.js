@@ -1,14 +1,15 @@
 // [TRACE: ARCHITECTURE.md]
-// NOTE: Prefer Vercel /api/auth/* + HttpOnly cookie. Local static serve may
-// use gitignored local.auth.json (never deploy). Middleware gates assets on Vercel.
+// NOTE: Sign-in service disabled — open member access ("click to enter").
+// Auth API routes (/api/auth/login) preserved for future private-host deployment.
 
 const AUTH_LOGIN_PAGE = 'index.html';
 const AUTH_HOME_PAGE = 'home.html';
 const AUTH_SESSION_KEY = 'oe835_auth';
+const AUTH_DISABLED = true; // Open access mode: No credentials required to enter
 
 const Auth = (() => {
     let cachedUser = null;
-    let mode = 'unknown'; // 'api' | 'local' | 'unknown'
+    let mode = 'open'; // 'open' | 'api' | 'local' | 'unknown'
 
     const isLoginPage = () => {
         const file = window.location.pathname.split('/').pop() || AUTH_LOGIN_PAGE;
@@ -93,11 +94,32 @@ const Auth = (() => {
         }
     };
 
-    const isAuthenticated = () => Boolean(cachedUser) || Boolean(readLegacySession());
+    const grantAccess = () => {
+        cachedUser = { username: 'Member', role: 'member' };
+        writeLegacySession(cachedUser);
+        return cachedUser;
+    };
 
-    const currentUser = () => cachedUser || readLegacySession();
+    const isAuthenticated = () => {
+        if (AUTH_DISABLED) {
+            return true;
+        }
+        return Boolean(cachedUser) || Boolean(readLegacySession());
+    };
+
+    const currentUser = () => {
+        if (AUTH_DISABLED) {
+            return cachedUser || readLegacySession() || { username: 'Member', role: 'member' };
+        }
+        return cachedUser || readLegacySession();
+    };
 
     const login = async (username, password) => {
+        if (AUTH_DISABLED) {
+            grantAccess();
+            return { ok: true };
+        }
+
         const user = String(username || '').trim();
         const pass = String(password || '');
 
@@ -165,6 +187,11 @@ const Auth = (() => {
     };
 
     const requireAuth = async () => {
+        if (AUTH_DISABLED) {
+            // Open access: do not enforce credentials or redirect
+            return;
+        }
+
         const user = await probeApi();
         if (isLoginPage()) {
             if (user || readLegacySession()) {
@@ -188,9 +215,11 @@ const Auth = (() => {
     return {
         isAuthenticated,
         currentUser,
+        grantAccess,
         login,
         logout,
         isLoginPage,
+        isAuthDisabled: () => AUTH_DISABLED,
         HOME: AUTH_HOME_PAGE,
         LOGIN: AUTH_LOGIN_PAGE
     };

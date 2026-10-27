@@ -2381,6 +2381,74 @@ body.site-search-open {
     cursor: wait;
 }
 
+.enter-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 1.25rem 0 0.5rem;
+    animation: login-fade-up 0.55s ease 0.34s both;
+}
+
+.enter-lead {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.enter-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.enter-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.enter-feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-size: 0.75rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.enter-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.1rem 1.6rem;
+    font-size: 1.12rem;
+    border-radius: 14px;
+}
+
+.enter-arrow {
+    display: inline-block;
+    font-size: 1.25rem;
+    line-height: 1;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.enter-submit:hover:not(:disabled) .enter-arrow {
+    transform: translateX(5px);
+}
+
 .login-hint {
     margin-top: 1.35rem;
     padding: 0.85rem 1rem;

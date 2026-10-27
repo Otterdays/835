@@ -3,6 +3,7 @@
 import { jwtVerify } from 'jose';
 
 const COOKIE_NAME = 'oe835_session';
+const AUTH_ENABLED = process.env.AUTH_ENABLED === 'true';
 const PUBLIC_PATHS = new Set([
     '/',
     '/index.html',
@@ -52,6 +53,10 @@ export default async function middleware(request) {
         if (pathname.startsWith('/source/')) {
             return new Response('Not found', { status: 404 });
         }
+        return;
+    }
+
+    if (!AUTH_ENABLED) {
         return;
     }
 
