@@ -36,7 +36,10 @@ const SITE_NAV = [
     },
     {
         label: 'Feedback',
-        items: [{ href: 'suggestions.html', label: 'Suggestions', id: 'suggestions' }]
+        items: [
+            { href: 'forum.html', label: 'Community Forum', id: 'forum' },
+            { href: 'suggestions.html', label: 'Suggestions', id: 'suggestions' }
+        ]
     }
 ];
 
@@ -51,5 +54,6 @@ const SITE_PAGE_IDS = {
     'tool-program.html': 'tool-program',
     'stewards.html': 'stewards',
     'employees.html': 'employees',
+    'forum.html': 'forum',
     'suggestions.html': 'suggestions'
 };

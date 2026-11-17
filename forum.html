@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Local 835 — Community Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/auth.js"></script>
+</head>
+<body>
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>Navigation</h2>
+            <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="nav-links" id="nav-links" aria-label="Site navigation"></ul>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <div class="container" id="main-container">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-page-title="Community Forum"></nav>
+        <header class="hero-header doc-hero">
+            <div class="hero-heading">
+                <div class="eyebrow-row">
+                    <span class="eyebrow">Local 835</span>
+                    <span class="status-chip">Community Forum</span>
+                </div>
+                <h1>Community Forum</h1>
+                <p class="subtitle">Talk with fellow members. Pick a temporary name and start posting — no password, no sign-up.</p>
+            </div>
+        </header>
+
+        <aside class="document-notice" aria-label="Forum rules">
+            <strong>Keep it factual and respectful.</strong> No SSNs, medical details, inmate information, security procedures, or privileged legal communications. Names are temporary and unverified — anyone can type any name, so never treat a post as official union communication. For urgent issues contact your <a href="stewards.html">shop steward</a>.
+        </aside>
+
+        <div class="forum-account" id="forum-account" hidden>
+            <p class="forum-account-label">Posting as <strong id="forum-account-name"></strong></p>
+            <button type="button" id="forum-account-toggle" class="btn-secondary" aria-expanded="false" aria-controls="forum-account-panel">Account options</button>
+        </div>
+
+        <section class="suggestion-card forum-account-panel" id="forum-account-panel" hidden aria-labelledby="forum-account-heading">
+            <h2 id="forum-account-heading">Account options</h2>
+            <p class="forum-help">Your name is saved only in this browser. There is no password, and names are not reserved — if you clear your browser data you will need to pick a name again.</p>
+            <form id="forum-name-form" class="suggestion-form" novalidate>
+                <label class="form-label" for="forum-name-change">Change temporary name</label>
+                <input type="text" id="forum-name-change" class="form-control" maxlength="20" autocomplete="nickname">
+                <div class="suggestion-actions">
+                    <button type="submit" class="btn-primary">Save name</button>
+                    <button type="button" id="forum-name-random-change" class="btn-secondary">Suggest a name</button>
+                    <button type="button" id="forum-name-forget" class="btn-secondary">Forget my name</button>
+                </div>
+                <p id="forum-account-status" class="suggestion-status" hidden aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section class="suggestion-card forum-name-setup" id="forum-name-setup" hidden aria-labelledby="forum-setup-heading">
+            <h2 id="forum-setup-heading">Pick a temporary name</h2>
+            <p class="forum-help">Shown on your posts. 3–20 characters: letters, numbers, spaces, - and _. You can change it later under Account options. Please don't use your real name if you'd rather stay private.</p>
+            <form id="forum-setup-form" class="suggestion-form" novalidate>
+                <label class="form-label" for="forum-setup-name">Temporary name</label>
+                <input type="text" id="forum-setup-name" class="form-control" maxlength="20" autocomplete="nickname" required>
+                <div class="suggestion-actions">
+                    <button type="submit" class="btn-primary">Start posting</button>
+                    <button type="button" id="forum-name-random-setup" class="btn-secondary">Suggest a name</button>
+                </div>
+                <p id="forum-setup-status" class="suggestion-status" hidden aria-live="polite"></p>
+            </form>
+        </section>
+
+        <!-- Thread list + new thread -->
+        <section class="suggestions-section" id="forum-list-view">
+            <div class="suggestion-card" id="forum-new-card">
+                <h2>Start a thread</h2>
+                <form id="forum-thread-form" class="suggestion-form" novalidate>
+                    <label class="form-label" for="forum-thread-category">Category</label>
+                    <select id="forum-thread-category" class="form-control"></select>
+
+                    <label class="form-label" for="forum-thread-title">Title</label>
+                    <input type="text" id="forum-thread-title" class="form-control" maxlength="120" placeholder="What's this about?" required>
+
+                    <label class="form-label" for="forum-thread-body">Message</label>
+                    <textarea id="forum-thread-body" class="form-control form-control--textarea" maxlength="5000" placeholder="Facts first. What happened, where, and what you'd like to hear from others." required></textarea>
+
+                    <div class="forum-honeypot" aria-hidden="true">
+                        <label for="forum-thread-website">Leave this field empty</label>
+                        <input type="text" id="forum-thread-website" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="suggestion-actions">
+                        <button type="submit" class="btn-primary" id="forum-thread-submit">Post thread</button>
+                    </div>
+                    <p id="forum-thread-status" class="suggestion-status" hidden aria-live="polite"></p>
+                </form>
+            </div>
+
+            <section class="suggestion-board" aria-labelledby="forum-board-heading">
+                <div class="suggestion-board-header">
+                    <h2 id="forum-board-heading">Threads</h2>
+                    <p id="forum-board-count" class="suggestion-board-count"></p>
+                </div>
+                <label class="form-label" for="forum-filter">Show</label>
+                <select id="forum-filter" class="form-control"></select>
+                <div id="forum-thread-list" class="suggestion-list" aria-live="polite"></div>
+            </section>
+        </section>
+
+        <!-- Single thread -->
+        <section class="forum-thread-view" id="forum-thread-view" hidden>
+            <a href="#" class="forum-back" id="forum-back">&larr; All threads</a>
+            <article class="suggestion-post forum-thread-main" id="forum-thread-main" aria-live="polite"></article>
+
+            <section class="suggestion-board forum-replies" aria-labelledby="forum-replies-heading">
+                <div class="suggestion-board-header">
+                    <h2 id="forum-replies-heading">Replies</h2>
+                    <p id="forum-replies-count" class="suggestion-board-count"></p>
+                </div>
+                <div id="forum-reply-list" class="suggestion-list" aria-live="polite"></div>
+            </section>
+
+            <div class="suggestion-card" id="forum-reply-card">
+                <h3>Reply</h3>
+                <form id="forum-reply-form" class="suggestion-form" novalidate>
+                    <label class="form-label" for="forum-reply-body">Your reply</label>
+                    <textarea id="forum-reply-body" class="form-control form-control--textarea" maxlength="3000" required></textarea>
+
+                    <div class="forum-honeypot" aria-hidden="true">
+                        <label for="forum-reply-website">Leave this field empty</label>
+                        <input type="text" id="forum-reply-website" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="suggestion-actions">
+                        <button type="submit" class="btn-primary" id="forum-reply-submit">Post reply</button>
+                    </div>
+                    <p id="forum-reply-status" class="suggestion-status" hidden aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </div>
+    <script src="js/nav-config.js"></script>
+    <script src="js/shell.js"></script>
+    <script src="js/site-search.js"></script>
+    <script src="js/forum-app.js"></script>
+</body>
+</html>

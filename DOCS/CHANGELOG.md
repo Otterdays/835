@@ -1,4 +1,10 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+
+## [1.3.0] - 2026-11-17
+- **Community forum:** `forum.html` — threads + replies, category filter, temporary usernames saved in the browser (no login), Account options to change/forget the name.
+- **API:** `GET/POST /api/forum/threads`, `GET/POST /api/forum/thread` on Vercel + Mongo (`forum_threads`, `forum_replies`, `forum_rate`).
+- **Abuse controls:** server validation, reserved name prefixes, per-IP rate limits, honeypot, size caps.
+- **Tests:** smoke checks for forum validation + wiring.
 # Changelog
 
 ## [1.2.0] - 2026-07-28

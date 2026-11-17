@@ -25,7 +25,8 @@ const requiredPages = [
     'bargaining.html',
     'contract.html',
     'suggestions.html',
-    'member-documents.html'
+    'member-documents.html',
+    'forum.html'
 ];
 
 requiredPages.forEach((file) => {
@@ -65,6 +66,32 @@ ok(memberAction.includes('7 calendar days'), 'Action Center cites 7-day windows'
 const suggestions = fs.readFileSync(path.join(root, 'suggestions.html'), 'utf8');
 ok(suggestions.includes('suggestion-facility'), 'structured facility field');
 ok(suggestions.includes('Privacy'), 'privacy warning present');
+
+// Community forum (temporary usernames, no login)
+const forumLib = require(path.join(root, 'api/_lib/forum.js'));
+const rejects = (fn) => {
+    try {
+        fn();
+        return false;
+    } catch (err) {
+        return err.status === 400;
+    }
+};
+ok(forumLib.validateUsername('  Steady   Wrench 42 ') === 'Steady Wrench 42', 'forum: username whitespace normalized');
+ok(rejects(() => forumLib.validateUsername('ab')), 'forum: username too short rejected');
+ok(rejects(() => forumLib.validateUsername('x'.repeat(21))), 'forum: username too long rejected');
+ok(rejects(() => forumLib.validateUsername('bad<name>')), 'forum: username markup rejected');
+ok(rejects(() => forumLib.validateUsername('Shop Steward Joe')), 'forum: steward-impersonating username rejected');
+ok(rejects(() => forumLib.validateUsername('ADMIN')), 'forum: reserved username rejected');
+ok(rejects(() => forumLib.validateCategory('Nope')), 'forum: unknown category rejected');
+ok(rejects(() => forumLib.parseObjectId('not-an-id')), 'forum: bad thread id rejected');
+ok(forumLib.cleanText('a\u0000b\r\nc', { min: 1, max: 10 }, 'x') === 'ab\nc', 'forum: control chars stripped');
+ok(fs.existsSync(path.join(root, 'api/forum/threads.js')), 'api/forum/threads.js exists');
+ok(fs.existsSync(path.join(root, 'api/forum/thread.js')), 'api/forum/thread.js exists');
+ok(nav.includes('forum.html'), 'nav includes forum');
+const forumApp = fs.readFileSync(path.join(root, 'js/forum-app.js'), 'utf8');
+ok(!forumApp.includes('innerHTML'), 'forum client never uses innerHTML');
+ok(forumApp.includes('oe835_forum_username'), 'forum client stores temp username locally');
 
 console.log(failed ? `\n${failed} smoke check(s) failed` : '\nAll smoke checks passed');
 process.exit(failed ? 1 : 0);

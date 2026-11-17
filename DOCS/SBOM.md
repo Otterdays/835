@@ -1,4 +1,6 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+
+[AMENDED 2026-11-17]: Community forum added with no new dependencies (reuses `mongodb`).
 # SBOM
 
 [AMENDED 2026-07-28]: **Vercel + Mongo auth dependencies added.**

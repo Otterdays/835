@@ -104,3 +104,11 @@ flowchart LR
 | `article` | `contract.html` | Scroll to article (`view-{id}`) |
 | `item` | `scans.html`, `tool-program.html` | Select scan row in panel |
 | `site` | `stewards.html` | Pre-select facility chip |
+
+
+## Community forum (added 2026-11-17)
+
+- **Client:** `forum.html` + `js/forum-app.js`. Hash routing (`#t=<threadId>`). Temp username in `localStorage` key `oe835_forum_username`; all post text rendered via `textContent`.
+- **API:** `api/forum/threads.js` (GET list / POST new thread), `api/forum/thread.js` (GET thread + replies / POST reply). Shared validation + rate limiting in `api/_lib/forum.js` (underscore = not deployed as its own function).
+- **Mongo collections:** `forum_threads` (title, body, category, author, createdAt, lastActivityAt, replyCount), `forum_replies` (threadId, body, author, createdAt), `forum_rate` (per-IP counters, TTL). Indexes created in `api/lib/mongo.js`.
+- **Trust model:** author names are self-asserted labels, not identities. Server enforces format + reserved prefixes only.

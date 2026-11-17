@@ -26,6 +26,13 @@ async function ensureIndexes(db) {
     await db.collection('users').createIndex({ username: 1 }, { unique: true });
     await db.collection('login_attempts').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
     await db.collection('login_attempts').createIndex({ key: 1 });
+
+    // Community forum
+    await db.collection('forum_threads').createIndex({ lastActivityAt: -1 });
+    await db.collection('forum_threads').createIndex({ category: 1, lastActivityAt: -1 });
+    await db.collection('forum_replies').createIndex({ threadId: 1, createdAt: 1 });
+    await db.collection('forum_rate').createIndex({ key: 1 }, { unique: true });
+    await db.collection('forum_rate').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 }
 
 module.exports = { getDb };

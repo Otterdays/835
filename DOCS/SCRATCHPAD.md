@@ -1,3 +1,21 @@
+[AMENDED 2026-11-17]:
+## Current Task:
+Community forum (`forum.html`) with temporary local usernames; threads/replies stored in Mongo Atlas via Vercel `api/forum/*`.
+
+## Next Steps:
+- Set `MONGODB_URI` (Atlas SRV string for the `835` cluster) + `MONGODB_DB` in Vercel env and local `.env`; rotate the Atlas DB user password (it was visible in a screenshot).
+- Atlas Network Access: allow Vercel (`0.0.0.0/0` — Vercel has no fixed egress IPs on Hobby/Pro) or the connection will time out.
+- Deploy, post a test thread, confirm indexes were created (`forum_threads`, `forum_replies`, `forum_rate`).
+- Moderation (delete/lock) is not built — remove bad posts in Atlas Data Explorer until a mod tool exists.
+- Later: real accounts (reuse `users` collection / `api/auth/*`) and name reservation.
+
+## Actions Log:
+- [2026-11-17] Added `forum.html`, `js/forum-app.js`, `api/forum/threads.js`, `api/forum/thread.js`, `api/_lib/forum.js`; nav + home link; Mongo indexes in `api/lib/mongo.js`; forum CSS appended to `style.css`.
+- [2026-11-17] Username = localStorage `oe835_forum_username` (3–20 chars, reserved-prefix block for admin/steward/etc). Account options panel: change / suggest / forget. No password; names are not unique or claimed.
+- [2026-11-17] Safety: server-side validation, per-IP fixed-window rate limit (5 threads/h, 20 replies/h, `forum_rate` TTL), honeypot field, request size cap, client renders with textContent only.
+- [2026-11-17] Atlas cluster is MongoDB 8.0.37 (no 9.0 exists); `mongodb` driver ^6.17 is compatible. `api/_lib` underscore prefix keeps helper from counting as a Vercel function.
+- [2026-11-17] Verified with in-memory fake DB (API + full UI flow, XSS strings render as text); not yet verified against real Atlas.
+
 [AMENDED 2026-10-27]:
 ## Current Task:
 Disable sign-in service across the application and convert landing page into an open "Click to enter" entrance.
