@@ -330,14 +330,184 @@ Exhibit “B” shall be modified to reflect the agreed upon wage increase. Exhi
 
 Section 2. All wages are to be paid biweekly. When employees are terminated, they shall be paid all wages or other compensation due not later than the next regular payday on which wages would otherwise be due and payable as prescribed by Pennsylvania Wage Payment and collection law.
 
-[Article XXI continues beyond scanned page 15.]`
+Exhibit “B” — WAGE RATES
+
+Job Class | 7/1/2022 | 7/1/2023 | 7/1/2024 | 7/1/2025
+Building Engineer, day | $38.41 | $39.85 | $41.34 | $42.79
+Building Engineer, shift | $39.91 | $41.35 | $42.84 | $44.29
+Carpenter/Locksmith | $38.41 | $39.85 | $41.34 | $42.79
+Data Clerk | $27.98 | $29.03 | $30.11 | $31.17
+Electrician, day | $38.41 | $39.85 | $41.34 | $42.79
+Electrician, shift | $39.91 | $41.35 | $42.84 | $44.29
+Electronic Locksmith | $38.41 | $39.85 | $41.34 | $42.79
+Kitchen Mechanic | $38.41 | $39.85 | $41.34 | $42.79
+Kitchen Supervisor | $46.31 | $48.05 | $49.85 | $51.59
+Laborer | $32.39 | $33.60 | $34.86 | $36.08
+Maintenance Mechanic | $38.41 | $39.85 | $41.34 | $42.79
+Painter | $36.30 | $37.66 | $39.07 | $40.44
+Plumber, day | $38.41 | $39.85 | $41.34 | $42.79
+Plumber, shift | $39.91 | $41.35 | $42.84 | $44.29
+Secretary | $27.98 | $29.03 | $30.11 | $31.17
+Stationary Engineer, day | $38.41 | $39.85 | $41.34 | $42.79
+Stationary Engineer, shift | $39.91 | $41.35 | $42.84 | $44.29
+Supply Clerk | $32.39 | $33.60 | $34.86 | $36.08
+Trades Helper, day | $32.39 | $33.60 | $34.86 | $36.08
+Trades Helper, shift | $33.89 | $35.10 | $36.36 | $37.58`
         },
         {
             id: "article-22",
             title: "ARTICLE XXII. HEALTH CARE INSURANCE",
             content: `Section 1. The Employer will provide Group Long Term Disability (LTD) coverage for all full time eligible employees.
 
-[Article XXII continues beyond scanned page 15.]`
+(a) Group LTD coverages, benefits, claims procedures and eligibility requirements are as described in the U.S. Facilities Plan Document, which is made a part of this agreement by reference.
+
+(b) The Employer reserves the right to change insurance carriers, modify, alter, or improve the Group LTD Plan, but will maintain equivalent coverage for participating employees.
+
+Section 2. The Employer agrees to make contributions to the Local 835 Health and Welfare Fund to provide the following benefits for all covered employees and their dependents: Medical, Prescription Drug, Vision, Life Insurance, Accident and Sickness Insurance. Contributions shall be as set forth in Exhibit “A”.
+
+Section 3. The Employer agrees to provide dental coverage for all bargaining unit employees pursuant to the benefit structure set forth in its current U.S. Facilities’ Dental Plan. Employees shall not be responsible for any contributions toward dental premium payments during the term of this Agreement.
+
+Exhibit “A” — HEALTH AND WELFARE CONTRIBUTIONS
+
+The amounts below represent the total amount to be contributed per hour worked, up to a maximum of forty (40) hours per week to the Health and Welfare Fund.
+
+Through June 30, 2022 — $11.93 per hour
+
+Effective July 1, 2023 — $12.21 per hour
+
+The Employer’s contribution shall not increase more than 4% per annum in each successive year of the Collective Bargaining Agreement.
+
+For the duration of this Agreement, $0.63 per hour will be deducted from employees’ hourly wages to assist with the Employer’s health and welfare contributions.`
+        },
+        {
+            id: "article-23",
+            title: "ARTICLE XXIII. MISCELLANEOUS",
+            content: `Section 1. Safety Committee: A safety committee will be established between the Union and the Employer as follows:
+
+(a) Membership for the Union shall consist of the Shop Stewards; for the Employer, the Assistant Project Managers.
+
+(b) The Safety Committee will meet at least quarterly to consider safety awareness, education, and training; identification of any unsafe conditions.
+
+(c) Any committee member can propose a special meeting, subject to the approval of the Project Manager.
+
+Section 2. Uniforms: The Employer agrees to furnish employees work uniforms, consisting of a hat, five (5) pairs of pants, and five (5) shirts (long sleeve, short sleeve, or a combination), per year, to be worn during working hours while on duty. All uniforms will be distributed between June 1st and August 31st of a calendar year. Employer will Supply one (1) jacket, and one (1) winter hat per year. Replacements for jackets will be made based on fair wear and tear. The employer will pay $100 to each covered employee, if required by his/her position, each year, as a shoe allowance to be paid between August 1st and August 31st of each calendar year.
+
+Section 3. Job Posting: The Employer agrees to post all job openings pertaining to transfer or promotion within the bargaining unit for a period of seven (7) calendar days. Each such posting shall specify the shift for the particular job opening.
+
+Section 4. Bargaining Unit Work: Neither the Project Manager nor the Assistant Project Managers will perform bargaining unit work except if bargaining unit members cannot be obtained to assist in diagnosing a problem or for the purpose of instruction and training.
+
+Section 5. Substance Abuse Policy: This Agreement incorporates the Substance Abuse Policy appearing as Exhibit C.
+
+Section 6. All discipline shall be imposed on an employee within ten (10) days from the date the Employer first became aware of the incident leading to the discipline, unless the Union agrees to an extension of time, or unless the discipline is the result of action by the City. Requests by the Employer for additional time will not be unreasonably rejected. The employer represents that it will not initiate contact with the Prison with the sole purpose of seeking to have an employee barred from the prison.
+
+Section 7. Perfect Attendance Plan
+
+a. Perfect attendance is defined as having no time and attendance violations.
+
+b. An employee who attains a 12-month period of perfect attendance will receive 8 hours pay at the end of that 12 month period. Thereafter, a new 12-month period will start for that employee. Payment shall be made within sixty (60) days of a perfect 12 month period, following notification to the employer by the union.
+
+c. The 12-month period is a rolling 12 months. That is, if an employee incurs an attendance violation, that employee’s 12 month period begins the day after the most recent violation.
+
+Section 8. (Work Rules). The parties agree to meet and discuss the issue of work and safety rules after ratification.
+
+Section 9. (Random Drug Testing Plan): See attached Exhibit C.
+
+EXHIBIT C. - SUBSTANCE ABUSE POLICY
+
+U.S. Facilities, Inc. is committed to providing a safe and healthful working environment for its employees. Substance abuse threatens the safety and healthiness of the workplace, and threatens our productivity in providing full service to our client by increasing tardiness, illness, and job-related accidents. It reduces judgment, and threatens employee morale. Some of the substances which cause such problems include: alcoholic beverages, controlled drugs (such as tranquilizers, barbiturates and stimulants), and illegal drugs (such as heroin, cocaine, and marijuana).
+
+As set forth more fully below, U.S. Facilities is a drug-free workplace that strictly prohibits the manufacture, use, and distribution of controlled substances (as defined below), as well as the consumption of alcoholic beverages in the workplace. Employees who are found to have violated this policy will be subject to discipline, up to and including termination of employment. In addition, treatment, rehabilitation, and/or disciplinary action may be required where an employee’s job performance is affected by off-the-job drug or alcohol abuse, because the abuse of such substances may jeopardize the safety of other employees, employees of our client, the public, and U.S. Facilities or Philadelphia Prison System property.
+
+For these reasons, and in compliance with the federal “Drug-Free Workplace Act of 1989”, U.S. Facilities, Inc., has established the following Substance Abuse Policy for its employees at the Curran-Fromhold Correctional Facility or at other portions of the Philadelphia Prison System.
+
+DEFINITIONS
+
+For the purposes of this policy, the following terms are defined as noted below:
+
+Alcohol: Any beverage containing alcohol which is capable of producing a physical, mental, emotional or behavioral change in the user.
+
+Company Premise: Includes the Curran-Fromhold Correctional Facility and/or other facilities within the Philadelphia Prison System that are owned, leased or operated by USF or its clients.
+
+Drug Paraphernalia: Any equipment, device, apparatus which was used by an employee for the purpose of consumption, ingestion or inhalation of illegal drugs.
+
+Illegal Drugs: Includes: (1) any chemical substance whose manufacture, use, possession or sale is prohibited by state or federal law; (2) any legally-dispensable controlled substance (medications available only as prescribed by a licensed physician) obtained fraudulently or used by any individual other than the person for whom prescribed; (3) any over-the-counter medication or substance capable of impairing one’s alertness and/or physical or mental reflexes taken for purposes of abuse or misuse.
+
+Work Day: Work Day includes, in addition to actual working time, break and meal periods, if the employee returns to work after such break or meal period, regardless of whether the individual is on U.S. Facility premises during such time and regardless of whether the individual is paid for such time.
+
+Prescription or Over the Counter Medication: Medication normally taken for medicinal or other legitimate reasons, consistent with directions of a physician or, in the case of over the counter medications, consistent with the directions on the package.
+
+GENERAL POLICY
+
+U.S. Facilities, Inc. prohibits the manufacture, possession, sale, use, being under the influence, distributing or dispensing of illegal drugs and controlled substances, including the possession and or distribution of Drug Paraphernalia, by employees during the Work Day, while on the job, or while on USF or client property (including owned or leased parking facilities), or any other work site.
+
+U.S. Facilities, Inc., also prohibits the manufacture, unauthorized possession, sale, being under the influence, distributing or dispensing of alcohol by employees while on the job, or while on USF or client property (including owned or leased parking facilities), or any other work site. All employees are prohibited from consuming alcohol during any portion of their work day. This shall not prohibit employees from having unopened containers of alcohol in their private vehicles.
+
+To determine whether alcohol or illegal drugs or controlled substances are located on or are being used on U.S. Facilities, Inc., or Philadelphia Prison System property (including owned or leased parking facilities), or any other work site, USF reserves the right to conduct searches, or to have searches conducted on its behalf, when reasonable suspicion is present.
+
+Any employee whom U.S. Facilities, Inc., has reason to believe is engaged in the manufacture, sale, distribution or possession of illegal drugs or controlled substances or engaged in the manufacture, sale, distribution or unauthorized possession of (excluding unopened containers of alcohol in an employee’s private vehicle) alcohol on U.S. Facilities, Inc., or Philadelphia Prison System property (including owned or leased parking facilities), or any other work site will be subject to discipline up to and including discharge. Employees who are convicted of the manufacture, sale, or distribution of illegal drugs or controlled substances, shall be subject to discipline up to and including discharge. If such conviction occurs by reason of off duty conduct, discipline up to and including discharge will be incurred if the nature of the conduct may be related to, or have an impact upon, the employee’s job.
+
+Employees are required to be fit-for-duty during the Work Day and while on USF premises. An employee is unfit-for-duty if he or she tests positive for drugs or alcohol. A positive drug test includes positive-dilute (defined as a urine specimen with creatinine and specific gravity values that are lower than expected for human urine)..
+
+All records concerning test results will be kept in the employee’s medical files for two (2) years, which are maintained separately from the employee’s personnel file. These files will be considered confidential except that information disclosed in such tests will be communicated to such USF personnel or within the laboratory that need to know such information in order to make appropriate employment decisions about the individual.
+
+TESTING
+
+Random Drug Testing Policy
+
+As set forth in Article XXIII, Section 9 of this Agreement, U.S. Facilities will conduct random drug screenings of its employees, including full-time, part-time and hourly employees, as well as supervisors and managers. USF follows the following guidelines when conducting random drug testing of its employees:
+
+a. All testing will be conducted by a licensed independent medical laboratory, which will follow testing standards established by applicable state and/or federal laws.
+
+b. Testing will be conducted by urine sample provided by the employee to the independent medical laboratory under procedures established by the laboratory.
+
+c. USF will not participate in selecting person(s) to be tested.
+
+d. USF will not know the test schedule.
+
+e. Tests will be performed during shift. If test runs beyond the end of the employee’s shift, the employee will be paid overtime. All sections of the current plan remain in full force and effect, including provisions relating to rehabilitation for a positive drug test, which shall continue to apply.
+
+f. Refusal to be tested will result in dismissal.
+
+g. All site employees (managers, supervisors, hourly employees, part-time employees, etc.) are included in each pool of persons to be tested.
+
+h. Unless otherwise specified, Tests will be conducted quarterly. Number of persons to be tested quarterly will be no more than 10.
+
+i. Random Drug Testing will be for drugs listed in the policy only and not for alcohol.
+
+j. USF will pay for the cost of the testing. The lab will retain samples in accordance with state or federal law, so that the employee may requests a retest of a the sample at his expense.
+
+The testing for drugs will be administered by a means selected by the certified independent medical facility. At the time the specimens are tested, two samples shall be taken and a third if requested by the employee. Two samples will be sent to the laboratory to be tested at the employer’s expense. In order to be considered positive, the sample must show positive results on the Gas Chromatography/Mass Spectrometry (“GC/MS”) confirmatory test.
+
+The third sample or specimen shall be collected in a separate container and shall be sealed in the presence of a medical facility witness with evidence tape, which tape shall be signed by the witness. This third sample will be sent by the laboratory to another NIDA certified laboratory selected by the employee for testing. The cost of testing the third sample shall be borne by the employee.`
+        },
+        {
+            id: "article-24",
+            title: "ARTICLE XXIV. TERM OF AGREEMENT",
+            content: `Section 1. This Agreement shall remain in full force and effect for the period from July 1, 2022 through and including June 30, 2026, and from year to year thereafter unless notice of termination or modification is given in writing by either party sixty (60) days prior to the anniversary date of June 30, 2026, such notice being sent by registered or certified mail. Both parties understand that in the event the Employer’s contract with the City of Philadelphia for Operations, Maintenance and Support Services at the Curran-Fromhold Correctional Facility is canceled or terminated for any reason, the Employer is not bound by this Agreement.
+
+Section 2. In the event notification is given by either party and agreement on a new or modified Agreement is not reached by the anniversary date, both parties agree to continue to work under the terms of this Agreement on a day-to-day basis until such time that either agreement or impasse is reached.
+
+FOR THE COMPANY
+
+[Signature]
+
+James Dobrowolski, President
+
+Date: 7/15/2022
+
+[Signature]
+
+VP, Human Resources & Risk Mgmt
+
+Date: 7/15/2022
+
+FOR THE UNION
+
+[Signature]
+
+Ron Cox, Business Agent
+
+Date: 7-13-22`
         },
         {
             id: "separate-paper-tool-control",
@@ -454,7 +624,7 @@ const shopStewards = [
 
 const cbaScannedPages = [
     {
-        section: "2022–2026 CBA (scanned — in progress, pages 1–15+)",
+        section: "2022–2026 CBA (scanned — in progress, pages 1–23+)",
         id: "cba-p1",
         url: "images/page_1.jpg",
         label: "Page 1",
@@ -635,6 +805,230 @@ Section 2. All wages are to be paid biweekly. When employees are terminated, the
 ARTICLE XXII. HEALTH CARE INSURANCE
 
 Section 1. The Employer will provide Group Long Term Disability (LTD) coverage for all full time eligible employees.`
+    },
+    {
+        id: "cba-p16",
+        url: "images/page_16.jpg",
+        label: "Page 16",
+        title: "Health care insurance and miscellaneous",
+        description: "Article XXII Health Care Insurance Sections 1–3 complete the visible coverage provisions. Article XXIII Miscellaneous Sections 1–3 cover the safety committee, uniforms, and job postings; the article continues beyond this page.",
+        transcription: `ARTICLE XXII. HEALTH CARE INSURANCE
+
+(a) Group LTD coverages, benefits, claims procedures and eligibility requirements are as described in the U.S. Facilities Plan Document, which is made a part of this agreement by reference.
+
+(b) The Employer reserves the right to change insurance carriers, modify, alter, or improve the Group LTD Plan, but will maintain equivalent coverage for participating employees.
+
+Section 2. The Employer agrees to make contributions to the Local 835 Health and Welfare Fund to provide the following benefits for all covered employees and their dependents: Medical, Prescription Drug, Vision, Life Insurance, Accident and Sickness Insurance. Contributions shall be as set forth in Exhibit “A”.
+
+Section 3. The Employer agrees to provide dental coverage for all bargaining unit employees pursuant to the benefit structure set forth in its current U.S. Facilities’ Dental Plan. Employees shall not be responsible for any contributions toward dental premium payments during the term of this Agreement.
+
+ARTICLE XXIII. MISCELLANEOUS
+
+Section 1. Safety Committee: A safety committee will be established between the Union and the Employer as follows:
+
+(a) Membership for the Union shall consist of the Shop Stewards; for the Employer, the Assistant Project Managers.
+
+(b) The Safety Committee will meet at least quarterly to consider safety awareness, education, and training; identification of any unsafe conditions.
+
+(c) Any committee member can propose a special meeting, subject to the approval of the Project Manager.
+
+Section 2. Uniforms: The Employer agrees to furnish employees work uniforms, consisting of a hat, five (5) pairs of pants, and five (5) shirts (long sleeve, short sleeve, or a combination), per year, to be worn during working hours while on duty. All uniforms will be distributed between June 1st and August 31st of a calendar year. Employer will Supply one (1) jacket, and one (1) winter hat per year. Replacements for jackets will be made based on fair wear and tear. The employer will pay $100 to each covered employee, if required by his/her position, each year, as a shoe allowance to be paid between August 1st and August 31st of each calendar year.
+
+Section 3. Job Posting: The Employer agrees to post all job openings pertaining to transfer or promotion within the bargaining unit for a period of seven (7) calendar days. Each such posting shall specify the shift for the particular job opening.`
+    },
+    {
+        id: "cba-p17",
+        url: "images/page_17.jpg",
+        label: "Page 17",
+        title: "Miscellaneous and term of agreement",
+        description: "Article XXIII Miscellaneous Sections 4–9 complete the article. Article XXIV Term of Agreement begins with Section 1 and the opening of Section 2; the latter continues beyond this scan.",
+        transcription: `Section 4. Bargaining Unit Work: Neither the Project Manager nor the Assistant Project Managers will perform bargaining unit work except if bargaining unit members cannot be obtained to assist in diagnosing a problem or for the purpose of instruction and training.
+
+Section 5. Substance Abuse Policy: This Agreement incorporates the Substance Abuse Policy appearing as Exhibit C.
+
+Section 6. All discipline shall be imposed on an employee within ten (10) days from the date the Employer first became aware of the incident leading to the discipline, unless the Union agrees to an extension of time, or unless the discipline is the result of action by the City. Requests by the Employer for additional time will not be unreasonably rejected. The employer represents that it will not initiate contact with the Prison with the sole purpose of seeking to have an employee barred from the prison.
+
+Section 7. Perfect Attendance Plan
+
+a. Perfect attendance is defined as having no time and attendance violations.
+
+b. An employee who attains a 12-month period of perfect attendance will receive 8 hours pay at the end of that 12 month period. Thereafter, a new 12-month period will start for that employee. Payment shall be made within sixty (60) days of a perfect 12 month period, following notification to the employer by the union.
+
+c. The 12-month period is a rolling 12 months. That is, if an employee incurs an attendance violation, that employee’s 12 month period begins the day after the most recent violation.
+
+Section 8. (Work Rules). The parties agree to meet and discuss the issue of work and safety rules after ratification.
+
+Section 9. (Random Drug Testing Plan): See attached Exhibit C.
+
+ARTICLE XXIV. TERM OF AGREEMENT
+
+Section 1. This Agreement shall remain in full force and effect for the period from July 1, 2022 through and including June 30, 2026, and from year to year thereafter unless notice of termination or modification is given in writing by either party sixty (60) days prior to the anniversary date of June 30, 2026, such notice being sent by registered or certified mail. Both parties understand that in the event the Employer’s contract with the City of Philadelphia for Operations, Maintenance and Support Services at the Curran-Fromhold Correctional Facility is canceled or terminated for any reason, the Employer is not bound by this Agreement.
+
+Section 2. In the event notification is given by either party and agreement on a new or modified Agreement is not reached by the anniversary date, both parties agree to continue to work`
+    },
+    {
+        id: "cba-p18",
+        url: "images/page_18.jpg",
+        label: "Page 18",
+        title: "Term of agreement and signatures",
+        description: "Article XXIV Term of Agreement Section 2 concludes. The page includes company and union signature blocks with printed names/titles and visible dates; handwritten signatures are not transcribed as names.",
+        transcription: `under the terms of this Agreement on a day-to-day basis until such time that either agreement or impasse is reached.
+
+FOR THE COMPANY
+
+[Signature]
+
+James Dobrowolski, President
+
+Date: 7/15/2022
+
+[Signature]
+
+VP, Human Resources & Risk Mgmt
+
+Date: 7/15/2022
+
+FOR THE UNION
+
+[Signature]
+
+Ron Cox, Business Agent
+
+Date: 7-13-22`
+    },
+    {
+        id: "cba-p19",
+        url: "images/page_19.jpg",
+        label: "Page 19",
+        title: "Exhibit A — Health and Welfare Contributions",
+        description: "Exhibit A states hourly Health and Welfare Fund contributions, the weekly hour cap, the annual increase limit, and the employee wage deduction.",
+        transcription: `EXHIBIT ‘A’ HEALTH AND WELFARE CONTRIBUTIONS
+
+The amounts below represent the total amount to be contributed per hour worked, up to a maximum of forty (40) hours per week to the Health and Welfare Fund.
+
+Through June 30, 2022 — $11.93 per hour
+
+Effective July 1, 2023 — $12.21 per hour
+
+The Employer’s contribution shall not increase more than 4% per annum in each successive year of the Collective Bargaining Agreement.
+
+For the duration of this Agreement, $0.63 per hour will be deducted from employees’ hourly wages to assist with the Employer’s health and welfare contributions.`
+    },
+    {
+        id: "cba-p20",
+        url: "images/page_20.jpg",
+        label: "Page 20",
+        title: "Exhibit B — Wage Rates",
+        description: "Exhibit B lists hourly wage rates by job class for July 1, 2022, 2023, 2024, and 2025.",
+        transcription: `EXHIBIT ‘B’ WAGE RATES
+
+Job Class | 7/1/2022 | 7/1/2023 | 7/1/2024 | 7/1/2025
+Building Engineer, day | $38.41 | $39.85 | $41.34 | $42.79
+Building Engineer, shift | $39.91 | $41.35 | $42.84 | $44.29
+Carpenter/Locksmith | $38.41 | $39.85 | $41.34 | $42.79
+Data Clerk | $27.98 | $29.03 | $30.11 | $31.17
+Electrician, day | $38.41 | $39.85 | $41.34 | $42.79
+Electrician, shift | $39.91 | $41.35 | $42.84 | $44.29
+Electronic Locksmith | $38.41 | $39.85 | $41.34 | $42.79
+Kitchen Mechanic | $38.41 | $39.85 | $41.34 | $42.79
+Kitchen Supervisor | $46.31 | $48.05 | $49.85 | $51.59
+Laborer | $32.39 | $33.60 | $34.86 | $36.08
+Maintenance Mechanic | $38.41 | $39.85 | $41.34 | $42.79
+Painter | $36.30 | $37.66 | $39.07 | $40.44
+Plumber, day | $38.41 | $39.85 | $41.34 | $42.79
+Plumber, shift | $39.91 | $41.35 | $42.84 | $44.29
+Secretary | $27.98 | $29.03 | $30.11 | $31.17
+Stationary Engineer, day | $38.41 | $39.85 | $41.34 | $42.79
+Stationary Engineer, shift | $39.91 | $41.35 | $42.84 | $44.29
+Supply Clerk | $32.39 | $33.60 | $34.86 | $36.08
+Trades Helper, day | $32.39 | $33.60 | $34.86 | $36.08
+Trades Helper, shift | $33.89 | $35.10 | $36.36 | $37.58`
+    },
+    {
+        id: "cba-p21",
+        url: "images/page_21.jpg",
+        label: "Page 21",
+        title: "Exhibit C — Substance Abuse Policy (definitions)",
+        description: "Exhibit C introduces the Substance Abuse Policy, provides its purpose and scope, and begins definitions.",
+        transcription: `EXHIBIT C. - SUBSTANCE ABUSE POLICY
+
+U.S. Facilities, Inc. is committed to providing a safe and healthful working environment for its employees. Substance abuse threatens the safety and healthiness of the workplace, and threatens our productivity in providing full service to our client by increasing tardiness, illness, and job-related accidents. It reduces judgment, and threatens employee morale. Some of the substances which cause such problems include: alcoholic beverages, controlled drugs (such as tranquilizers, barbiturates and stimulants), and illegal drugs (such as heroin, cocaine, and marijuana).
+
+As set forth more fully below, U.S. Facilities is a drug-free workplace that strictly prohibits the manufacture, use, and distribution of controlled substances (as defined below), as well as the consumption of alcoholic beverages in the workplace. Employees who are found to have violated this policy will be subject to discipline, up to and including termination of employment. In addition, treatment, rehabilitation, and/or disciplinary action may be required where an employee’s job performance is affected by off-the-job drug or alcohol abuse, because the abuse of such substances may jeopardize the safety of other employees, employees of our client, the public, and U.S. Facilities or Philadelphia Prison System property.
+
+For these reasons, and in compliance with the federal “Drug-Free Workplace Act of 1989”, U.S. Facilities, Inc., has established the following Substance Abuse Policy for its employees at the Curran-Fromhold Correctional Facility or at other portions of the Philadelphia Prison System.
+
+DEFINITIONS
+
+For the purposes of this policy, the following terms are defined as noted below:
+
+Alcohol: Any beverage containing alcohol which is capable of producing a physical, mental, emotional or behavioral change in the user.
+
+Company Premise: Includes the Curran-Fromhold Correctional Facility and/or other facilities within the Philadelphia Prison System that are owned, leased or operated by USF or its clients.
+
+Drug Paraphernalia: Any equipment, device, apparatus which was used by an employee for the purpose of consumption, ingestion or inhalation of illegal drugs.
+
+Illegal Drugs: Includes: (1) any chemical substance whose manufacture, use, possession or sale is prohibited by state or federal law; (2) any legally-dispensable controlled substance (medications available only as prescribed by a licensed physician) obtained fraudulently or used by any individual other than the person for whom prescribed; (3) any over-the-counter medication or substance capable of impairing one’s alertness and/or physical or mental reflexes taken for purposes of abuse or misuse.
+
+Work Day: Work Day includes, in addition to actual working time, break and meal periods, if the employee returns to work after such break or meal period, regardless of whether the individual is on U.S. Facility premises during such time and regardless of whether the individual is paid for such time.`
+    },
+    {
+        id: "cba-p22",
+        url: "images/page_22.jpg",
+        label: "Page 22",
+        title: "Exhibit C — Substance Abuse Policy (general policy)",
+        description: "Exhibit C continues definitions and states the general workplace policy, search, discipline, fit-for-duty, and records provisions.",
+        transcription: `Prescription or Over the Counter Medication: Medication normally taken for medicinal or other legitimate reasons, consistent with directions of a physician or, in the case of over the counter medications, consistent with the directions on the package.
+
+GENERAL POLICY
+
+U.S. Facilities, Inc. prohibits the manufacture, possession, sale, use, being under the influence, distributing or dispensing of illegal drugs and controlled substances, including the possession and or distribution of Drug Paraphernalia, by employees during the Work Day, while on the job, or while on USF or client property (including owned or leased parking facilities), or any other work site.
+
+U.S. Facilities, Inc., also prohibits the manufacture, unauthorized possession, sale, being under the influence, distributing or dispensing of alcohol by employees while on the job, or while on USF or client property (including owned or leased parking facilities), or any other work site. All employees are prohibited from consuming alcohol during any portion of their work day. This shall not prohibit employees from having unopened containers of alcohol in their private vehicles.
+
+To determine whether alcohol or illegal drugs or controlled substances are located on or are being used on U.S. Facilities, Inc., or Philadelphia Prison System property (including owned or leased parking facilities), or any other work site, USF reserves the right to conduct searches, or to have searches conducted on its behalf, when reasonable suspicion is present.
+
+Any employee whom U.S. Facilities, Inc., has reason to believe is engaged in the manufacture, sale, distribution or possession of illegal drugs or controlled substances or engaged in the manufacture, sale, distribution or unauthorized possession of (excluding unopened containers of alcohol in an employee’s private vehicle) alcohol on U.S. Facilities, Inc., or Philadelphia Prison System property (including owned or leased parking facilities), or any other work site will be subject to discipline up to and including discharge. Employees who are convicted of the manufacture, sale, or distribution of illegal drugs or controlled substances, shall be subject to discipline up to and including discharge. If such conviction occurs by reason of off duty conduct, discipline up to and including discharge will be incurred if the nature of the conduct may be related to, or have an impact upon, the employee’s job.
+
+Employees are required to be fit-for-duty during the Work Day and while on USF premises. An employee is unfit-for-duty if he or she tests positive for drugs or alcohol. A positive drug test includes positive-dilute (defined as a urine specimen with creatinine and specific gravity values that are lower than expected for human urine)..
+
+All records concerning test results will be kept in the employee’s medical files for two (2) years, which are maintained separately from the employee’s personnel file. These files will be considered confidential except that information disclosed in such tests will be communicated to such USF personnel or within the laboratory that need to know such information in order to make appropriate employment decisions about the individual.
+
+TESTING`
+    },
+    {
+        id: "cba-p23",
+        url: "images/page_23.jpg",
+        label: "Page 23",
+        title: "Exhibit C — Random Drug Testing Policy",
+        description: "Exhibit C sets out random-testing guidelines, sample handling, confirmatory testing, and employee-paid third-sample testing.",
+        transcription: `Random Drug Testing Policy
+
+As set forth in Article XXIII, Section 9 of this Agreement, U.S. Facilities will conduct random drug screenings of its employees, including full-time, part-time and hourly employees, as well as supervisors and managers. USF follows the following guidelines when conducting random drug testing of its employees:
+
+a. All testing will be conducted by a licensed independent medical laboratory, which will follow testing standards established by applicable state and/or federal laws.
+
+b. Testing will be conducted by urine sample provided by the employee to the independent medical laboratory under procedures established by the laboratory.
+
+c. USF will not participate in selecting person(s) to be tested.
+
+d. USF will not know the test schedule.
+
+e. Tests will be performed during shift. If test runs beyond the end of the employee’s shift, the employee will be paid overtime. All sections of the current plan remain in full force and effect, including provisions relating to rehabilitation for a positive drug test, which shall continue to apply.
+
+f. Refusal to be tested will result in dismissal.
+
+g. All site employees (managers, supervisors, hourly employees, part-time employees, etc.) are included in each pool of persons to be tested.
+
+h. Unless otherwise specified, Tests will be conducted quarterly. Number of persons to be tested quarterly will be no more than 10.
+
+i. Random Drug Testing will be for drugs listed in the policy only and not for alcohol.
+
+j. USF will pay for the cost of the testing. The lab will retain samples in accordance with state or federal law, so that the employee may requests a retest of a the sample at his expense.
+
+The testing for drugs will be administered by a means selected by the certified independent medical facility. At the time the specimens are tested, two samples shall be taken and a third if requested by the employee. Two samples will be sent to the laboratory to be tested at the employer’s expense. In order to be considered positive, the sample must show positive results on the Gas Chromatography/Mass Spectrometry (“GC/MS”) confirmatory test.
+
+The third sample or specimen shall be collected in a separate container and shall be sealed in the presence of a medical facility witness with evidence tape, which tape shall be signed by the witness. This third sample will be sent by the laboratory to another NIDA certified laboratory selected by the employee for testing. The cost of testing the third sample shall be borne by the employee.`
     },
     {
         section: "2026–2027 Tentative Agreement (3 pages; subject to ratification)",

@@ -303,3 +303,39 @@ Audit member portal behavior for bugs and mobile edge cases.
 [AMENDED 2026-11-17 9:38 p.m. EST]: Final run after the keyboard/closed-dialog race guard and ranked-list accessibility changes: smoke, deploy, syntax, and diff checks all passed. Added CSS coverage confirming the mobile Document Tools toolbar is static/collapsible. Latest search update is dated 9:38 p.m. EST.
 
 [AMENDED 2026-11-17]: Mapped the repository for future navigation. Added `PROJECT_MAP.md` and folder maps under `DOCS/`, `api/`, and `js/`; linked the maps from `AGENTS.md` and `CLAUDE.md`. Recorded stale auth and missing agreement-page references as observed oddities without changing application behavior.
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Digitize the supplied printed CBA page 16.
+
+## Actions Log:
+- [2026-11-17 11:04 p.m. EST] Added the full-resolution page image and scan record `cba-p16`. Extended Article XXII with visible Sections 1–3 across pages 15–16; added Article XXIII Sections 1–3, marked as continuing beyond page 16. Updated the scan range, bargaining snapshot, member updates, and durable project notes. Preserved the pre-existing uncommitted roster edits in `data.js`.
+[AMENDED 2026-11-17]: Added Mike Knepper (RCF Locksmith), Jason Kinser (CFCF Locksmith), Scott (Warehouse crew), Bryan Phillips and Dan Pagano (Kitchen roles), Eric Moran (PICC Helper), Andrew (PICC Locksmith), and Xavior (CFCF Helper) to the roster; added the member-facing update.
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Digitize the supplied printed CBA page 17.
+
+## Actions Log:
+- [2026-11-17 11:12 p.m. EST] Added the full-resolution page image and scan record `cba-p17`. Completed Article XXIII Miscellaneous Sections 1–9 across pages 16–17; added Article XXIV Term of Agreement Section 1 and the visible start of Section 2, marked partial beyond page 17. Updated the scan range, bargaining snapshot, member updates, and durable project notes.
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Digitize the supplied printed CBA page 18.
+
+## Actions Log:
+- [2026-11-17 11:14 p.m. EST] Added the full-resolution page image and scan record `cba-p18`. Completed Article XXIV Term of Agreement Sections 1–2 across pages 17–18. Transcribed printed signatory names/titles and visible dates without guessing handwritten signatures. Updated the scan range, bargaining snapshot, member updates, and durable project notes.
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Digitize the supplied printed CBA pages 19 and 20 (Exhibits A and B).
+
+## Actions Log:
+- [2026-11-17 11:28 p.m. EST] Added full-resolution scans and gallery/search records `cba-p19` and `cba-p20`. Transcribed Exhibit A into Article XXII and all Exhibit B wage rates into Article XXI. Updated the archive range, bargaining snapshot, member updates, and durable project notes.
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Digitize the supplied printed CBA pages 21–23, Exhibit C.
+
+## Actions Log:
+- [2026-11-17 11:39 p.m. EST] Added full-resolution scans and page-specific gallery/search records `cba-p21` through `cba-p23`. Transcribed Exhibit C Substance Abuse Policy across its introduction/definitions, general policy, and random testing provisions; connected the exhibit to Article XXIII, Section 9. Updated archive range, bargaining snapshot, member updates, and durable project notes.

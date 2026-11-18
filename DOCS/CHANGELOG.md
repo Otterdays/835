@@ -110,3 +110,15 @@
 [2026-11-17 9:36 p.m. EST] Search audit verification: smoke, deploy, JavaScript syntax, and diff checks passed. Cached normalized search text to keep incremental typing responsive. Local preview unavailable because sandbox networking denied the local server.
 
 [2026-11-17 9:38 p.m. EST] Final validation after keyboard/dialog race handling and ordered-list accessibility updates: smoke, deploy, syntax, and diff checks passed.
+
+[AMENDED 2026-11-17 11:04 p.m. EST]: CBA page 16 added to the scan archive and search. Completed the visible Article XXII Sections 1–3 across pages 15–16 and added Article XXIII Sections 1–3; Article XXIII continues beyond the supplied scan. Updated current scan range to pages 1–16+.
+
+[AMENDED 2026-11-17]: **Roster:** Added the additional locksmith, warehouse, kitchen, and facility staff supplied by the user.
+
+[AMENDED 2026-11-17 11:12 p.m. EST]: CBA page 17 added to the scan archive and search. Completed Article XXIII Sections 1–9 across pages 16–17; added Article XXIV Section 1 and the visible opening of Section 2, marked partial beyond page 17. Updated current scan range to pages 1–17+.
+
+[AMENDED 2026-11-17 11:14 p.m. EST]: CBA page 18 added to the scan archive and search. Completed Article XXIV Term of Agreement Sections 1–2 across pages 17–18; preserved signature blocks and transcribed printed signatory information and visible dates. Updated the current scan range to pages 1–18+.
+
+[AMENDED 2026-11-17 11:28 p.m. EST]: CBA pages 19–20 added to the scan archive and search. Transcribed Exhibit A contributions into Article XXII and all Exhibit B wage rates into Article XXI. Updated current scan range to pages 1–20+ and refreshed the bargaining snapshot.
+
+[AMENDED 2026-11-17 11:39 p.m. EST]: CBA pages 21–23 added to the scan archive and search. Transcribed the supplied pages of Exhibit C Substance Abuse Policy and connected it to Article XXIII, Section 9. Updated the archive range to pages 1–23+ and the bargaining snapshot.

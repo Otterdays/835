@@ -80,3 +80,13 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-17 9:36 p.m. EST]: Search changes verified by smoke, deploy, JavaScript syntax, and diff checks. Text normalization is cached per search entry; responsive rules collapse the contract tools on narrow screens. Local browser preview was unavailable because sandbox networking blocked the local server.
 
 [AMENDED 2026-11-17 9:38 p.m. EST]: Re-ran smoke, deploy, JavaScript syntax, and diff checks after final keyboard and mobile adjustments; all passed.
+
+[AMENDED 2026-11-17 11:04 p.m. EST]: **CBA page 16 digitized.** Added `images/page_16.jpg` and scan/search record `cba-p16`. Completed Article XXII Health Care Insurance Sections 1–3 across pages 15–16. Added Article XXIII Miscellaneous Sections 1–3 (safety committee, uniforms, job postings), marked partial pending continuation. Updated the current scan range to pages 1–16+.
+
+[AMENDED 2026-11-17 11:12 p.m. EST]: **CBA page 17 digitized.** Added `images/page_17.jpg` and scan/search record `cba-p17`. Completed Article XXIII Miscellaneous Sections 1–9 across pages 16–17. Added Article XXIV Term of Agreement Section 1 and the visible opening of Section 2; Article XXIV remains partial pending continuation. Current scan range is pages 1–17+.
+
+[AMENDED 2026-11-17 11:14 p.m. EST]: **CBA page 18 digitized.** Added `images/page_18.jpg` and scan/search record `cba-p18`. Completed Article XXIV Term of Agreement Sections 1–2 across pages 17–18. Preserved the signature page and transcribed printed names/titles and legible dates without identifying handwritten signatures. Current scan range is pages 1–18+.
+
+[AMENDED 2026-11-17 11:28 p.m. EST]: **CBA pages 19–20 digitized.** Added `images/page_19.jpg` / `cba-p19` for Exhibit A Health and Welfare Contributions and `images/page_20.jpg` / `cba-p20` for Exhibit B Wage Rates. Connected both exhibit transcriptions to Articles XXII and XXI respectively, including every listed job class and rate. Current scan range is pages 1–20+.
+
+[AMENDED 2026-11-17 11:39 p.m. EST]: **CBA pages 21–23 digitized.** Added `images/page_21.jpg` through `images/page_23.jpg` and scan/search records `cba-p21` through `cba-p23`. Transcribed Exhibit C Substance Abuse Policy across its introduction, definitions, general policy, and random drug testing provisions; connected it to Article XXIII, Section 9. Current scan range is pages 1–23+.

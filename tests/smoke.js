@@ -82,8 +82,12 @@ ok(data.includes('New Year\'s Day') && data.includes('essential employees'), 'Ar
 ok(data.includes('id: "article-20"') && data.includes('401(k) deferrals on a bi-weekly basis'), 'Article XX Pension Sections 1–4 transcribed');
 ok(data.includes('id: "article-21"') && data.includes('Pennsylvania Wage Payment and collection law'), 'Article XXI wage provisions transcribed');
 ok(data.includes('id: "article-22"') && data.includes('Group Long Term Disability (LTD)'), 'Article XXII opening transcribed');
+ok(data.includes('id: "article-21"') && data.includes('Trades Helper, shift | $33.89 | $35.10 | $36.36 | $37.58'), 'Exhibit B wage table connected to Article XXI');
+ok(data.includes('id: "article-22"') && data.includes('Effective July 1, 2023 — $12.21 per hour'), 'Exhibit A contribution schedule connected to Article XXII');
+ok(data.includes('id: "article-23"') && data.includes('Random Drug Testing Policy') && data.includes('Gas Chromatography/Mass Spectrometry'), 'Exhibit C policy text connected to Article XXIII');
 ok(data.includes('id: "cba-p14"') && data.includes('images/page_14.jpg'), 'page 14 scan added to gallery');
-ok(data.includes('id: "cba-p15"') && data.includes('images/page_15.jpg') && data.includes('pages 1–15+'), 'page 15 scan and updated range added to gallery');
+ok(data.includes('id: "cba-p15"') && data.includes('images/page_15.jpg') && data.includes('id: "cba-p23"') && data.includes('images/page_23.jpg') && data.includes('pages 1–23+'), 'CBA scan sequence and current range through page 23 added to gallery');
+ok(data.includes('id: "cba-p21"') && data.includes('Drug Paraphernalia: Any equipment') && data.includes('id: "cba-p22"') && data.includes('positive-dilute') && data.includes('id: "cba-p23"') && data.includes('NIDA certified laboratory'), 'Exhibit C scan-page text is indexed in page records');
 const dataImagePaths = [...data.matchAll(/(?:url|image):\s*"(images\/[^\"]+)"/g)].map((match) => match[1]);
 dataImagePaths.forEach((image) => ok(fs.existsSync(path.join(root, image)), `data image exists: ${image}`));
 
