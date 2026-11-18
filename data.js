@@ -400,22 +400,22 @@ Tool Identification - 8
 };
 
 const employeesData = [
-    { name: "anthony", location: "RCF", role: "Electrician" },
-    { name: "bill", location: "RCF", role: "Maintenance" },
-    { name: "charles", location: "State Road", role: "Head Shop Steward" },
-    { name: "kevin", location: "CFCF", role: "Assistant Shop Steward" },
-    { name: "jerome", location: "RCF", role: "Helper" },
-    { name: "jim", location: "RCF", role: "Engineer" },
-    { name: "monica", location: "RCF", role: "Data Clerk" },
-    { name: "nate", location: "RCF", role: "Painter" },
-    { name: "nick", location: "RCF", role: "Painter" },
-    { name: "orlando", location: "PICC", role: "Assistant Shop Steward" },
-    { name: "ryan", location: "RCF", role: "Assistant Shop Steward" },
-    { name: "vetter", location: "RCF", role: "Laborer" }
+    { name: "Bill Vetter", location: "RCF", role: "Laborer" },
+    { name: "Charles", location: "PICC", role: "Engineer · Lead Shop Steward" },
+    { name: "Ian Roonen", location: "CFCF", role: "Helper" },
+    { name: "Jim Turner", location: "RCF", role: "Engineer" },
+    { name: "Jerome Hudson", location: "RCF", role: "Helper · Injured" },
+    { name: "Kevin", location: "CFCF", role: "Assistant Shop Steward" },
+    { name: "Monica", location: "RCF", role: "Data Clerk" },
+    { name: "Nate Villanueva", location: "RCF", role: "Painter · Let go; contesting the firing" },
+    { name: "Nick Martino", location: "RCF", role: "Painter · Let go; contesting the firing" },
+    { name: "Orlando", location: "PICC", role: "Engineer · Assistant Shop Steward" },
+    { name: "Robert Korcheck", location: "CFCF", role: "Trades Helper" },
+    { name: "Ryan Lorenz", location: "RCF", role: "Assistant Shop Steward" }
 ];
 
 const shopStewards = [
-    { name: "Charles", role: "Head Shop Steward" },
+    { name: "Charles", role: "Lead Shop Steward", location: "PICC" },
     { name: "Kevin", role: "Assistant Shop Steward", location: "CFCF" },
     { name: "Ryan", role: "Assistant Shop Steward", location: "RCF" },
     { name: "Orlando", role: "Assistant Shop Steward", location: "PICC" }

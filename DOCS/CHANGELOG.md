@@ -28,6 +28,8 @@
 [AMENDED 2026-11-17]: Added a separate Contract & Employment Updates member page, linked from Home/navigation/sitewide search. Initial notice records the weekly-pay transition after negotiations, quotes management's statement that the timeline is pending processing of union increases, and leaves the effective date unspecified.
 # Changelog
 
+[AMENDED 2026-11-17]: **Roster:** Corrected employee names, facilities, job roles, and supplied employment statuses; removed Anthony and duplicate Vetter, added Robert Korcheck and Ian Roonen at CFCF, and synced Charles and Orlando's PICC steward roles.
+
 ## [1.2.0] - 2026-07-28
 - **Mobile:** Sitewide responsive polish — safe-area insets, home/login stacking, full-width touch CTAs, 360–480px and landscape tweaks; home place label no longer overlaps the menu button.
 - **Security:** Private-host roadmap Phase 0–1 — deploy exclusions for `source/`, removed public demo/sample-password surfaces, Vercel `api/auth/*` + Edge `middleware.js`, Mongo user seeding + login rate limits (`mongodb`, `jose`).
