@@ -13,6 +13,7 @@ A **private** document and member-action portal for **Operating Engineers Local 
 
 - **Login** (`index.html`) — username/password; server session cookie when Vercel + Mongo are configured (`js/auth.js`).
 - **Home** (`home.html`) — Local 835 / State Road identity, facility steward links, resource destinations.
+- **Project Updates** (`updates.html`) — dated EST/EDT log of portal and document changes, with upcoming CBA scan work.
 - **Member Action Center** — grievance prep, issue→article routing, steward prep worksheet.
 - **Contract / scans / tool program** — CBA viewer, paneled archives, deep links.
 - **Evidence log & bargaining tools** — client-side export only; factual checklists.
@@ -39,6 +40,7 @@ Open **http://localhost:3000**. Create credentials in gitignored `local.auth.jso
 | Path | Role |
 |------|------|
 | `index.html` / `home.html` | Login + gateway |
+| `updates.html` | Dated member-facing update log |
 | `member-action.html` | Grievance / issue hub / steward prep |
 | `evidence-log.html` / `bargaining.html` | Local evidence export + bargaining checklists |
 | `contract.html`, `scans.html`, `tool-program.html` | CBA and archives |
@@ -48,4 +50,4 @@ Open **http://localhost:3000**. Create credentials in gitignored `local.auth.jso
 | `source/` | Offline drafts — **not deployed** |
 | `DOCS/` | Status docs and audits |
 
-See `AGENTS.md` and `DOCS/` for agent and status detail.
+See `AGENTS.md` and `CLAUDE.md` for Codex/OpenAI and Claude Code instructions. For the complete scan-to-search workflow for future CBA pages, follow `DOCS/CONTRACT_PAGE_INGESTION.md`; `DOCS/` holds the status and architecture records.

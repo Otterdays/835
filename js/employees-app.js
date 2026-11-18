@@ -19,11 +19,27 @@ document.addEventListener('DOMContentLoaded', () => {
         statEmployees.textContent = employeesData.length;
     }
 
-    const locations = ['RCF', 'CFCF', 'PICC'];
+    const preferredLocations = ['RCF', 'CFCF', 'PICC'];
+    const locations = [...new Set(employeesData.map((employee) => employee.location).filter(Boolean))]
+        .sort((a, b) => {
+            const ai = preferredLocations.indexOf(a);
+            const bi = preferredLocations.indexOf(b);
+            if (ai !== -1 || bi !== -1) {
+                return (ai === -1 ? Number.MAX_SAFE_INTEGER : ai) -
+                    (bi === -1 ? Number.MAX_SAFE_INTEGER : bi);
+            }
+            return a.localeCompare(b);
+        });
     let activeFacility = 'all';
     let searchQuery = '';
 
-    const normalize = (value) => (value || '').toLowerCase().trim();
+    const normalize = (value) =>
+        String(value || '')
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLocaleLowerCase()
+            .replace(/[^\p{L}\p{N}]+/gu, ' ')
+            .trim();
 
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('q')) {
@@ -40,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!searchQuery) {
             return true;
         }
-        const haystack = `${employee.name} ${employee.role} ${employee.location}`.toLowerCase();
+        const haystack = normalize(`${employee.name} ${employee.role} ${employee.location}`);
         return haystack.includes(searchQuery);
     };
 

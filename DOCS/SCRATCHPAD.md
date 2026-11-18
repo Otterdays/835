@@ -1,4 +1,10 @@
 [AMENDED 2026-11-17]:
+## Current Task:
+Create a member-facing place for contract negotiations and employment notices; publish management's current weekly-pay transition update without implying a start date.
+
+## Actions Log:
+- [2026-11-17] Added `contract-updates.html` with the reported move from bi-weekly to weekly pay and attributed Susan Laramore-Johnson (USF / USF HR)'s statement that management has not established a timeline while it processes union increases.
+- [2026-11-17] Linked the page from Home, shared navigation, and sitewide search; kept it distinct from the portal's Project Updates log.
 - [2026-11-17] Forum is live on Vercel + Atlas (verified by user). Added forum to sitewide search (`js/site-search.js` fetches `/api/forum/threads` each time the dialog opens; thread title/body/author indexed; replies are not). Home now promotes the forum: callout section + floating `.forum-fab` button (z-index 900, safe-area aware, mobile-checked).
 
 [AMENDED 2026-11-17]:
@@ -209,6 +215,13 @@ Implemented side-by-side Split View reading mode.
 - [2026-03-27] Cleared sample contract data and replaced with authentic Article I: Recognition & Scope
 - [2026-03-27] Enhanced script.js to handle multiline contract content and preservation of formatting in search highlights
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Update all four State Road shop steward roles and remove their portraits.
+
+## Actions Log:
+- [2026-11-17] Replaced old steward contacts with Charles (Head Shop Steward), Kevin (CFCF), Ryan (RCF), and Orlando (PICC); removed portraits and promotional taglines from the steward directory.
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 [AMENDED 2026-07-28]:
 ## Current Task:
@@ -235,3 +248,15 @@ Rebuild the community forum front end in the active workspace using the existing
 
 ## Actions Log:
 - [2026-11-17] Added the readable, mobile-first forum page and connected it to existing thread/reply endpoints; added home, navigation, and site-search entry points. No dependencies added.
+
+[AMENDED 2026-11-17]: Supplied CBA photo was verified as printed page 13 (the existing gallery item), not page 14. Refreshed `images/page_13.jpg` at higher resolution; added the verbatim visible text to the page 13 scan metadata so sitewide scan search includes clauses as well as the Article XVII–XVIII contract transcription. Page 14's Article XIX holiday provisions still need their scan.
+
+[AMENDED 2026-11-17]: Site continuity/search audit: added searchable entries for Home, Action Center, Evidence Log, Bargaining Tools, and Suggestions; normalized accents and punctuation; deduplicated query tokens; made data-load failures retryable and local results independent of forum availability. Forum search now uses Mongo text indexes for thread/reply content and is debounced with abort/timeout handling. Smoke checks now cover local HTML assets, shared shell/search loading, static-page index coverage, and forum search indexes.
+
+[AMENDED 2026-11-17]: Digitized supplied printed page 14 to `images/page_14.jpg`; transcribed Article XIX Sections 1–4 and the visible beginning of Article XX Section 1 into contract articles and scan metadata. Page 14 now appears in Scanned Pages and sitewide search. Article XX is explicitly marked as continuing beyond the available scan.
+
+[AMENDED 2026-11-17 8:26 p.m. EST]: Created member-facing `updates.html` with November 17 work grouped by verified EST repo-edit time: forum (7:16 p.m.), page 13 scan (7:49 p.m.), steward roles and portrait removal (8:01 p.m.), search/site continuity (8:12 p.m.), and page 14 (8:17 p.m.). Added home, shared-navigation, and site-search links. Listed page 15+ and additional verified information as upcoming work.
+
+[AMENDED 2026-11-17]: Created `DOCS/CONTRACT_PAGE_INGESTION.md` with the scan-to-site checklist: source/page identity, faithful OCR review, image handling, article continuation IDs, scan metadata, search and deep links, update timestamps, preservation, validation, and handoff. Replaced root `AGENTS.md` with current shared rules and added `CLAUDE.md` importing it for cross-environment consistency. Owner's standing push authorization is recorded in AGENTS.md.
+
+[AMENDED 2026-11-17 8:42 p.m. EST]: Added shared Codex/OpenAI and Claude Code entrypoints (`AGENTS.md`, `CLAUDE.md`) and `DOCS/CONTRACT_PAGE_INGESTION.md`, documenting source checks, faithful transcription, article continuation, scan metadata, search/deep links, dated updates, partial text, and verification for future pages. Smoke checks now cover update pages, scan assets, search targets, and agent-rule wiring. `npm run test:smoke`, `npm run check:deploy`, JavaScript syntax checks, and `git diff --check` passed. Owner authorized pushing the entire current project state and following project commits to `origin`; inspect full diff, exclude secrets/local-only files, and never force-push.

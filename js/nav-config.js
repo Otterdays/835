@@ -2,7 +2,11 @@
 const SITE_NAV = [
     {
         label: 'Home',
-        items: [{ href: 'home.html', label: 'Home', id: 'home' }]
+        items: [
+            { href: 'home.html', label: 'Home', id: 'home' },
+            { href: 'updates.html', label: 'Project Updates', id: 'updates' },
+            { href: 'contract-updates.html', label: 'Contract & Employment Updates', id: 'contract-updates' }
+        ]
     },
     {
         label: 'Member tools',
@@ -45,6 +49,8 @@ const SITE_NAV = [
 
 const SITE_PAGE_IDS = {
     'home.html': 'home',
+    'updates.html': 'updates',
+    'contract-updates.html': 'contract-updates',
     'member-action.html': 'member-action',
     'evidence-log.html': 'evidence-log',
     'bargaining.html': 'bargaining',

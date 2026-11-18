@@ -26,14 +26,34 @@ const requiredPages = [
     'contract.html',
     'suggestions.html',
     'member-documents.html',
-    'forum.html'
+    'forum.html',
+    'updates.html',
+    'contract-updates.html'
 ];
+
+const htmlFiles = fs.readdirSync(root).filter((file) => file.endsWith('.html'));
+htmlFiles.forEach((file) => {
+    const source = fs.readFileSync(path.join(root, file), 'utf8');
+    if (file !== 'index.html') {
+        ok(source.includes('js/nav-config.js'), `${file} loads shared navigation`);
+        ok(source.includes('js/shell.js'), `${file} loads shared page shell`);
+        ok(source.includes('js/site-search.js'), `${file} loads sitewide search`);
+    }
+    const localTargets = [...source.matchAll(/(?:href|src)="([^"#?]+(?:\.html|\.js|\.css|\.jpg|\.png|\.webp))"/g)]
+        .map((match) => match[1])
+        .filter((target) => !/^(?:https?:)?\/\//i.test(target));
+    localTargets.forEach((target) => {
+        ok(fs.existsSync(path.join(root, target)), `${file} local asset exists: ${target}`);
+    });
+});
 
 requiredPages.forEach((file) => {
     ok(fs.existsSync(path.join(root, file)), `page exists: ${file}`);
 });
 
 const nav = fs.readFileSync(path.join(root, 'js/nav-config.js'), 'utf8');
+const navTargets = [...nav.matchAll(/href:\s*'([^']+\.html)'/g)].map((match) => match[1]);
+navTargets.forEach((target) => ok(fs.existsSync(path.join(root, target)), `navigation destination exists: ${target}`));
 ok(nav.includes('member-action.html'), 'nav includes Action Center');
 ok(nav.includes('evidence-log.html'), 'nav includes evidence log');
 ok(nav.includes('bargaining.html'), 'nav includes bargaining');
@@ -57,7 +77,11 @@ ok(fs.existsSync(path.join(root, 'middleware.js')), 'middleware.js exists');
 
 const data = fs.readFileSync(path.join(root, 'data.js'), 'utf8');
 ok(data.includes('article-19'), 'Article XIX present');
-ok(data.includes('Pending digitization') || data.includes('HOLIDAYS'), 'Article XIX marked pending or present');
+ok(data.includes('New Year\'s Day') && data.includes('essential employees'), 'Article XIX holiday provisions transcribed');
+ok(data.includes('id: "article-20"') && data.includes('ARTICLE XX. PENSION'), 'Article XX opening transcribed');
+ok(data.includes('id: "cba-p14"') && data.includes('images/page_14.jpg'), 'page 14 scan added to gallery');
+const dataImagePaths = [...data.matchAll(/(?:url|image):\s*"(images\/[^\"]+)"/g)].map((match) => match[1]);
+dataImagePaths.forEach((image) => ok(fs.existsSync(path.join(root, image)), `data image exists: ${image}`));
 
 const memberAction = fs.readFileSync(path.join(root, 'member-action.html'), 'utf8');
 ok(memberAction.includes('PICC'), 'Action Center includes PICC coverage note');
@@ -95,8 +119,92 @@ ok(forumApp.includes('oe835_forum_username'), 'forum client stores temp username
 
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
+['home.html', 'member-action.html', 'evidence-log.html', 'bargaining.html', 'suggestions.html'].forEach((page) => {
+    ok(siteSearch.includes(`href: '${page}'`), `site search indexes ${page}`);
+});
+ok(siteSearch.includes("href: 'updates.html'") && siteSearch.includes("href: 'contract-updates.html'"), 'site search indexes both update pages');
+ok(siteSearch.includes('.normalize(\'NFKD\')'), 'site search folds Unicode accents');
+ok(siteSearch.includes('new Set(normalize(query)'), 'site search deduplicates normalized terms');
+ok(siteSearch.includes('href: () => `contract.html?article='), 'contract search result deep-links without a fragile text filter');
+const employeesApp = fs.readFileSync(path.join(root, 'js/employees-app.js'), 'utf8');
+ok(employeesApp.includes('new Set(employeesData.map') && employeesApp.includes(".normalize('NFKD')"), 'roster filters follow current locations and normalize searches');
+const mongo = fs.readFileSync(path.join(root, 'api/lib/mongo.js'), 'utf8');
+ok(mongo.includes('forum_threads_search') && mongo.includes('forum_replies_search'), 'forum text-search indexes exist');
+const forumThreadsApi = fs.readFileSync(path.join(root, 'api/forum/threads.js'), 'utf8');
+ok(forumThreadsApi.includes('matchedReplies'), 'forum search returns matching replies');
+const { ObjectId } = require('mongodb');
+const sampleThreadId = new ObjectId('64b000000000000000000001');
+const sampleThread = {
+    _id: sampleThreadId,
+    title: 'Holiday schedule question',
+    body: 'Does the holiday schedule apply to our shift?',
+    category: 'Contract',
+    author: 'Member 835',
+    createdAt: new Date('2026-01-01T00:00:00Z'),
+    lastActivityAt: new Date('2026-01-02T00:00:00Z'),
+    replyCount: 1
+};
+const sampleReply = {
+    _id: new ObjectId('64b000000000000000000002'),
+    threadId: sampleThreadId,
+    body: 'The holiday language is in Article XIX.',
+    author: 'Member Two',
+    createdAt: new Date('2026-01-02T00:00:00Z')
+};
+const cursor = (rows) => ({
+    project() { return this; },
+    sort() { return this; },
+    limit() { return this; },
+    toArray: async () => rows
+});
+const fakeDb = {
+    collection(name) {
+        return {
+            find(query) {
+                if (name === 'forum_replies') return cursor(query.$text ? [sampleReply] : []);
+                if (query.$text) return cursor([]);
+                if (query._id?.$in) return cursor([sampleThread]);
+                return cursor([]);
+            }
+        };
+    }
+};
+const mongoModulePath = require.resolve(path.join(root, 'api/lib/mongo.js'));
+require.cache[mongoModulePath] = {
+    id: mongoModulePath,
+    filename: mongoModulePath,
+    loaded: true,
+    exports: { getDb: async () => fakeDb }
+};
+const forumThreadsHandler = require(path.join(root, 'api/forum/threads.js'));
+const apiResponse = {
+    headers: {},
+    setHeader(name, value) { this.headers[name] = value; },
+    end(value) { this.body = JSON.parse(value); }
+};
+forumThreadsHandler({ method: 'GET', url: '/api/forum/threads?q=holiday' }, apiResponse)
+    .then(() => {
+        const hit = apiResponse.body.threads?.[0];
+        ok(hit?.matchedReplies?.[0]?.body === sampleReply.body, 'forum search finds a reply and links its thread');
+    })
+    .catch((err) => {
+        console.error('Forum search API fake-DB check failed', err);
+        ok(false, 'forum search finds a reply and links its thread');
+    })
+    .finally(() => {
+        console.log(failed ? `\n${failed} smoke check(s) failed` : '\nAll smoke checks passed');
+        process.exit(failed ? 1 : 0);
+    });
 const homeHtml = fs.readFileSync(path.join(root, 'home.html'), 'utf8');
 ok(homeHtml.includes('forum-fab') && homeHtml.includes('home-forum-callout'), 'home promotes the forum (floating button + callout)');
 
-console.log(failed ? `\n${failed} smoke check(s) failed` : '\nAll smoke checks passed');
-process.exit(failed ? 1 : 0);
+const agents = fs.readFileSync(path.join(root, 'AGENTS.md'), 'utf8');
+const claude = fs.readFileSync(path.join(root, 'CLAUDE.md'), 'utf8');
+const ingestionGuidePath = path.join(root, 'DOCS/CONTRACT_PAGE_INGESTION.md');
+ok(agents.includes('DOCS/CONTRACT_PAGE_INGESTION.md'), 'shared agent rules point to the page-ingestion guide');
+ok(claude.trimStart().startsWith('@AGENTS.md'), 'Claude Code imports shared AGENTS.md rules');
+ok(fs.existsSync(ingestionGuidePath), 'page-ingestion guide exists');
+const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
+['cbaScannedPages', 'sitewide search', 'printed page', 'America/New_York', 'partial'].forEach((term) => {
+    ok(ingestionGuide.includes(term), `page-ingestion guide covers ${term}`);
+});

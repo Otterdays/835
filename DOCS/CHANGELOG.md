@@ -10,6 +10,14 @@
 - **API:** `GET/POST /api/forum/threads`, `GET/POST /api/forum/thread` on Vercel + Mongo (`forum_threads`, `forum_replies`, `forum_rate`).
 - **Abuse controls:** server validation, reserved name prefixes, per-IP rate limits, honeypot, size caps.
 - **Tests:** smoke checks for forum validation + wiring.
+
+[AMENDED 2026-11-17]: Page 14 added to the CBA scan archive and sitewide search. Article XIX holiday text is transcribed; Article XX pension Section 1 is included as partial text pending continuation scans. The older page 13 holiday placeholder note below in the 1.2.0 history is superseded.
+
+[AMENDED 2026-11-17 8:26 p.m. EST]: Added the member-facing Updates page and connected it to Home, shared navigation, and sitewide search. It records the day’s work with EST timestamps and identifies page 15+ / later information as upcoming.
+
+[AMENDED 2026-11-17]: Added the future CBA scan ingestion handbook; aligned Codex/OpenAI and Claude Code entrypoints through canonical `AGENTS.md` plus a `CLAUDE.md` import; updated README, architecture, and style guidance. Recorded the owner's standing authorization to push the full project and subsequent project commits.
+
+[AMENDED 2026-11-17]: Added a separate Contract & Employment Updates member page, linked from Home/navigation/sitewide search. Initial notice records the weekly-pay transition after negotiations, quotes management's statement that the timeline is pending processing of union increases, and leaves the effective date unspecified.
 # Changelog
 
 ## [1.2.0] - 2026-07-28
@@ -78,3 +86,5 @@
 ## [0.1.0] - 2026-03-27
 - Initialized Project Files
 - Created project documentation set
+
+[2026-11-17 8:42 p.m. EST] Documentation and continuity: established shared `AGENTS.md` rules with a Claude Code `CLAUDE.md` import, added a detailed scan-to-transcription-to-search guide for future CBA pages, and added smoke checks for update pages, scan assets, search destinations, and instruction wiring. Smoke and deploy checks passed.

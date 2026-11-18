@@ -26,3 +26,5 @@ Date: 2026-07-28
 - Local `npx serve` + `local.auth.json` remains a **dev-only** deterrent, not production security
 - Article XIX holiday body still pending later scan OCR
 - Suggestions / evidence remain client export-only (intentional)
+
+[AMENDED 2026-11-17]: The Article XIX pending-OCR item above is resolved for the supplied page 14 scan. Article XX has only its opening Section 1 digitized so far; continuation still needs later pages.

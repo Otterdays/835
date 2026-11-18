@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Local 835 — Project Updates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/auth.js"></script>
+</head>
+<body>
+    <button id="menu-btn" class="menu-btn" type="button" aria-label="Open Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <div id="side-panel" class="side-panel">
+        <div class="panel-header">
+            <h2>Navigation</h2>
+            <button id="close-btn" class="close-btn" type="button" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="nav-links" id="nav-links" aria-label="Site navigation"></ul>
+    </div>
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <main class="container updates-page" id="main-container">
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-page-title="Project Updates"></nav>
+        <header class="hero-header doc-hero">
+            <div class="hero-heading">
+                <div class="eyebrow-row">
+                    <span class="eyebrow">Local 835 · State Road</span>
+                    <span class="status-chip">Project log</span>
+                </div>
+                <h1>Project Updates</h1>
+                <p class="subtitle">Recent work on the member portal, contract scans, search, and steward directory. Times are Eastern Standard Time (EST).</p>
+                <p class="updates-last-edited">Last updated <time datetime="2026-11-17T20:42:00-05:00">Tuesday, November 17, 2026 · 8:42 p.m. EST</time></p>
+            </div>
+        </header>
+
+        <section class="updates-list" aria-label="Recent updates">
+            <article class="updates-entry">
+                <div class="updates-entry-time"><time datetime="2026-11-17T20:42:00-05:00">November 17, 2026 · 8:42 p.m. EST</time></div>
+                <div class="updates-entry-content">
+                    <h2>Future scan workflow documented</h2>
+                    <p>Added a complete guide for future CBA pages: verify the printed page, preserve and transcribe the scan, connect article text to the gallery and search, keep update notes current, and mark partial text clearly. The guide is now available to both Codex/OpenAI agents and Claude Code. Added checks for update-page links, scan assets, search coverage, and shared agent instructions; smoke and deploy checks pass.</p>
+                </div>
+            </article>
+
+            <article class="updates-entry">
+                <div class="updates-entry-time"><time datetime="2026-11-17T20:17:00-05:00">November 17, 2026 · 8:17 p.m. EST</time></div>
+                <div class="updates-entry-content">
+                    <h2>CBA page 14 added</h2>
+                    <p>Added the page 14 scan and transcribed Article XIX Sections 1–4 on paid holidays, eligibility, holiday pay, and essential-employee limits. Added the visible opening of Article XX Section 1 (Pension) to the contract. Article XX is marked partial until its continuation pages arrive.</p>
+                    <a href="scans.html?item=cba-p14">Open scanned page 14</a>
+                    <span aria-hidden="true"> · </span>
+                    <a href="contract.html?article=article-19">Read Article XIX</a>
+                </div>
+            </article>
+
+            <article class="updates-entry">
+                <div class="updates-entry-time"><time datetime="2026-11-17T20:12:00-05:00">November 17, 2026 · 8:12 p.m. EST</time></div>
+                <div class="updates-entry-content">
+                    <h2>Sitewide search and page continuity improved</h2>
+                    <p>Added every member destination to sitewide search, improved punctuation and accent matching, made local results load independently of forum availability, and added forum thread and reply search. Search links now open the matching contract article, and roster filters follow the current facility list.</p>
+                </div>
+            </article>
+
+            <article class="updates-entry">
+                <div class="updates-entry-time"><time datetime="2026-11-17T20:01:00-05:00">November 17, 2026 · 8:01 p.m. EST</time></div>
+                <div class="updates-entry-content">
+                    <h2>Steward directory updated</h2>
+                    <p>Updated the directory to Charles (Head Shop Steward), Kevin (Assistant Shop Steward, CFCF), Ryan (Assistant Shop Steward, RCF), and Orlando (Assistant Shop Steward, PICC). Removed the previous portraits and promotional taglines.</p>
+                    <a href="stewards.html">View shop stewards</a>
+                </div>
+            </article>
+
+            <article class="updates-entry">
+                <div class="updates-entry-time"><time datetime="2026-11-17T19:49:00-05:00">November 17, 2026 · 7:49 p.m. EST</time></div>
+                <div class="updates-entry-content">
+                    <h2>CBA page 13 scan refreshed</h2>
+                    <p>Replaced the lower-resolution scan with the higher-resolution page 13 image and added its visible text to the scan transcription so the page’s clauses are searchable.</p>
+                    <a href="scans.html?item=cba-p13">Open scanned page 13</a>
+                </div>
+            </article>
+
+            <article class="updates-entry">
+                <div class="updates-entry-time"><time datetime="2026-11-17T19:16:00-05:00">November 17, 2026 · 7:16 p.m. EST</time></div>
+                <div class="updates-entry-content">
+                    <h2>Community Forum added and refined</h2>
+                    <p>Added the MongoDB-backed forum for member threads and replies, with temporary browser-local display names. Added links from navigation, the home page, and sitewide search, and improved mobile reading and posting controls.</p>
+                    <a href="forum.html">Open the Community Forum</a>
+                </div>
+            </article>
+        </section>
+
+        <section class="updates-next" aria-labelledby="updates-next-title">
+            <p class="eyebrow">Next</p>
+            <h2 id="updates-next-title">Continue the agreement and portal updates</h2>
+            <p>Next, continue with CBA page 15 and later: add each supplied scan, transcribe the visible provisions, and keep the contract text, scanned-page gallery, and search index in sync. Other member information can be added as it becomes available and is ready to verify.</p>
+            <a class="btn-primary" href="scans.html">Browse scanned pages</a>
+        </section>
+    </main>
+
+    <script src="js/nav-config.js"></script>
+    <script src="js/shell.js"></script>
+    <script src="js/site-search.js"></script>
+</body>
+</html>

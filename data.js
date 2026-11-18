@@ -280,17 +280,30 @@ Section 2. The employee shall receive the appropriate overtime rate for all hour
         {
             id: "article-19",
             title: "ARTICLE XIX. HOLIDAYS",
-            // NOTE: verify before shipping — page_13.jpg ends at the Article XIX heading;
-            // holiday list and eligibility rules need digitization from following scan pages.
-            content: `Section 1. [Pending digitization from subsequent CBA scan pages after page 13.]
+            content: `Section 1. Employees shall receive eight (8) holidays with pay on the following days: New Year's Day, Martin Luther King Jr. Birthday, Memorial Day, Juneteenth Fourth of July, Labor Day, Thanksgiving Day, and Christmas Day.
 
-The scanned page set currently ends with the Article XIX heading on page 13. Until the remaining holiday pages are OCR’d into this file:
+Section 2. All covered full time employees are eligible for the designated holidays if they are working or on an approved absence (i.e., scheduled time off “STO” approved at least four (4) days in advance) on the scheduled work day prior to and the scheduled work day after a designated holiday. For the Monday to Friday 8:00 a.m. to 4:00 p.m. shift only, if a holiday set forth in Section 1 of this Article falls on a Saturday, it shall be celebrated on the preceding Friday. If such a holiday falls on a Sunday, it shall be celebrated on the following Monday. If an employee calls out on a holiday they are scheduled to work, then they must provide a physician’s note (within seven (7) days) in order to receive holiday pay.
 
-(1) Open Scanned Pages for the latest images.
-(2) Confirm holiday names, eligibility, pay rules, and any facility-specific exceptions with a steward and the signed agreement.
-(3) Do not rely on this placeholder for grievance or bargaining decisions.
+Section 3. Holiday pay will consist of the employee’s regular hourly rate, plus shift differential, if applicable, for eight (8) hours. On all designated holidays that an employee is required to work, he/she shall receive one and one-half (1 ½) times their regular rate of pay plus holiday pay. Employees must actually work the holiday to receive holiday pay of 1 ½ times their regular rate of pay.
 
-[TRACE: STYLE_GUIDE.md — mandatory OCR when new holiday page scans are added.]`
+Section 4. The following number of “essential employees” may be permitted off simultaneously on a holiday:
+
+Two (2) bargaining unit employees from CFCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from CFCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from CFCF on the 12:00 am to 8:00 am shift
+
+Two (2) bargaining unit employees from RCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from RCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from RCF on the 12:00 am to 8:00 am shift
+
+Essential employees are those working as an Electrician, Stationary Engineer, Maintenance Trades Helper, Building Engineer, and Plumber. Employees in classifications other than those listed above are not required to work their regular scheduled shift if it falls on a holiday or when a holiday is scheduled. In addition, one (1) locksmith shall be considered to be an “essential employee” on the CFCF 8:00 am to 4:00 pm shift.`
+        },
+        {
+            id: "article-20",
+            title: "ARTICLE XX. PENSION",
+            content: `Section 1. Employer shall pay monthly into the Central Pension Fund of the International Union of Operating Engineers and Participating Employers for each eligible employee at the amount specified in Section 3 below.
+
+[Article XX continues beyond scanned page 14.]`
         },
         {
             id: "separate-paper-tool-control",
@@ -353,55 +366,30 @@ Tool Identification - 8
 };
 
 const employeesData = [
-    { name: "andrew", location: "PICC", role: "Assistant Shop Steward / Locksmith" },
     { name: "anthony", location: "RCF", role: "Electrician" },
     { name: "bill", location: "RCF", role: "Maintenance" },
-    { name: "jason", location: "CFCF", role: "Assistant Shop Steward / Locksmith" },
+    { name: "charles", location: "State Road", role: "Head Shop Steward" },
+    { name: "kevin", location: "CFCF", role: "Assistant Shop Steward" },
     { name: "jerome", location: "RCF", role: "Helper" },
     { name: "jim", location: "RCF", role: "Engineer" },
-    { name: "justin", location: "RCF", role: "Assistant Shop Steward / Helper" },
     { name: "monica", location: "RCF", role: "Data Clerk" },
     { name: "nate", location: "RCF", role: "Painter" },
     { name: "nick", location: "RCF", role: "Painter" },
-    { name: "ryan", location: "RCF", role: "Plumber" },
-    { name: "trevor", location: "CFCF", role: "Lead Shop Steward" },
+    { name: "orlando", location: "PICC", role: "Assistant Shop Steward" },
+    { name: "ryan", location: "RCF", role: "Assistant Shop Steward" },
     { name: "vetter", location: "RCF", role: "Laborer" }
 ];
 
 const shopStewards = [
-    { 
-        name: "Trevor", 
-        role: "Lead Shop Steward", 
-        location: "CFCF", 
-        image: "images/trevor.jpg",
-        tagline: "#TREVOR4EVER - Ready to fight for your rights!"
-    },
-    { 
-        name: "Justin", 
-        role: "Assistant Shop Steward", 
-        location: "RCF", 
-        image: "images/justin.jpg",
-        tagline: "JUSTIN BE BUSSIN - Real Work. Real Respect. Real Results."
-    },
-    { 
-        name: "Jason", 
-        role: "Assistant Shop Steward", 
-        location: "CFCF", 
-        image: "images/jason.jpg",
-        tagline: "JASON IN THE HOUSE - Keeping the locks secure and the contract strong at CFCF."
-    },
-    { 
-        name: "Andrew", 
-        role: "Assistant Shop Steward", 
-        location: "PICC", 
-        image: "images/andrew.jpg",
-        tagline: "ANDREW ANSWERS - Unlocking fair treatment for every member at PICC."
-    }
+    { name: "Charles", role: "Head Shop Steward" },
+    { name: "Kevin", role: "Assistant Shop Steward", location: "CFCF" },
+    { name: "Ryan", role: "Assistant Shop Steward", location: "RCF" },
+    { name: "Orlando", role: "Assistant Shop Steward", location: "PICC" }
 ];
 
 const cbaScannedPages = [
     {
-        section: "2022–2026 CBA (scanned — in progress, pages 1–13+)",
+        section: "2022–2026 CBA (scanned — in progress, pages 1–14+)",
         id: "cba-p1",
         url: "images/page_1.jpg",
         label: "Page 1",
@@ -490,7 +478,60 @@ const cbaScannedPages = [
         url: "images/page_13.jpg",
         label: "Page 13",
         title: "Hours (kitchen), files, call-in, holidays (start)",
-        description: "Article XVII continued: kitchen equipment hours, lunch on-site, personnel file discipline aging, payroll corrections, manning CFCF/RCF, Article XVIII call-in minimums, and heading for Article XIX holidays."
+        description: "Article XVII continued: kitchen equipment hours, lunch on-site, personnel file discipline aging, payroll corrections, manning CFCF/RCF, Article XVIII call-in minimums, and heading for Article XIX holidays.",
+        transcription: `Section 4. Kitchen Equipment workers will work an eight (8) hour day between the hours of 6:00 a.m. and 8:30 p.m. Monday through Friday. Individual work schedules will be established by the Project Manager, and will be based on the kitchen equipment work requirements. Kitchen Equipment workers will receive the applicable shift differential whenever they are required to work outside of their normally assigned hours.
+
+Section 5. There will be a paid thirty (30) minute lunch period. Employees must not leave the site (or go building to building) during the lunch period. Employees may leave the building after notifying supervision as to general location of where they will be. However, a supervisor may require that the employee remain in the building for extenuating circumstances or safety reasons which shall not be unreasonable.
+
+Section 6. Personnel Files: Verbal warnings, written warnings, and suspensions will not be considered in progressive discipline after 12 months from the date of the last incident upon which they were based.
+
+Section 7. Payroll discrepancies will be promptly investigated by Headquarters, upon notice from the employee through her or his supervisor. The employee shall provide information about the specifics of the discrepancy. If the discrepancy is found to be the fault of the company, a supplementary check will be mailed within 3 work days of receipt by Headquarters of the complaint.
+
+Section 8. The following number of employees may be permitted off simultaneously on any non-holiday:
+
+Three (3) bargaining unit employees from CFCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from CFCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from CFCF on the 12:00 am to 8:00 am shift
+
+Two (2) bargaining unit employees from RCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from RCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from RCF on the 12:00 am to 8:00 am shift
+
+ARTICLE XVIII. CALL-IN PAY
+
+Section 1. An employee recalled to work after completion of his/her regular shift, or called back to work on his/her regularly scheduled day off shall be guaranteed a minimum of four (4) hours pay at the appropriate pay rate.
+
+Section 2. The employee shall receive the appropriate overtime rate for all hours worked.
+
+ARTICLE XIX. HOLIDAYS`
+    },
+    {
+        id: "cba-p14",
+        url: "images/page_14.jpg",
+        label: "Page 14",
+        title: "Holidays and pension (start)",
+        description: "Article XIX Sections 1–4: eight paid holidays, eligibility, holiday pay, and essential-employee limits. Article XX begins with the pension contribution rule.",
+        transcription: `Section 1. Employees shall receive eight (8) holidays with pay on the following days: New Year's Day, Martin Luther King Jr. Birthday, Memorial Day, Juneteenth Fourth of July, Labor Day, Thanksgiving Day, and Christmas Day.
+
+Section 2. All covered full time employees are eligible for the designated holidays if they are working or on an approved absence (i.e., scheduled time off “STO” approved at least four (4) days in advance) on the scheduled work day prior to and the scheduled work day after a designated holiday. For the Monday to Friday 8:00 a.m. to 4:00 p.m. shift only, if a holiday set forth in Section 1 of this Article falls on a Saturday, it shall be celebrated on the preceding Friday. If such a holiday falls on a Sunday, it shall be celebrated on the following Monday. If an employee calls out on a holiday they are scheduled to work, then they must provide a physician’s note (within seven (7) days) in order to receive holiday pay.
+
+Section 3. Holiday pay will consist of the employee’s regular hourly rate, plus shift differential, if applicable, for eight (8) hours. On all designated holidays that an employee is required to work, he/she shall receive one and one-half (1 ½) times their regular rate of pay plus holiday pay. Employees must actually work the holiday to receive holiday pay of 1 ½ times their regular rate of pay.
+
+Section 4. The following number of “essential employees” may be permitted off simultaneously on a holiday:
+
+Two (2) bargaining unit employees from CFCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from CFCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from CFCF on the 12:00 am to 8:00 am shift
+
+Two (2) bargaining unit employees from RCF on the 8:00 am to 4:00 pm shift
+Two (2) bargaining unit employees from RCF on the 4:00 pm to 12:00 am shift
+One (1) bargaining unit employee from RCF on the 12:00 am to 8:00 am shift
+
+Essential employees are those working as an Electrician, Stationary Engineer, Maintenance Trades Helper, Building Engineer, and Plumber. Employees in classifications other than those listed above are not required to work their regular scheduled shift if it falls on a holiday or when a holiday is scheduled. In addition, one (1) locksmith shall be considered to be an “essential employee” on the CFCF 8:00 am to 4:00 pm shift.
+
+ARTICLE XX. PENSION
+
+Section 1. Employer shall pay monthly into the Central Pension Fund of the International Union of Operating Engineers and Participating Employers for each eligible employee at the amount specified in Section 3 below.`
     }
 ];
 

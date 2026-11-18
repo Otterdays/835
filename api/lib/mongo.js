@@ -39,7 +39,15 @@ async function ensureIndexes(db) {
     // Community forum
     await db.collection('forum_threads').createIndex({ lastActivityAt: -1 });
     await db.collection('forum_threads').createIndex({ category: 1, lastActivityAt: -1 });
+    await db.collection('forum_threads').createIndex(
+        { title: 'text', body: 'text', category: 'text', author: 'text' },
+        { name: 'forum_threads_search', default_language: 'english' }
+    );
     await db.collection('forum_replies').createIndex({ threadId: 1, createdAt: 1 });
+    await db.collection('forum_replies').createIndex(
+        { body: 'text', author: 'text' },
+        { name: 'forum_replies_search', default_language: 'english' }
+    );
     await db.collection('forum_rate').createIndex({ key: 1 }, { unique: true });
     await db.collection('forum_rate').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 }

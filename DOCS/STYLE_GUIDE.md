@@ -23,3 +23,7 @@
 - **Formatting**: Preserve section headers and list numbering from the original documents. Use backticks for multi-line content in `data.js`.
 - **Gallery Sync**: When adding a new image, ensure both the text entry in `contractData.articles` and the image metadata in `cbaScannedPages` or `toolProgramScans` are updated.
 - **Sitewide search**: New `cbaScannedPages` / `toolProgramScans` rows are picked up automatically when `label`, `title`, `description`, `section`, or `transcription` are populated. Rosters and stewards index from `employeesData` / `shopStewards`. Contract articles index from `contractData.articles`.
+
+[AMENDED 2026-11-17]: Sitewide search also has a curated entry for each static member page. When adding or renaming pages, update `js/site-search.js` and `js/nav-config.js`; forum search queries the Mongo text indexes for both threads and replies. Keep `npm run test:smoke` local-link and search-coverage checks green.
+
+[AMENDED 2026-11-17]: For future CBA or facility-policy scans, follow `DOCS/CONTRACT_PAGE_INGESTION.md`. It covers printed-page verification, faithful transcription, `contractData.articles`, scan metadata, search/deep links, dated updates, and cross-assistant instruction loading. Keep `AGENTS.md` canonical and import it from `CLAUDE.md`.

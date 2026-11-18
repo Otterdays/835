@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-17]: **Steward roster.** Updated the four Local 835 State Road contacts to Charles (Head Shop Steward), Kevin (Assistant Shop Steward, CFCF), Ryan (Assistant Shop Steward, RCF), and Orlando (Assistant Shop Steward, PICC). Removed steward portraits and promotional taglines.
+
 [AMENDED 2026-11-17]: **Community forum.** `forum.html` lets members post threads and replies under a temporary, self-chosen username stored only in their browser (changeable under Account options). Posts persist in MongoDB Atlas through Vercel `api/forum/*`. No real login yet — names are unverified and unclaimed.
 # Summary
 
@@ -36,3 +38,17 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 - [UPDATED 2026-04-27]: Added a barebones Suggestions page and updated all site sidebars to include the link. Renamed "Employees (RCF)" to "Site Roster" globally.
 - [UPDATED 2026-06-26]: Sitewide search modal (`js/site-search.js`) indexes contract, scans, tool program, stewards, and roster from `data.js` (lazy-loaded on gateway pages). Shortcuts: Ctrl+K, `/` (except on contract page where `/` focuses CBA search). Deep links: `?q`, `?article`, `?item`, `?site`.
 - [UPDATED 2026-06-26]: Navigation centralized in `js/nav-config.js` with grouped sidebar (Documents / People / Feedback). Breadcrumbs on subpages. Home portal split into sections; roster search + facility chips; steward site filter; suggestions share/copy form.
+
+[AMENDED 2026-11-17]: **CBA scan refresh.** Replaced the lower-resolution page 13 scan with a higher-resolution copy of the supplied image and added its full transcription to the scanned-page search index. The image is printed page 13 and ends at the Article XIX heading; page 14 holiday provisions remain pending the correct scan.
+
+[AMENDED 2026-11-17]: **Site continuity + search.** Search indexes every static member page, normalizes punctuation and diacritics, retries a failed data load, and keeps local results responsive while forum results load. Mongo text indexes support matching forum threads and replies. `npm run test:smoke` checks page-local assets, shared shell/search wiring, and index coverage.
+
+[AMENDED 2026-11-17]: **CBA page 14 digitized.** Added the page 14 scan and transcription of Article XIX Sections 1–4. Added Article XX’s visible pension Section 1 as a partial article with a continuation note. The previous page 13-only holiday pending note is superseded.
+
+[AMENDED 2026-11-17 8:26 p.m. EST]: Added `updates.html`, a member-facing, time-stamped record of the November 17 forum, page 13, steward roster, search, and page 14 work. Linked it from site navigation, home, and sitewide search. Page 15+ and future member information are listed as next work.
+
+[AMENDED 2026-11-17]: Added cross-agent page-ingestion guidance for future CBA scans in `DOCS/CONTRACT_PAGE_INGESTION.md`. `AGENTS.md` is the canonical Codex/OpenAI instruction file; root `CLAUDE.md` imports it for Claude Code sessions that load CLAUDE instructions only. README and architecture links updated.
+
+[AMENDED 2026-11-17]: Added `contract-updates.html`, a member-facing contract and employment notices page. Its first item records the negotiated move from bi-weekly to weekly pay and attributes the timeline statement to USF / USF HR contact Susan Laramore-Johnson. It states that management has not established an implementation timeline and does not give an effective date. Linked from Home, shared navigation, and sitewide search.
+
+[AMENDED 2026-11-17 8:42 p.m. EST]: Added the shared Codex/OpenAI and Claude Code project instructions and the end-to-end CBA/policy page ingestion guide. Added smoke coverage for update pages, scan assets, search indexes, and agent instruction loading. Smoke, deploy, syntax, and diff checks passed. Owner authorized full-project pushes to `origin` and subsequent project commits, subject to reviewing the full diff and excluding secrets/local-only files.

@@ -2,7 +2,7 @@
     const MIN_QUERY_LEN = 2;
     const MAX_RESULTS = 12;
     const SEARCH_HINT =
-        'Type to search member documents, contract, scans, tool program, stewards, roster, and forum.';
+        'Search project updates, member pages, contract text, scans, names, roster, and forum.';
 
     let index = [];
     let forumEntries = [];
@@ -15,7 +15,13 @@
     let statusEl;
     let activeIndex = -1;
 
-    const normalize = (value) => (value || '').toLowerCase().trim();
+    const normalize = (value) =>
+        String(value || '')
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLocaleLowerCase()
+            .replace(/[^\p{L}\p{N}]+/gu, ' ')
+            .trim();
 
     const escapeHtml = (value) =>
         value.replace(/[&<>'"]/g, (char) =>
@@ -40,13 +46,17 @@
         if (!dataPromise) {
             dataPromise = new Promise((resolve, reject) => {
                 const script = document.createElement('script');
-                script.src = 'data.js';
+                script.src = new URL('data.js', document.baseURI).href;
                 script.onload = () => {
                     dataReady = true;
                     buildIndex();
                     resolve();
                 };
-                script.onerror = () => reject(new Error('Could not load search data.'));
+                script.onerror = () => {
+                    dataPromise = null;
+                    script.remove();
+                    reject(new Error('Could not load search data.'));
+                };
                 document.head.appendChild(script);
             });
         }
@@ -55,6 +65,62 @@
 
     const buildIndex = () => {
         index = [];
+
+        [
+            {
+                category: 'Home',
+                title: 'Local 835 Member Home',
+                body: 'Operating Engineers Local 835 State Road U.S. Facilities CFCF RCF PICC portal member resources home',
+                meta: 'Member portal',
+                href: 'home.html'
+            },
+            {
+                category: 'Updates',
+                title: 'Project Updates',
+                body: 'recent changes activity log changelog forum discussion board community forum MongoDB mobile readability thread reply temporary username page 13 high resolution scan page 14 Article XIX holiday pay Article XX pension partial search searchability steward roster roles portraits taglines Charles Kevin Ryan Orlando next page 15 CBA transcription future information scan transcription workflow image gallery search Codex OpenAI Claude Code future agents',
+                meta: 'Recent work and what is next',
+                href: 'updates.html'
+            },
+            {
+                category: 'Contract & Employment Updates',
+                title: 'Contract & Employment Updates',
+                body: 'contract negotiations employment updates weekly pay weekly payroll bi-weekly pay every two weeks union increases USF U.S. Facilities management implementation timeline Susan Laramore-Johnson',
+                meta: 'Negotiations and workplace changes',
+                href: 'contract-updates.html'
+            },
+            {
+                category: 'Member Tools',
+                title: 'Member Action Center',
+                body: 'grievance preparation grievance prep issue article steward preparation steward prep facts dates witnesses remedy Article IV time limits CFCF RCF PICC',
+                meta: 'Grievance and steward preparation',
+                href: 'member-action.html'
+            },
+            {
+                category: 'Member Tools',
+                title: 'Evidence Log',
+                body: 'evidence log V R A Q L record source date proves does not prove follow up export markdown JSON in memory',
+                meta: 'Organize evidence and export notes',
+                href: 'evidence-log.html'
+            },
+            {
+                category: 'Member Tools',
+                title: 'Bargaining Tools',
+                body: 'bargaining checklist document requests transparency proposals member vote contract ratification legal review wages benefits hours',
+                meta: 'Checklists and document requests',
+                href: 'bargaining.html'
+            },
+            {
+                category: 'Feedback',
+                title: 'Suggestions',
+                body: 'suggestions feedback member input share copy topic issue workplace facility steward contact follow up',
+                meta: 'Share member input',
+                href: 'suggestions.html'
+            }
+        ].forEach((page) => index.push({
+            ...page,
+            body: `${page.title}\n${page.body}`,
+            href: () => page.href
+        }));
 
         [
             {
@@ -92,8 +158,7 @@
                     title: article.title,
                     body: `${article.title}\n${article.content}`,
                     meta: article.separateFromMainAgreement ? 'Separate paper' : 'CBA article',
-                    href: (query) =>
-                        `contract.html?q=${encodeURIComponent(query)}&article=${encodeURIComponent(article.id)}`
+                    href: () => `contract.html?article=${encodeURIComponent(article.id)}`
                 });
             });
         }
@@ -132,9 +197,10 @@
                     category: 'Shop Stewards',
                     title: steward.name,
                     body: [steward.name, steward.role, steward.location, steward.tagline].join('\n'),
-                    meta: `${steward.role} — ${steward.location}`,
-                    href: () =>
-                        `stewards.html?site=${encodeURIComponent(steward.location)}`
+                    meta: steward.location ? `${steward.role} — ${steward.location}` : steward.role,
+                    href: () => steward.location
+                        ? `stewards.html?site=${encodeURIComponent(steward.location)}`
+                        : 'stewards.html'
                 });
             });
         }
@@ -153,12 +219,19 @@
         }
     };
 
-    /** Live forum threads (title + message). Failure only drops forum results. */
-    const loadForum = () => {
-        if (forumLoad) {
-            return forumLoad;
-        }
-        forumLoad = fetch('/api/forum/threads', { headers: { Accept: 'application/json' } })
+    /** Live forum threads and matching replies. Failure only drops forum results. */
+    const loadForum = (query = '') => {
+        forumLoad?.abort();
+        const controller = new AbortController();
+        forumLoad = controller;
+        forumEntries = [];
+        const timeout = window.setTimeout(() => controller.abort(), 6000);
+        const url = new URL('/api/forum/threads', window.location.origin);
+        if (query) url.searchParams.set('q', queryTokens(query).join(' '));
+        return fetch(url, {
+            headers: { Accept: 'application/json' },
+            signal: controller.signal
+        })
             .then((res) => {
                 if (!res.ok) {
                     throw new Error(`Forum search load failed (${res.status})`);
@@ -166,25 +239,32 @@
                 return res.json();
             })
             .then((data) => {
+                if (forumLoad !== controller) return;
                 forumEntries = (data.threads || []).map((t) => ({
                     category: 'Forum',
                     title: t.title,
-                    body: [t.title, t.body, t.author, t.category].join('\n'),
+                    body: [
+                        t.title,
+                        t.body,
+                        t.author,
+                        t.category,
+                        ...(t.matchedReplies || []).flatMap((reply) => [reply.author, reply.body])
+                    ].join('\n'),
                     meta: `${t.author} · ${t.replyCount} ${t.replyCount === 1 ? 'reply' : 'replies'}`,
                     href: () => `forum.html#t=${encodeURIComponent(t.id)}`
                 }));
             })
             .catch((err) => {
-                console.error('Forum search index unavailable', err);
+                if (err.name !== 'AbortError') {
+                    console.error('Forum search index unavailable', err);
+                }
             })
             .finally(() => {
-                // Allow a refresh next time the dialog opens.
-                forumLoad = null;
+                window.clearTimeout(timeout);
             });
-        return forumLoad;
     };
 
-    const queryTokens = (query) => normalize(query).split(/\s+/).filter(Boolean);
+    const queryTokens = (query) => [...new Set(normalize(query).split(/\s+/).filter(Boolean))];
 
     const scoreEntry = (entry, tokens) => {
         const title = normalize(entry.title);
@@ -200,13 +280,42 @@
             if (title.startsWith(token)) score += 4;
         }
 
+        const phrase = tokens.join(' ');
+        if (phrase && title.includes(phrase)) score += 12;
+        if (phrase && body.includes(phrase)) score += 4;
+
         return score;
     };
 
     const makeSnippet = (entry, tokens) => {
-        const flat = entry.body.replace(/\s+/g, ' ').trim();
+        const flat = String(entry.body || '').replace(/\s+/g, ' ').trim();
         const needle = tokens[0] || '';
-        const idx = flat.toLowerCase().indexOf(needle);
+        let originalOffset = 0;
+        let normalized = '';
+        const sourceOffsets = [];
+        [...flat].forEach((char) => {
+            const sourceOffset = originalOffset;
+            originalOffset += char.length;
+            const part = char
+                .normalize('NFKD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLocaleLowerCase();
+            [...part].forEach((partChar) => {
+                if (/[\p{L}\p{N}]/u.test(partChar)) {
+                    normalized += partChar;
+                    sourceOffsets.push(sourceOffset);
+                } else if (normalized && !normalized.endsWith(' ')) {
+                    normalized += ' ';
+                    sourceOffsets.push(sourceOffset);
+                }
+            });
+        });
+        if (normalized.endsWith(' ')) {
+            normalized = normalized.slice(0, -1);
+            sourceOffsets.pop();
+        }
+        const normalizedIndex = normalized.indexOf(needle);
+        const idx = normalizedIndex < 0 ? -1 : sourceOffsets[normalizedIndex];
         if (idx === -1) {
             return flat.slice(0, 140) + (flat.length > 140 ? '…' : '');
         }
@@ -335,11 +444,12 @@
 
         try {
             await ensureData();
-            statusEl.textContent = SEARCH_HINT;
-            // Forum threads load in the background; re-run the query when they arrive.
-            loadForum().then(() => {
-                if (isOpen() && input.value.trim()) {
-                    renderResults(input.value);
+            renderResults(input.value);
+            // Search the local index immediately; live forum results can arrive later.
+            loadForum(input.value.trim()).then(() => {
+                if (isOpen()) {
+                    if (input.value.trim()) renderResults(input.value);
+                    else statusEl.textContent = SEARCH_HINT;
                 }
             });
         } catch {
@@ -353,6 +463,7 @@
         if (!overlay || !isOpen()) {
             return;
         }
+        forumLoad?.abort();
         overlay.classList.remove('is-open');
         overlay.hidden = true;
         document.body.classList.remove('site-search-open');
@@ -426,7 +537,25 @@
             }
         });
 
-        input.addEventListener('input', () => renderResults(input.value));
+        let forumSearchTimer;
+        input.addEventListener('input', () => {
+            forumEntries = [];
+            forumLoad?.abort();
+            renderResults(input.value);
+            window.clearTimeout(forumSearchTimer);
+            const query = input.value.trim();
+            if (queryTokens(query).join('').length >= MIN_QUERY_LEN) {
+                forumSearchTimer = window.setTimeout(() => {
+                    if (!isOpen()) return;
+                    loadForum(query).then(() => {
+                        if (isOpen() && input.value.trim() === query) renderResults(query);
+                    });
+                }, 250);
+            } else {
+                forumEntries = [];
+                forumLoad?.abort();
+            }
+        });
         input.addEventListener('keydown', (event) => {
             const links = getResultLinks();
 

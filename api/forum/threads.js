@@ -13,6 +13,58 @@ module.exports = async function handler(req, res) {
                 filter.category = forum.validateCategory(params.get('category'));
             }
             const db = await getDb();
+            const query = (params.get('q') || '').trim().slice(0, 120);
+            if (query.length >= 2) {
+                const threadCollection = db.collection('forum_threads');
+                const replyCollection = db.collection('forum_replies');
+                const textSearch = { $text: { $search: query } };
+                const [directMatches, replyMatches] = await Promise.all([
+                    threadCollection
+                        .find({ ...filter, ...textSearch })
+                        .project({ score: { $meta: 'textScore' } })
+                        .sort({ score: { $meta: 'textScore' }, lastActivityAt: -1 })
+                        .limit(50)
+                        .toArray(),
+                    replyCollection
+                        .find(textSearch)
+                        .project({ score: { $meta: 'textScore' } })
+                        .sort({ score: { $meta: 'textScore' }, createdAt: -1 })
+                        .limit(100)
+                        .toArray()
+                ]);
+
+                const repliesByThread = new Map();
+                replyMatches.forEach((reply) => {
+                    const id = String(reply.threadId);
+                    if (!repliesByThread.has(id)) repliesByThread.set(id, []);
+                    repliesByThread.get(id).push(forum.replyOut(reply));
+                });
+
+                const matchedIds = new Set(directMatches.map((thread) => String(thread._id)));
+                replyMatches.forEach((reply) => matchedIds.add(String(reply.threadId)));
+                const replyOnlyIds = [...matchedIds]
+                    .filter((id) => !directMatches.some((thread) => String(thread._id) === id))
+                    .map((id) => new (require('mongodb').ObjectId)(id));
+                const replyParents = replyOnlyIds.length
+                    ? await threadCollection.find({ _id: { $in: replyOnlyIds }, ...filter }).toArray()
+                    : [];
+                const threadMap = new Map(
+                    [...directMatches, ...replyParents].map((thread) => [String(thread._id), thread])
+                );
+
+                const threads = [...matchedIds]
+                    .map((id) => threadMap.get(id))
+                    .filter(Boolean)
+                    .map((thread) => ({
+                        ...forum.threadOut(thread),
+                        matchedReplies: (repliesByThread.get(String(thread._id)) || []).slice(0, 5)
+                    }))
+                    .sort((a, b) => new Date(b.lastActivityAt) - new Date(a.lastActivityAt))
+                    .slice(0, 50);
+
+                return forum.json(res, 200, { ok: true, threads });
+            }
+
             const docs = await db
                 .collection('forum_threads')
                 .find(filter)

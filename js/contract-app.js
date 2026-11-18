@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerParties.textContent = 'U.S. Facilities, Inc. and International Union of Operating Engineers, Local 835, AFL-CIO.';
     headerDate.textContent = `${contractData.effectiveDate} · ${contractData.termLabel} term · ${cbaN} CBA articles`;
     headerStatus.textContent = 'Current CBA (2022–26)';
-    viewDescription.textContent = 'Master agreement: Articles I–XIX. Use the search bar to find specific clauses or terms. Scanned pages and facility-specific tool policies are located in their respective sections.';
+    viewDescription.textContent = 'Master agreement: Articles I–XX. Use the search bar to find specific clauses or terms. Scanned pages and facility-specific tool policies are located in their respective sections.';
     if (statArticles) {
         statArticles.textContent = String(cbaN);
     }

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statStewards.textContent = shopStewards.length;
     }
 
-    const locations = [...new Set(shopStewards.map((s) => s.location))].sort();
+    const locations = [...new Set(shopStewards.map((s) => s.location).filter(Boolean))].sort();
     let activeFacility = 'all';
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -75,11 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'steward-card';
             card.style.animationDelay = `${index * 0.08}s`;
 
-            const image = document.createElement('img');
-            image.src = steward.image;
-            image.alt = `${steward.name} portrait`;
-            image.className = 'steward-img';
-
             const info = document.createElement('div');
             info.className = 'steward-info';
 
@@ -89,16 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const role = document.createElement('div');
             role.className = 'steward-role';
-            role.textContent = `${steward.role} — ${steward.location}`;
-
-            const tagline = document.createElement('div');
-            tagline.className = 'steward-tagline';
-            tagline.textContent = steward.tagline;
+            role.textContent = steward.location
+                ? `${steward.role} — ${steward.location}`
+                : steward.role;
 
             info.appendChild(name);
             info.appendChild(role);
-            info.appendChild(tagline);
-            card.appendChild(image);
             card.appendChild(info);
             stewardsContainer.appendChild(card);
         });

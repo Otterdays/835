@@ -20,6 +20,7 @@ Vanilla JS/HTML/CSS approach. Single Page Application (SPA).
 |------|-----------------|------|
 | `index.html` | `auth.js`, `login-app.js` | API session or local.auth.json |
 | `home.html` | `auth.js`, `nav-config.js`, `shell.js`, `site-search.js` | None on load |
+| `contract-updates.html` | shared shell + search | Static member-facing contract and employment notices |
 | `member-action.html` | + `member-action-app.js` | None (export worksheets) |
 | `evidence-log.html` | + `evidence-log-app.js` | In-memory only |
 | `bargaining.html` | + `bargaining-app.js` | Static checklists |
@@ -40,6 +41,10 @@ flowchart TD
     Middleware -->|missing| Login
     API[api/auth login] --> Mongo[(Mongo users)]
 ```
+
+[AMENDED 2026-11-17]: Added member-facing `updates.html`, included in `SITE_NAV`, `SITE_PAGE_IDS`, Home, and sitewide search. The detailed CBA scan ingestion workflow is in `DOCS/CONTRACT_PAGE_INGESTION.md`; root `AGENTS.md` is canonical and root `CLAUDE.md` imports it for Claude Code compatibility.
+
+[AMENDED 2026-11-17]: Added `contract-updates.html` as a separate member-notice page for negotiations and employment changes. It is discoverable from shared navigation, Home, and sitewide search; portal development notes remain on `updates.html`.
 
 ## Search layers
 
