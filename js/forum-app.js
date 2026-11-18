@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
         threadSubmit: $('forum-thread-submit'),
         threadStatus: $('forum-thread-status'),
         filter: $('forum-filter'),
-        boardCount: $('forum-board-count'),
         threadList: $('forum-thread-list'),
         threadView: $('forum-thread-view'),
         threadMain: $('forum-thread-main'),
@@ -139,9 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return Number.isNaN(d.getTime()) ? '' : d.toLocaleString();
     };
 
+    const formatShort = (iso) => {
+        const d = new Date(iso);
+        return Number.isNaN(d.getTime())
+            ? ''
+            : d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    };
+
     const showStatus = (node, text, type = 'info') => {
         node.textContent = text;
-        node.className = `suggestion-status suggestion-status--${type}`;
+        node.className = `forum-status forum-status--${type}`;
         node.hidden = !text;
     };
 
@@ -259,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const authorNode = (author) => {
-        const wrap = el('span', 'suggestion-post-name', author);
+        const wrap = el('span', 'forum-author', author);
         if (author && author === currentName()) {
             wrap.append(el('span', 'forum-you', ' (you)'));
         }
@@ -268,32 +274,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderThreadList = () => {
         els.threadList.replaceChildren();
-        els.boardCount.textContent = `${threads.length} shown`;
         if (!threads.length) {
-            els.threadList.append(el('p', 'suggestion-empty', 'No threads yet. Start the first one.'));
+            els.threadList.append(el('p', 'forum-empty', 'No threads yet. Start the first one.'));
             return;
         }
         threads.forEach((t) => {
-            const link = el('a', 'suggestion-post forum-thread-row');
+            const link = el('a', 'forum-row');
             link.href = `#t=${encodeURIComponent(t.id)}`;
-            link.append(el('h3', 'forum-thread-title', t.title));
+            link.append(el('h3', 'forum-row-title', t.title));
 
-            const meta = el('div', 'suggestion-post-meta');
-            meta.append(authorNode(t.author), el('span', 'suggestion-post-topic', CATEGORY_LABEL[t.category] || t.category));
-            const time = el('time', '', formatWhen(t.lastActivityAt));
-            time.dateTime = t.lastActivityAt;
-            meta.append(time);
-            link.append(meta);
-
-            link.append(
-                el('p', 'forum-thread-replies', `${t.replyCount} ${t.replyCount === 1 ? 'reply' : 'replies'}`)
+            const meta = el('p', 'forum-row-meta');
+            const replies = `${t.replyCount} ${t.replyCount === 1 ? 'reply' : 'replies'}`;
+            meta.append(
+                authorNode(t.author),
+                document.createTextNode(` · ${CATEGORY_LABEL[t.category] || t.category} · ${replies} · ${formatShort(t.lastActivityAt)}`)
             );
+            link.append(meta);
             els.threadList.append(link);
         });
     };
 
     const loadThreads = async () => {
-        els.threadList.replaceChildren(el('p', 'suggestion-empty', 'Loading threads…'));
+        els.threadList.replaceChildren(el('p', 'forum-empty', 'Loading threads…'));
         try {
             const query = els.filter.value ? `?category=${encodeURIComponent(els.filter.value)}` : '';
             const data = await api(`/threads${query}`);
@@ -301,8 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderThreadList();
         } catch (err) {
             console.error('Forum list load failed', err);
-            els.boardCount.textContent = '';
-            els.threadList.replaceChildren(el('p', 'suggestion-status suggestion-status--error', err.message));
+            els.threadList.replaceChildren(el('p', 'forum-status forum-status--error', err.message));
         }
     };
 
@@ -346,34 +347,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderThread = () => {
         const { thread, replies } = openThread;
         els.threadMain.replaceChildren();
-        els.threadMain.append(el('h2', 'forum-thread-title', thread.title));
+        els.threadMain.append(el('h2', '', thread.title));
 
-        const meta = el('header', 'suggestion-post-meta');
-        meta.append(authorNode(thread.author), el('span', 'suggestion-post-topic', CATEGORY_LABEL[thread.category] || thread.category));
-        const time = el('time', '', formatWhen(thread.createdAt));
-        time.dateTime = thread.createdAt;
-        meta.append(time);
-        els.threadMain.append(meta, el('p', 'suggestion-post-body forum-body', thread.body));
+        const meta = el('p', 'forum-meta');
+        meta.append(
+            authorNode(thread.author),
+            document.createTextNode(` · ${CATEGORY_LABEL[thread.category] || thread.category} · ${formatWhen(thread.createdAt)}`)
+        );
+        els.threadMain.append(meta, el('p', 'forum-body', thread.body));
 
-        els.repliesCount.textContent = `${replies.length} ${replies.length === 1 ? 'reply' : 'replies'}`;
+        els.repliesCount.textContent = replies.length ? `(${replies.length})` : '';
         els.replyList.replaceChildren();
         if (!replies.length) {
-            els.replyList.append(el('p', 'suggestion-empty', 'No replies yet.'));
+            els.replyList.append(el('p', 'forum-empty', 'No replies yet. Be the first to reply.'));
         }
         replies.forEach((r) => {
-            const post = el('article', 'suggestion-post');
-            const rmeta = el('header', 'suggestion-post-meta');
-            rmeta.append(authorNode(r.author));
-            const rtime = el('time', '', formatWhen(r.createdAt));
-            rtime.dateTime = r.createdAt;
-            rmeta.append(rtime);
-            post.append(rmeta, el('p', 'suggestion-post-body forum-body', r.body));
+            const post = el('article', 'forum-post');
+            const rmeta = el('p', 'forum-meta');
+            rmeta.append(authorNode(r.author), document.createTextNode(` · ${formatWhen(r.createdAt)}`));
+            post.append(rmeta, el('p', 'forum-body', r.body));
             els.replyList.append(post);
         });
     };
 
     const loadThread = async (id) => {
-        els.threadMain.replaceChildren(el('p', 'suggestion-empty', 'Loading thread…'));
+        els.threadMain.replaceChildren(el('p', 'forum-empty', 'Loading thread…'));
         els.replyList.replaceChildren();
         els.repliesCount.textContent = '';
         try {
@@ -382,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error('Forum thread load failed', err);
             openThread = null;
-            els.threadMain.replaceChildren(el('p', 'suggestion-status suggestion-status--error', err.message));
+            els.threadMain.replaceChildren(el('p', 'forum-status forum-status--error', err.message));
         }
     };
 
@@ -451,6 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadThread(id);
         } else {
             openThread = null;
+            els.newCard.open = false;
             loadThreads();
         }
         window.scrollTo({ top: 0 });

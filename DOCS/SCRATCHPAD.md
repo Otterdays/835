@@ -219,3 +219,19 @@ Publish the new IUOE Local 835 Word and Markdown working documents in the member
 - [2026-07-28] Added Word download and Markdown source links for both documents.
 - [2026-07-28] Linked Member Documents from the homepage and shared Documents navigation.
 - [2026-07-28] Added both working documents to sitewide search.
+
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Refine the Community Forum for clear mobile reading and easier posting, keeping the existing Mongo-backed thread and reply behavior.
+
+## Actions Log:
+- [2026-11-17] Tightened the forum into a calmer Local 835 notice-board style: clearer thread hierarchy, larger tap rows, 18px body/control type, and a shorter reply field on phones. Preserved existing forum behaviors and added no dependencies.
+
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Rebuild the community forum front end in the active workspace using the existing Mongo forum API contract.
+
+## Actions Log:
+- [2026-11-17] Added the readable, mobile-first forum page and connected it to existing thread/reply endpoints; added home, navigation, and site-search entry points. No dependencies added.
