@@ -13,7 +13,9 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
-[AMENDED 2026-11-17]: Expanded the roster with Mike Knepper (RCF Locksmith), Jason Kinser (CFCF Locksmith), Scott (Warehouse crew), Bryan Phillips (Kitchen Mechanic Helper), Dan Pagano (Kitchen Supervisor/Mechanic), Eric Moran (PICC Helper), Andrew (PICC Locksmith), and Xavior (CFCF Helper). See `data.js` and `updates.html`.
+[AMENDED 2026-11-17]: Corrected Monica Manning, Robert Korchak, and Xavier Wilson in the roster; added Elliott Pinto and Barry Sanchez as CFCF Helpers.
+
+[AMENDED 2026-11-17]: Expanded the roster with Mike Knepper (RCF Locksmith), Jason Kinser (CFCF Locksmith), Scott (Warehouse crew), Bryan Phillips (Kitchen Mechanic Helper), Dan Pagano (Kitchen Supervisor/Mechanic), Eric Moran (PICC Helper), Andrew (PICC Locksmith), and Xavier Wilson (CFCF Helper). See `data.js` and `updates.html`.
 
 [AMENDED 2026-11-17]: **Roster expanded.** Added the supplied employee and trade entries across CFCF, RCF, and PICC, corrected Kevin Lyons as a CFCF painter while retaining his assistant steward role, and added the ordered management contacts: John Caroll (1, Project Manager), Jebouy John (2, Lead APM), and Vince Regalbuto (3, Assistant APM). See `data.js` and `updates.html`.
 
