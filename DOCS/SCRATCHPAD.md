@@ -1,4 +1,7 @@
 [AMENDED 2026-11-17]:
+- [2026-11-17] Forum is live on Vercel + Atlas (verified by user). Added forum to sitewide search (`js/site-search.js` fetches `/api/forum/threads` each time the dialog opens; thread title/body/author indexed; replies are not). Home now promotes the forum: callout section + floating `.forum-fab` button (z-index 900, safe-area aware, mobile-checked).
+
+[AMENDED 2026-11-17]:
 - [2026-11-17] Vercel runtime logs showed `bad auth` (password misread from screenshot: 2nd char is capital O, not zero — verified against Atlas) and a null-`db` cascade. Fixed `api/lib/mongo.js` so a failed connect no longer caches a null db.
 
 [AMENDED 2026-11-17]:

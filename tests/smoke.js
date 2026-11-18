@@ -93,5 +93,10 @@ const forumApp = fs.readFileSync(path.join(root, 'js/forum-app.js'), 'utf8');
 ok(!forumApp.includes('innerHTML'), 'forum client never uses innerHTML');
 ok(forumApp.includes('oe835_forum_username'), 'forum client stores temp username locally');
 
+const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
+ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
+const homeHtml = fs.readFileSync(path.join(root, 'home.html'), 'utf8');
+ok(homeHtml.includes('forum-fab') && homeHtml.includes('home-forum-callout'), 'home promotes the forum (floating button + callout)');
+
 console.log(failed ? `\n${failed} smoke check(s) failed` : '\nAll smoke checks passed');
 process.exit(failed ? 1 : 0);

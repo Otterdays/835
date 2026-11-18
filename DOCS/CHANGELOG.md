@@ -1,5 +1,10 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+## [1.3.1] - 2026-11-17
+- **Search:** Community Forum page + live forum threads appear in sitewide search (Ctrl+K).
+- **Home:** "Community Forum" callout and a floating Forum button (mobile-safe) so members can find the board.
+- **Fix:** `api/lib/mongo.js` no longer caches a failed connection (was causing null-db errors after bad auth).
+
 ## [1.3.0] - 2026-11-17
 - **Community forum:** `forum.html` — threads + replies, category filter, temporary usernames saved in the browser (no login), Account options to change/forget the name.
 - **API:** `GET/POST /api/forum/threads`, `GET/POST /api/forum/thread` on Vercel + Mongo (`forum_threads`, `forum_replies`, `forum_rate`).

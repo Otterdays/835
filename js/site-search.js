@@ -1,8 +1,12 @@
 (function () {
     const MIN_QUERY_LEN = 2;
     const MAX_RESULTS = 12;
+    const SEARCH_HINT =
+        'Type to search member documents, contract, scans, tool program, stewards, roster, and forum.';
 
     let index = [];
+    let forumEntries = [];
+    let forumLoad = null;
     let dataReady = false;
     let dataPromise = null;
     let overlay;
@@ -73,6 +77,14 @@
             });
         });
 
+        index.push({
+            category: 'Community Forum',
+            title: 'Community Forum',
+            body: 'Community forum discussion board members talk threads posts replies general contract workplace',
+            meta: 'Talk with fellow members',
+            href: () => 'forum.html'
+        });
+
         if (typeof contractData !== 'undefined' && contractData.articles) {
             contractData.articles.forEach((article) => {
                 index.push({
@@ -141,6 +153,37 @@
         }
     };
 
+    /** Live forum threads (title + message). Failure only drops forum results. */
+    const loadForum = () => {
+        if (forumLoad) {
+            return forumLoad;
+        }
+        forumLoad = fetch('/api/forum/threads', { headers: { Accept: 'application/json' } })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error(`Forum search load failed (${res.status})`);
+                }
+                return res.json();
+            })
+            .then((data) => {
+                forumEntries = (data.threads || []).map((t) => ({
+                    category: 'Forum',
+                    title: t.title,
+                    body: [t.title, t.body, t.author, t.category].join('\n'),
+                    meta: `${t.author} · ${t.replyCount} ${t.replyCount === 1 ? 'reply' : 'replies'}`,
+                    href: () => `forum.html#t=${encodeURIComponent(t.id)}`
+                }));
+            })
+            .catch((err) => {
+                console.error('Forum search index unavailable', err);
+            })
+            .finally(() => {
+                // Allow a refresh next time the dialog opens.
+                forumLoad = null;
+            });
+        return forumLoad;
+    };
+
     const queryTokens = (query) => normalize(query).split(/\s+/).filter(Boolean);
 
     const scoreEntry = (entry, tokens) => {
@@ -191,6 +234,7 @@
         }
 
         return index
+            .concat(forumEntries)
             .map((entry) => ({ entry, score: scoreEntry(entry, tokens) }))
             .filter((row) => row.score > 0)
             .sort((a, b) => b.score - a.score)
@@ -208,7 +252,7 @@
         activeIndex = -1;
 
         if (!tokens.length) {
-            statusEl.textContent = 'Type to search member documents, contract, scans, tool program, stewards, and roster.';
+            statusEl.textContent = SEARCH_HINT;
             return;
         }
 
@@ -291,7 +335,13 @@
 
         try {
             await ensureData();
-            statusEl.textContent = 'Type to search member documents, contract, scans, tool program, stewards, and roster.';
+            statusEl.textContent = SEARCH_HINT;
+            // Forum threads load in the background; re-run the query when they arrive.
+            loadForum().then(() => {
+                if (isOpen() && input.value.trim()) {
+                    renderResults(input.value);
+                }
+            });
         } catch {
             statusEl.textContent = 'Search data failed to load. Refresh and try again.';
         }
@@ -355,7 +405,7 @@
 
         statusEl = document.createElement('p');
         statusEl.className = 'site-search-status';
-        statusEl.textContent = 'Type to search member documents, contract, scans, tool program, stewards, and roster.';
+        statusEl.textContent = SEARCH_HINT;
 
         resultsEl = document.createElement('ul');
         resultsEl.id = 'site-search-results';
