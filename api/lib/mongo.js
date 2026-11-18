@@ -13,11 +13,20 @@ async function getDb() {
         cached = { client: null, db: null };
         globalThis.__oe835Mongo = cached;
     }
-    if (!cached.client) {
-        cached.client = new MongoClient(uri, { maxPoolSize: 5 });
-        await cached.client.connect();
-        cached.db = cached.client.db(dbName);
-        await ensureIndexes(cached.db);
+    if (!cached.db) {
+        // Only cache after a fully successful connect + index setup, so one
+        // failed attempt (e.g. bad auth) cannot leave a null db cached.
+        const client = new MongoClient(uri, { maxPoolSize: 5 });
+        try {
+            await client.connect();
+            const db = client.db(dbName);
+            await ensureIndexes(db);
+            cached.client = client;
+            cached.db = db;
+        } catch (err) {
+            await client.close().catch((closeErr) => console.error('mongo close failed', closeErr));
+            throw err;
+        }
     }
     return cached.db;
 }

@@ -1,4 +1,7 @@
 [AMENDED 2026-11-17]:
+- [2026-11-17] Vercel runtime logs showed `bad auth` (password misread from screenshot: 2nd char is capital O, not zero — verified against Atlas) and a null-`db` cascade. Fixed `api/lib/mongo.js` so a failed connect no longer caches a null db.
+
+[AMENDED 2026-11-17]:
 ## Current Task:
 Community forum (`forum.html`) with temporary local usernames; threads/replies stored in Mongo Atlas via Vercel `api/forum/*`.
 
