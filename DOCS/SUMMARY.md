@@ -1,5 +1,9 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-17]: **Home page readability.** Reorganized the State Road member home page with a restrained, compact layout, clear primary actions, facility steward links, and grouped resource links sized for mobile reading.
+
+[AMENDED 2026-11-17]: **CBA page 15.** Added the page 15 scan; completed Article XX Pension Sections 1–4 across pages 14–15; transcribed Article XXI Wages Sections 1–2 and the opening of Article XXII Health Care Insurance. Updated scan search, article coverage, bargaining reference, and member updates. Articles XXI and XXII remain partial.
+
 [AMENDED 2026-11-17]: **Steward roster.** Updated the four Local 835 State Road contacts to Charles (Head Shop Steward), Kevin (Assistant Shop Steward, CFCF), Ryan (Assistant Shop Steward, RCF), and Orlando (Assistant Shop Steward, PICC). Removed steward portraits and promotional taglines.
 
 [AMENDED 2026-11-17]: **Community forum.** `forum.html` lets members post threads and replies under a temporary, self-chosen username stored only in their browser (changeable under Account options). Posts persist in MongoDB Atlas through Vercel `api/forum/*`. No real login yet — names are unverified and unclaimed.
@@ -52,3 +56,5 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-17]: Added `contract-updates.html`, a member-facing contract and employment notices page. Its first item records the negotiated move from bi-weekly to weekly pay and attributes the timeline statement to USF / USF HR contact Susan Laramore-Johnson. It states that management has not established an implementation timeline and does not give an effective date. Linked from Home, shared navigation, and sitewide search.
 
 [AMENDED 2026-11-17 8:42 p.m. EST]: Added the shared Codex/OpenAI and Claude Code project instructions and the end-to-end CBA/policy page ingestion guide. Added smoke coverage for update pages, scan assets, search indexes, and agent instruction loading. Smoke, deploy, syntax, and diff checks passed. Owner authorized full-project pushes to `origin` and subsequent project commits, subject to reviewing the full diff and excluding secrets/local-only files.
+
+[AMENDED 2026-11-17 8:50 p.m. EST]: **CBA page 15 digitized.** Added `images/page_15.jpg` and scan/search record `cba-p15`. Completed Article XX Pension Sections 1–4 across pages 14–15; added Article XXI Wages Sections 1–2 and Article XXII Health Care Insurance Section 1. Articles XXI and XXII are partial pending continuation scans. Current archive range is pages 1–15+.

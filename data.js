@@ -303,7 +303,41 @@ Essential employees are those working as an Electrician, Stationary Engineer, Ma
             title: "ARTICLE XX. PENSION",
             content: `Section 1. Employer shall pay monthly into the Central Pension Fund of the International Union of Operating Engineers and Participating Employers for each eligible employee at the amount specified in Section 3 below.
 
-[Article XX continues beyond scanned page 14.]`
+Section 2. Payments to the Pension Fund required above shall be made to the Central Pension Fund of the International Union of Operating Engineers and Participating Employers which was established under an Agreement and Declaration of Trust dated September 7, 1969. The Employer agrees to be bound by all of the terms and conditions of that Agreement and Declaration of Trust and by any amendments to said Trust Agreement.
+
+Section 3. It is agreed that the Employer’s contribution to the Pension Fund shall be:
+
+1. Effective July 1, 2022 - $1.80 per hour worked (capped at 40 hours)
+2. Effective July 1, 2023 - $2.00 per hour worked (capped at 40 hours)
+3. Effective July 1, 2024 - $2.20 per hour worked (capped at 40 hours)
+4. Effective July 1, 2025 - $2.40 per hour worked (capped at 40 hours)
+
+It is agreed that all Employer contributions shall be made within thirty (30) days after the date required by the Trustees. Contributions will be made to the address supplied by the Pension Fund, as that may change from time to time.
+
+Section 4. All covered full-time employees are eligible to participate in the 401(k) plan established by the Company for the benefit of its employees. Union members shall participate under the same terms and conditions as all other participants. The Company shall transmit 401(k) deferrals on a bi-weekly basis.`
+        },
+        {
+            id: "article-21",
+            title: "ARTICLE XXI. WAGES",
+            content: `Section 1. The wage rates and classifications that apply are shown in Exhibit “B”.
+
+1. Effective July 1, 2022 — 4% increase to base wages
+2. Effective July 1, 2023 — 3.75% increase to base wages
+3. Effective July 1, 2024 — 3.75% increase to base wages
+4. Effective July 1, 2025 — 3.5% increase to base wages
+
+Exhibit “B” shall be modified to reflect the agreed upon wage increase. Exhibit “B” shall also be corrected to reflect the $1.50 shift differential as set forth in Article XVII (“Hours Worked”), Section 2.
+
+Section 2. All wages are to be paid biweekly. When employees are terminated, they shall be paid all wages or other compensation due not later than the next regular payday on which wages would otherwise be due and payable as prescribed by Pennsylvania Wage Payment and collection law.
+
+[Article XXI continues beyond scanned page 15.]`
+        },
+        {
+            id: "article-22",
+            title: "ARTICLE XXII. HEALTH CARE INSURANCE",
+            content: `Section 1. The Employer will provide Group Long Term Disability (LTD) coverage for all full time eligible employees.
+
+[Article XXII continues beyond scanned page 15.]`
         },
         {
             id: "separate-paper-tool-control",
@@ -389,7 +423,7 @@ const shopStewards = [
 
 const cbaScannedPages = [
     {
-        section: "2022–2026 CBA (scanned — in progress, pages 1–14+)",
+        section: "2022–2026 CBA (scanned — in progress, pages 1–15+)",
         id: "cba-p1",
         url: "images/page_1.jpg",
         label: "Page 1",
@@ -532,6 +566,44 @@ Essential employees are those working as an Electrician, Stationary Engineer, Ma
 ARTICLE XX. PENSION
 
 Section 1. Employer shall pay monthly into the Central Pension Fund of the International Union of Operating Engineers and Participating Employers for each eligible employee at the amount specified in Section 3 below.`
+    },
+    {
+        id: "cba-p15",
+        url: "images/page_15.jpg",
+        label: "Page 15",
+        title: "Pension, wages, and health care (start)",
+        description: "Article XX Pension Sections 2–4 complete the article: trust terms, contribution schedule, and 401(k). Article XXI Wages Sections 1–2 are transcribed. Article XXII begins with Long Term Disability coverage; later sections continue beyond this scan.",
+        transcription: `ARTICLE XX. PENSION
+
+Section 2. Payments to the Pension Fund required above shall be made to the Central Pension Fund of the International Union of Operating Engineers and Participating Employers which was established under an Agreement and Declaration of Trust dated September 7, 1969. The Employer agrees to be bound by all of the terms and conditions of that Agreement and Declaration of Trust and by any amendments to said Trust Agreement.
+
+Section 3. It is agreed that the Employer’s contribution to the Pension Fund shall be:
+
+1. Effective July 1, 2022 - $1.80 per hour worked (capped at 40 hours)
+2. Effective July 1, 2023 - $2.00 per hour worked (capped at 40 hours)
+3. Effective July 1, 2024 - $2.20 per hour worked (capped at 40 hours)
+4. Effective July 1, 2025 - $2.40 per hour worked (capped at 40 hours)
+
+It is agreed that all Employer contributions shall be made within thirty (30) days after the date required by the Trustees. Contributions will be made to the address supplied by the Pension Fund, as that may change from time to time.
+
+Section 4. All covered full-time employees are eligible to participate in the 401(k) plan established by the Company for the benefit of its employees. Union members shall participate under the same terms and conditions as all other participants. The Company shall transmit 401(k) deferrals on a bi-weekly basis.
+
+ARTICLE XXI. WAGES
+
+Section 1. The wage rates and classifications that apply are shown in Exhibit “B”.
+
+1. Effective July 1, 2022 — 4% increase to base wages
+2. Effective July 1, 2023 — 3.75% increase to base wages
+3. Effective July 1, 2024 — 3.75% increase to base wages
+4. Effective July 1, 2025 — 3.5% increase to base wages
+
+Exhibit “B” shall be modified to reflect the agreed upon wage increase. Exhibit “B” shall also be corrected to reflect the $1.50 shift differential as set forth in Article XVII (“Hours Worked”), Section 2.
+
+Section 2. All wages are to be paid biweekly. When employees are terminated, they shall be paid all wages or other compensation due not later than the next regular payday on which wages would otherwise be due and payable as prescribed by Pennsylvania Wage Payment and collection law.
+
+ARTICLE XXII. HEALTH CARE INSURANCE
+
+Section 1. The Employer will provide Group Long Term Disability (LTD) coverage for all full time eligible employees.`
     }
 ];
 

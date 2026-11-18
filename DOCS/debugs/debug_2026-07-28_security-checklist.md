@@ -28,3 +28,5 @@ Date: 2026-07-28
 - Suggestions / evidence remain client export-only (intentional)
 
 [AMENDED 2026-11-17]: The Article XIX pending-OCR item above is resolved for the supplied page 14 scan. Article XX has only its opening Section 1 digitized so far; continuation still needs later pages.
+
+[AMENDED 2026-11-17 8:50 p.m. EST]: Page 15 completes the Article XX continuation noted above: Pension Sections 1–4 are transcribed across pages 14–15. Articles XXI (Wages) and XXII (Health Care Insurance) begin on page 15 and remain partial pending later scans.

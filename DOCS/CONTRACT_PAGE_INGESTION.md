@@ -70,3 +70,5 @@ If the page begins an article previously absent, add it to `contractData.article
 `AGENTS.md` is the shared source for Codex/OpenAI agents. Root `CLAUDE.md` uses Claude Code's documented `@AGENTS.md` import so the same rules are available when Claude Code is configured to read CLAUDE files only or cannot load AGENTS directly. Keep shared workflow details in this guide, not duplicated in both agent entrypoints.
 
 Official references checked 2026-11-17: [Codex AGENTS.md instructions](https://developers.openai.com/codex/guides/agents-md) and [Claude Code memory, AGENTS.md compatibility, and imports](https://code.claude.com/docs/en/memory).
+
+[AMENDED 2026-11-17 8:50 p.m. EST]: The archive now includes printed page 15; update future range references from pages 1–14+ to pages 1–15+. Page 15 completes Article XX Pension and begins partial Articles XXI Wages and XXII Health Care Insurance. The earlier Article XX continuation note in historical records is superseded by this scan.

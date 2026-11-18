@@ -78,8 +78,11 @@ ok(fs.existsSync(path.join(root, 'middleware.js')), 'middleware.js exists');
 const data = fs.readFileSync(path.join(root, 'data.js'), 'utf8');
 ok(data.includes('article-19'), 'Article XIX present');
 ok(data.includes('New Year\'s Day') && data.includes('essential employees'), 'Article XIX holiday provisions transcribed');
-ok(data.includes('id: "article-20"') && data.includes('ARTICLE XX. PENSION'), 'Article XX opening transcribed');
+ok(data.includes('id: "article-20"') && data.includes('401(k) deferrals on a bi-weekly basis'), 'Article XX Pension Sections 1–4 transcribed');
+ok(data.includes('id: "article-21"') && data.includes('Pennsylvania Wage Payment and collection law'), 'Article XXI wage provisions transcribed');
+ok(data.includes('id: "article-22"') && data.includes('Group Long Term Disability (LTD)'), 'Article XXII opening transcribed');
 ok(data.includes('id: "cba-p14"') && data.includes('images/page_14.jpg'), 'page 14 scan added to gallery');
+ok(data.includes('id: "cba-p15"') && data.includes('images/page_15.jpg') && data.includes('pages 1–15+'), 'page 15 scan and updated range added to gallery');
 const dataImagePaths = [...data.matchAll(/(?:url|image):\s*"(images\/[^\"]+)"/g)].map((match) => match[1]);
 dataImagePaths.forEach((image) => ok(fs.existsSync(path.join(root, image)), `data image exists: ${image}`));
 

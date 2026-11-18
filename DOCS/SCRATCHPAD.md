@@ -218,6 +218,20 @@ Implemented side-by-side Split View reading mode.
 
 [AMENDED 2026-11-17]:
 ## Current Task:
+Reorganize the member home page for clear mobile reading and a restrained professional appearance.
+
+## Actions Log:
+- [2026-11-17] Reduced hero height and decoration; clarified primary actions; grouped resource destinations; compacted facility and resource rows for touch use. Updated the member-facing project log. No dependencies added.
+
+[AMENDED 2026-11-17]:
+## Current Task:
+Ingest CBA page 15 and continue Articles XX–XXII.
+
+## Actions Log:
+- [2026-11-17] Added page 15 scan/transcription, completed Article XX, added partial Articles XXI and XXII, and refreshed site search, bargaining reference, and member updates.
+
+[AMENDED 2026-11-17]:
+## Current Task:
 Update all four State Road shop steward roles and remove their portraits.
 
 ## Actions Log:
@@ -260,3 +274,5 @@ Rebuild the community forum front end in the active workspace using the existing
 [AMENDED 2026-11-17]: Created `DOCS/CONTRACT_PAGE_INGESTION.md` with the scan-to-site checklist: source/page identity, faithful OCR review, image handling, article continuation IDs, scan metadata, search and deep links, update timestamps, preservation, validation, and handoff. Replaced root `AGENTS.md` with current shared rules and added `CLAUDE.md` importing it for cross-environment consistency. Owner's standing push authorization is recorded in AGENTS.md.
 
 [AMENDED 2026-11-17 8:42 p.m. EST]: Added shared Codex/OpenAI and Claude Code entrypoints (`AGENTS.md`, `CLAUDE.md`) and `DOCS/CONTRACT_PAGE_INGESTION.md`, documenting source checks, faithful transcription, article continuation, scan metadata, search/deep links, dated updates, partial text, and verification for future pages. Smoke checks now cover update pages, scan assets, search targets, and agent-rule wiring. `npm run test:smoke`, `npm run check:deploy`, JavaScript syntax checks, and `git diff --check` passed. Owner authorized pushing the entire current project state and following project commits to `origin`; inspect full diff, exclude secrets/local-only files, and never force-push.
+
+[AMENDED 2026-11-17 8:50 p.m. EST]: Digitized supplied printed page 15 to `images/page_15.jpg` (converted from the supplied 2552×3508 PNG to high-quality JPEG for the archive; inspected the full page after conversion). Added Article XX Sections 2–4 to complete Pension across pages 14–15; added Article XXI Wages Sections 1–2; added Article XXII Health Care Insurance Section 1 as partial. Added `cba-p15` scan transcription and search row, updated archive range and bargaining status, and linked all three articles from Project Updates. Article XXI and XXII continuations remain pending. No dependencies changed.
