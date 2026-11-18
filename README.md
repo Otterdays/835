@@ -17,7 +17,7 @@ A **private** document and member-action portal for **Operating Engineers Local 
 - **Member Calendar** (`calendar.html`) — upcoming Local 835 meetings and events.
 - **2026–27 Tentative Agreement** (`agreement-2026-27.html`) — proposed extension terms, searchable transcription, original page images, and supplied PDF; ratification/signature status is not confirmed by the supplied copy.
 - **Member Action Center** — grievance prep, issue→article routing, steward prep worksheet.
-- **Contract / scans / tool program** — CBA viewer, paneled archives, deep links.
+- **Agreements & Contract** (`contract.html`) — guided 2026–27 tentative overview first, followed by searchable 2022–26 CBA articles; scan archive and deep links.
 - **Evidence log & bargaining tools** — client-side export only; factual checklists.
 - **Stewards / roster / suggestions** — site filters and structured share/copy feedback.
 - **Sitewide search** — Ctrl+K or `/`.
@@ -47,7 +47,8 @@ Open **http://localhost:3000**. Create credentials in gitignored `local.auth.jso
 | `calendar.html` | Upcoming member meetings and events |
 | `member-action.html` | Grievance / issue hub / steward prep |
 | `evidence-log.html` / `bargaining.html` | Local evidence export + bargaining checklists |
-| `contract.html`, `scans.html`, `tool-program.html` | CBA and archives |
+| `contract.html` | Agreement-first reader: guided 2026–27 overview, then searchable 2022–26 CBA |
+| `scans.html`, `tool-program.html` | CBA and policy scan archives |
 | `member-documents.html` | Summaries only (no `source/` downloads) |
 | `api/auth/*` | Vercel login / logout / me |
 | `middleware.js` | Protects HTML + `data.js` + `images/` |
