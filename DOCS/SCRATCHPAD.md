@@ -223,6 +223,9 @@ Implemented side-by-side Split View reading mode.
 - [2026-03-27] Cleared sample contract data and replaced with authentic Article I: Recognition & Scope
 - [2026-03-27] Enhanced script.js to handle multiline contract content and preservation of formatting in search highlights
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+
+[AMENDED 2026-11-18]: Reworked `contract.html` into a compact agreement-first reading flow. The first section guides members across the proposed 2026–27 term, pay/GWI, pension/layoffs, discipline, and forced-overtime terms, with direct memorandum scan links and a clear statement that ratification/signature is not confirmed by the supplied copy. The existing searchable 2022–26 CBA browser follows. Mobile rules prioritize compact header spacing, horizontal touch-friendly section links, readable text, and large source links. Existing CBA page 24–26 workspace edits were preserved.
+[AMENDED 2026-11-18]: Simplified mobile site search by hiding the keyboard shortcut chip row at the mobile breakpoint; desktop hints and keyboard controls remain intact.
 [AMENDED 2026-11-17]: Removed the Bargaining Tools destination from `home.html` member resources; the standalone page and its other routes remain unchanged.
 [AMENDED 2026-11-17]: Site roster task completed in `data.js`; removed Anthony and rogue duplicate Vetter, corrected/additional employee details and statuses, and synced Charles/Orlando PICC steward roles. Recorded the member-facing change in `updates.html`. No dependencies changed.
 [AMENDED 2026-11-17]: Expanded the roster with the additional CFCF, RCF, and PICC employees; corrected Kevin Lyons and synced his assistant steward listing; added the numbered management chain. Member update and durable notes recorded.
@@ -340,3 +343,17 @@ Digitize the supplied printed CBA pages 21–23, Exhibit C.
 
 ## Actions Log:
 - [2026-11-17 11:39 p.m. EST] Added full-resolution scans and page-specific gallery/search records `cba-p21` through `cba-p23`. Transcribed Exhibit C Substance Abuse Policy across its introduction/definitions, general policy, and random testing provisions; connected the exhibit to Article XXIII, Section 9. Updated archive range, bargaining snapshot, member updates, and durable project notes.
+
+[AMENDED 2026-11-18]:
+## Current Task:
+Digitize the supplied printed CBA pages 24–26, continuing Exhibit C.
+
+## Actions Log:
+- [2026-11-18 12:02 a.m. EST] Added full-resolution scans and page-specific gallery/search records `cba-p24` through `cba-p26`. Extended Exhibit C within Article XXIII, retained page 26's incomplete ending, and marked the procedure partial. Updated archive range, bargaining snapshot, member updates, and durable project notes.
+
+[AMENDED 2026-11-18]:
+## Current Task:
+Digitize the supplied printed CBA page 27, continuing Exhibit C.
+
+## Actions Log:
+- [2026-11-18 9:59 a.m. EST] Added the full-resolution page image and gallery/search record `cba-p27`. Continued Exhibit C's investigation questions in Article XXIII; preserved the printed numbering, including the visible “(13)” followed by “(2)”, and marked the page's ending after question 11. Updated archive range, bargaining snapshot, member updates, and durable project notes.

@@ -13,6 +13,10 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
+[AMENDED 2026-11-18]: **Agreement-first contract reader.** Reworked `contract.html` to reduce the oversized opening area and guide members through the 2026–27 tentative memorandum first, with direct links to each source scan page. Kept ratification/signature status clearly unconfirmed from the supplied copy, then placed the searchable 2022–26 CBA article reader below.
+
+[AMENDED 2026-11-18]: Hid the four keyboard shortcut chips in the site search dialog on mobile to simplify the header; desktop keyboard guidance remains visible.
+
 [AMENDED 2026-11-17]: Removed the Bargaining Tools link from the Home page member resources list, as requested. The page remains available elsewhere in the portal.
 
 [AMENDED 2026-11-17]: Corrected Monica Manning, Robert Korchak, and Xavier Wilson in the roster; added Elliott Pinto and Barry Sanchez as CFCF Helpers.
@@ -92,3 +96,7 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-17 11:28 p.m. EST]: **CBA pages 19–20 digitized.** Added `images/page_19.jpg` / `cba-p19` for Exhibit A Health and Welfare Contributions and `images/page_20.jpg` / `cba-p20` for Exhibit B Wage Rates. Connected both exhibit transcriptions to Articles XXII and XXI respectively, including every listed job class and rate. Current scan range is pages 1–20+.
 
 [AMENDED 2026-11-17 11:39 p.m. EST]: **CBA pages 21–23 digitized.** Added `images/page_21.jpg` through `images/page_23.jpg` and scan/search records `cba-p21` through `cba-p23`. Transcribed Exhibit C Substance Abuse Policy across its introduction, definitions, general policy, and random drug testing provisions; connected it to Article XXIII, Section 9. Current scan range is pages 1–23+.
+
+[AMENDED 2026-11-18 12:02 a.m. EST]: **CBA pages 24–26 digitized.** Added full-resolution scans and gallery/search records `cba-p24` through `cba-p26`, extending the Exhibit C transcription in Article XXIII. Page 24 contains third-sample and reasonable-suspicion provisions; page 25 completes the reasonable-suspicion examples and removal procedure; page 26 contains treatment and the opening investigation procedure, which ends mid-sentence and remains partial. Current CBA scan range is through page 26.
+
+[AMENDED 2026-11-18 9:59 a.m. EST]: **CBA page 27 digitized.** Added `images/page_27.jpg` and scan/search record `cba-p27`, continuing Exhibit C’s investigation questions within Article XXIII. The page reaches question 11 and any following questionnaire text is not shown in the supplied scan. Current CBA scan range is through page 27.

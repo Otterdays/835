@@ -36,7 +36,7 @@ Vanilla HTML / CSS / JS front end. Production target: private Vercel deploy + Mo
 | `home.html` | State Road gateway |
 | `updates.html` | Dated member-facing project update log; maintain when notable portal/content work ships |
 | `calendar.html` | Member calendar for upcoming Local 835 meetings and events |
-| `contract.html` | Searchable CBA articles and separate-paper references |
+| `contract.html` | Agreement-first reader: guided 2026–27 tentative terms, then searchable 2022–26 CBA articles |
 | `scans.html` | CBA scans in `data.js` → `cbaScannedPages` |
 | `tool-program.html` | Facility tool-policy archive in `toolProgramScans` |
 | `member-action.html` | Grievance prep / issue→article / steward prep |

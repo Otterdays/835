@@ -27,7 +27,7 @@ Vanilla JS/HTML/CSS approach. Single Page Application (SPA).
 | `evidence-log.html` | + `evidence-log-app.js` | In-memory only |
 | `bargaining.html` | + `bargaining-app.js` | Static checklists |
 | `member-documents.html` | shell + search | Summaries only |
-| `contract.html` | + `data.js`, `contract-app.js` | `contractData` |
+| `contract.html` | + `data.js`, `contract-app.js` | Guided summary of the 2026–27 tentative memo first; searchable `contractData` for the 2022–26 CBA follows |
 | `scans.html` | + `data.js`, `paneled-archive.js`, `image-modal.js`, `scans-app.js` | `cbaScannedPages` |
 | `tool-program.html` | + `data.js`, `paneled-archive.js`, `image-modal.js`, `tool-app.js` | `toolProgramScans` |
 | `stewards.html` | + `data.js`, `stewards-app.js` | `shopStewards` |
@@ -125,3 +125,5 @@ flowchart LR
 [AMENDED 2026-11-17 9:12 p.m. EST]: Search surfaces now share accent/punctuation-insensitive matching and source-safe match highlighting. Sitewide results include score order, ordinal labels, total/truncation status, and keyboard selection announcements; forum lookup starts only for a non-trivial query. Contract tools use an accessible disclosure on mobile (≤767px) and do not stick over the reading area; `/` and `?focus=search` expand the tools before focusing the field.
 
 [AMENDED 2026-11-17]: Added `agreement-2026-27.html` as a clearly labeled tentative companion to the 2022–2026 CBA. `images/2026-27/` preserves all three full-page JPG renderings and the supplied PDF; the three page records in `cbaScannedPages` are independently searchable and deep-linkable from Scanned Pages. The source copy's ratification/signature status is not represented as confirmed.
+
+[AMENDED 2026-11-18]: Reworked `contract.html` as an agreement-first reader. A compact lead-in presents a guided, linked overview of the 2026–27 tentative terms and the supplied copy's unconfirmed ratification status before the searchable 2022–26 article archive. On narrow screens, section links scroll horizontally and each reading action remains touch accessible.

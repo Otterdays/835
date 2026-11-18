@@ -1,6 +1,9 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
 ## [Unreleased] - 2026-11-17
+- **Contract reader:** Put a guided, source-linked 2026–27 tentative agreement overview first, with the searchable 2022–26 CBA reader below and a tighter mobile layout.
+- **Contract:** Added CBA page 27 to Exhibit C, Article XXIII, and the scanned-page/search archive. The visible investigation questionnaire ends at question 11.
+- **Contract:** Added CBA pages 24–26 to Exhibit C, Article XXIII, and the scanned-page/search archive. Page 26's procedure remains partial at the page edge.
 - **Docs:** Added a project navigation index and folder maps for project docs, browser code, and API routes; linked the index from agent instructions.
 - **Contract:** Added the October 2, 2026 Memorandum of Tentative Agreement as a searchable, clearly tentative 2026–27 companion to the existing CBA. Preserved the source PDF and three full-page images, and linked its terms from the contract viewer, Home, navigation, and Scanned Pages.
 - **Member calendar:** Added the third-Wednesday union-wide meeting and clarified that the December 8 meeting is for assistant shop stewards and the chief shop steward only.
@@ -27,6 +30,8 @@
 
 [AMENDED 2026-11-17]: Added a separate Contract & Employment Updates member page, linked from Home/navigation/sitewide search. Initial notice records the weekly-pay transition after negotiations, quotes management's statement that the timeline is pending processing of union increases, and leaves the effective date unspecified.
 # Changelog
+
+[AMENDED 2026-11-18]: **Search:** Hid the keyboard shortcut chips in the mobile search dialog to reduce clutter; retained them on desktop.
 
 [AMENDED 2026-11-17]: **Home:** Removed the Bargaining Tools link from the main page resources list.
 
@@ -124,3 +129,7 @@
 [AMENDED 2026-11-17 11:28 p.m. EST]: CBA pages 19–20 added to the scan archive and search. Transcribed Exhibit A contributions into Article XXII and all Exhibit B wage rates into Article XXI. Updated current scan range to pages 1–20+ and refreshed the bargaining snapshot.
 
 [AMENDED 2026-11-17 11:39 p.m. EST]: CBA pages 21–23 added to the scan archive and search. Transcribed the supplied pages of Exhibit C Substance Abuse Policy and connected it to Article XXIII, Section 9. Updated the archive range to pages 1–23+ and the bargaining snapshot.
+
+[AMENDED 2026-11-18 12:02 a.m. EST]: CBA pages 24–26 added to the scan archive and search, and transcribed into Article XXIII's Exhibit C text. Page 26 ends mid-sentence; the procedure remains partial pending continuation.
+
+[AMENDED 2026-11-18 9:59 a.m. EST]: CBA page 27 added to the scan archive and search. Continued Article XXIII's Exhibit C investigation questions; the page ends after question 11.

@@ -1,5 +1,5 @@
 # Project Map: Operating Engineers Local 835
-Last mapped: 2026-11-17 · commit 94c31bc · by Codex (GPT-6)
+Last mapped: 2026-11-18 · by Codex (GPT-6)
 
 ## What this is
 This is a private, static HTML/CSS/JavaScript member portal for Operating Engineers Local 835 State Road members. It includes contract and scan search, member tools, rosters, a community forum, and Vercel API routes backed by MongoDB. Shared browser behavior lives in `js/`; the server routes and Mongo helpers live in `api/`.
@@ -18,7 +18,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `DOCS/` | Project overview, workflow, architecture, and audits | `DOCS/_MAP.md` |
 | `api/` | Vercel auth and community-forum endpoints | `api/_MAP.md` |
 | `js/` | Browser auth, shared shell/search, and page behavior | `js/_MAP.md` |
-| `images/` | 19 CBA and tool-policy scans/icons; individual images omitted | — |
+| `images/` | 27 CBA page scans, 3 tentative-agreement scans, and tool-policy scans/icons; individual images omitted | — |
 | `scripts/` | User seeding and deployment checks; see Files below | — |
 | `source/` | Offline Word/Markdown working drafts, excluded from deploy | — |
 | `tests/` | Smoke checks; see Files below | — |
@@ -35,7 +35,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | how to add a page to sitewide search | Add a curated entry in `js/site-search.js` and verify its destination |
 | where contract text and scan metadata are stored | `data.js` → `contractData`, `cbaScannedPages`, `toolProgramScans` |
 | how to add a CBA scan and transcription | Follow `DOCS/CONTRACT_PAGE_INGESTION.md`; update `images/`, `data.js`, search, and dated update links |
-| where CBA article display and filtering work | `contract.html` + `js/contract-app.js`; source text is in `data.js` |
+| where the agreement-first reading flow and CBA article search live | `contract.html` + `js/contract-app.js`; guided 2026–27 summary first, searchable 2022–26 source text in `data.js` |
 | where CBA page images are browsed | `scans.html` + `js/scans-app.js` + `js/paneled-archive.js` |
 | how to add a tool-policy scan | Add the image and `toolProgramScans` entry in `data.js`; see `tool-program.html` |
 | where tool-policy archive behavior lives | `tool-program.html` + `js/tool-app.js` + `js/paneled-archive.js` |
@@ -88,7 +88,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `evidence-log.html` | In-memory evidence worksheet and export UI |
 | `bargaining.html` | Factual bargaining checklists and meeting language |
 | `member-documents.html` | Member summaries and tool links |
-| `contract.html` | Searchable CBA and separate-paper viewer |
+| `contract.html` | Agreement-first reader: guided 2026–27 terms, then searchable 2022–26 CBA and separate papers |
 | `scans.html` | CBA scan archive |
 | `tool-program.html` | Facility tool-policy archive |
 | `stewards.html` | Shop steward directory |
@@ -108,5 +108,4 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 
 ## Known oddities
 - `README.md`, `DOCS/ARCHITECTURE.md`, and `live-setup.md` describe gated production pages, but current `js/auth.js` sets `AUTH_DISABLED = true` and `middleware.js` allows all traffic except requests for the source folder.
-- `README.md`, `DOCS/ARCHITECTURE.md`, navigation, and page links refer to `agreement-2026-27.html`; that file is absent from the tracked file list.
 - `DOCS/ARCHITECTURE.md` contains older page and auth descriptions alongside newer amendments; read current code when the details matter.

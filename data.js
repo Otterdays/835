@@ -478,7 +478,105 @@ j. USF will pay for the cost of the testing. The lab will retain samples in acco
 
 The testing for drugs will be administered by a means selected by the certified independent medical facility. At the time the specimens are tested, two samples shall be taken and a third if requested by the employee. Two samples will be sent to the laboratory to be tested at the employer’s expense. In order to be considered positive, the sample must show positive results on the Gas Chromatography/Mass Spectrometry (“GC/MS”) confirmatory test.
 
-The third sample or specimen shall be collected in a separate container and shall be sealed in the presence of a medical facility witness with evidence tape, which tape shall be signed by the witness. This third sample will be sent by the laboratory to another NIDA certified laboratory selected by the employee for testing. The cost of testing the third sample shall be borne by the employee.`
+The third sample or specimen shall be collected in a separate container and shall be sealed in the presence of a medical facility witness with evidence tape, which tape shall be signed by the witness. This third sample will be sent by the laboratory to another NIDA certified laboratory selected by the employee for testing. The cost of testing the third sample shall be borne by the employee.
+
+The employee shall have seventy-two (72) hours to present to USF any different results from the test of the third sample conducted by a laboratory selected by the employee. Neither the employee nor USF is permitted to take physical possession of the third sample. The failure of the employee to have the third test performed or to present the results shall not be used against the employee as a basis for discipline or in any arbitration or other legal proceeding. If the employee chooses not to have the third sample tested, then he/she cannot challenge the accuracy of the results. If the results of the testing of the third sample are negative, the employer will reimburse the employee for the cost incurred by the employee in having the third test performed.
+
+Unless otherwise directed by the independent medical laboratory, if an employee has a confirmed positive test result, the employee will be contacted by the laboratory to discuss those results and, if the lab technician determines that there may be a legitimate medical explanation for the positive test results, the employee will be given an opportunity to provide a valid prescription for medication that he/she is taking that may have influenced the results of the employee’s drug screening. If the employee provides a legitimate medical explanation for the positive test result that is acceptable to the laboratory, then lab test result will be reported as negative to USF. If the employee fails to provide a valid medical prescription within the timeframe and guidelines allotted by the laboratory, than the test will be reported as positive to USF and the employee will be subject to disciplinary action as appropriate.
+
+REASONABLE SUSPICION
+
+In addition, when U.S. Facilities, Inc. has reasonable suspicion that an employee has used or is under the influence of alcohol, or illegal drugs or other controlled substances while on the premises or any other work site, USF reserves the right to require the employee to submit to appropriate testing procedures, as set forth below.
+
+The term “reasonable suspicion” shall, as used in this policy, mean generally that there is the existence of a reasonable and articulable belief that the employee is using a prohibited drug or alcohol on the basis of specific, contemporaneous, physical, behavioral, or performance indicators of probable drug or alcohol use. Circumstances or conditions which may support such a belief include, but are not limited to: impairment or deterioration of job performance; exhibition of abnormal mental or physical conditions or behavior; observations relating to speech, appearance, and/or body odor; engaging in or exhibiting conduct which jeopardizes the safety of the workplace, employees, property, or other persons; regulatory or Company rule violations. If the employee is a member of the bargaining unit, a bargaining unit representative shall be notified when an employee is to be tested for reasonable suspicion.
+
+Reasonable suspicion where certain behavior is observed, including but not limited to:
+
+(1) Aberrant or unusual on-duty behavior of an individual employee which:
+
+(a) Is observed on duty by the employee’s immediate supervisor or another employee or employee of the client and, in the latter case, confirmed by the observation of another managerial employee; or is observed by other employees or persons, but cannot be immediately confirmed by another managerial employee. In this case, the Director of Human Resources or her/his designated, qualified representative
+
+[Page 24 ends mid-provision; continuation appears on page 25.]
+
+shall investigate the reports. The investigation will include an interview with the employee and witnesses and all observations will be documented, in writing, by the observers; and
+
+(b) Is not reasonably explained by the employee as resulting from causes other than the use of controlled substances or alcohol.
+
+(2) A non-minor on-the-job industrial or traffic accident. In this case, USF may require testing if there is reasonable basis for the belief that employee negligence contributed to the accident.
+
+(3) Observation by the employee’s immediate supervisor or another USF employee or employee of the client of the use of alcohol, illegal drugs or other controlled substances while on the premises or on any other work site or verifiable information from a USF employee or employee of the client that an individual has used or possesses alcohol, illegal drugs, or other controlled substances while on the premises or any other work site. The Director of Human Resources or his/her designated, qualified representative shall investigate this information and interview the employee in question and witnesses, and all information will be documented in writing.
+
+(4) Return from a leave of absence in excess of ninety days, if the purpose of the leave of absence was related to any form of substance abuse.
+
+(5) For purposes of searches, observation by a supervisor, another USF employee, or an employee of the client that the employee is in possession of alcohol (except unopened containers in the employee’s private vehicle), illegal drugs or other controlled substances while on the premises or any other work site, or verifiable information from another USF employee or an employee of the client of such possession. The Director of Human Resources or his/her designated, qualified representative shall investigate this information and interview the employee in question and witnesses and all information will be documented in writing.
+
+An employee who reports to work and is considered to be under the influence of alcohol, illegal drugs, or controlled substances, will be removed from service immediately. The decision to do this may be made by the employee’s supervisor, the Assistant Project Manager or Project Manager, or the Director of Human Resources or his/her designated, qualified representative. Such a decision will be based on whether the employee is able to perform assigned duties correctly or whether the company’s operation, activities and/or property are adversely affected by the person’s use of such substances. In addition, if USF reasonably suspects that any employee has used such substances on the premises or on any other work site, the individual will be removed from service immediately. U.S. Facilities, Inc. will then follow the procedures set forth below for investigation and/or testing. Refusal to submit to appropriate testing procedures or refusal to permit the disclosure of the results of the testing to the Director of Human Resources or his/her designated, qualified representative is cause for discipline up to and including discharge.
+
+When it has been determined that an employee has used or is under the influence of alcohol, illegal drugs or controlled substances on the premises or at any other work site, U.S. Facilities may, as a condition of continued employment, require the employee to seek treatment for substance abuse from a recognized treatment center. The employee will then be placed on a leave of absence, and his/her compensation, if any, will be based on the usage of available accrued paid time off, or, in the case of members of the bargaining unit, upon the terms of the Union’s disability coverage. If the employee violates this substance abuse policy, but refuses to initiate or to participate successfully in a treatment program, the employee will be subject to discipline up to and including discharge. After the treatment program has concluded, the employee will be subject to periodic testing, without the requirement of reasonable suspicion being necessary, for a period of one year. If the employee refuses to submit to the testing procedure, or refuses to permit the disclosure of the results of the testing to the Director of Human Resources or his/her designated, qualified representative, the employee will be subject to discipline up to and including discharge.
+
+If a second offense occurs within two years of the first offense, the employee will be discharged.
+
+An employee who has participated in a substance abuse rehabilitation program will not be excused from complying with the rules and regulations of U.S. Facilities, Inc., and the Philadelphia Prison System which are applicable to all other employees.
+
+An employee must notify his/her supervisor when taking legally prescribed drugs if these drugs will interfere with the individual’s ability to work effectively. In this event, appropriate arrangements will be made, if feasible, with respect to the employee’s safety and job performance.
+
+PROCEDURE
+
+If an employee appears to have used or be under the influence of alcohol, illegal drugs, or other controlled substances, the following procedure will determine if U.S. Facilities, Inc., rules have been violated:
+
+(1) The employee will be immediately removed from his/her post and a supervisor will escort the employee to meet with the Project Manager or Assistant Project Manager. If the incident occurs when these individuals are not in site, the Project Manager will be notified by telephone, and the Project Manager or his/her designated, qualified representative will report to the site. In this case, the employee will remain under the supervision of the supervisor until the arrival of the Project Manager or his/her designated, qualified representative.
+
+(2) The employee may select another employee, or, in the case of a bargaining unit employee, a Union Steward, to assist or represent her/him. Both the supervisor and the employee representative must agree to keep all information about the employee’s condition and the investigation proceedings in the strictest confidence.
+
+(3) The Project Manager or his/her designated, qualified representative will conduct an investigation to determine if the employee has used prohibited substances on the work site or appears to be under the influence of alcohol, illegal drugs, or other controlled substance, including prescription
+
+[Page 26 ends mid-sentence; the continuation appears on page 27.]
+
+drugs.
+
+(a) Investigation Questions: Any or all of the following questions may be asked in order to establish whether “reasonable suspicion” exists.
+
+(13) Are you sick?
+
+(2) If yes, what symptoms are you experiencing?
+
+(3) Have you taken any over-the-counter medications in the past 24-hours?
+
+(4) Have you taken any prescription medication or drugs in the past 24-hours?
+
+(5) If yes, what?
+
+How much?
+
+When?
+
+Where?
+
+With whom?
+
+(6) Are you under medical care?
+
+(7) When did you last visit this medical provider?
+
+(8) Do you have the prescribed medication in your possession now?
+
+(9) Do you have any other medication in your possession now?
+
+(Record all information about prescription medicine and take sample if permitted by employee).
+
+(10) Did you drink an alcoholic beverage within the last eight hours?
+
+(11) If yes, what?
+
+How much?
+
+When did you start?
+
+When did you stop?
+
+Where?
+
+[Page 27 ends after question 11; any continuation is not shown in the supplied scan.]`
         },
         {
             id: "article-24",
@@ -624,7 +722,7 @@ const shopStewards = [
 
 const cbaScannedPages = [
     {
-        section: "2022–2026 CBA (scanned — in progress, pages 1–23+)",
+        section: "2022–2026 CBA (scanned — in progress, pages 1–27)",
         id: "cba-p1",
         url: "images/page_1.jpg",
         label: "Page 1",
@@ -1028,7 +1126,123 @@ j. USF will pay for the cost of the testing. The lab will retain samples in acco
 
 The testing for drugs will be administered by a means selected by the certified independent medical facility. At the time the specimens are tested, two samples shall be taken and a third if requested by the employee. Two samples will be sent to the laboratory to be tested at the employer’s expense. In order to be considered positive, the sample must show positive results on the Gas Chromatography/Mass Spectrometry (“GC/MS”) confirmatory test.
 
-The third sample or specimen shall be collected in a separate container and shall be sealed in the presence of a medical facility witness with evidence tape, which tape shall be signed by the witness. This third sample will be sent by the laboratory to another NIDA certified laboratory selected by the employee for testing. The cost of testing the third sample shall be borne by the employee.`
+The third sample or specimen shall be collected in a separate container and shall be sealed in the presence of a medical facility witness with evidence tape, which tape shall be signed by the witness. This third sample will be sent by the laboratory to another NIDA certified laboratory selected by the employee for testing. The cost of testing the third sample shall be borne by the employee. The`
+    },
+    {
+        id: "cba-p24",
+        url: "images/page_24.jpg",
+        label: "Page 24",
+        title: "Exhibit C — Third-sample procedures and reasonable suspicion",
+        description: "Exhibit C completes third-sample review and medical-explanation procedures, defines reasonable suspicion, and begins its examples; the final provision continues on page 25.",
+        transcription: `employee shall have seventy-two (72) hours to present to USF any different results from the test of the third sample conducted by a laboratory selected by the employee. Neither the employee nor USF is permitted to take physical possession of the third sample. The failure of the employee to have the third test performed or to present the results shall not be used against the employee as a basis for discipline or in any arbitration or other legal proceeding. If the employee chooses not to have the third sample tested, then he/she cannot challenge the accuracy of the results. If the results of the testing of the third sample are negative, the employer will reimburse the employee for the cost incurred by the employee in having the third test performed.
+
+Unless otherwise directed by the independent medical laboratory, if an employee has a confirmed positive test result, the employee will be contacted by the laboratory to discuss those results and, if the lab technician determines that there may be a legitimate medical explanation for the positive test results, the employee will be given an opportunity to provide a valid prescription for medication that he/she is taking that may have influenced the results of the employee’s drug screening. If the employee provides a legitimate medical explanation for the positive test result that is acceptable to the laboratory, then lab test result will be reported as negative to USF. If the employee fails to provide a valid medical prescription within the timeframe and guidelines allotted by the laboratory, than the test will be reported as positive to USF and the employee will be subject to disciplinary action as appropriate.
+
+REASONABLE SUSPICION
+
+In addition, when U.S. Facilities, Inc. has reasonable suspicion that an employee has used or is under the influence of alcohol, or illegal drugs or other controlled substances while on the premises or any other work site, USF reserves the right to require the employee to submit to appropriate testing procedures, as set forth below.
+
+The term “reasonable suspicion” shall, as used in this policy, mean generally that there is the existence of a reasonable and articulable belief that the employee is using a prohibited drug or alcohol on the basis of specific, contemporaneous, physical, behavioral, or performance indicators of probable drug or alcohol use. Circumstances or conditions which may support such a belief include, but are not limited to: impairment or deterioration of job performance; exhibition of abnormal mental or physical conditions or behavior; observations relating to speech, appearance, and/or body odor; engaging in or exhibiting conduct which jeopardizes the safety of the workplace, employees, property, or other persons; regulatory or Company rule violations. If the employee is a member of the bargaining unit, a bargaining unit representative shall be notified when an employee is to be tested for reasonable suspicion.
+
+Reasonable suspicion where certain behavior is observed, including but not limited to:
+
+(1) Aberrant or unusual on-duty behavior of an individual employee which:
+
+(a) Is observed on duty by the employee’s immediate supervisor or another employee or employee of the client and, in the latter case, confirmed by the observation of another managerial employee; or is observed by other employees or persons, but cannot be immediately confirmed by another managerial employee. In this case, the Director of Human Resources or her/his designated, qualified representative`
+    },
+    {
+        id: "cba-p25",
+        url: "images/page_25.jpg",
+        label: "Page 25",
+        title: "Exhibit C — Reasonable-suspicion examples and removal",
+        description: "Exhibit C continues the reasonable-suspicion examples and states removal-from-service and investigation provisions; page 24 begins the first example.",
+        transcription: `shall investigate the reports. The investigation will include an interview with the employee and witnesses and all observations will be documented, in writing, by the observers; and
+
+(b) Is not reasonably explained by the employee as resulting from causes other than the use of controlled substances or alcohol.
+
+(2) A non-minor on-the-job industrial or traffic accident. In this case, USF may require testing if there is reasonable basis for the belief that employee negligence contributed to the accident.
+
+(3) Observation by the employee’s immediate supervisor or another USF employee or employee of the client of the use of alcohol, illegal drugs or other controlled substances while on the premises or on any other work site or verifiable information from a USF employee or employee of the client that an individual has used or possesses alcohol, illegal drugs, or other controlled substances while on the premises or any other work site. The Director of Human Resources or his/her designated, qualified representative shall investigate this information and interview the employee in question and witnesses, and all information will be documented in writing.
+
+(4) Return from a leave of absence in excess of ninety days, if the purpose of the leave of absence was related to any form of substance abuse.
+
+(5) For purposes of searches, observation by a supervisor, another USF employee, or an employee of the client that the employee is in possession of alcohol (except unopened containers in the employee’s private vehicle), illegal drugs or other controlled substances while on the premises or any other work site, or verifiable information from another USF employee or an employee of the client of such possession. The Director of Human Resources or his/her designated, qualified representative shall investigate this information and interview the employee in question and witnesses and all information will be documented in writing.
+
+An employee who reports to work and is considered to be under the influence of alcohol, illegal drugs, or controlled substances, will be removed from service immediately. The decision to do this may be made by the employee’s supervisor, the Assistant Project Manager or Project Manager, or the Director of Human Resources or his/her designated, qualified representative. Such a decision will be based on whether the employee is able to perform assigned duties correctly or whether the company’s operation, activities and/or property are adversely affected by the person’s use of such substances. In addition, if USF reasonably suspects that any employee has used such substances on the premises or on any other work site, the individual will be removed from service immediately. U.S. Facilities, Inc. will then follow the procedures set forth below for investigation and/or testing. Refusal to submit to appropriate testing procedures or refusal to permit the disclosure of the results of the testing to the Director of Human Resources or his/her designated, qualified representative is cause for discipline up to and including discharge.`
+    },
+    {
+        id: "cba-p26",
+        url: "images/page_26.jpg",
+        label: "Page 26",
+        title: "Exhibit C — Treatment and investigation procedure",
+        description: "Exhibit C covers treatment, follow-up testing, and the opening steps of the investigation procedure; the final sentence continues beyond page 26.",
+        transcription: `When it has been determined that an employee has used or is under the influence of alcohol, illegal drugs or controlled substances on the premises or at any other work site, U.S. Facilities may, as a condition of continued employment, require the employee to seek treatment for substance abuse from a recognized treatment center. The employee will then be placed on a leave of absence, and his/her compensation, if any, will be based on the usage of available accrued paid time off, or, in the case of members of the bargaining unit, upon the terms of the Union’s disability coverage. If the employee violates this substance abuse policy, but refuses to initiate or to participate successfully in a treatment program, the employee will be subject to discipline up to and including discharge. After the treatment program has concluded, the employee will be subject to periodic testing, without the requirement of reasonable suspicion being necessary, for a period of one year. If the employee refuses to submit to the testing procedure, or refuses to permit the disclosure of the results of the testing to the Director of Human Resources or his/her designated, qualified representative, the employee will be subject to discipline up to and including discharge.
+
+If a second offense occurs within two years of the first offense, the employee will be discharged.
+
+An employee who has participated in a substance abuse rehabilitation program will not be excused from complying with the rules and regulations of U.S. Facilities, Inc., and the Philadelphia Prison System which are applicable to all other employees.
+
+An employee must notify his/her supervisor when taking legally prescribed drugs if these drugs will interfere with the individual’s ability to work effectively. In this event, appropriate arrangements will be made, if feasible, with respect to the employee’s safety and job performance.
+
+PROCEDURE
+
+If an employee appears to have used or be under the influence of alcohol, illegal drugs, or other controlled substances, the following procedure will determine if U.S. Facilities, Inc., rules have been violated:
+
+(1) The employee will be immediately removed from his/her post and a supervisor will escort the employee to meet with the Project Manager or Assistant Project Manager. If the incident occurs when these individuals are not in site, the Project Manager will be notified by telephone, and the Project Manager or his/her designated, qualified representative will report to the site. In this case, the employee will remain under the supervision of the supervisor until the arrival of the Project Manager or his/her designated, qualified representative.
+
+(2) The employee may select another employee, or, in the case of a bargaining unit employee, a Union Steward, to assist or represent her/him. Both the supervisor and the employee representative must agree to keep all information about the employee’s condition and the investigation proceedings in the strictest confidence.
+
+(3) The Project Manager or his/her designated, qualified representative will conduct an investigation to determine if the employee has used prohibited substances on the work site or appears to be under the influence of alcohol, illegal drugs, or other controlled substance, including prescription`
+    },
+    {
+        id: "cba-p27",
+        url: "images/page_27.jpg",
+        label: "Page 27",
+        title: "Exhibit C — Investigation questions (reasonable suspicion)",
+        description: "Exhibit C continues the investigation procedure with questions used to establish reasonable suspicion; numbering is transcribed as printed, and the page ends after question 11.",
+        transcription: `drugs.
+
+(a) Investigation Questions: Any or all of the following questions may be asked in order to establish whether “reasonable suspicion” exists.
+
+(13) Are you sick?
+
+(2) If yes, what symptoms are you experiencing?
+
+(3) Have you taken any over-the-counter medications in the past 24-hours?
+
+(4) Have you taken any prescription medication or drugs in the past 24-hours?
+
+(5) If yes, what?
+
+How much?
+
+When?
+
+Where?
+
+With whom?
+
+(6) Are you under medical care?
+
+(7) When did you last visit this medical provider?
+
+(8) Do you have the prescribed medication in your possession now?
+
+(9) Do you have any other medication in your possession now?
+
+(Record all information about prescription medicine and take sample if permitted by employee).
+
+(10) Did you drink an alcoholic beverage within the last eight hours?
+
+(11) If yes, what?
+
+How much?
+
+When did you start?
+
+When did you stop?
+
+Where?`
     },
     {
         section: "2026–2027 Tentative Agreement (3 pages; subject to ratification)",

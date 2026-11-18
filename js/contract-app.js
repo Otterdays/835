@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContainer = document.getElementById('main-container');
 
     const headerTitle = document.getElementById('header-title');
-    const headerParties = document.getElementById('header-parties');
     const headerDate = document.getElementById('header-date');
     const headerStatus = document.getElementById('header-status');
     const viewDescription = document.getElementById('view-description');
@@ -80,11 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cbaN = cbaArticleCount();
     const sepN = separatePaperSectionCount();
-    headerTitle.textContent = '2022–2026 Agreement';
-    headerParties.textContent = 'U.S. Facilities, Inc. and International Union of Operating Engineers, Local 835, AFL-CIO.';
-    headerDate.textContent = `${contractData.effectiveDate} · ${contractData.termLabel} term · ${cbaN} CBA articles`;
-    headerStatus.textContent = 'Current CBA (2022–26)';
-    viewDescription.textContent = `Master agreement: ${cbaN} CBA article entries are available; partial articles are marked in their text. Use the search bar to find specific clauses or terms. Scanned pages and facility-specific tool policies are located in their respective sections.`;
+    headerTitle.textContent = 'Agreements & Contract';
+    headerDate.textContent = `${contractData.effectiveDate} · ${contractData.termLabel} agreement`;
+    headerStatus.textContent = 'Agreement reader';
+    viewDescription.textContent = `Search the 2022–2026 agreement text or move through its articles. Partial articles are labeled; scanned pages show the source wording.`;
     if (statArticles) {
         statArticles.textContent = String(cbaN);
     }
