@@ -7,6 +7,8 @@
 [AMENDED 2026-11-17]: **Steward roster.** Updated the four Local 835 State Road contacts to Charles (Head Shop Steward), Kevin (Assistant Shop Steward, CFCF), Ryan (Assistant Shop Steward, RCF), and Orlando (Assistant Shop Steward, PICC). Removed steward portraits and promotional taglines.
 
 [AMENDED 2026-11-17]: **Community forum.** `forum.html` lets members post threads and replies under a temporary, self-chosen username stored only in their browser (changeable under Account options). Posts persist in MongoDB Atlas through Vercel `api/forum/*`. No real login yet — names are unverified and unclaimed.
+
+[AMENDED 2026-11-17]: **2026–27 tentative agreement.** Added a member-facing companion page for the October 2, 2026 memorandum, preserving all three page images and the source PDF under `images/2026-27/`. The transcription and scan rows cover the proposed term extension, weekly pay, GWI, layoffs, pension, badge pulling, and forced overtime. The page is labeled tentative; the supplied signature/date lines are blank and ratification is not confirmed.
 # Summary
 
 [AMENDED 2026-11-17]: **Member calendar.** `calendar.html` lists the union-wide meeting every third Wednesday and a separate December 8, 2026, 7:00 p.m. meeting at 5th and Willow for assistant shop stewards and the chief shop steward only. Linked from Home, shared navigation, and sitewide search; notable changes go in Project Updates.

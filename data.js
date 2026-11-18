@@ -604,6 +604,97 @@ Section 2. All wages are to be paid biweekly. When employees are terminated, the
 ARTICLE XXII. HEALTH CARE INSURANCE
 
 Section 1. The Employer will provide Group Long Term Disability (LTD) coverage for all full time eligible employees.`
+    },
+    {
+        section: "2026–2027 Tentative Agreement (3 pages; subject to ratification)",
+        id: "ta-2026-27-p1",
+        url: "images/2026-27/tentative-agreement-page-1.jpg",
+        label: "Page 1",
+        title: "Tentative Agreement — term, payroll, and wage increase",
+        description: "Memorandum of Tentative Agreement: existing CBA remains unchanged except as stated; proposed term July 1, 2026–June 30, 2027; weekly wages (UTO/STO accruals remain bi-weekly); 1.5% GWI and retroactivity terms.",
+        transcription: `MEMORANDUM OF TENTATIVE AGREEMENT
+
+The parties, INTERNATIONAL UNION OF OPERATING ENGINEERS LOCAL 835 (hereinafter “Union”) and U.S. Facilities, Inc. (hereinafter “Employer”), being desirous of entering into a one-year extension of the Collective Bargaining Agreement (“CBA”) which will expire on September 30, 2026, hereby agree as follows:
+
+1. Contract
+
+Except as referenced herein, the current CBA will remain unchanged.
+
+2. Term
+
+Article XXIV (“Term of Agreement”), Section 1 – This section shall be amended as follows:
+
+Section 1. This Agreement shall remain in full force and effect for the period from July 1, 2026, through and including June 30, 2027, and from year to year thereafter unless notice of termination or modification is given in writing by either party sixty (60) days prior to the anniversary date of June 30, 2027, such notice being sent by registered or certified mail. Both parties understand that in the event the Employer’s contract with the City of Philadelphia for Operations, Maintenance and Support Services at the Curran-Fromhold Correctional Facility is canceled or terminated for any reason, the Employer is not bound by this Agreement.
+
+3. Payroll
+
+Article XXI (“Wages”), Section 2 – This section shall be amended as follows:
+
+Section 2. All wages are to be paid weekly (accruals for UTO/STO shall remain bi-weekly).
+
+4. General Wage Increase (GWI)
+
+Article XXI (“Wages”), Section 1 – This section shall be amended as follows:
+
+Section 1. The wage rates and classifications that apply are shown in Exhibit “B.”
+
+1. Effective July 1, 2026 – 1.5%
+
+Exhibit “B” shall be modified to reflect the agreed upon wage increase.
+
+The July 1, 2026, wage increase shall be retroactive to July 1, 2026. Retroactive payments will be made within thirty (30) days of ratification in the employee’s regular paycheck.`
+    },
+    {
+        section: "2026–2027 Tentative Agreement (3 pages; subject to ratification)",
+        id: "ta-2026-27-p2",
+        url: "images/2026-27/tentative-agreement-page-2.jpg",
+        label: "Page 2",
+        title: "Tentative Agreement — layoffs, pension, and badge pulling",
+        description: "Proposed no-layoff language tied to the July 2026 wage increase, pension contribution of $2.65 per hour worked capped at 40 hours, and badge-pulling/discipline terms.",
+        transcription: `5. Layoffs
+
+Article V (“Seniority Rights”), Section 6 – A new Section 6 shall be added as follows:
+
+Section 6. The Employer will not lay off bargaining unit members to help pay for July 1, 2026, wage increase set forth in Article XXI, Section 1. There is no expectation for any layoffs for the duration of this Agreement, but there is no guarantee there will not be any layoffs due to unforeseen or emergency circumstances.
+
+6. Pension
+
+Article XX (“Pension”), Section 3 – This section shall be amended as follows:
+
+Section 3. It is agreed that the Employer’s contribution to the Pension Fund shall be:
+
+1. Effective July 1, 2026 – $2.65 per hour worked (capped at 40 hours)
+
+It is agreed that all Employer contributions shall be made within thirty (30) days after the date required by the Trustees. Contributions will be made to the address supplied by the Pension Fund, as that may change from time to time.
+
+7. Badge Pulling
+
+Article XXIII (“Miscellaneous”), Section 6 – This section shall be amended as follows:
+
+Section 6. All discipline shall be imposed on an employee within ten (10) days from the date the Employer first became aware of the incident leading to the discipline, unless the Union agrees to an extension of time, or unless the discipline is the result of action by the City. Requests by the Employer for additional time will not be unreasonably rejected. The employer represents that it will not initiate contact with the Prison with the sole purpose of seeking to have an employee barred from the prison.
+
+The Employer will adhere to the Prison’s current policy concerning “badge pulling” of employees. This includes, under certain circumstances, the Prison allowing the Employer to determine the level of discipline for certain violations. The imposition of this discipline shall be for just cause.
+
+As set forth above, the Employer will have ten (10) days to impose discipline from the time the Prison concludes their investigation and informs the Employer of same.`
+    },
+    {
+        section: "2026–2027 Tentative Agreement (3 pages; subject to ratification)",
+        id: "ta-2026-27-p3",
+        url: "images/2026-27/tentative-agreement-page-3.jpg",
+        label: "Page 3",
+        title: "Tentative Agreement — forced overtime and ratification recommendation",
+        description: "Proposed labor/management committee meeting on forced overtime (“hooking”) and one-hour notice attempt; final paragraph says the Union Committee will unanimously recommend these terms for ratification on or about October 5, 2026. Signature/date lines appear blank in the supplied copy.",
+        transcription: `8. Forced Overtime (“Hooking”)
+
+The parties agree to schedule an internal labor/management committee meeting to meet and confer regarding the Employer’s current use of “hooking,” or forced overtime. Nothing shall be binding unless mutually agreed to and set forth in writing by the parties during this meeting.
+
+Article XVII (“Hours of Work”), Section 9 – A new Section 9 shall be added as follows:
+
+Section 9. In the event that the Employer “hooks” an employee to work forced overtime, the Employer shall attempt to give at least one (1) hours’ notice to the employee, unless such notice is impracticable.
+
+THE UNION COMMITTEE WILL UNANIMOUSLY RECOMMEND THE ABOVE TERMS FOR RATIFICATION, WHICH SHALL BE HELD ON OR ABOUT MONDAY, OCTOBER 5, 2026.
+
+Signature and date lines for U.S. Facilities, Inc. and IUOE, Local 835 appear blank in the supplied copy.`
     }
 ];
 

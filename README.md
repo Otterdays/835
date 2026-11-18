@@ -15,6 +15,7 @@ A **private** document and member-action portal for **Operating Engineers Local 
 - **Home** (`home.html`) — Local 835 / State Road identity, facility steward links, resource destinations.
 - **Project Updates** (`updates.html`) — dated EST/EDT log of portal and document changes, with upcoming CBA scan work.
 - **Member Calendar** (`calendar.html`) — upcoming Local 835 meetings and events.
+- **2026–27 Tentative Agreement** (`agreement-2026-27.html`) — proposed extension terms, searchable transcription, original page images, and supplied PDF; ratification/signature status is not confirmed by the supplied copy.
 - **Member Action Center** — grievance prep, issue→article routing, steward prep worksheet.
 - **Contract / scans / tool program** — CBA viewer, paneled archives, deep links.
 - **Evidence log & bargaining tools** — client-side export only; factual checklists.
@@ -42,6 +43,7 @@ Open **http://localhost:3000**. Create credentials in gitignored `local.auth.jso
 |------|------|
 | `index.html` / `home.html` | Login + gateway |
 | `updates.html` | Dated member-facing update log |
+| `agreement-2026-27.html` | Tentative 2026–27 CBA extension and amendment memorandum |
 | `calendar.html` | Upcoming member meetings and events |
 | `member-action.html` | Grievance / issue hub / steward prep |
 | `evidence-log.html` / `bargaining.html` | Local evidence export + bargaining checklists |

@@ -21,6 +21,7 @@ Vanilla JS/HTML/CSS approach. Single Page Application (SPA).
 | `index.html` | `auth.js`, `login-app.js` | API session or local.auth.json |
 | `home.html` | `auth.js`, `nav-config.js`, `shell.js`, `site-search.js` | None on load |
 | `contract-updates.html` | shared shell + search | Static member-facing contract and employment notices |
+| `agreement-2026-27.html` | shared shell + search | Tentative CBA extension terms with original page images and source PDF |
 | `calendar.html` | shared shell + search | Static upcoming member meetings and events |
 | `member-action.html` | + `member-action-app.js` | None (export worksheets) |
 | `evidence-log.html` | + `evidence-log-app.js` | In-memory only |
@@ -122,3 +123,5 @@ flowchart LR
 - **Trust model:** author names are self-asserted labels, not identities. Server enforces format + reserved prefixes only.
 
 [AMENDED 2026-11-17 9:12 p.m. EST]: Search surfaces now share accent/punctuation-insensitive matching and source-safe match highlighting. Sitewide results include score order, ordinal labels, total/truncation status, and keyboard selection announcements; forum lookup starts only for a non-trivial query. Contract tools use an accessible disclosure on mobile (≤767px) and do not stick over the reading area; `/` and `?focus=search` expand the tools before focusing the field.
+
+[AMENDED 2026-11-17]: Added `agreement-2026-27.html` as a clearly labeled tentative companion to the 2022–2026 CBA. `images/2026-27/` preserves all three full-page JPG renderings and the supplied PDF; the three page records in `cbaScannedPages` are independently searchable and deep-linkable from Scanned Pages. The source copy's ratification/signature status is not represented as confirmed.

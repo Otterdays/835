@@ -1,6 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
 ## [Unreleased] - 2026-11-17
+- **Contract:** Added the October 2, 2026 Memorandum of Tentative Agreement as a searchable, clearly tentative 2026–27 companion to the existing CBA. Preserved the source PDF and three full-page images, and linked its terms from the contract viewer, Home, navigation, and Scanned Pages.
 - **Member calendar:** Added the third-Wednesday union-wide meeting and clarified that the December 8 meeting is for assistant shop stewards and the chief shop steward only.
 
 ## [1.3.2] - 2026-11-17

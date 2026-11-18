@@ -1,5 +1,13 @@
 [AMENDED 2026-11-17]:
 ## Current Task:
+Add the supplied tentative CBA extension memorandum as a 2026–27 companion and preserve every page image.
+
+## Actions Log:
+- [2026-11-17] Added `agreement-2026-27.html`; preserved the source PDF and all three rendered pages under `images/2026-27/`; added page-level transcription records to the scanned archive and sitewide search.
+- [2026-11-17] Linked the tentative terms from the 2022–2026 contract viewer, Home, shared navigation, and Project Updates. Clearly marked ratification/signature status as unconfirmed based on the supplied copy.
+
+[AMENDED 2026-11-17]:
+## Current Task:
 Create a member-facing place for contract negotiations and employment notices; publish management's current weekly-pay transition update without implying a start date.
 
 ## Actions Log:

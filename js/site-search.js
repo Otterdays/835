@@ -139,6 +139,13 @@
                 href: 'contract-updates.html'
             },
             {
+                category: 'Contract',
+                title: '2026–27 Tentative Agreement',
+                body: 'Memorandum of Tentative Agreement proposed one year extension current CBA remains unchanged July 1 2026 June 30 2027 weekly wages UTO STO accruals bi-weekly 1.5% general wage increase retroactive July 1 2026 ratification within thirty days layoffs pension $2.65 per hour badge pulling discipline ten days forced overtime hooking one hour notice labor management meeting ratification recommendation October 5 2026 source scans pages 1 2 3',
+                meta: 'Proposed terms; supplied copy signature/date lines blank',
+                href: 'agreement-2026-27.html'
+            },
+            {
                 category: 'Member Tools',
                 title: 'Member Action Center',
                 body: 'grievance preparation grievance prep issue article steward preparation steward prep facts dates witnesses remedy Article IV time limits CFCF RCF PICC',

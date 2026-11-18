@@ -21,6 +21,7 @@ const SITE_NAV = [
         label: 'Documents',
         items: [
             { href: 'contract.html', label: 'Contract (2022–26)', id: 'contract' },
+            { href: 'agreement-2026-27.html', label: '2026–27 Tentative Agreement', id: 'agreement-2026-27' },
             { href: 'scans.html', label: 'Scanned Pages', id: 'scans' },
             { href: 'member-documents.html', label: 'Member Documents', id: 'member-documents' },
             {
@@ -57,6 +58,7 @@ const SITE_PAGE_IDS = {
     'evidence-log.html': 'evidence-log',
     'bargaining.html': 'bargaining',
     'contract.html': 'contract',
+    'agreement-2026-27.html': 'agreement-2026-27',
     'scans.html': 'scans',
     'member-documents.html': 'member-documents',
     'tool-program.html': 'tool-program',
