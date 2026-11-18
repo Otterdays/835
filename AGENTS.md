@@ -10,6 +10,15 @@ For any incoming CBA or policy scan, also follow `DOCS/CONTRACT_PAGE_INGESTION.m
 
 Update `DOCS/SCRATCHPAD.md` during work. Append to `DOCS/SUMMARY.md` and `DOCS/CHANGELOG.md` for durable project changes. Never delete or replace DOCS content; append or annotate only. Keep the preservation header in every DOCS file.
 
+<!-- PROJECT-MAP:START -->
+## Finding things in this project
+Read `PROJECT_MAP.md` first, then the `_MAP.md` in the relevant folder, before searching
+the file tree. Search only if the maps don't answer the question.
+If a map is wrong or missing something, fix that map in the same change.
+When you add, move, rename, or delete files, update the affected `_MAP.md` and the root
+Quick lookup table. Keep maps short: they are an index, not documentation.
+<!-- PROJECT-MAP:END -->
+
 ## Agent file compatibility
 
 - Codex and OpenAI coding agents: follow this root `AGENTS.md` and any more-specific `AGENTS.md` files.

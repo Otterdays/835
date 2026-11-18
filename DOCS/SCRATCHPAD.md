@@ -299,3 +299,5 @@ Audit member portal behavior for bugs and mobile edge cases.
 [AMENDED 2026-11-17 9:36 p.m. EST]: Final search verification passed: `npm run test:smoke`, `npm run check:deploy`, `node --check js/site-search.js`, `node --check js/contract-app.js`, and `git diff --check`. Added cached punctuation-folded text maps and tests for the normalized search/disclosure behaviors. A local browser preview could not start because sandbox networking denied the local server; no visual mobile-browser pass is claimed.
 
 [AMENDED 2026-11-17 9:38 p.m. EST]: Final run after the keyboard/closed-dialog race guard and ranked-list accessibility changes: smoke, deploy, syntax, and diff checks all passed. Added CSS coverage confirming the mobile Document Tools toolbar is static/collapsible. Latest search update is dated 9:38 p.m. EST.
+
+[AMENDED 2026-11-17]: Mapped the repository for future navigation. Added `PROJECT_MAP.md` and folder maps under `DOCS/`, `api/`, and `js/`; linked the maps from `AGENTS.md` and `CLAUDE.md`. Recorded stale auth and missing agreement-page references as observed oddities without changing application behavior.

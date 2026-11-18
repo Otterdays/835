@@ -1,0 +1,30 @@
+# js/
+**Purpose:** Browser-side authentication, shared navigation and search, and page-specific rendering and interactions.
+**Keywords:** JavaScript, browser, page behavior, UI, navigation, menu, search, article, scans, roster, steward, forum
+
+## Files
+| File | What it does | Key symbols |
+|---|---|---|
+| `auth.js` | Provides the `Auth` browser object and current open/API/local access behavior | `Auth` |
+| `login-app.js` | Handles the login/entry form and redirects to Home | — |
+| `nav-config.js` | Defines shared menu groups and page IDs | `SITE_NAV`, `SITE_PAGE_IDS` |
+| `shell.js` | Renders navigation, breadcrumbs, logout, and menu behavior | — |
+| `site-search.js` | Builds the cross-page search index and handles result routing/highlighting | — |
+| `contract-app.js` | Renders, searches, deep-links, and navigates CBA articles | — |
+| `paneled-archive.js` | Renders and filters scan/policy archive panels | `filterScanQuery()`, `renderPaneledArchive()` |
+| `image-modal.js` | Opens and closes the shared full-size image lightbox | `initImageModal()` |
+| `scans-app.js` | Connects `cbaScannedPages` to the scan archive panel | — |
+| `tool-app.js` | Connects `toolProgramScans` to the tool-policy archive panel | — |
+| `stewards-app.js` | Renders and filters steward contacts by facility | — |
+| `employees-app.js` | Renders, searches, and filters the employee roster | — |
+| `member-action-app.js` | Copies grievance-preparation worksheets and related text | — |
+| `evidence-log-app.js` | Keeps evidence entries in memory and exports Markdown | — |
+| `bargaining-app.js` | Copies factual bargaining meeting language | — |
+| `suggestions-app.js` | Saves structured suggestions locally and supports share/copy | — |
+| `forum-app.js` | Manages temporary forum names, thread views, posting, replies, and API calls | — |
+
+## Connects to
+- Page markup and script loading are in root `*.html` files; current page-to-script wiring is summarized in `../DOCS/ARCHITECTURE.md`.
+- Contract, scan, steward, and roster data comes from `../data.js`.
+- Shared nav: `nav-config.js` → `shell.js`; search uses `site-search.js`.
+- Forum client calls `/api/forum/*`; server handlers are mapped in `../api/forum/_MAP.md`.
