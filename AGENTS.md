@@ -26,6 +26,7 @@ Vanilla HTML / CSS / JS front end. Production target: private Vercel deploy + Mo
 | `index.html` | Login landing |
 | `home.html` | State Road gateway |
 | `updates.html` | Dated member-facing project update log; maintain when notable portal/content work ships |
+| `calendar.html` | Member calendar for upcoming Local 835 meetings and events |
 | `contract.html` | Searchable CBA articles and separate-paper references |
 | `scans.html` | CBA scans in `data.js` → `cbaScannedPages` |
 | `tool-program.html` | Facility tool-policy archive in `toolProgramScans` |
@@ -42,6 +43,8 @@ Vanilla HTML / CSS / JS front end. Production target: private Vercel deploy + Mo
 | `middleware.js` | Protects HTML + `data.js` + `images/` on Vercel |
 | `source/` | Offline drafts — excluded from deploy |
 | `tests/smoke.js` | Repository smoke checks |
+
+For member events, add or update `calendar.html`, then confirm its Home, shared navigation, and sitewide search links. Record notable calendar additions on `updates.html` and in the durable project docs. Use the supplied event details; do not infer an address, venue, or time beyond what was provided. Resolve an unqualified upcoming date against the current year and display the year explicitly.
 
 ## Contract page ingestion
 

@@ -76,6 +76,13 @@
                 href: 'home.html'
             },
             {
+                category: 'Member Calendar',
+                title: 'Member Calendar',
+                body: 'Local 835 union members meeting December 8 2026 7 pm 7:00 p.m. fifth and willow Philadelphia meeting',
+                meta: 'Upcoming member meeting',
+                href: 'calendar.html'
+            },
+            {
                 category: 'Updates',
                 title: 'Project Updates',
                 body: 'recent changes activity log changelog forum discussion board community forum MongoDB mobile readability thread reply temporary username page 13 high resolution scan page 14 Article XIX holiday pay Article XX pension contribution schedule trust 401k page 15 Article XXI wages Exhibit B biweekly pay Article XXII health care LTD partial search searchability steward roster roles portraits taglines Charles Kevin Ryan Orlando next page 16 CBA transcription future information scan transcription workflow image gallery search Codex OpenAI Claude Code future agents',

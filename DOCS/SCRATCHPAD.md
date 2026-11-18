@@ -216,6 +216,8 @@ Implemented side-by-side Split View reading mode.
 - [2026-03-27] Enhanced script.js to handle multiline contract content and preservation of formatting in search highlights
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-17]: Added `calendar.html` with the December 8, 2026, 7:00 p.m. Local 835 members meeting at 5th and Willow, Philadelphia. Home, navigation, sitewide search, Project Updates, README, architecture, and agent guidance now include the calendar. Time was supplied as 7 p.m.; no street address or venue name was provided.
+
 [AMENDED 2026-11-17]:
 ## Current Task:
 Reorganize the member home page for clear mobile reading and a restrained professional appearance.

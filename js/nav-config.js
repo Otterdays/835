@@ -4,6 +4,7 @@ const SITE_NAV = [
         label: 'Home',
         items: [
             { href: 'home.html', label: 'Home', id: 'home' },
+            { href: 'calendar.html', label: 'Member Calendar', id: 'calendar' },
             { href: 'updates.html', label: 'Project Updates', id: 'updates' },
             { href: 'contract-updates.html', label: 'Contract & Employment Updates', id: 'contract-updates' }
         ]
@@ -49,6 +50,7 @@ const SITE_NAV = [
 
 const SITE_PAGE_IDS = {
     'home.html': 'home',
+    'calendar.html': 'calendar',
     'updates.html': 'updates',
     'contract-updates.html': 'contract-updates',
     'member-action.html': 'member-action',

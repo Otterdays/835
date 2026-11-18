@@ -1,5 +1,8 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+## [Unreleased] - 2026-11-17
+- **Member calendar:** Added an upcoming Local 835 members meeting and linked the calendar from Home, shared navigation, and sitewide search.
+
 ## [1.3.2] - 2026-11-17
 - **Home:** Reorganized the member home page with a restrained compact hero, clear primary actions, grouped resources, and mobile sized facility/resource rows for easier scanning.
 

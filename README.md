@@ -14,6 +14,7 @@ A **private** document and member-action portal for **Operating Engineers Local 
 - **Login** (`index.html`) — username/password; server session cookie when Vercel + Mongo are configured (`js/auth.js`).
 - **Home** (`home.html`) — Local 835 / State Road identity, facility steward links, resource destinations.
 - **Project Updates** (`updates.html`) — dated EST/EDT log of portal and document changes, with upcoming CBA scan work.
+- **Member Calendar** (`calendar.html`) — upcoming Local 835 meetings and events.
 - **Member Action Center** — grievance prep, issue→article routing, steward prep worksheet.
 - **Contract / scans / tool program** — CBA viewer, paneled archives, deep links.
 - **Evidence log & bargaining tools** — client-side export only; factual checklists.
@@ -41,6 +42,7 @@ Open **http://localhost:3000**. Create credentials in gitignored `local.auth.jso
 |------|------|
 | `index.html` / `home.html` | Login + gateway |
 | `updates.html` | Dated member-facing update log |
+| `calendar.html` | Upcoming member meetings and events |
 | `member-action.html` | Grievance / issue hub / steward prep |
 | `evidence-log.html` / `bargaining.html` | Local evidence export + bargaining checklists |
 | `contract.html`, `scans.html`, `tool-program.html` | CBA and archives |

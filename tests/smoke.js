@@ -28,7 +28,8 @@ const requiredPages = [
     'member-documents.html',
     'forum.html',
     'updates.html',
-    'contract-updates.html'
+    'contract-updates.html',
+    'calendar.html'
 ];
 
 const htmlFiles = fs.readdirSync(root).filter((file) => file.endsWith('.html'));
@@ -126,6 +127,11 @@ ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads
     ok(siteSearch.includes(`href: '${page}'`), `site search indexes ${page}`);
 });
 ok(siteSearch.includes("href: 'updates.html'") && siteSearch.includes("href: 'contract-updates.html'"), 'site search indexes both update pages');
+ok(siteSearch.includes("href: 'calendar.html'"), 'site search indexes the member calendar');
+const calendar = fs.readFileSync(path.join(root, 'calendar.html'), 'utf8');
+['2026-12-08', '7:00 p.m.', '5th and Willow', 'Philadelphia'].forEach((detail) => {
+    ok(calendar.includes(detail), `member calendar includes meeting detail: ${detail}`);
+});
 ok(siteSearch.includes('.normalize(\'NFKD\')'), 'site search folds Unicode accents');
 ok(siteSearch.includes('new Set(normalize(query)'), 'site search deduplicates normalized terms');
 ok(siteSearch.includes('href: () => `contract.html?article='), 'contract search result deep-links without a fragile text filter');

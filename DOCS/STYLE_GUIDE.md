@@ -27,3 +27,5 @@
 [AMENDED 2026-11-17]: Sitewide search also has a curated entry for each static member page. When adding or renaming pages, update `js/site-search.js` and `js/nav-config.js`; forum search queries the Mongo text indexes for both threads and replies. Keep `npm run test:smoke` local-link and search-coverage checks green.
 
 [AMENDED 2026-11-17]: For future CBA or facility-policy scans, follow `DOCS/CONTRACT_PAGE_INGESTION.md`. It covers printed-page verification, faithful transcription, `contractData.articles`, scan metadata, search/deep links, dated updates, and cross-assistant instruction loading. Keep `AGENTS.md` canonical and import it from `CLAUDE.md`.
+
+[AMENDED 2026-11-17]: Member event pages use `calendar.html` and the shared shell. Keep dates explicit (including the year), display local event time, and preserve supplied venue wording without inventing address details. Link the calendar through Home, shared navigation, sitewide search, and Project Updates for notable additions.

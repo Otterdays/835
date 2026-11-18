@@ -9,6 +9,8 @@
 [AMENDED 2026-11-17]: **Community forum.** `forum.html` lets members post threads and replies under a temporary, self-chosen username stored only in their browser (changeable under Account options). Posts persist in MongoDB Atlas through Vercel `api/forum/*`. No real login yet — names are unverified and unclaimed.
 # Summary
 
+[AMENDED 2026-11-17]: **Member calendar.** Added `calendar.html` with the Local 835 union members meeting on December 8, 2026, at 7:00 p.m. at 5th and Willow in Philadelphia. Linked from Home, shared navigation, and sitewide search; added the change to Project Updates.
+
 [AMENDED 2026-07-28]: **Secure Member Action Center roadmap (1.2.0).** Exposure containment + Vercel/Mongo auth scaffolding; Member Action Center; evidence log; bargaining tools; structured suggestions. Keep repo private; complete Vercel env + user seed before treating as confidential. Article XIX holidays still await later scan OCR. `member-documents.html` no longer serves `source/` downloads.
 
 [AMENDED 2026-07-28]: **Member documents.** Added a protected `member-documents.html` resource page linking the IUOE Local 835 Working Packet and Petition & Meeting Motion in downloadable Word and openable Markdown formats.
