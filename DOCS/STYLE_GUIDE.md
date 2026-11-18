@@ -29,3 +29,5 @@
 [AMENDED 2026-11-17]: For future CBA or facility-policy scans, follow `DOCS/CONTRACT_PAGE_INGESTION.md`. It covers printed-page verification, faithful transcription, `contractData.articles`, scan metadata, search/deep links, dated updates, and cross-assistant instruction loading. Keep `AGENTS.md` canonical and import it from `CLAUDE.md`.
 
 [AMENDED 2026-11-17]: Member event pages use `calendar.html` and the shared shell. Keep dates explicit (including the year), display local event time, and preserve supplied venue wording without inventing address details. Link the calendar through Home, shared navigation, sitewide search, and Project Updates for notable additions.
+
+[AMENDED 2026-11-17 9:12 p.m. EST]: Search results should state match counts/limits, show ranked order, highlight every normalized match without interpolating unescaped query markup, and keep keyboard selection visible and announced. Contract search must normalize case, accents, and punctuation consistently with its highlights. Keep the contract Document Tools disclosure operable by keyboard; on narrow screens it starts collapsed and is not sticky over contract text.

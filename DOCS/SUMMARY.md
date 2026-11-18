@@ -9,7 +9,7 @@
 [AMENDED 2026-11-17]: **Community forum.** `forum.html` lets members post threads and replies under a temporary, self-chosen username stored only in their browser (changeable under Account options). Posts persist in MongoDB Atlas through Vercel `api/forum/*`. No real login yet — names are unverified and unclaimed.
 # Summary
 
-[AMENDED 2026-11-17]: **Member calendar.** Added `calendar.html` with the Local 835 union members meeting on December 8, 2026, at 7:00 p.m. at 5th and Willow in Philadelphia. Linked from Home, shared navigation, and sitewide search; added the change to Project Updates.
+[AMENDED 2026-11-17]: **Member calendar.** `calendar.html` lists the union-wide meeting every third Wednesday and a separate December 8, 2026, 7:00 p.m. meeting at 5th and Willow for assistant shop stewards and the chief shop steward only. Linked from Home, shared navigation, and sitewide search; notable changes go in Project Updates.
 
 [AMENDED 2026-07-28]: **Secure Member Action Center roadmap (1.2.0).** Exposure containment + Vercel/Mongo auth scaffolding; Member Action Center; evidence log; bargaining tools; structured suggestions. Keep repo private; complete Vercel env + user seed before treating as confidential. Article XIX holidays still await later scan OCR. `member-documents.html` no longer serves `source/` downloads.
 
@@ -62,3 +62,9 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-17 8:50 p.m. EST]: **CBA page 15 digitized.** Added `images/page_15.jpg` and scan/search record `cba-p15`. Completed Article XX Pension Sections 1–4 across pages 14–15; added Article XXI Wages Sections 1–2 and Article XXII Health Care Insurance Section 1. Articles XXI and XXII are partial pending continuation scans. Current archive range is pages 1–15+.
 
 [AMENDED 2026-11-17 8:53 p.m. EST]: Mobile and edge-case audit: corrected invalid sidebar width math on narrow screens; preserved evidence-log Markdown table cells containing pipes/newlines and delayed Blob URL cleanup for mobile download handling; improved site-search dialog focus restoration and keyboard focus containment.
+
+[AMENDED 2026-11-17 9:12 p.m. EST]: Search UX audit: sitewide results now show numbered ranking, diacritic-aware match highlights, match totals and truncation guidance, live keyboard status, and an accessible close control. Forum search waits for a meaningful query. Contract search now matches all query words across punctuation/diacritics and highlights matches. The Document Tools disclosure starts collapsed and is not sticky on mobile/small tablet screens; keyboard and deep-link search still open it.
+
+[AMENDED 2026-11-17 9:36 p.m. EST]: Search changes verified by smoke, deploy, JavaScript syntax, and diff checks. Text normalization is cached per search entry; responsive rules collapse the contract tools on narrow screens. Local browser preview was unavailable because sandbox networking blocked the local server.
+
+[AMENDED 2026-11-17 9:38 p.m. EST]: Re-ran smoke, deploy, JavaScript syntax, and diff checks after final keyboard and mobile adjustments; all passed.

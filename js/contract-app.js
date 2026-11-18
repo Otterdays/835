@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const floatingDesk = document.getElementById('floating-desk');
     const deskList = document.getElementById('desk-list');
     const contractToolbar = document.getElementById('contract-toolbar');
+    const contractToolsToggle = document.getElementById('contract-tools-toggle');
+    const contractToolsContent = document.getElementById('contract-tools-content');
     const splitViewBtn = document.getElementById('split-view-btn');
     const splitViewWrapper = document.getElementById('split-view-wrapper');
     const mainContainer = document.getElementById('main-container');
@@ -58,6 +60,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let observer;
     let isSplitView = false;
+    const compactContractTools = window.matchMedia('(max-width: 767px)');
+
+    const setContractToolsExpanded = (expanded) => {
+        if (!contractToolsToggle || !contractToolsContent) return;
+        contractToolsToggle.setAttribute('aria-expanded', String(expanded));
+        contractToolsContent.hidden = !expanded;
+        contractToolbar.classList.toggle('is-collapsed', !expanded);
+    };
+
+    setContractToolsExpanded(!compactContractTools.matches);
+    contractToolsToggle?.addEventListener('click', () => {
+        setContractToolsExpanded(contractToolsContent.hidden);
+        if (!contractToolsContent.hidden && compactContractTools.matches) searchInput.focus();
+    });
+    compactContractTools.addEventListener('change', (event) => {
+        setContractToolsExpanded(!event.matches);
+    });
 
     const cbaN = cbaArticleCount();
     const sepN = separatePaperSectionCount();
@@ -65,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     headerParties.textContent = 'U.S. Facilities, Inc. and International Union of Operating Engineers, Local 835, AFL-CIO.';
     headerDate.textContent = `${contractData.effectiveDate} · ${contractData.termLabel} term · ${cbaN} CBA articles`;
     headerStatus.textContent = 'Current CBA (2022–26)';
-    viewDescription.textContent = 'Master agreement: Articles I–XX. Use the search bar to find specific clauses or terms. Scanned pages and facility-specific tool policies are located in their respective sections.';
+    viewDescription.textContent = `Master agreement: ${cbaN} CBA article entries are available; partial articles are marked in their text. Use the search bar to find specific clauses or terms. Scanned pages and facility-specific tool policies are located in their respective sections.`;
     if (statArticles) {
         statArticles.textContent = String(cbaN);
     }
@@ -75,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         searchInput.value = urlParams.get('q');
     }
     if (urlParams.get('focus') === 'search' && searchInput) {
+        setContractToolsExpanded(true);
         searchInput.focus();
     }
 
@@ -108,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!target) return;
 
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (compactContractTools.matches) setContractToolsExpanded(false);
             setTimeout(() => {
                 quickJumpSelect.selectedIndex = 0;
             }, 800);
@@ -117,12 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (event) => {
         if (event.key === '/' && !isTypingTarget(event.target)) {
             event.preventDefault();
+            setContractToolsExpanded(true);
             searchInput.focus();
             searchInput.select();
             return;
         }
 
-        if (event.key === 'Escape' && searchInput.value) {
+        if (event.key === 'Escape' && document.activeElement === searchInput && searchInput.value) {
             clearSearch(false);
         }
     });
@@ -134,7 +156,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function normalizeQuery(value = searchInput.value) {
-        return value.toLowerCase().trim();
+        return value
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLocaleLowerCase()
+            .replace(/[^\p{L}\p{N}]+/gu, ' ')
+            .trim();
+    }
+
+    function normalizeWithOffsets(value, joinPunctuation = false) {
+        const source = String(value || '');
+        const sourceChars = [...source];
+        let normalized = '';
+        const starts = [];
+        const ends = [];
+        let offset = 0;
+        sourceChars.forEach((char, index) => {
+            const start = offset;
+            offset += char.length;
+            if (joinPunctuation && !/[\p{L}\p{N}\s]/u.test(char) &&
+                /[\p{L}\p{N}]/u.test(sourceChars[index - 1] || '') &&
+                /[\p{L}\p{N}]/u.test(sourceChars[index + 1] || '')) {
+                return;
+            }
+            const folded = char.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();
+            [...folded].forEach((part) => {
+                if (/[\p{L}\p{N}]/u.test(part)) {
+                    normalized += part;
+                    for (let i = 0; i < part.length; i += 1) {
+                        starts.push(start);
+                        ends.push(offset);
+                    }
+                } else if (normalized && !normalized.endsWith(' ')) {
+                    normalized += ' ';
+                    starts.push(start);
+                    ends.push(offset);
+                }
+            });
+        });
+        if (normalized.endsWith(' ')) {
+            normalized = normalized.slice(0, -1);
+            starts.pop();
+            ends.pop();
+        }
+        return { normalized, starts, ends };
     }
 
     function clearSearch(shouldFocusInput) {
@@ -168,23 +233,26 @@ document.addEventListener('DOMContentLoaded', () => {
             return contractData.articles;
         }
 
-        return contractData.articles.filter((article) =>
-            article.title.toLowerCase().includes(query) ||
-            article.content.toLowerCase().includes(query)
-        );
+        const tokens = query.split(/\s+/).filter(Boolean);
+        return contractData.articles.filter((article) => {
+            const source = `${article.title}\n${article.content}`;
+            const haystack = normalizeQuery(source);
+            const joined = normalizeQuery(source.replace(/([\p{L}\p{N}])[^\p{L}\p{N}\s](?=[\p{L}\p{N}])/gu, '$1'));
+            return tokens.every((token) => haystack.includes(token) || joined.includes(token));
+        });
     }
 
     function updateResultsInfo(query, count) {
         const total = contractData.articles.length;
-        const sectionLabel = count === 1 ? 'section' : 'sections';
+        const itemLabel = count === 1 ? 'entry' : 'entries';
         const verb = count === 1 ? 'matches' : 'match';
 
         if (query) {
-            resultsInfo.textContent = `${count} of ${total} ${sectionLabel} ${verb} "${query}"`;
+            resultsInfo.textContent = `${count} of ${total} ${itemLabel} ${verb} all words in "${searchInput.value.trim()}"`;
             return;
         }
 
-        resultsInfo.textContent = `All ${total} sections ready (CBA + separate paper parts)`;
+        resultsInfo.textContent = `All ${total} contract entries ready (CBA + separate papers)`;
     }
 
     function syncNavigationVisibility(articleCount) {
@@ -200,15 +268,35 @@ document.addEventListener('DOMContentLoaded', () => {
             return escapeHTML(text).replace(/\n/g, '<br>');
         }
 
-        const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(${escapedQuery})`, 'gi');
-
-        return text.split(regex).map((part) => {
-            if (part.toLowerCase() === query.toLowerCase()) {
-                return `<mark>${escapeHTML(part)}</mark>`;
-            }
-            return escapeHTML(part).replace(/\n/g, '<br>');
-        }).join('');
+        const source = String(text);
+        const tokens = query.split(/\s+/).filter(Boolean);
+        const forms = [normalizeWithOffsets(source), normalizeWithOffsets(source, true)];
+        const ranges = [];
+        forms.forEach(({ normalized, starts, ends }) => {
+            tokens.forEach((token) => {
+                let at = normalized.indexOf(token);
+                while (at >= 0) {
+                    const last = at + token.length - 1;
+                    if (starts[at] !== undefined && ends[last] !== undefined) ranges.push([starts[at], ends[last]]);
+                    at = normalized.indexOf(token, at + Math.max(1, token.length));
+                }
+            });
+        });
+        ranges.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+        const merged = ranges.reduce((all, [start, end]) => {
+            const last = all[all.length - 1];
+            if (last && start <= last[1]) last[1] = Math.max(last[1], end);
+            else all.push([start, end]);
+            return all;
+        }, []);
+        let cursor = 0;
+        let html = '';
+        merged.forEach(([start, end]) => {
+            html += escapeHTML(source.slice(cursor, start)).replace(/\n/g, '<br>');
+            html += `<mark>${escapeHTML(source.slice(start, end))}</mark>`;
+            cursor = end;
+        });
+        return html + escapeHTML(source.slice(cursor)).replace(/\n/g, '<br>');
     }
 
     function escapeHTML(value) {

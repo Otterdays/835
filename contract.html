@@ -44,7 +44,7 @@
 
             <div class="hero-stats hero-stats--compact" aria-label="Contract summary">
                 <div class="stat-card">
-                    <span class="stat-label">CBA articles (I–XIX)</span>
+                    <span class="stat-label">CBA article entries</span>
                     <strong id="stat-articles" class="stat-value">0</strong>
                 </div>
             </div>
@@ -52,8 +52,11 @@
 
         <section id="contract-toolbar" class="contract-toolbar" aria-label="Contract tools">
             <div class="toolbar-topline">
-                <div>
-                    <p class="toolbar-label">Document Tools</p>
+                <div class="toolbar-heading">
+                    <button id="contract-tools-toggle" class="toolbar-toggle" type="button" aria-controls="contract-tools-content" aria-expanded="true">
+                        <span class="toolbar-label">Document Tools</span>
+                        <span class="toolbar-toggle-icon" aria-hidden="true">⌄</span>
+                    </button>
                     <p class="toolbar-description">Search language, jump between articles, and keep current section in view.</p>
                 </div>
                 <div class="toolbar-hints" aria-label="Keyboard shortcuts">
@@ -62,6 +65,7 @@
                 </div>
             </div>
 
+            <div id="contract-tools-content" class="contract-tools-content">
             <div class="search-container">
                 <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"></circle>
@@ -79,9 +83,10 @@
                 </div>
 
                 <div class="toolbar-status">
-                    <div id="results-info" class="results-info"></div>
+                    <div id="results-info" class="results-info" role="status" aria-live="polite"></div>
                     <div id="current-article-label" class="current-article-label">All articles in view</div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -91,7 +96,7 @@
         </div>
 
         <div id="no-results" class="no-results">
-            No matching articles. Try broader terms or open <a href="scans.html">scanned pages</a> for original formatting.
+            No contract entries contain every word in that search. Try fewer or different terms, or open <a href="scans.html">scanned pages</a> for the original wording and formatting.
         </div>
     </div>
 

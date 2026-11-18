@@ -216,7 +216,7 @@ Implemented side-by-side Split View reading mode.
 - [2026-03-27] Enhanced script.js to handle multiline contract content and preservation of formatting in search highlights
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
-[AMENDED 2026-11-17]: Added `calendar.html` with the December 8, 2026, 7:00 p.m. Local 835 members meeting at 5th and Willow, Philadelphia. Home, navigation, sitewide search, Project Updates, README, architecture, and agent guidance now include the calendar. Time was supplied as 7 p.m.; no street address or venue name was provided.
+[AMENDED 2026-11-17]: Calendar correction: recurring union-wide meetings are every third Wednesday of the month; time and venue were not supplied. The December 8, 2026, 7:00 p.m. meeting at 5th and Willow is for assistant shop stewards and the chief shop steward only.
 
 [AMENDED 2026-11-17]:
 ## Current Task:
@@ -285,3 +285,9 @@ Audit member portal behavior for bugs and mobile edge cases.
 
 ## Actions Log:
 - [2026-11-17 8:53 p.m. EST] Fixed mobile sidebar width parsing, safe Markdown evidence export cells and delayed download URL cleanup, and site-search dialog focus restoration/keyboard containment. No test suite was run during this audit.
+
+[AMENDED 2026-11-17 9:12 p.m. EST]: Search-system audit found the contract search was literal-only, sitewide result highlights did not follow accent-folded matching, the 12-result cap was not explained, the dialog lacked a visible close button, and mobile Document Tools stayed expanded/sticky. Updated global results with safe diacritic-aware highlights, ranked numbers, visible total/truncation guidance, live keyboard-selection status, accessible close/focus handling, and deferred forum requests until a meaningful query. Contract search now folds punctuation/accents, requires all query words, and highlights each match. Document Tools is an accessible disclosure, collapsed and non-sticky on screens up to 767px; `/` and direct focus links expand it. Added smoke checks and Project Updates entry. No dependencies changed.
+
+[AMENDED 2026-11-17 9:36 p.m. EST]: Final search verification passed: `npm run test:smoke`, `npm run check:deploy`, `node --check js/site-search.js`, `node --check js/contract-app.js`, and `git diff --check`. Added cached punctuation-folded text maps and tests for the normalized search/disclosure behaviors. A local browser preview could not start because sandbox networking denied the local server; no visual mobile-browser pass is claimed.
+
+[AMENDED 2026-11-17 9:38 p.m. EST]: Final run after the keyboard/closed-dialog race guard and ranked-list accessibility changes: smoke, deploy, syntax, and diff checks all passed. Added CSS coverage confirming the mobile Document Tools toolbar is static/collapsible. Latest search update is dated 9:38 p.m. EST.

@@ -277,6 +277,54 @@ h1 {
     gap: 1rem;
 }
 
+.toolbar-heading {
+    min-width: 0;
+}
+
+.toolbar-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent-strong);
+    cursor: pointer;
+    text-align: left;
+}
+
+.toolbar-toggle:focus-visible,
+.site-search-close:focus-visible {
+    outline: 3px solid rgba(15, 76, 129, 0.35);
+    outline-offset: 3px;
+}
+
+.toolbar-toggle .toolbar-label {
+    margin: 0;
+}
+
+.toolbar-toggle-icon {
+    display: inline-block;
+    font-size: 1.15rem;
+    line-height: 1;
+    transition: transform 0.18s ease;
+}
+
+.toolbar-toggle[aria-expanded="true"] .toolbar-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.contract-tools-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contract-tools-content[hidden] {
+    display: none;
+}
+
 .toolbar-label {
     display: block;
     margin-bottom: 0.35rem;
@@ -2069,6 +2117,19 @@ body.site-search-open {
     flex-wrap: wrap;
 }
 
+.site-search-close {
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: 0 0 auto;
+    border: 1px solid rgba(135, 148, 166, 0.25);
+    border-radius: 50%;
+    background: var(--bg-muted);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
 .site-search-title {
     font-family: "Source Serif 4", Georgia, serif;
     font-size: 1.25rem;
@@ -2134,6 +2195,20 @@ body.site-search-open {
     flex-wrap: wrap;
 }
 
+.site-search-result-number {
+    display: inline-grid;
+    width: 1.55rem;
+    height: 1.55rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(15, 76, 129, 0.08);
+    color: var(--accent-strong);
+    font-size: 0.68rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
 .site-search-result-cat {
     font-size: 0.68rem;
     font-weight: 800;
@@ -2163,13 +2238,15 @@ body.site-search-open {
 }
 
 .site-search-result-snippet mark {
-    background: rgba(15, 76, 129, 0.14);
+    background: #f8e3a1;
     color: var(--accent-strong);
-    border-radius: 3px;
-    padding: 0 0.12rem;
+    border-radius: 4px;
+    padding: 0.02em 0.16em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
     .site-search-btn {
         top: 1rem;
         right: 1rem;
@@ -2179,6 +2256,40 @@ body.site-search-open {
 
     .site-search-overlay {
         padding-top: 3.5rem;
+    }
+
+    .site-search-dialog {
+        max-height: calc(100dvh - 6rem);
+        overflow: auto;
+        padding: 1rem;
+    }
+
+    .site-search-result {
+        padding: 0.8rem 0.55rem;
+    }
+
+    .contract-toolbar {
+        position: static;
+        top: auto;
+    }
+
+    .contract-toolbar.is-collapsed {
+        gap: 0;
+        padding: 0.8rem 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .contract-toolbar.is-collapsed .toolbar-description,
+    .contract-toolbar.is-collapsed .toolbar-hints {
+        display: none;
+    }
+
+    .contract-toolbar.is-collapsed .toolbar-topline {
+        min-height: 2rem;
+    }
+
+    .contract-toolbar .toolbar-topline {
+        align-items: flex-start;
     }
 }
 
@@ -3446,7 +3557,7 @@ video {
     }
 
     .site-search-dialog {
-        max-height: calc(100dvh - 4.5rem);
+        max-height: calc(100dvh - 6rem);
         overflow: auto;
         border-radius: 18px;
     }

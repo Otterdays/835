@@ -15,6 +15,8 @@
     let statusEl;
     let activeIndex = -1;
     let returnFocusTo = null;
+    let lastResultCount = 0;
+    const entryTextCache = new WeakMap();
 
     const normalize = (value) =>
         String(value || '')
@@ -23,6 +25,46 @@
             .toLocaleLowerCase()
             .replace(/[^\p{L}\p{N}]+/gu, ' ')
             .trim();
+
+    const normalizeWithOffsets = (value, joinPunctuation = false) => {
+        const source = String(value || '');
+        const sourceChars = [...source];
+        let normalized = '';
+        const starts = [];
+        const ends = [];
+        let sourceOffset = 0;
+
+        sourceChars.forEach((char, index) => {
+            const start = sourceOffset;
+            sourceOffset += char.length;
+            const folded = char.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase();
+            if (joinPunctuation && !/[\p{L}\p{N}\s]/u.test(char) &&
+                /[\p{L}\p{N}]/u.test(sourceChars[index - 1] || '') &&
+                /[\p{L}\p{N}]/u.test(sourceChars[index + 1] || '')) {
+                return;
+            }
+            [...folded].forEach((part) => {
+                if (/[\p{L}\p{N}]/u.test(part)) {
+                    normalized += part;
+                    for (let i = 0; i < part.length; i += 1) {
+                        starts.push(start);
+                        ends.push(sourceOffset);
+                    }
+                } else if (normalized && !normalized.endsWith(' ')) {
+                    normalized += ' ';
+                    starts.push(start);
+                    ends.push(sourceOffset);
+                }
+            });
+        });
+
+        if (normalized.endsWith(' ')) {
+            normalized = normalized.slice(0, -1);
+            starts.pop();
+            ends.pop();
+        }
+        return { normalized, starts, ends };
+    };
 
     const escapeHtml = (value) =>
         value.replace(/[&<>'"]/g, (char) =>
@@ -78,8 +120,8 @@
             {
                 category: 'Member Calendar',
                 title: 'Member Calendar',
-                body: 'Local 835 union members meeting December 8 2026 7 pm 7:00 p.m. fifth and willow Philadelphia meeting',
-                meta: 'Upcoming member meeting',
+                body: 'Local 835 union wide meeting every third Wednesday monthly assistant shop stewards chief shop steward December 8 2026 7 pm 7:00 p.m. fifth and willow Philadelphia',
+                meta: 'Monthly union-wide meeting and December 8 steward meeting',
                 href: 'calendar.html'
             },
             {
@@ -274,61 +316,59 @@
 
     const queryTokens = (query) => [...new Set(normalize(query).split(/\s+/).filter(Boolean))];
 
+    const getEntryTextForms = (entry) => {
+        const cached = entryTextCache.get(entry);
+        if (cached) return cached;
+        const body = String(entry.body || '').replace(/\s+/g, ' ').trim();
+        const forms = {
+            body,
+            title: normalize(entry.title),
+            bodyNormalized: normalizeWithOffsets(body),
+            bodyJoined: normalizeWithOffsets(body, true),
+            titleJoined: normalizeWithOffsets(entry.title, true).normalized
+        };
+        entryTextCache.set(entry, forms);
+        return forms;
+    };
+
     const scoreEntry = (entry, tokens) => {
-        const title = normalize(entry.title);
-        const body = normalize(entry.body);
+        const forms = getEntryTextForms(entry);
+        const body = forms.bodyNormalized.normalized;
+        const joinedBody = forms.bodyJoined.normalized;
         let score = 0;
 
         for (const token of tokens) {
-            if (!title.includes(token) && !body.includes(token)) {
+            if (!forms.title.includes(token) && !body.includes(token) &&
+                !forms.titleJoined.includes(token) && !joinedBody.includes(token)) {
                 return 0;
             }
-            if (title.includes(token)) score += 8;
-            if (body.includes(token)) score += 2;
-            if (title.startsWith(token)) score += 4;
+            if (forms.title.includes(token) || forms.titleJoined.includes(token)) score += 8;
+            if (body.includes(token) || joinedBody.includes(token)) score += 2;
+            if (forms.title.startsWith(token) || forms.titleJoined.startsWith(token)) score += 4;
         }
 
         const phrase = tokens.join(' ');
-        if (phrase && title.includes(phrase)) score += 12;
+        if (phrase && forms.title.includes(phrase)) score += 12;
         if (phrase && body.includes(phrase)) score += 4;
 
         return score;
     };
 
     const makeSnippet = (entry, tokens) => {
-        const flat = String(entry.body || '').replace(/\s+/g, ' ').trim();
-        const needle = tokens[0] || '';
-        let originalOffset = 0;
-        let normalized = '';
-        const sourceOffsets = [];
-        [...flat].forEach((char) => {
-            const sourceOffset = originalOffset;
-            originalOffset += char.length;
-            const part = char
-                .normalize('NFKD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .toLocaleLowerCase();
-            [...part].forEach((partChar) => {
-                if (/[\p{L}\p{N}]/u.test(partChar)) {
-                    normalized += partChar;
-                    sourceOffsets.push(sourceOffset);
-                } else if (normalized && !normalized.endsWith(' ')) {
-                    normalized += ' ';
-                    sourceOffsets.push(sourceOffset);
-                }
-            });
-        });
-        if (normalized.endsWith(' ')) {
-            normalized = normalized.slice(0, -1);
-            sourceOffsets.pop();
-        }
-        const normalizedIndex = normalized.indexOf(needle);
-        const idx = normalizedIndex < 0 ? -1 : sourceOffsets[normalizedIndex];
+        const { body: flat, bodyNormalized, bodyJoined } = getEntryTextForms(entry);
+        const forms = [bodyNormalized, bodyJoined];
+        const matches = forms.flatMap(({ normalized, starts }) =>
+            tokens.map((token) => {
+                const position = normalized.indexOf(token);
+                return position < 0 ? -1 : starts[position];
+            })
+        ).filter((position) => position >= 0);
+        const idx = matches.length ? Math.min(...matches) : -1;
         if (idx === -1) {
             return flat.slice(0, 140) + (flat.length > 140 ? '…' : '');
         }
         const start = Math.max(0, idx - 50);
-        const end = Math.min(flat.length, idx + needle.length + 90);
+        const end = Math.min(flat.length, idx + 130);
         let snippet = flat.slice(start, end);
         if (start > 0) snippet = '…' + snippet;
         if (end < flat.length) snippet += '…';
@@ -336,12 +376,37 @@
     };
 
     const highlightSnippet = (snippet, tokens) => {
-        let html = escapeHtml(snippet);
-        tokens.forEach((token) => {
-            const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            html = html.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+        const forms = [normalizeWithOffsets(snippet), normalizeWithOffsets(snippet, true)];
+        const ranges = [];
+        forms.forEach(({ normalized, starts, ends }) => {
+            tokens.forEach((token) => {
+                let from = 0;
+                let found = normalized.indexOf(token, from);
+                while (found >= 0) {
+                    const last = found + token.length - 1;
+                    if (starts[found] !== undefined && ends[last] !== undefined) {
+                        ranges.push([starts[found], ends[last]]);
+                    }
+                    from = found + Math.max(1, token.length);
+                    found = normalized.indexOf(token, from);
+                }
+            });
         });
-        return html;
+        ranges.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+        const merged = ranges.reduce((all, [start, end]) => {
+            const last = all[all.length - 1];
+            if (last && start <= last[1]) last[1] = Math.max(last[1], end);
+            else all.push([start, end]);
+            return all;
+        }, []);
+        let cursor = 0;
+        let html = '';
+        merged.forEach(([start, end]) => {
+            html += escapeHtml(snippet.slice(cursor, start));
+            html += `<mark>${escapeHtml(snippet.slice(start, end))}</mark>`;
+            cursor = end;
+        });
+        return html + escapeHtml(snippet.slice(cursor));
     };
 
     const search = (query) => {
@@ -350,17 +415,17 @@
             return [];
         }
 
-        return index
+        const ranked = index
             .concat(forumEntries)
             .map((entry) => ({ entry, score: scoreEntry(entry, tokens) }))
             .filter((row) => row.score > 0)
-            .sort((a, b) => b.score - a.score)
-            .slice(0, MAX_RESULTS)
-            .map((row) => ({
+            .sort((a, b) => b.score - a.score);
+        const hits = ranked.slice(0, MAX_RESULTS).map((row) => ({
                 ...row.entry,
                 snippet: makeSnippet(row.entry, tokens),
                 tokens
             }));
+        return { hits, total: ranked.length };
     };
 
     const renderResults = (query) => {
@@ -369,18 +434,23 @@
         activeIndex = -1;
 
         if (!tokens.length) {
+            lastResultCount = 0;
             statusEl.textContent = SEARCH_HINT;
             return;
         }
 
         if (tokens.join('').length < MIN_QUERY_LEN) {
+            lastResultCount = 0;
             statusEl.textContent = 'Keep typing…';
             return;
         }
 
-        const hits = search(query);
-        statusEl.textContent = hits.length
-            ? `${hits.length} result${hits.length === 1 ? '' : 's'}`
+        const { hits, total } = search(query);
+        lastResultCount = total;
+        statusEl.textContent = total
+            ? (total > hits.length
+                ? `Top ${hits.length} of ${total} matches · add a word to narrow results.`
+                : `${total} match${total === 1 ? '' : 'es'}`)
             : 'No matches. Try fewer words or different terms.';
 
         hits.forEach((hit, i) => {
@@ -389,9 +459,15 @@
             link.className = 'site-search-result';
             link.href = hit.href(query);
             link.dataset.index = String(i);
+            link.setAttribute('aria-current', 'false');
 
             const top = document.createElement('div');
             top.className = 'site-search-result-top';
+
+            const number = document.createElement('span');
+            number.className = 'site-search-result-number';
+            number.textContent = String(i + 1).padStart(2, '0');
+            number.setAttribute('aria-hidden', 'true');
 
             const cat = document.createElement('span');
             cat.className = 'site-search-result-cat';
@@ -401,6 +477,7 @@
             title.className = 'site-search-result-title';
             title.textContent = hit.title;
 
+            top.appendChild(number);
             top.appendChild(cat);
             top.appendChild(title);
 
@@ -432,7 +509,9 @@
         activeIndex = ((nextIndex + links.length) % links.length);
         links.forEach((link, i) => {
             link.classList.toggle('is-active', i === activeIndex);
+            link.setAttribute('aria-current', i === activeIndex ? 'true' : 'false');
         });
+        statusEl.textContent = `Result ${activeIndex + 1} of ${lastResultCount}: ${links[activeIndex].querySelector('.site-search-result-title')?.textContent || 'match'}. Press Enter to open.`;
         links[activeIndex].scrollIntoView({ block: 'nearest' });
     };
 
@@ -446,26 +525,28 @@
         returnFocusTo = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         overlay.classList.add('is-open');
         overlay.hidden = false;
+        document.getElementById('site-search-btn')?.setAttribute('aria-expanded', 'true');
         document.body.classList.add('site-search-open');
         input.value = '';
         renderResults('');
         statusEl.textContent = 'Loading search index…';
+        input.focus();
 
         try {
             await ensureData();
+            if (!isOpen()) return;
             renderResults(input.value);
             // Search the local index immediately; live forum results can arrive later.
-            loadForum(input.value.trim()).then(() => {
-                if (isOpen()) {
-                    if (input.value.trim()) renderResults(input.value);
-                    else statusEl.textContent = SEARCH_HINT;
-                }
-            });
+            const query = input.value.trim();
+            if (queryTokens(query).join('').length >= MIN_QUERY_LEN) {
+                loadForum(query).then(() => {
+                    if (isOpen() && input.value.trim() === query) renderResults(query);
+                });
+            }
         } catch {
             statusEl.textContent = 'Search data failed to load. Refresh and try again.';
         }
 
-        window.setTimeout(() => input.focus(), 0);
     };
 
     const close = () => {
@@ -476,6 +557,7 @@
         overlay.classList.remove('is-open');
         overlay.hidden = true;
         document.body.classList.remove('site-search-open');
+        document.getElementById('site-search-btn')?.setAttribute('aria-expanded', 'false');
         returnFocusTo?.focus();
     };
 
@@ -485,7 +567,11 @@
         btn.type = 'button';
         btn.className = 'site-search-btn';
         btn.setAttribute('aria-label', 'Search entire site');
-        btn.setAttribute('aria-keyshortcuts', 'Control+K');
+        btn.setAttribute('aria-keyshortcuts', 'Control+K Meta+K');
+        btn.title = 'Search the site (Ctrl/⌘K)';
+        btn.setAttribute('aria-haspopup', 'dialog');
+        btn.setAttribute('aria-controls', 'site-search-dialog');
+        btn.setAttribute('aria-expanded', 'false');
         btn.innerHTML =
             '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
 
@@ -495,6 +581,7 @@
         overlay.hidden = true;
 
         const dialog = document.createElement('div');
+        dialog.id = 'site-search-dialog';
         dialog.className = 'site-search-dialog';
         dialog.setAttribute('role', 'dialog');
         dialog.setAttribute('aria-modal', 'true');
@@ -508,11 +595,18 @@
         title.className = 'site-search-title';
         title.textContent = 'Search site';
 
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'site-search-close';
+        closeBtn.type = 'button';
+        closeBtn.setAttribute('aria-label', 'Close search');
+        closeBtn.textContent = '×';
+
         const hints = document.createElement('div');
         hints.className = 'site-search-hints';
-        hints.innerHTML = '<span class="hint-chip">↑↓ Navigate</span><span class="hint-chip">Enter Open</span><span class="hint-chip">Esc Close</span>';
+        hints.innerHTML = '<span class="hint-chip">Ctrl/⌘K Search</span><span class="hint-chip">↑↓ Navigate</span><span class="hint-chip">Enter Open</span><span class="hint-chip">Esc Close</span>';
 
         header.appendChild(title);
+        header.appendChild(closeBtn);
         header.appendChild(hints);
 
         input = document.createElement('input');
@@ -525,11 +619,14 @@
 
         statusEl = document.createElement('p');
         statusEl.className = 'site-search-status';
+        statusEl.setAttribute('role', 'status');
+        statusEl.setAttribute('aria-live', 'polite');
         statusEl.textContent = SEARCH_HINT;
 
-        resultsEl = document.createElement('ul');
+        resultsEl = document.createElement('ol');
         resultsEl.id = 'site-search-results';
         resultsEl.className = 'site-search-results';
+        resultsEl.setAttribute('aria-label', 'Ranked search results');
 
         dialog.appendChild(header);
         dialog.appendChild(input);
@@ -540,6 +637,7 @@
         document.body.appendChild(overlay);
 
         btn.addEventListener('click', () => open());
+        closeBtn.addEventListener('click', close);
         overlay.addEventListener('click', (event) => {
             if (event.target === overlay) {
                 close();
@@ -550,9 +648,13 @@
         input.addEventListener('input', () => {
             forumEntries = [];
             forumLoad?.abort();
-            renderResults(input.value);
             window.clearTimeout(forumSearchTimer);
             const query = input.value.trim();
+            if (!dataReady) {
+                statusEl.textContent = 'Loading search index…';
+                return;
+            }
+            renderResults(input.value);
             if (queryTokens(query).join('').length >= MIN_QUERY_LEN) {
                 forumSearchTimer = window.setTimeout(() => {
                     if (!isOpen()) return;
@@ -581,6 +683,16 @@
             if (event.key === 'Enter' && activeIndex >= 0 && links[activeIndex]) {
                 event.preventDefault();
                 window.location.href = links[activeIndex].href;
+                return;
+            }
+            if (event.key === 'Enter' && activeIndex < 0 && links.length === 1) {
+                event.preventDefault();
+                window.location.href = links[0].href;
+                return;
+            }
+            if (event.key === 'Enter' && activeIndex < 0 && links.length > 1) {
+                event.preventDefault();
+                setActiveResult(0);
                 return;
             }
             if (event.key === 'Escape') {

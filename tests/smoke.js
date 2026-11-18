@@ -129,12 +129,26 @@ ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads
 ok(siteSearch.includes("href: 'updates.html'") && siteSearch.includes("href: 'contract-updates.html'"), 'site search indexes both update pages');
 ok(siteSearch.includes("href: 'calendar.html'"), 'site search indexes the member calendar');
 const calendar = fs.readFileSync(path.join(root, 'calendar.html'), 'utf8');
-['2026-12-08', '7:00 p.m.', '5th and Willow', 'Philadelphia'].forEach((detail) => {
+['2026-12-08', '7:00 p.m.', '5th and Willow', 'Philadelphia', 'third Wednesday', 'Assistant shop stewards and the chief shop steward only'].forEach((detail) => {
     ok(calendar.includes(detail), `member calendar includes meeting detail: ${detail}`);
 });
 ok(siteSearch.includes('.normalize(\'NFKD\')'), 'site search folds Unicode accents');
 ok(siteSearch.includes('new Set(normalize(query)'), 'site search deduplicates normalized terms');
 ok(siteSearch.includes('href: () => `contract.html?article='), 'contract search result deep-links without a fragile text filter');
+ok(siteSearch.includes('normalizeWithOffsets') && siteSearch.includes('<mark>'), 'site search highlights accent-folded matches safely');
+ok(siteSearch.includes('joinPunctuation = false') && siteSearch.includes('getEntryTextForms'), 'site search caches normalized punctuation variants for responsive typing');
+ok(siteSearch.includes('site-search-result-number') && siteSearch.includes('Top ${hits.length} of ${total}'), 'site search numbers results and reports when more matches exist');
+ok(siteSearch.includes('site-search-close') && siteSearch.includes('aria-live'), 'site search has an accessible close control and live status');
+ok(siteSearch.includes("document.createElement('ol')") && siteSearch.includes('Ranked search results'), 'site search exposes result order semantically');
+const contractPage = fs.readFileSync(path.join(root, 'contract.html'), 'utf8');
+ok(contractPage.includes('contract-tools-toggle') && contractPage.includes('aria-controls="contract-tools-content"'), 'contract tools has a labelled disclosure control');
+const contractApp = fs.readFileSync(path.join(root, 'js/contract-app.js'), 'utf8');
+ok(contractApp.includes("matchMedia('(max-width: 767px)')") && contractApp.includes('contractToolsContent.hidden = !expanded'), 'contract tools collapses on mobile and remains controllable');
+const stylesheet = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
+ok(stylesheet.includes('.contract-toolbar {\n        position: static;') && stylesheet.includes('.contract-toolbar.is-collapsed'), 'mobile Document Tools does not stick over contract text');
+ok(contractApp.includes('.normalize(\'NFKD\')') && contractApp.includes('tokens.every'), 'contract search folds accents and requires every query word');
+ok(contractApp.includes('normalizeWithOffsets(source, true)') && contractApp.includes('source.replace(/([\\p{L}\\p{N}])'), 'contract search supports joined and hyphenated word forms');
+ok(contractApp.includes('result entries') || contractApp.includes('itemLabel'), 'contract search reports matching entry counts');
 const employeesApp = fs.readFileSync(path.join(root, 'js/employees-app.js'), 'utf8');
 ok(employeesApp.includes('new Set(employeesData.map') && employeesApp.includes(".normalize('NFKD')"), 'roster filters follow current locations and normalize searches');
 const mongo = fs.readFileSync(path.join(root, 'api/lib/mongo.js'), 'utf8');

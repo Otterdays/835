@@ -1,7 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
 ## [Unreleased] - 2026-11-17
-- **Member calendar:** Added an upcoming Local 835 members meeting and linked the calendar from Home, shared navigation, and sitewide search.
+- **Member calendar:** Added the third-Wednesday union-wide meeting and clarified that the December 8 meeting is for assistant shop stewards and the chief shop steward only.
 
 ## [1.3.2] - 2026-11-17
 - **Home:** Reorganized the member home page with a restrained compact hero, clear primary actions, grouped resources, and mobile sized facility/resource rows for easier scanning.
@@ -98,3 +98,9 @@
 [2026-11-17 8:50 p.m. EST] CBA page 15 added to the scan archive and search. Completed Article XX Pension Sections 1–4; transcribed Article XXI Wages Sections 1–2 and the opening of Article XXII Health Care Insurance. Articles XXI and XXII remain partial. Updated the scan range to pages 1–15+ and corrected member-facing Article XX status.
 
 [2026-11-17 8:53 p.m. EST] Mobile and edge-case audit: fixed the narrow-screen sidebar width declaration, escaped evidence-log Markdown table delimiters and multiline cells, delayed Blob URL cleanup for mobile downloads, and improved site-search dialog focus handling.
+
+[2026-11-17 9:12 p.m. EST] Search: added numbered, highlighted and count-aware sitewide results; accessible dialog close/status and keyboard feedback; delayed forum requests until a query is entered; normalized and highlighted contract search. Made mobile Document Tools collapsible and non-sticky.
+
+[2026-11-17 9:36 p.m. EST] Search audit verification: smoke, deploy, JavaScript syntax, and diff checks passed. Cached normalized search text to keep incremental typing responsive. Local preview unavailable because sandbox networking denied the local server.
+
+[2026-11-17 9:38 p.m. EST] Final validation after keyboard/dialog race handling and ordered-list accessibility updates: smoke, deploy, syntax, and diff checks passed.

@@ -44,7 +44,7 @@ Vanilla HTML / CSS / JS front end. Production target: private Vercel deploy + Mo
 | `source/` | Offline drafts — excluded from deploy |
 | `tests/smoke.js` | Repository smoke checks |
 
-For member events, add or update `calendar.html`, then confirm its Home, shared navigation, and sitewide search links. Record notable calendar additions on `updates.html` and in the durable project docs. Use the supplied event details; do not infer an address, venue, or time beyond what was provided. Resolve an unqualified upcoming date against the current year and display the year explicitly.
+For member events, add or update `calendar.html`, then confirm its Home, shared navigation, and sitewide search links. Record notable calendar additions on `updates.html` and in the durable project docs. Use the supplied event details; do not infer an address, venue, or time beyond what was provided. Distinguish recurring meetings from one-off events, and apply times only to the event for which they were supplied. Resolve an unqualified upcoming date against the current year and display the year explicitly.
 
 ## Contract page ingestion
 
