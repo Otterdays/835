@@ -224,6 +224,7 @@ Implemented side-by-side Split View reading mode.
 - [2026-03-27] Enhanced script.js to handle multiline contract content and preservation of formatting in search highlights
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 [AMENDED 2026-11-17]: Site roster task completed in `data.js`; removed Anthony and rogue duplicate Vetter, corrected/additional employee details and statuses, and synced Charles/Orlando PICC steward roles. Recorded the member-facing change in `updates.html`. No dependencies changed.
+[AMENDED 2026-11-17]: Expanded the roster with the additional CFCF, RCF, and PICC employees; corrected Kevin Lyons and synced his assistant steward listing; added the numbered management chain. Member update and durable notes recorded.
 
 [AMENDED 2026-11-17]: Calendar correction: recurring union-wide meetings are every third Wednesday of the month; time and venue were not supplied. The December 8, 2026, 7:00 p.m. meeting at 5th and Willow is for assistant shop stewards and the chief shop steward only.
 

@@ -400,23 +400,44 @@ Tool Identification - 8
 };
 
 const employeesData = [
+    { name: "Al Andalis", location: "CFCF", role: "Laborer" },
+    { name: "Anthony Lang", location: "PICC", role: "Helper" },
     { name: "Bill Vetter", location: "RCF", role: "Laborer" },
     { name: "Charles", location: "PICC", role: "Engineer · Lead Shop Steward" },
+    { name: "Dan O'Donnell", location: "PICC", role: "Helper" },
+    { name: "Dylan O'Donnell", location: "CFCF", role: "Helper" },
+    { name: "Greg Plots", location: "PICC", role: "Plumber" },
     { name: "Ian Roonen", location: "CFCF", role: "Helper" },
+    { name: "Jack Bridges", location: "PICC", role: "Helper" },
+    { name: "Joe Delcampo", location: "PICC", role: "Plumber" },
     { name: "Jim Turner", location: "RCF", role: "Engineer" },
     { name: "Jerome Hudson", location: "RCF", role: "Helper · Injured" },
-    { name: "Kevin", location: "CFCF", role: "Assistant Shop Steward" },
+    { name: "Kevin Lyons", location: "CFCF", role: "Painter · Assistant Shop Steward" },
+    { name: "Mike Henry", location: "RCF", role: "Plumber" },
     { name: "Monica", location: "RCF", role: "Data Clerk" },
     { name: "Nate Villanueva", location: "RCF", role: "Painter · Let go; contesting the firing" },
     { name: "Nick Martino", location: "RCF", role: "Painter · Let go; contesting the firing" },
     { name: "Orlando", location: "PICC", role: "Engineer · Assistant Shop Steward" },
+    { name: "Pat Martin", location: "CFCF", role: "Painter" },
+    { name: "Patrick Dugan", location: "RCF", role: "Plumber" },
+    { name: "Paulson", location: "CFCF", role: "Electrician" },
+    { name: "Ren", location: "RCF", role: "Engineer" },
+    { name: "Rob Martin", location: "PICC", role: "Electrician" },
     { name: "Robert Korcheck", location: "CFCF", role: "Trades Helper" },
-    { name: "Ryan Lorenz", location: "RCF", role: "Assistant Shop Steward" }
+    { name: "Ron DeMarco", location: "RCF", role: "Trades Helper" },
+    { name: "Ryan Lorenz", location: "RCF", role: "Assistant Shop Steward" },
+    { name: "Sabu", location: "RCF", role: "Engineer" },
+    { name: "Subin", location: "CFCF", role: "Engineer" },
+    { name: "Tim", location: "CFCF", role: "Electrician" },
+    { name: "Trevor", location: "CFCF", role: "Electrician" },
+    { name: "John Caroll", location: "Management", role: "1 · Project Manager" },
+    { name: "Jebouy John", location: "Management", role: "2 · Lead APM" },
+    { name: "Vince Regalbuto", location: "Management", role: "3 · Assistant APM" }
 ];
 
 const shopStewards = [
     { name: "Charles", role: "Lead Shop Steward", location: "PICC" },
-    { name: "Kevin", role: "Assistant Shop Steward", location: "CFCF" },
+    { name: "Kevin Lyons", role: "Assistant Shop Steward", location: "CFCF" },
     { name: "Ryan", role: "Assistant Shop Steward", location: "RCF" },
     { name: "Orlando", role: "Assistant Shop Steward", location: "PICC" }
 ];

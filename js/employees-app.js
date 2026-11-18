@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsInfo = document.getElementById('roster-results-info');
 
     headerTitle.textContent = 'Site Roster';
-    headerParties.textContent = 'Employee directory across CFCF, RCF, and PICC.';
+    headerParties.textContent = 'Employee and management directory across CFCF, RCF, and PICC.';
     headerDate.textContent = `${employeesData.length} total staff members`;
     headerStatus.textContent = 'Facility Directory';
     viewDescription.textContent = 'Search by name or role, or filter by facility.';

@@ -28,6 +28,8 @@
 [AMENDED 2026-11-17]: Added a separate Contract & Employment Updates member page, linked from Home/navigation/sitewide search. Initial notice records the weekly-pay transition after negotiations, quotes management's statement that the timeline is pending processing of union increases, and leaves the effective date unspecified.
 # Changelog
 
+[AMENDED 2026-11-17]: **Roster:** Added the supplied facility employees and trade roles, corrected Kevin Lyons, and listed management contacts in the supplied order from Project Manager through Assistant APM.
+
 [AMENDED 2026-11-17]: **Roster:** Corrected employee names, facilities, job roles, and supplied employment statuses; removed Anthony and duplicate Vetter, added Robert Korcheck and Ian Roonen at CFCF, and synced Charles and Orlando's PICC steward roles.
 
 ## [1.2.0] - 2026-07-28

@@ -13,6 +13,8 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
+[AMENDED 2026-11-17]: **Roster expanded.** Added the supplied employee and trade entries across CFCF, RCF, and PICC, corrected Kevin Lyons as a CFCF painter while retaining his assistant steward role, and added the ordered management contacts: John Caroll (1, Project Manager), Jebouy John (2, Lead APM), and Vince Regalbuto (3, Assistant APM). See `data.js` and `updates.html`.
+
 [AMENDED 2026-11-17]: **Site roster correction.** Removed Anthony and the duplicate Vetter entry; retained Bill Vetter as an RCF Laborer; updated Jerome Hudson, Jim Turner, Nate Villanueva, Nick Martino, and Ryan Lorenz; added Robert Korcheck and Ian Roonen at CFCF. Recorded the supplied injury and contested firing statuses. Charles and Orlando are listed as PICC engineers and their lead/assistant steward roles are synced to the steward directory. See the member-facing roster update in `updates.html`.
 
 [AMENDED 2026-11-17]: **Member calendar.** `calendar.html` lists the union-wide meeting every third Wednesday and a separate December 8, 2026, 7:00 p.m. meeting at 5th and Willow for assistant shop stewards and the chief shop steward only. Linked from Home, shared navigation, and sitewide search; notable changes go in Project Updates.
