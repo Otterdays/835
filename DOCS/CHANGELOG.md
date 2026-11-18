@@ -93,3 +93,5 @@
 [2026-11-17 8:42 p.m. EST] Documentation and continuity: established shared `AGENTS.md` rules with a Claude Code `CLAUDE.md` import, added a detailed scan-to-transcription-to-search guide for future CBA pages, and added smoke checks for update pages, scan assets, search destinations, and instruction wiring. Smoke and deploy checks passed.
 
 [2026-11-17 8:50 p.m. EST] CBA page 15 added to the scan archive and search. Completed Article XX Pension Sections 1–4; transcribed Article XXI Wages Sections 1–2 and the opening of Article XXII Health Care Insurance. Articles XXI and XXII remain partial. Updated the scan range to pages 1–15+ and corrected member-facing Article XX status.
+
+[2026-11-17 8:53 p.m. EST] Mobile and edge-case audit: fixed the narrow-screen sidebar width declaration, escaped evidence-log Markdown table delimiters and multiline cells, delayed Blob URL cleanup for mobile downloads, and improved site-search dialog focus handling.

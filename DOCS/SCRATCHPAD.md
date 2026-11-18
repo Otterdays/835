@@ -276,3 +276,10 @@ Rebuild the community forum front end in the active workspace using the existing
 [AMENDED 2026-11-17 8:42 p.m. EST]: Added shared Codex/OpenAI and Claude Code entrypoints (`AGENTS.md`, `CLAUDE.md`) and `DOCS/CONTRACT_PAGE_INGESTION.md`, documenting source checks, faithful transcription, article continuation, scan metadata, search/deep links, dated updates, partial text, and verification for future pages. Smoke checks now cover update pages, scan assets, search targets, and agent-rule wiring. `npm run test:smoke`, `npm run check:deploy`, JavaScript syntax checks, and `git diff --check` passed. Owner authorized pushing the entire current project state and following project commits to `origin`; inspect full diff, exclude secrets/local-only files, and never force-push.
 
 [AMENDED 2026-11-17 8:50 p.m. EST]: Digitized supplied printed page 15 to `images/page_15.jpg` (converted from the supplied 2552×3508 PNG to high-quality JPEG for the archive; inspected the full page after conversion). Added Article XX Sections 2–4 to complete Pension across pages 14–15; added Article XXI Wages Sections 1–2; added Article XXII Health Care Insurance Section 1 as partial. Added `cba-p15` scan transcription and search row, updated archive range and bargaining status, and linked all three articles from Project Updates. Article XXI and XXII continuations remain pending. No dependencies changed.
+
+[AMENDED 2026-11-17 8:53 p.m. EST]:
+## Current Task:
+Audit member portal behavior for bugs and mobile edge cases.
+
+## Actions Log:
+- [2026-11-17 8:53 p.m. EST] Fixed mobile sidebar width parsing, safe Markdown evidence export cells and delayed download URL cleanup, and site-search dialog focus restoration/keyboard containment. No test suite was run during this audit.

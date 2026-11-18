@@ -3437,7 +3437,7 @@ video {
     }
 
     .side-panel {
-        width: min(100vw - 2.5rem, 320px);
+        width: min(calc(100vw - 2.5rem), 320px);
         padding-bottom: env(safe-area-inset-bottom);
     }
 

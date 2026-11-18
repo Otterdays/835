@@ -14,6 +14,7 @@
     let resultsEl;
     let statusEl;
     let activeIndex = -1;
+    let returnFocusTo = null;
 
     const normalize = (value) =>
         String(value || '')
@@ -435,6 +436,7 @@
             return;
         }
 
+        returnFocusTo = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         overlay.classList.add('is-open');
         overlay.hidden = false;
         document.body.classList.add('site-search-open');
@@ -467,7 +469,7 @@
         overlay.classList.remove('is-open');
         overlay.hidden = true;
         document.body.classList.remove('site-search-open');
-        document.getElementById('site-search-btn')?.focus();
+        returnFocusTo?.focus();
     };
 
     const mount = () => {
@@ -577,6 +579,22 @@
             if (event.key === 'Escape') {
                 event.preventDefault();
                 close();
+                return;
+            }
+        });
+        overlay.addEventListener('keydown', (event) => {
+            if (event.key !== 'Tab') return;
+            const focusable = [...dialog.querySelectorAll('input:not([disabled]), a[href], button:not([disabled])')]
+                .filter((node) => !node.hidden && node.getClientRects().length);
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
             }
         });
     };

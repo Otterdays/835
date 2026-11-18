@@ -47,9 +47,14 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/"/g, '&quot;');
 
     const toMarkdown = () => {
+        const cell = (value) => String(value ?? '')
+            .replace(/\\/g, '\\\\')
+            .replace(/\|/g, '\\|')
+            .replace(/\r\n?/g, '\n')
+            .replace(/\n/g, '<br>');
         const rows = entries.map(
             (e, i) =>
-                `| E-${String(i + 1).padStart(3, '0')} | ${e.status} | ${e.item} | ${e.source} | ${e.date} | ${e.proves} / NOT: ${e.doesNotProve} | ${e.followUp} |`
+                `| E-${String(i + 1).padStart(3, '0')} | ${cell(e.status)} | ${cell(e.item)} | ${cell(e.source)} | ${cell(e.date)} | ${cell(e.proves)} / NOT: ${cell(e.doesNotProve)} | ${cell(e.followUp)} |`
         );
         return [
             '# Evidence log export',
@@ -67,7 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
         a.href = url;
         a.download = filename;
         a.click();
-        URL.revokeObjectURL(url);
+        // Safari/iOS may start processing the download after the click handler returns.
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     };
 
     form?.addEventListener('submit', (event) => {
