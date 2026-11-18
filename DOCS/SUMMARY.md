@@ -13,6 +13,8 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
+[AMENDED 2026-11-17]: Removed the Bargaining Tools link from the Home page member resources list, as requested. The page remains available elsewhere in the portal.
+
 [AMENDED 2026-11-17]: Corrected Monica Manning, Robert Korchak, and Xavier Wilson in the roster; added Elliott Pinto and Barry Sanchez as CFCF Helpers.
 
 [AMENDED 2026-11-17]: Expanded the roster with Mike Knepper (RCF Locksmith), Jason Kinser (CFCF Locksmith), Scott (Warehouse crew), Bryan Phillips (Kitchen Mechanic Helper), Dan Pagano (Kitchen Supervisor/Mechanic), Eric Moran (PICC Helper), Andrew (PICC Locksmith), and Xavier Wilson (CFCF Helper). See `data.js` and `updates.html`.
