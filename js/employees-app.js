@@ -122,6 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const heading = document.createElement('h2');
             heading.className = 'location-heading';
             heading.textContent = `${loc} Crew`;
+            if (loc === 'Management') {
+                heading.title = 'BEST IN CLASS ASSHOLES';
+            }
             section.appendChild(heading);
 
             const grid = document.createElement('div');

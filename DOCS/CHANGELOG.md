@@ -9,6 +9,7 @@
 - **Navigation:** Added account/profile pages to Home, shared navigation, sitewide search, and the side-panel account block.
 
 ## [Unreleased] - 2026-11-19
+- **Roster tooltip:** Added the user-requested “BEST IN CLASS ASSHOLES” native tooltip to the Management group heading.
 - **PICC roster correction:** Confirmed Patrick Martin is assigned to PICC, not CFCF; updated the roster and member-facing update.
 
 ## [Unreleased] - 2026-11-17
