@@ -474,3 +474,10 @@ Refine the slide-out menu and add working account/logout footer.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Rewrote the menu account block in `js/shell.js` (built once after Auth is ready; no duplicate "Signed in as"); moved its CSS from `profile.css` (only some pages loaded it, causing the unstyled look) to `style.css`; gold group headings; panel uses 100dvh; dropped the signin list item (signed-in members were redirected Home). Checked at 375px signed in and signed out with mocked Auth; Sign out click redirects to the login page (the POST to /api/auth/logout runs only in API mode, so not exercised on the static server). Smoke and deploy checks pass. Not yet tested on the live site.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Forum board sideways-scroll arrows.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Wrapped the board in `#forum-board-wrap` with prev/next buttons (`forum.html`), `syncArrows` in `js/forum-app.js` (show only on the side with more content; click scrolls 80% of the width; smooth unless reduced motion), arrow tabs flush to the screen edge on phones plus an edge fade and a 3x nudge in `forum.css`. Checked at 375px with mocked threads: right arrow first, left appears after scrolling, right hides at the end; desktop wraps so both stay hidden. Smoke and deploy checks pass. Not yet tested on the live site or a real touch device.

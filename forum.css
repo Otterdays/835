@@ -566,6 +566,59 @@
 .forum-board-hint { margin: 0.75rem 0 0; color: var(--forum-muted); font-size: 0.95rem; }
 .forum-hint-swipe { display: none; }
 
+/* Edge arrows for the sideways board: a soft fade plus a round button, only on the side with more topics. */
+.forum-board-wrap { position: relative; --forum-edge: 0rem; }
+.forum-board-wrap::before,
+.forum-board-wrap::after {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    bottom: 0;
+    width: 3rem;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.forum-board-wrap::before { left: var(--forum-edge); background: linear-gradient(90deg, rgba(246, 248, 251, 0.96), rgba(246, 248, 251, 0)); }
+.forum-board-wrap::after { right: var(--forum-edge); background: linear-gradient(270deg, rgba(246, 248, 251, 0.96), rgba(246, 248, 251, 0)); }
+.forum-board-wrap.has-more-left::before,
+.forum-board-wrap.has-more-right::after { opacity: 1; }
+
+/* Edge tabs: flush with the screen edge so they never cover card text. */
+.forum-board-arrow {
+    position: absolute;
+    top: 4.25rem;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 3.5rem;
+    padding: 0 0 0.2rem;
+    border: 1px solid rgba(11, 53, 88, 0.5);
+    background: rgba(255, 255, 255, 0.97);
+    color: var(--forum-navy);
+    font: 700 2rem/1 "Public Sans", system-ui, sans-serif;
+    box-shadow: 0 3px 10px rgba(16, 32, 51, 0.25);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.forum-board-arrow[hidden] { display: none; }
+.forum-board-arrow:hover { background: #fff; }
+.forum-board-arrow:focus-visible { outline: 3px solid var(--forum-navy); outline-offset: 2px; }
+.forum-board-arrow--prev { left: var(--forum-edge); border-left: 0; border-radius: 0 14px 14px 0; }
+.forum-board-arrow--next { right: var(--forum-edge); border-right: 0; border-radius: 14px 0 0 14px; animation: forum-arrow-nudge 1.4s ease-in-out 3; }
+
+@keyframes forum-arrow-nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .forum-board-arrow--next { animation: none; }
+    .forum-board-arrow { transition: none; }
+}
+
 @media (max-width: 767px) {
     /* Phones: topic columns become sideways lanes that snap, with the next lane peeking in. */
     .forum-board {
@@ -581,6 +634,7 @@
     }
     .forum-col { flex: 0 0 min(84vw, 20rem); scroll-snap-align: start; }
     .forum-hint-swipe { display: inline; }
+    .forum-board-wrap { --forum-edge: -1rem; }
     .forum-tools { width: 100%; }
     .forum-view { flex: 1 1 100%; }
     .forum-view-btn { flex: 1; min-height: 3rem; }

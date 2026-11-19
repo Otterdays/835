@@ -130,3 +130,4 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Members can add clickable links to their profile and choose from five light and four dark themes; admins can remove links.
 [AMENDED 2026-11-19]: Roster additions (Mike Brown, Lauren Battilana) and support for people who work at two facilities (`alsoAt`); Mike Henry is at RCF and CFCF.
 [AMENDED 2026-11-19]: Menu has clearer section headings and a proper account footer with Sign out on every page.
+[AMENDED 2026-11-19]: Forum board has scroll arrows that appear only when the board scrolls sideways.

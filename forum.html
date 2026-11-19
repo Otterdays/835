@@ -88,7 +88,11 @@
                 </div>
             </div>
             <p class="forum-board-hint" id="forum-board-hint" hidden><span class="forum-hint-swipe">Swipe sideways to see every topic. </span><span id="forum-limit-note"></span></p>
-            <div id="forum-thread-list" class="forum-board" aria-live="polite"></div>
+            <div class="forum-board-wrap" id="forum-board-wrap">
+                <button type="button" class="forum-board-arrow forum-board-arrow--prev" id="forum-board-prev" aria-label="Show earlier topics" hidden><span aria-hidden="true">&#8249;</span></button>
+                <div id="forum-thread-list" class="forum-board" aria-live="polite"></div>
+                <button type="button" class="forum-board-arrow forum-board-arrow--next" id="forum-board-next" aria-label="Show more topics" hidden><span aria-hidden="true">&#8250;</span></button>
+            </div>
         </div>
 
         <!-- Single thread -->

@@ -39,6 +39,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             col.append(head,body);list.append(col);
         });
     };
+    // Sideways-scroll arrows: shown only while the board really overflows, and only toward the side that has more.
+    const arrowPrev=$('forum-board-prev'), arrowNext=$('forum-board-next'), boardWrap=$('forum-board-wrap');
+    const syncArrows=()=>{
+        const scrolls=view==='board'&&list.classList.contains('forum-board')&&list.scrollWidth>list.clientWidth+4;
+        const max=list.scrollWidth-list.clientWidth;
+        const showPrev=scrolls&&list.scrollLeft>4, showNext=scrolls&&list.scrollLeft<max-4;
+        arrowPrev.hidden=!showPrev; arrowNext.hidden=!showNext;
+        boardWrap.classList.toggle('has-more-left',showPrev); boardWrap.classList.toggle('has-more-right',showNext);
+    };
+    const nudge=(dir)=>{
+        const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        list.scrollBy({left:dir*Math.max(list.clientWidth*0.8,200),behavior:reduce?'auto':'smooth'});
+    };
+    arrowPrev.addEventListener('click',()=>nudge(-1)); arrowNext.addEventListener('click',()=>nudge(1));
+    list.addEventListener('scroll',syncArrows,{passive:true}); window.addEventListener('resize',syncArrows);if('ResizeObserver' in window)new ResizeObserver(syncArrows).observe(list);
     const renderRows=()=>{
         list.className='forum-list';list.replaceChildren();
         threads.forEach(t=>{const row=el('div','forum-row');const a=el('a','forum-row-link');a.href=`#t=${encodeURIComponent(t.id)}`;a.append(el('h3','forum-row-title',t.title));const m=metaNode(t,when(t),true);row.append(a,m);list.append(row);});
@@ -47,8 +62,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         syncView();
         const hint=$('forum-board-hint');hint.hidden=view!=='board'||!threads.length;
         $('forum-limit-note').textContent=threads.length>=50?'Showing the 50 most recently active threads.':'';
-        if(!threads.length){list.className='forum-list';list.replaceChildren(el('p','forum-empty','No threads yet. Start the first one.'));return;}
+        if(!threads.length){list.className='forum-list';list.replaceChildren(el('p','forum-empty','No threads yet. Start the first one.'));syncArrows();return;}
         if(view==='board')renderBoard();else renderRows();
+        list.scrollLeft=0;syncArrows();
     };
     const loadList=async()=>{list.replaceChildren(el('p','forum-empty','Loading threads…'));try{const cat=$('forum-filter').value;threads=(await APIcall(`/threads${cat?`?category=${encodeURIComponent(cat)}`:''}`)).threads;renderList();}catch(e){list.replaceChildren(el('p','forum-status forum-status--error',e.message));}};
     // Delete: your own posts, or any post if you are an admin. The server decides; this only decides whether to show the button.

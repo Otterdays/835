@@ -134,6 +134,14 @@ ok(forumLib.cleanText('a\u0000b\r\nc', { min: 1, max: 10 }, 'x') === 'ab\nc', 'f
 ok(fs.existsSync(path.join(root, 'api/forum/threads.js')), 'api/forum/threads.js exists');
 ok(fs.existsSync(path.join(root, 'api/forum/thread.js')), 'api/forum/thread.js exists');
 ok(nav.includes('forum.html'), 'nav includes forum');
+{
+    const forumHtml = fs.readFileSync(path.join(root, 'forum.html'), 'utf8');
+    const forumJs = fs.readFileSync(path.join(root, 'js/forum-app.js'), 'utf8');
+    const forumCss = fs.readFileSync(path.join(root, 'forum.css'), 'utf8');
+    ok(forumHtml.includes('id="forum-board-prev"') && forumHtml.includes('id="forum-board-next"') && /aria-label="Show (earlier|more) topics"/.test(forumHtml), 'forum board has labelled left and right scroll arrows');
+    ok(forumJs.includes('syncArrows') && forumJs.includes('scrollBy') && forumJs.includes('prefers-reduced-motion'), 'forum board arrows scroll the board and respect reduced motion');
+    ok(forumCss.includes('.forum-board-arrow') && forumCss.includes('forum-arrow-nudge'), 'forum board arrows are styled');
+}
 const forumApp = fs.readFileSync(path.join(root, 'js/forum-app.js'), 'utf8');
 ok(!forumApp.includes('innerHTML'), 'forum client never uses innerHTML');
 ok(!forumApp.includes('oe835_forum_username') && !forumApp.includes('body: JSON.stringify({\n                    author'), 'forum client does not accept or store guest author names');
