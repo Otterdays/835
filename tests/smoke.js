@@ -63,6 +63,14 @@ ok(nav.includes('member-action.html'), 'nav includes Action Center');
 ok(nav.includes('evidence-log.html'), 'nav includes evidence log');
 ok(nav.includes('bargaining.html'), 'nav includes bargaining');
 ok(nav.includes('members.html') && nav.includes('signin.html'), 'nav includes member accounts and directory');
+{
+    const shell = fs.readFileSync(path.join(root, 'js/shell.js'), 'utf8');
+    const styles = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
+    ok(!/href:\s*'signin\.html'/.test(nav), 'menu has no Sign in link in the list (the account footer handles it)');
+    ok(shell.includes('nav-account-btn--signout') && shell.includes('Auth.logout()') && shell.includes('Sign in / create account'), 'menu footer has Sign out for members and Sign in for guests');
+    ok(['.nav-account-who', '.nav-account-btn--signout', '.nav-group-label::after'].every((rule) => styles.includes(rule)), 'menu account and heading styles live in style.css so every page gets them');
+    ok(!fs.readFileSync(path.join(root, 'profile.css'), 'utf8').includes('.nav-account{'), 'profile.css no longer carries old menu account styles');
+}
 
 const auth = fs.readFileSync(path.join(root, 'js/auth.js'), 'utf8');
 ok(auth.includes('/api/auth/login'), 'auth client calls API login');

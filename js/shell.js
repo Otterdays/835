@@ -64,46 +64,81 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const renderLogout = () => {
-        if (!sidePanel || !window.Auth?.logout) {
+    // Account footer of the menu: who is signed in, shortcuts, and Sign out (or Sign in for guests).
+    // Built from the real session once Auth has checked it, so it never flashes the wrong state.
+    const renderAccount = () => {
+        if (!sidePanel || !window.Auth) {
             return;
         }
-        if (sidePanel.querySelector('.nav-logout')) { return; }
         sidePanel.querySelector('.nav-account')?.remove();
 
-        const accountWrap = document.createElement('section');
-        accountWrap.className = 'nav-account';
+        const footer = document.createElement('section');
+        footer.className = 'nav-account';
+        footer.setAttribute('aria-label', 'Your account');
         const account = Auth.account?.();
-        if (account) {
-            const p = document.createElement('p'); p.textContent = `Signed in as ${account.displayName || account.username}`; accountWrap.appendChild(p);
-            const links = document.createElement('div'); links.className = 'nav-account-links';
-            [...(account.role === 'admin' ? [['Admin panel', 'admin.html']] : []), ['My profile', `profile.html?u=${encodeURIComponent(account.username)}`], ['Edit profile', 'profile-edit.html'], ['Change password', 'signin.html#password']].forEach(([label, href]) => { const a=document.createElement('a');a.href=href;a.textContent=label;links.appendChild(a); }); accountWrap.appendChild(links);
-        } else { const a=document.createElement('a');a.href=`signin.html?next=${encodeURIComponent(location.pathname.split('/').pop() || 'home.html')}`;a.textContent='Sign in / create account';accountWrap.appendChild(a); }
-        sidePanel.appendChild(accountWrap);
-        const wrap = document.createElement('div');
-        wrap.className = 'nav-logout';
 
-        const user = Auth.account?.();
-        if (!user) { sidePanel.appendChild(wrap); return; }
-        if (user?.username) {
-            const who = document.createElement('p');
-            who.className = 'nav-logout-user';
-            who.textContent = `Signed in as ${user.username}`;
-            wrap.appendChild(who);
+        const makeLink = (label, href, className) => {
+            const a = document.createElement('a');
+            a.href = href;
+            a.textContent = label;
+            a.className = className;
+            return a;
+        };
+
+        if (!account) {
+            const note = document.createElement('p');
+            note.className = 'nav-account-note';
+            note.textContent = 'You are not signed in.';
+            const next = encodeURIComponent(window.location.pathname.split('/').pop() || 'home.html');
+            footer.append(note, makeLink('Sign in / create account', `signin.html?next=${next}`, 'nav-account-btn nav-account-btn--primary'));
+            sidePanel.appendChild(footer);
+            return;
         }
 
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'nav-logout-btn';
-        btn.textContent = 'Sign out';
-        btn.addEventListener('click', () => {
-            const result = Auth.logout();
-            if (result && typeof result.then === 'function') {
-                result.catch((err) => console.error('Logout failed', err));
-            }
+        const name = account.displayName || account.username;
+        const who = document.createElement('div');
+        who.className = 'nav-account-who';
+        const initial = document.createElement('span');
+        initial.className = 'nav-account-initial';
+        initial.setAttribute('aria-hidden', 'true');
+        initial.textContent = [...String(name)][0]?.toUpperCase() || '?';
+        const text = document.createElement('span');
+        text.className = 'nav-account-text';
+        const strong = document.createElement('strong');
+        strong.textContent = name;
+        const handle = document.createElement('span');
+        handle.textContent = `@${account.username}${account.role === 'admin' ? ' · Site Admin' : ''}`;
+        text.append(strong, handle);
+        const signOut = document.createElement('button');
+        signOut.type = 'button';
+        signOut.className = 'nav-account-btn nav-account-btn--signout';
+        signOut.textContent = 'Sign out';
+        signOut.addEventListener('click', () => {
+            signOut.disabled = true;
+            signOut.textContent = 'Signing out…';
+            Promise.resolve(Auth.logout()).catch((err) => {
+                console.error('Logout failed', err);
+                signOut.disabled = false;
+                signOut.textContent = 'Sign out';
+            });
         });
-        wrap.appendChild(btn);
-        sidePanel.appendChild(wrap);
+
+        who.append(initial, text, signOut);
+
+        const links = document.createElement('div');
+        links.className = 'nav-account-links';
+        const items = [
+            ['My profile', `profile.html?u=${encodeURIComponent(account.username)}`],
+            ['Edit profile', 'profile-edit.html'],
+            ['Password', 'signin.html#password']
+        ];
+        if (account.role === 'admin') {
+            items.push(['Admin panel', 'admin.html']);
+        }
+        items.forEach(([label, href]) => links.appendChild(makeLink(label, href, 'nav-account-link')));
+
+        footer.append(who, links);
+        sidePanel.appendChild(footer);
     };
 
     const renderBreadcrumb = () => {
@@ -136,8 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     renderNav();
-    renderLogout();
-    window.Auth?.whenReady?.().then(() => { sidePanel?.querySelector('.nav-logout')?.remove(); renderLogout(); }).catch(err => console.error('Account menu refresh failed', err));
+    window.Auth?.whenReady?.().then(renderAccount).catch((err) => console.error('Account menu failed', err));
     renderBreadcrumb();
 
     if (!menuBtn || !sidePanel || !overlay) {

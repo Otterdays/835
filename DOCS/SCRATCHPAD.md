@@ -467,3 +467,10 @@ Roster updates and multi-site people.
 - [2026-11-19, time not recorded] Jump rail is now per crew: `currentGroup()` picks the section past 35% of the screen; `renderIndex` runs on render and on throttled (80 ms) scroll, skipped while dragging; `jumpTo` searches only that section. Checked in headless Chromium: letters RCF BEJKMNPRS, CFCF ABDEIJKLMOPRSTX, PICC ACDEGJKLMOPRTX match the data; a P jump in PICC landed on Patrick Martin. Real-finger drag not tested.
 - [2026-11-19, time not recorded] Roster "Sort by" (`#roster-sort` in employees.html, `renderSort`/`compareRole`/`primaryRole` in js/employees-app.js, `.role-group*` in style.css). Main role = text before " · ". Rail uses `[data-letter]` (cards by name, role headings by role). Checked in headless Chromium by DOM (PICC groups, Management flat, back to name view); a screenshot was not conclusive.
 - [2026-11-19, time not recorded] `primaryRole` now skips "shop steward" parts (fallback `NO_TRADE`, sorted last). Ryan Lorenz's roster role changed from "Assistant Shop Steward" to "Plumber · Assistant Shop Steward": the trade was INFERRED from his profile job title (Plumber, RCF), not stated for the roster by the user — confirm. Checked by DOM in headless Chromium.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Refine the slide-out menu and add working account/logout footer.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Rewrote the menu account block in `js/shell.js` (built once after Auth is ready; no duplicate "Signed in as"); moved its CSS from `profile.css` (only some pages loaded it, causing the unstyled look) to `style.css`; gold group headings; panel uses 100dvh; dropped the signin list item (signed-in members were redirected Home). Checked at 375px signed in and signed out with mocked Auth; Sign out click redirects to the login page (the POST to /api/auth/logout runs only in API mode, so not exercised on the static server). Smoke and deploy checks pass. Not yet tested on the live site.
