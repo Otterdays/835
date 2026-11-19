@@ -2,7 +2,9 @@
 // Shared forum helpers. The `_lib` folder is underscore-prefixed so Vercel does
 // NOT deploy it as its own serverless function (keeps us under the Hobby limit).
 //
-// There is no real login: the author name is a self-chosen temporary label.
+// Posting requires a signed-in account (see accounts.js); the author is taken from
+// the session, never from the request body. Posts made before accounts existed keep
+// their old temporary guest name and have no authorKey.
 // Validation here is the authority; js/forum-app.js only mirrors it for UX.
 
 const CATEGORIES = ['General', 'Contract', 'Workplace', 'CFCF', 'RCF', 'PICC', 'Website'];
@@ -181,6 +183,9 @@ function threadOut(doc) {
         body: doc.body,
         category: doc.category,
         author: doc.author,
+        // authorKey is set only on posts made from a signed-in account.
+        // Older posts (temporary guest names) have none and show as guests.
+        authorKey: doc.authorKey || null,
         createdAt: doc.createdAt.toISOString(),
         lastActivityAt: doc.lastActivityAt.toISOString(),
         replyCount: doc.replyCount || 0
@@ -193,6 +198,7 @@ function replyOut(doc) {
         threadId: String(doc.threadId),
         body: doc.body,
         author: doc.author,
+        authorKey: doc.authorKey || null,
         createdAt: doc.createdAt.toISOString()
     };
 }
@@ -201,6 +207,7 @@ module.exports = {
     CATEGORIES,
     LIMITS,
     RATE,
+    RESERVED_PREFIXES,
     httpError,
     json,
     handleError,

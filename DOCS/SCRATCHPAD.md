@@ -1,3 +1,6 @@
+<!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+[AMENDED 2026-11-18]: Compared supplied PICC roster image against `employeesData`; reconciled all 21 listed employee/trade records, completed names and job titles, corrected visible spellings, retained Charles Worrell and Orlando Rivera's steward designations, and added a Project Updates entry. User requested committing all workspace changes and pushing to origin; inspect complete status/diff, preserve existing in-progress account work, and exclude secrets/local-only files as instructed in `AGENTS.md`.
+
 [AMENDED 2026-11-17]:
 ## Current Task:
 Add the supplied tentative CBA extension memorandum as a 2026–27 companion and preserve every page image.
@@ -179,8 +182,6 @@ Paneled Scanned Pages + dedicated Tool Program nav: `cbaScannedPages` / `toolPro
 [AMENDED 2026-03-29]:
 ## Current Task:
 Implemented side-by-side Split View reading mode.
-
-## Next Steps:
 - Push all changes to remote repo `Otterdays/835`
 
 ## Actions Log:
@@ -223,6 +224,20 @@ Implemented side-by-side Split View reading mode.
 - [2026-03-27] Cleared sample contract data and replaced with authentic Article I: Recognition & Scope
 - [2026-03-27] Enhanced script.js to handle multiline contract content and preservation of formatting in search highlights
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+
+[AMENDED 2026-11-18]:
+## Current Task:
+Continue Local 835 account system: registration/sign-in, profile pages, member directory, comments wall, account-aware forum, shell/navigation, and durable documentation.
+
+## Actions Log:
+- [2026-11-18] Added `signin.html`, profile view/editor, member directory, profile UI helpers, and fixed-choice Myspace-inspired profile styling.
+- [2026-11-18] Reworked forum browser UI to remove local guest-name posting; new posts use the signed-in server session, with profile links and badges. Legacy guest posts remain readable.
+- [2026-11-18] Added account side-panel links, navigation/search/Home links, sign-up environment variables, account documentation, and updated project maps.
+- [2026-11-18] Updated smoke-check expectations and API/file maps. Tests were not run in this continuation.
+
+## Next Steps:
+- Configure signup policy (`SIGNUP_CODE` or `SIGNUP_CLOSED`) in the production environment before sharing account creation.
+- Validate the account APIs against the configured MongoDB/Vercel environment and review the complete diff before committing or deploying.
 
 [AMENDED 2026-11-18]: Reworked `contract.html` into a compact agreement-first reading flow. The first section guides members across the proposed 2026–27 term, pay/GWI, pension/layoffs, discipline, and forced-overtime terms, with direct memorandum scan links and a clear statement that ratification/signature is not confirmed by the supplied copy. The existing searchable 2022–26 CBA browser follows. Mobile rules prioritize compact header spacing, horizontal touch-friendly section links, readable text, and large source links. Existing CBA page 24–26 workspace edits were preserved.
 [AMENDED 2026-11-18]: Simplified mobile site search by hiding the keyboard shortcut chip row at the mobile breakpoint; desktop hints and keyboard controls remain intact.

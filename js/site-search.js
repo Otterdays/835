@@ -110,6 +110,9 @@
         index = [];
 
         [
+            { category: 'Member Directory', title: 'Member Directory', body: 'Find member profiles, facilities, roles, and recently active members', meta: 'Member accounts', href: () => 'members.html' },
+            { category: 'Member Profiles', title: 'Your profile', body: 'Member profile themes avatars Top 8 comments wall edit profile', meta: 'Myspace-style member pages', href: () => 'profile.html' },
+            { category: 'Member Accounts', title: 'Sign in or create an account', body: 'Sign in register create member account password profile', meta: 'Member account', href: () => 'signin.html' },
             {
                 category: 'Home',
                 title: 'Local 835 Member Home',

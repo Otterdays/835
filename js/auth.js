@@ -1,15 +1,22 @@
-// [TRACE: ARCHITECTURE.md]
-// NOTE: Sign-in service disabled — open member access ("click to enter").
-// Auth API routes (/api/auth/login) preserved for future private-host deployment.
+// [TRACE: ACCOUNTS.md]
+// Browser auth + account state.
+//
+// Pages stay open to everyone ("click to enter"): AUTH_DISABLED only controls whether
+// the page gate redirects to the login page. Real accounts sit on top of that:
+//   - Auth.account()      the signed-in member (from /api/auth/me) or null
+//   - Auth.whenReady()    promise that resolves once the first session check is done
+//   - Auth.login / Auth.register / Auth.logout   talk to /api/auth/*
+// The forum, profiles and the member directory require a signed-in account on the server.
 
 const AUTH_LOGIN_PAGE = 'index.html';
 const AUTH_HOME_PAGE = 'home.html';
 const AUTH_SESSION_KEY = 'oe835_auth';
-const AUTH_DISABLED = true; // Open access mode: No credentials required to enter
+const AUTH_DISABLED = true; // Open access to documents: no credentials needed to enter
 
 const Auth = (() => {
-    let cachedUser = null;
-    let mode = 'open'; // 'open' | 'api' | 'local' | 'unknown'
+    let cachedUser = null; // signed-in account from the API, or null for guests
+    let mode = 'unknown'; // 'unknown' | 'api' | 'local'
+    let readyPromise = null;
 
     const isLoginPage = () => {
         const file = window.location.pathname.split('/').pop() || AUTH_LOGIN_PAGE;
@@ -61,21 +68,21 @@ const Auth = (() => {
             });
             if (res.status === 404) {
                 mode = 'local';
+                cachedUser = null;
                 return null;
             }
             mode = 'api';
             if (!res.ok) {
+                cachedUser = null;
                 return null;
             }
             const data = await res.json();
-            if (data?.authenticated && data.user) {
-                cachedUser = data.user;
-                return data.user;
-            }
-            return null;
+            cachedUser = data?.authenticated && data.user ? data.user : null;
+            return cachedUser;
         } catch (err) {
             console.error('Auth me probe failed', err);
             mode = isLocalHost() ? 'local' : 'api';
+            cachedUser = null;
             return null;
         }
     };
@@ -94,10 +101,27 @@ const Auth = (() => {
         }
     };
 
+    const announceReady = () => {
+        document.dispatchEvent(new CustomEvent('auth:ready', { detail: { account: cachedUser } }));
+    };
+
+    const refresh = async () => {
+        const user = await probeApi();
+        announceReady();
+        return user;
+    };
+
+    const whenReady = () => {
+        if (!readyPromise) {
+            readyPromise = refresh();
+        }
+        return readyPromise;
+    };
+
     const grantAccess = () => {
-        cachedUser = { username: 'Member', role: 'member' };
-        writeLegacySession(cachedUser);
-        return cachedUser;
+        // Guest entry: lets the login page continue into the open document pages.
+        writeLegacySession({ username: 'Member', role: 'member' });
+        return { username: 'Member', role: 'member', guest: true };
     };
 
     const isAuthenticated = () => {
@@ -108,50 +132,53 @@ const Auth = (() => {
     };
 
     const currentUser = () => {
-        if (AUTH_DISABLED) {
-            return cachedUser || readLegacySession() || { username: 'Member', role: 'member' };
+        if (cachedUser) {
+            return cachedUser;
         }
-        return cachedUser || readLegacySession();
+        if (AUTH_DISABLED) {
+            return readLegacySession() || { username: 'Member', role: 'member', guest: true };
+        }
+        return readLegacySession();
     };
 
-    const login = async (username, password) => {
-        if (AUTH_DISABLED) {
-            grantAccess();
-            return { ok: true };
-        }
+    const postJson = async (url, payload) => {
+        const res = await fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+        return { res, data };
+    };
 
+    const accountsAvailable = () => mode === 'api';
+
+    const login = async (username, password) => {
         const user = String(username || '').trim();
         const pass = String(password || '');
 
         if (mode === 'unknown') {
-            await probeApi();
+            await whenReady();
         }
 
         if (mode === 'api') {
             try {
-                const res = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Accept: 'application/json'
-                    },
-                    body: JSON.stringify({ username: user, password: pass })
-                });
-                const data = await res.json().catch(() => ({}));
+                const { res, data } = await postJson('/api/auth/login', { username: user, password: pass });
                 if (!res.ok || !data.ok) {
                     return { ok: false, error: data.error || 'Invalid username or password.' };
                 }
                 cachedUser = data.user;
                 clearLegacySession();
-                return { ok: true };
+                announceReady();
+                return { ok: true, user: cachedUser };
             } catch (err) {
                 console.error('Auth login failed', err);
                 return { ok: false, error: 'Could not reach sign-in service.' };
             }
         }
 
-        // Local static fallback (localhost only)
+        // Local static fallback (localhost only; no profiles or forum)
         if (!isLocalHost()) {
             return { ok: false, error: 'Sign-in service unavailable.' };
         }
@@ -165,9 +192,43 @@ const Auth = (() => {
         if (!match) {
             return { ok: false, error: 'Invalid username or password.' };
         }
-        cachedUser = { username: match.username, role: match.role || 'member' };
-        writeLegacySession(cachedUser);
-        return { ok: true };
+        writeLegacySession({ username: match.username, role: match.role || 'member' });
+        return { ok: true, user: { username: match.username, role: match.role || 'member' } };
+    };
+
+    const register = async (fields) => {
+        if (mode === 'unknown') {
+            await whenReady();
+        }
+        if (mode !== 'api') {
+            return { ok: false, error: 'Accounts need the live site (or `npm run vercel:dev`).' };
+        }
+        try {
+            const { res, data } = await postJson('/api/auth/register', fields);
+            if (!res.ok || !data.ok || !data.user) {
+                return { ok: false, error: data.error || 'Could not create the account.' };
+            }
+            cachedUser = data.user;
+            clearLegacySession();
+            announceReady();
+            return { ok: true, user: cachedUser };
+        } catch (err) {
+            console.error('Auth register failed', err);
+            return { ok: false, error: 'Could not reach the sign-up service.' };
+        }
+    };
+
+    const registrationInfo = async () => {
+        try {
+            const res = await fetch('/api/auth/register', { headers: { Accept: 'application/json' } });
+            if (!res.ok) {
+                return null;
+            }
+            return await res.json();
+        } catch (err) {
+            console.error('Auth registration info failed', err);
+            return null;
+        }
     };
 
     const logout = async () => {
@@ -187,12 +248,11 @@ const Auth = (() => {
     };
 
     const requireAuth = async () => {
+        const user = await whenReady();
         if (AUTH_DISABLED) {
-            // Open access: do not enforce credentials or redirect
+            // Open access: never redirect, just know who (if anyone) is signed in.
             return;
         }
-
-        const user = await probeApi();
         if (isLoginPage()) {
             if (user || readLegacySession()) {
                 window.location.replace(AUTH_HOME_PAGE);
@@ -203,20 +263,26 @@ const Auth = (() => {
             return;
         }
         if (mode === 'local' && isLocalHost() && readLegacySession()) {
-            cachedUser = readLegacySession();
             return;
         }
         window.location.replace(AUTH_LOGIN_PAGE);
     };
 
-    // Kick off gate immediately (async)
+    // Kick off the session check immediately (async)
     requireAuth();
 
     return {
         isAuthenticated,
         currentUser,
+        account: () => cachedUser,
+        isSignedIn: () => Boolean(cachedUser),
+        accountsAvailable,
+        whenReady,
+        refresh,
         grantAccess,
         login,
+        register,
+        registrationInfo,
         logout,
         isLoginPage,
         isAuthDisabled: () => AUTH_DISABLED,

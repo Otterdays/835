@@ -1,27 +1,36 @@
 # api/
-**Purpose:** Vercel Node routes for auth and the community forum, with shared MongoDB, session, and validation helpers.
+**Purpose:** Vercel Node routes for auth and the community forum, with shared MongoDB, session, account, profile, and validation helpers.
 **Keywords:** API, endpoint, serverless, Vercel, backend, login, auth, forum, thread, reply, Mongo, database
 
 ## Files
 | File | What it does | Key symbols |
 |---|---|---|
-| `auth/login.js` | Accepts credentials, checks rate limits, verifies a user, and sets a session cookie | `handler()` |
+| `auth/login.js` | Verifies credentials, rate limits attempts, sets a session cookie | `handler()` |
 | `auth/logout.js` | Clears the session cookie | `handler()` |
-| `auth/me.js` | Reports whether the session cookie is valid | `handler()` |
-| `forum/threads.js` | Lists/searches threads and creates new threads | `handler()` |
-| `forum/thread.js` | Loads one thread with replies or adds a reply | `handler()` |
-| `_lib/forum.js` | Shared forum request parsing, validation, rate limiting, and response shaping | `validateUsername()`, `cleanText()`, `consumeRateLimit()` |
-| `lib/mongo.js` | Connects to MongoDB and creates collection indexes | `getDb()`, `ensureIndexes()` |
-| `lib/rate-limit.js` | Tracks failed login attempts in MongoDB | `assertNotRateLimited()`, `recordFailedAttempt()`, `clearAttempts()` |
+| `auth/me.js` | Reports session status and safe account summary | `handler()` |
+| `auth/register.js` | Reports signup availability and creates member accounts | `handler()` |
+| `auth/password.js` | Changes the signed-in member password | `handler()` |
+| `profile/index.js` | Serves fixed profile options, profile reads/edits, and member directory | `handler()` |
+| `profile/comments.js` | Lists, creates, and deletes profile comments | `handler()` |
+| `forum/threads.js` | Lists/searches threads and creates account-authored threads | `handler()` |
+| `forum/thread.js` | Loads a thread and replies, or adds a signed-in reply | `handler()` |
+| `_lib/accounts.js` | Resolves sessions and shapes safe account/profile responses | `requireUser()`, `accountOut()` |
+| `_lib/profile-schema.js` | Fixed profile options and validation | `cleanProfileUpdate()`, `options()` |
+| `_lib/forum.js` | Request parsing, forum validation, rate limits, and response shaping | `readJson()`, `cleanText()`, `consumeRateLimit()` |
+| `lib/mongo.js` | Connects to MongoDB and creates indexes | `getDb()`, `ensureIndexes()` |
+| `lib/rate-limit.js` | Tracks failed login attempts | `assertNotRateLimited()`, `recordFailedAttempt()` |
 | `lib/session.js` | Signs/verifies JWTs and formats session cookies | `createSessionToken()`, `verifySessionToken()` |
+| `lib/password.js` | Hashes and verifies passwords | `hashPassword()`, `verifyPassword()` |
 
 ## Subfolders
 - `auth/`: Login/session endpoints (see `auth/_MAP.md`).
 - `forum/`: Thread and reply endpoints (see `forum/_MAP.md`).
+- `profile/`: Member directory, profile, and comments endpoints (see `profile/_MAP.md`).
 - `_lib/`: Shared forum route helpers (see `_lib/_MAP.md`).
 - `lib/`: Mongo, session, and login-rate helpers (see `lib/_MAP.md`).
 
 ## Connects to
+- Account/profile behavior is described in `../DOCS/ACCOUNTS.md`; management commands are in `../scripts/manage-user.js`.
 - Runtime values are named in `../.env.example`; the database uses `MONGODB_URI` and `MONGODB_DB`, session signing uses `AUTH_SECRET`.
 - Routes use the `mongodb` and `jose` packages from `../package.json`.
 - Forum browser client: `../js/forum-app.js`.

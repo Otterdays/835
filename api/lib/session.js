@@ -33,6 +33,7 @@ async function verifySessionToken(token) {
     return {
         username: payload.sub,
         role: payload.role || 'member',
+        iat: payload.iat,
         exp: payload.exp
     };
 }

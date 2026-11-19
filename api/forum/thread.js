@@ -1,8 +1,9 @@
 // [TRACE: ARCHITECTURE.md]
 // GET  /api/forum/thread?id=<threadId>  -> one thread + its replies (oldest first)
-// POST /api/forum/thread                -> reply { threadId, author, body }
+// POST /api/forum/thread                -> reply { threadId, body } (signed-in members only)
 const { getDb } = require('../lib/mongo');
 const forum = require('../_lib/forum');
+const accounts = require('../_lib/accounts');
 
 module.exports = async function handler(req, res) {
     try {
@@ -20,10 +21,11 @@ module.exports = async function handler(req, res) {
                 .sort({ createdAt: 1 })
                 .limit(forum.LIMITS.replyLimit)
                 .toArray();
+            const [threadOut] = await accounts.attachAuthors(db, [forum.threadOut(thread)]);
             return forum.json(res, 200, {
                 ok: true,
-                thread: forum.threadOut(thread),
-                replies: replies.map(forum.replyOut)
+                thread: threadOut,
+                replies: await accounts.attachAuthors(db, replies.map(forum.replyOut))
             });
         }
 
@@ -34,27 +36,33 @@ module.exports = async function handler(req, res) {
                 return forum.json(res, 200, { ok: true });
             }
 
+            const user = await accounts.requireUser(req);
             const threadId = forum.parseObjectId(body.threadId);
-            const author = forum.validateUsername(body.author);
             const text = forum.cleanText(body.body, forum.LIMITS.replyBody, 'Reply');
 
-            const db = await getDb();
+            const db = user.db;
             const exists = await db.collection('forum_threads').findOne({ _id: threadId }, { projection: { _id: 1 } });
             if (!exists) {
                 throw forum.httpError(404, 'Thread not found.');
             }
-            await forum.consumeRateLimit(db, `reply:${forum.clientIp(req)}`, forum.RATE.reply);
+            await forum.consumeRateLimit(db, `reply:${user.username}`, forum.RATE.reply);
 
             const now = new Date();
-            const doc = { threadId, body: text, author, createdAt: now };
+            const doc = {
+                threadId,
+                body: text,
+                author: user.profile.handle,
+                authorKey: user.username,
+                createdAt: now
+            };
             const result = await db.collection('forum_replies').insertOne(doc);
             await db
                 .collection('forum_threads')
                 .updateOne({ _id: threadId }, { $inc: { replyCount: 1 }, $set: { lastActivityAt: now } });
-            return forum.json(res, 201, {
-                ok: true,
-                reply: forum.replyOut({ ...doc, _id: result.insertedId })
-            });
+            const [reply] = await accounts.attachAuthors(db, [
+                forum.replyOut({ ...doc, _id: result.insertedId })
+            ]);
+            return forum.json(res, 201, { ok: true, reply });
         }
 
         res.setHeader('Allow', 'GET, POST');

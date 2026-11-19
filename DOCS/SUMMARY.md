@@ -13,6 +13,8 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
+[AMENDED 2026-11-18]: Checked PICC employee/trade data against the supplied 21-person roster image. Completed names and aligned roles/spellings, including Charles Worrell, Orlando Rivera, Andrew Patchak, Gregory Plotts, and Anthony Lange; kept Charles and Orlando's steward designations. Added a member-facing Project Updates entry.
+
 [AMENDED 2026-11-18]: **Agreement-first contract reader.** Reworked `contract.html` to reduce the oversized opening area and guide members through the 2026–27 tentative memorandum first, with direct links to each source scan page. Kept ratification/signature status clearly unconfirmed from the supplied copy, then placed the searchable 2022–26 CBA article reader below.
 
 [AMENDED 2026-11-18]: Hid the four keyboard shortcut chips in the site search dialog on mobile to simplify the header; desktop keyboard guidance remains visible.
@@ -100,3 +102,6 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-18 12:02 a.m. EST]: **CBA pages 24–26 digitized.** Added full-resolution scans and gallery/search records `cba-p24` through `cba-p26`, extending the Exhibit C transcription in Article XXIII. Page 24 contains third-sample and reasonable-suspicion provisions; page 25 completes the reasonable-suspicion examples and removal procedure; page 26 contains treatment and the opening investigation procedure, which ends mid-sentence and remains partial. Current CBA scan range is through page 26.
 
 [AMENDED 2026-11-18 9:59 a.m. EST]: **CBA page 27 digitized.** Added `images/page_27.jpg` and scan/search record `cba-p27`, continuing Exhibit C’s investigation questions within Article XXIII. The page reaches question 11 and any following questionnaire text is not shown in the supplied scan. Current CBA scan range is through page 27.
+
+
+[AMENDED 2026-11-18]: **Member accounts and profiles.** Continued the account system with sign-in and registration, password change, member directory, editable Myspace-inspired profile pages, fixed-choice themes/avatars, Top 8 and comments wall. Forum posting now uses signed-in identity and shows profile links/badges while preserving legacy guest posts. See `DOCS/ACCOUNTS.md`.

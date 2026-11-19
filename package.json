@@ -7,6 +7,7 @@
     "dev": "npx --yes serve -l 3000",
     "vercel:dev": "npx --yes vercel dev",
     "seed:user": "node scripts/seed-user.js",
+    "manage:user": "node scripts/manage-user.js",
     "test:smoke": "node tests/smoke.js",
     "check:deploy": "node scripts/check-deploy.js"
   },

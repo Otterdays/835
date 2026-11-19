@@ -35,42 +35,14 @@
             <p class="forum-note">Keep posts respectful and factual. Never share SSNs, medical details, or inmate or security information.</p>
             <details class="forum-more">
                 <summary>About names and rules</summary>
-                <p>Names are temporary and unverified. Anyone can use any name, so a post here is never official union communication. For anything urgent, contact your <a href="stewards.html">shop steward</a>.</p>
+                <p>Posts are linked to member accounts. A profile badge identifies roles awarded by Local 835. Forum posts are not official union communication. For anything urgent, contact your <a href="stewards.html">shop steward</a>.</p>
             </details>
         </header>
 
-        <p class="forum-account" id="forum-account" hidden>
-            Posting as <strong id="forum-account-name"></strong>
-            <button type="button" id="forum-account-toggle" class="forum-link" aria-expanded="false" aria-controls="forum-account-panel">Change name</button>
-        </p>
-
-        <section class="forum-panel" id="forum-account-panel" hidden aria-labelledby="forum-account-heading">
-            <h2 id="forum-account-heading">Change your name</h2>
-            <p class="forum-help">Saved only in this browser. There is no password, and names are not reserved. If you clear your browser data, you will pick a name again.</p>
-            <form id="forum-name-form" class="forum-form" novalidate>
-                <label for="forum-name-change">New name</label>
-                <input type="text" id="forum-name-change" maxlength="20" autocomplete="nickname">
-                <div class="forum-actions">
-                    <button type="submit" class="forum-btn forum-btn--primary">Save name</button>
-                    <button type="button" id="forum-name-random-change" class="forum-btn forum-btn--quiet">Suggest a name</button>
-                    <button type="button" id="forum-name-forget" class="forum-link">Forget my name</button>
-                </div>
-                <p id="forum-account-status" class="forum-status" hidden aria-live="polite"></p>
-            </form>
-        </section>
-
-        <section class="forum-panel" id="forum-name-setup" hidden aria-labelledby="forum-setup-heading">
-            <h2 id="forum-setup-heading">Pick a temporary name</h2>
-            <p class="forum-help">This is shown on your posts. Use 3 to 20 letters, numbers, spaces, - or _. You don’t need your real name. You can change it any time.</p>
-            <form id="forum-setup-form" class="forum-form" novalidate>
-                <label for="forum-setup-name">Temporary name</label>
-                <input type="text" id="forum-setup-name" maxlength="20" autocomplete="nickname" required>
-                <div class="forum-actions">
-                    <button type="submit" class="forum-btn forum-btn--primary">Start posting</button>
-                    <button type="button" id="forum-name-random-setup" class="forum-btn forum-btn--quiet">Suggest a name</button>
-                </div>
-                <p id="forum-setup-status" class="forum-status" hidden aria-live="polite"></p>
-            </form>
+        <section class="forum-panel forum-signin-prompt" id="forum-signin-prompt" aria-labelledby="forum-signin-heading">
+            <h2 id="forum-signin-heading">Sign in to post</h2>
+            <p>Browse public threads without an account. Sign in to start a thread or reply.</p>
+            <a class="forum-btn forum-btn--primary" href="signin.html?next=forum.html">Sign in or create an account</a>
         </section>
 
         <!-- Thread list -->
@@ -143,6 +115,7 @@
     <script src="js/nav-config.js"></script>
     <script src="js/shell.js"></script>
     <script src="js/site-search.js"></script>
+    <script src="js/profile-ui.js"></script>
     <script src="js/forum-app.js"></script>
 </body>
 </html>

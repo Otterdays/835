@@ -1,40 +1,31 @@
-// [TRACE: ARCHITECTURE.md]
-const {
-    COOKIE_NAME,
-    readCookie,
-    verifySessionToken
-} = require('../lib/session');
+// [TRACE: ACCOUNTS.md]
+// GET /api/auth/me -> who is signed in. Guests get 200 { authenticated: false }
+// (not 401) so every page can ask without logging a browser error.
+const forum = require('../_lib/forum');
+const accounts = require('../_lib/accounts');
 
 module.exports = async function handler(req, res) {
     if (req.method !== 'GET') {
-        res.statusCode = 405;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ ok: false, error: 'Method not allowed' }));
-        return;
+        res.setHeader('Allow', 'GET');
+        return forum.json(res, 405, { ok: false, error: 'Method not allowed' });
     }
 
     try {
-        const token = readCookie(req, COOKIE_NAME);
-        if (!token) {
-            res.statusCode = 401;
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify({ ok: false, authenticated: false }));
-            return;
+        const user = await accounts.getSessionUser(req);
+        if (!user) {
+            return forum.json(res, 200, { ok: true, authenticated: false });
         }
-        const session = await verifySessionToken(token);
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(
-            JSON.stringify({
-                ok: true,
-                authenticated: true,
-                user: { username: session.username, role: session.role }
-            })
-        );
+        // Presence ("online now"): refresh at most every couple of minutes.
+        const seen = user.profile.lastSeenAt ? new Date(user.profile.lastSeenAt).getTime() : 0;
+        if (Date.now() - seen > accounts.SEEN_THROTTLE_MS) {
+            await user.db
+                .collection('profiles')
+                .updateOne({ username: user.username }, { $set: { lastSeenAt: new Date() } });
+        }
+        return forum.json(res, 200, { ok: true, authenticated: true, user: accounts.accountOut(user) });
     } catch (err) {
         console.error('me failed', err);
-        res.statusCode = 401;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ ok: false, authenticated: false }));
+        // Treat any failure (for example Mongo down) as signed out so pages still load.
+        return forum.json(res, 200, { ok: true, authenticated: false });
     }
 };

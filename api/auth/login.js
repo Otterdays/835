@@ -1,5 +1,6 @@
 // [TRACE: ARCHITECTURE.md]
 const { getDb } = require('../lib/mongo');
+const accounts = require('../_lib/accounts');
 const { verifyPassword } = require('../lib/password');
 const {
     createSessionToken,
@@ -64,11 +65,16 @@ module.exports = async function handler(req, res) {
         }
 
         await clearAttempts(key);
+        const now = new Date();
+        const profile = await accounts.ensureProfile(db, user);
+        await db
+            .collection('profiles')
+            .updateOne({ username: user.username }, { $set: { lastLoginAt: now, lastSeenAt: now } });
         const token = await createSessionToken({ username: user.username, role: user.role });
         res.setHeader('Set-Cookie', sessionCookie(token));
         return json(res, 200, {
             ok: true,
-            user: { username: user.username, role: user.role || 'member' }
+            user: accounts.accountOut({ role: user.role || 'member', profile })
         });
     } catch (err) {
         console.error('login failed', err);

@@ -127,3 +127,6 @@ flowchart LR
 [AMENDED 2026-11-17]: Added `agreement-2026-27.html` as a clearly labeled tentative companion to the 2022–2026 CBA. `images/2026-27/` preserves all three full-page JPG renderings and the supplied PDF; the three page records in `cbaScannedPages` are independently searchable and deep-linkable from Scanned Pages. The source copy's ratification/signature status is not represented as confirmed.
 
 [AMENDED 2026-11-18]: Reworked `contract.html` as an agreement-first reader. A compact lead-in presents a guided, linked overview of the 2026–27 tentative terms and the supplied copy's unconfirmed ratification status before the searchable 2022–26 article archive. On narrow screens, section links scroll horizontally and each reading action remains touch accessible.
+
+
+[AMENDED 2026-11-18]: **Member accounts and Myspace-inspired profiles.** Added `/signin.html`, `/profile.html`, `/profile-edit.html`, and `/members.html`; member accounts are separate from public profile data. Forum reads remain open while posting requires a session; new posts use the session author and may show profile badges. See `DOCS/ACCOUNTS.md`.

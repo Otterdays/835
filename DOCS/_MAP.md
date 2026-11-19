@@ -5,6 +5,7 @@
 ## Files
 | File | What it does | Key symbols |
 |---|---|---|
+| `ACCOUNTS.md` | Account, sign-up, profile, badge, role, and forum identity behavior | — |
 | `SUMMARY.md` | Durable project overview and dated amendments | — |
 | `SBOM.md` | Dependency and runtime notes | — |
 | `SCRATCHPAD.md` | Current and recent task notes | — |

@@ -16,8 +16,8 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | Folder | What lives there | Map |
 |---|---|---|
 | `DOCS/` | Project overview, workflow, architecture, and audits | `DOCS/_MAP.md` |
-| `api/` | Vercel auth and community-forum endpoints | `api/_MAP.md` |
-| `js/` | Browser auth, shared shell/search, and page behavior | `js/_MAP.md` |
+| `api/` | Vercel auth, profile, and community-forum endpoints | `api/_MAP.md` |
+| `js/` | Browser auth, profiles, shared shell/search, and page behavior | `js/_MAP.md` |
 | `images/` | 27 CBA page scans, 3 tentative-agreement scans, and tool-policy scans/icons; individual images omitted | — |
 | `scripts/` | User seeding and deployment checks; see Files below | — |
 | `source/` | Offline Word/Markdown working drafts, excluded from deploy | — |
@@ -46,6 +46,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where evidence entries are stored and exported | `evidence-log.html` + `js/evidence-log-app.js` (in memory only) |
 | where bargaining checklists and copy language live | `bargaining.html` + `js/bargaining-app.js` |
 | where member suggestions are saved/shared | `suggestions.html` + `js/suggestions-app.js` (browser storage/share/copy) |
+| where accounts, profiles and member roles are handled | `api/auth/`, `api/profile/`, `api/_lib/accounts.js`, and `scripts/manage-user.js` (see `DOCS/ACCOUNTS.md`) |
 | where forum threads and replies are handled | `api/forum/` (see `api/forum/_MAP.md`) and `js/forum-app.js` |
 | how to add a forum endpoint | Add a Vercel route under `api/forum/`, reuse `api/_lib/forum.js`, and update `tests/smoke.js` when behavior changes |
 | how to add an API endpoint | Add a route under `api/`; shared database/session helpers are in `api/lib/` |
@@ -57,6 +58,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
 | where smoke and deploy checks are defined | `tests/smoke.js`, `scripts/check-deploy.js` |
 | how to add a user to MongoDB | `scripts/seed-user.js` (see `package.json` script `seed:user`) |
+| how to manage member roles, badges, passwords, and account status | `scripts/manage-user.js` (see `DOCS/ACCOUNTS.md`) |
 | where page-level and shared visual styles live | `style.css`, `forum.css` |
 | which local drafts are excluded from deployment | `source/` and `.vercelignore` |
 
@@ -79,7 +81,12 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `data.js` | Contract text, scan entries, shop steward contacts, and roster data |
 | `style.css` | Shared portal styles and responsive layout |
 | `forum.css` | Community forum page styles |
-| `index.html` | Sign-in/entry page |
+| `index.html` | Open portal entrance |
+| `signin.html` | Account sign-in and registration |
+| `profile.html` | Member profile with Top 8 and comments |
+| `profile-edit.html` | Member profile editor |
+| `members.html` | Signed-in member directory |
+| `profile.css` | Account and profile styling |
 | `home.html` | Member gateway and resource links |
 | `updates.html` | Dated portal change log for members |
 | `contract-updates.html` | Member-facing contract and employment notices |

@@ -27,6 +27,10 @@ const requiredPages = [
     'suggestions.html',
     'member-documents.html',
     'forum.html',
+    'signin.html',
+    'profile.html',
+    'profile-edit.html',
+    'members.html',
     'updates.html',
     'contract-updates.html',
     'calendar.html'
@@ -58,6 +62,7 @@ navTargets.forEach((target) => ok(fs.existsSync(path.join(root, target)), `navig
 ok(nav.includes('member-action.html'), 'nav includes Action Center');
 ok(nav.includes('evidence-log.html'), 'nav includes evidence log');
 ok(nav.includes('bargaining.html'), 'nav includes bargaining');
+ok(nav.includes('members.html') && nav.includes('signin.html'), 'nav includes member accounts and directory');
 
 const auth = fs.readFileSync(path.join(root, 'js/auth.js'), 'utf8');
 ok(auth.includes('/api/auth/login'), 'auth client calls API login');
@@ -123,7 +128,8 @@ ok(fs.existsSync(path.join(root, 'api/forum/thread.js')), 'api/forum/thread.js e
 ok(nav.includes('forum.html'), 'nav includes forum');
 const forumApp = fs.readFileSync(path.join(root, 'js/forum-app.js'), 'utf8');
 ok(!forumApp.includes('innerHTML'), 'forum client never uses innerHTML');
-ok(forumApp.includes('oe835_forum_username'), 'forum client stores temp username locally');
+ok(!forumApp.includes('oe835_forum_username') && !forumApp.includes('body: JSON.stringify({\n                    author'), 'forum client does not accept or store guest author names');
+ok(forumApp.includes('ProfileUI.badgeRow') || forumApp.includes('P.badgeRow'), 'forum displays account profile badges');
 
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');

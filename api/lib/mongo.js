@@ -36,6 +36,12 @@ async function ensureIndexes(db) {
     await db.collection('login_attempts').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
     await db.collection('login_attempts').createIndex({ key: 1 });
 
+    // Member profiles (public-facing data, separate from credentials in `users`)
+    await db.collection('profiles').createIndex({ username: 1 }, { unique: true });
+    await db.collection('profiles').createIndex({ visibility: 1, lastSeenAt: -1 });
+    await db.collection('profiles').createIndex({ visibility: 1, createdAt: -1 });
+    await db.collection('profile_comments').createIndex({ profileUsername: 1, createdAt: -1 });
+
     // Community forum
     await db.collection('forum_threads').createIndex({ lastActivityAt: -1 });
     await db.collection('forum_threads').createIndex({ category: 1, lastActivityAt: -1 });

@@ -4,6 +4,8 @@ const SITE_NAV = [
         label: 'Home',
         items: [
             { href: 'home.html', label: 'Home', id: 'home' },
+            { href: 'members.html', label: 'Member Directory', id: 'members' },
+            { href: 'signin.html', label: 'Sign in / account', id: 'signin' },
             { href: 'calendar.html', label: 'Member Calendar', id: 'calendar' },
             { href: 'updates.html', label: 'Project Updates', id: 'updates' },
             { href: 'contract-updates.html', label: 'Contract & Employment Updates', id: 'contract-updates' }
@@ -51,6 +53,10 @@ const SITE_NAV = [
 
 const SITE_PAGE_IDS = {
     'home.html': 'home',
+    'members.html': 'members',
+    'profile.html': 'profile',
+    'profile-edit.html': 'profile-edit',
+    'signin.html': 'signin',
     'calendar.html': 'calendar',
     'updates.html': 'updates',
     'contract-updates.html': 'contract-updates',

@@ -1,8 +1,9 @@
 // [TRACE: ARCHITECTURE.md]
 // GET  /api/forum/threads[?category=CFCF]  -> newest-activity-first thread list
-// POST /api/forum/threads                  -> create a thread (temporary username, no login)
+// POST /api/forum/threads                  -> create a thread (signed-in members only)
 const { getDb } = require('../lib/mongo');
 const forum = require('../_lib/forum');
+const accounts = require('../_lib/accounts');
 
 module.exports = async function handler(req, res) {
     try {
@@ -62,7 +63,7 @@ module.exports = async function handler(req, res) {
                     .sort((a, b) => new Date(b.lastActivityAt) - new Date(a.lastActivityAt))
                     .slice(0, 50);
 
-                return forum.json(res, 200, { ok: true, threads });
+                return forum.json(res, 200, { ok: true, threads: await accounts.attachAuthors(db, threads) });
             }
 
             const docs = await db
@@ -71,7 +72,10 @@ module.exports = async function handler(req, res) {
                 .sort({ lastActivityAt: -1 })
                 .limit(forum.LIMITS.listLimit)
                 .toArray();
-            return forum.json(res, 200, { ok: true, threads: docs.map(forum.threadOut) });
+            return forum.json(res, 200, {
+                ok: true,
+                threads: await accounts.attachAuthors(db, docs.map(forum.threadOut))
+            });
         }
 
         if (req.method === 'POST') {
@@ -82,29 +86,31 @@ module.exports = async function handler(req, res) {
                 return forum.json(res, 200, { ok: true });
             }
 
-            const author = forum.validateUsername(body.author);
+            // Posting needs an account; the name comes from the session, never from the request body.
+            const user = await accounts.requireUser(req);
             const title = forum.cleanText(body.title, forum.LIMITS.title, 'Title');
             const text = forum.cleanText(body.body, forum.LIMITS.threadBody, 'Message');
             const category = forum.validateCategory(body.category);
 
-            const db = await getDb();
-            await forum.consumeRateLimit(db, `thread:${forum.clientIp(req)}`, forum.RATE.thread);
+            const db = user.db;
+            await forum.consumeRateLimit(db, `thread:${user.username}`, forum.RATE.thread);
 
             const now = new Date();
             const doc = {
                 title,
                 body: text,
                 category,
-                author,
+                author: user.profile.handle,
+                authorKey: user.username,
                 createdAt: now,
                 lastActivityAt: now,
                 replyCount: 0
             };
             const result = await db.collection('forum_threads').insertOne(doc);
-            return forum.json(res, 201, {
-                ok: true,
-                thread: forum.threadOut({ ...doc, _id: result.insertedId })
-            });
+            const [thread] = await accounts.attachAuthors(db, [
+                forum.threadOut({ ...doc, _id: result.insertedId })
+            ]);
+            return forum.json(res, 201, { ok: true, thread });
         }
 
         res.setHeader('Allow', 'GET, POST');

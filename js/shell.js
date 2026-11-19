@@ -68,14 +68,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!sidePanel || !window.Auth?.logout) {
             return;
         }
-        if (sidePanel.querySelector('.nav-logout')) {
-            return;
-        }
+        if (sidePanel.querySelector('.nav-logout')) { return; }
+        sidePanel.querySelector('.nav-account')?.remove();
 
+        const accountWrap = document.createElement('section');
+        accountWrap.className = 'nav-account';
+        const account = Auth.account?.();
+        if (account) {
+            const p = document.createElement('p'); p.textContent = `Signed in as ${account.displayName || account.username}`; accountWrap.appendChild(p);
+            const links = document.createElement('div'); links.className = 'nav-account-links';
+            [['My profile', `profile.html?u=${encodeURIComponent(account.username)}`], ['Edit profile', 'profile-edit.html']].forEach(([label, href]) => { const a=document.createElement('a');a.href=href;a.textContent=label;links.appendChild(a); }); accountWrap.appendChild(links);
+        } else { const a=document.createElement('a');a.href=`signin.html?next=${encodeURIComponent(location.pathname.split('/').pop() || 'home.html')}`;a.textContent='Sign in / create account';accountWrap.appendChild(a); }
+        sidePanel.appendChild(accountWrap);
         const wrap = document.createElement('div');
         wrap.className = 'nav-logout';
 
-        const user = Auth.currentUser?.();
+        const user = Auth.account?.();
+        if (!user) { sidePanel.appendChild(wrap); return; }
         if (user?.username) {
             const who = document.createElement('p');
             who.className = 'nav-logout-user';
@@ -128,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderNav();
     renderLogout();
+    window.Auth?.whenReady?.().then(() => { sidePanel?.querySelector('.nav-logout')?.remove(); renderLogout(); }).catch(err => console.error('Account menu refresh failed', err));
     renderBreadcrumb();
 
     if (!menuBtn || !sidePanel || !overlay) {
