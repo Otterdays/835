@@ -52,6 +52,6 @@ module.exports = async function handler(req, res) {
         res.setHeader('Set-Cookie', sessionCookie(token));
         return forum.json(res, 200, { ok: true });
     } catch (err) {
-        return forum.handleError(res, err, 'password change');
+        return forum.handleError(res, err, 'password change', 'Could not change the password. Please try again later.');
     }
 };

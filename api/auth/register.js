@@ -70,6 +70,9 @@ module.exports = async function handler(req, res) {
         }
 
         const key = handle.toLowerCase();
+        // Build the session token before writing anything, so a server misconfiguration
+        // (for example a missing AUTH_SECRET) cannot leave an account behind with no way in.
+        const token = await createSessionToken({ username: key, role: 'member' });
         const hashed = await hashPassword(password);
         const now = new Date();
         try {
@@ -91,13 +94,12 @@ module.exports = async function handler(req, res) {
         }
 
         const profile = await accounts.ensureProfile(db, { username: key, handle, displayName });
-        const token = await createSessionToken({ username: key, role: 'member' });
         res.setHeader('Set-Cookie', sessionCookie(token));
         return forum.json(res, 201, {
             ok: true,
             user: accounts.accountOut({ role: 'member', profile })
         });
     } catch (err) {
-        return forum.handleError(res, err, 'register');
+        return forum.handleError(res, err, 'register', 'Could not create the account. Please try again later.');
     }
 };

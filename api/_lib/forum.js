@@ -58,12 +58,12 @@ function json(res, status, body) {
     res.end(JSON.stringify(body));
 }
 
-function handleError(res, err, label) {
+function handleError(res, err, label, fallback = 'Forum is temporarily unavailable.') {
     if (err && err.status) {
         return json(res, err.status, { ok: false, error: err.message });
     }
     console.error(`${label} failed`, err);
-    return json(res, 500, { ok: false, error: 'Forum is temporarily unavailable.' });
+    return json(res, 500, { ok: false, error: fallback });
 }
 
 async function readJson(req) {

@@ -128,6 +128,6 @@ module.exports = async function handler(req, res) {
         res.setHeader('Allow', 'GET, PUT');
         return forum.json(res, 405, { ok: false, error: 'Method not allowed' });
     } catch (err) {
-        return forum.handleError(res, err, 'profile');
+        return forum.handleError(res, err, 'profile', 'Profiles are temporarily unavailable.');
     }
 };

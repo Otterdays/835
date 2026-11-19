@@ -114,6 +114,6 @@ module.exports = async function handler(req, res) {
         res.setHeader('Allow', 'GET, POST, DELETE');
         return forum.json(res, 405, { ok: false, error: 'Method not allowed' });
     } catch (err) {
-        return forum.handleError(res, err, 'profile comments');
+        return forum.handleError(res, err, 'profile comments', 'Comments are temporarily unavailable.');
     }
 };
