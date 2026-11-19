@@ -373,10 +373,11 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     {
         const css = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
         ok(app.includes('roster-index') && app.includes('setPointerCapture') && app.includes("behavior: 'instant'") && /\.roster-index\s*\{[^}]*position:\s*fixed/.test(css), 'roster has a phone A-Z jump rail with drag support');
-        ok(app.includes('const currentGroup') && app.includes("group.querySelectorAll('.employee-card')") && app.includes("addEventListener('scroll'"), 'jump rail lists only the letters of the crew section on screen');
+        ok(app.includes('const currentGroup') && app.includes("group.querySelectorAll('[data-letter]')") && app.includes("addEventListener('scroll'"), 'jump rail lists only the letters of the crew section on screen');
         ok(/@media \(max-width: 767px\)\s*\{\s*\.roster-index\s*\{/.test(css) && /\.roster-index,\s*\.roster-index-bubble\s*\{\s*display:\s*none/.test(css), 'jump rail is phone-only');
     }
-    ok(app.includes('.sort(compareStaff)') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');
+    ok(app.includes('compareRole') && app.includes('role-group-heading') && fs.readFileSync(path.join(root, 'employees.html'), 'utf8').includes('id="roster-sort"'), 'roster can be grouped by role inside each site');
+    ok(app.includes('compareStaff') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');
     {
         const names = [...dataJs.matchAll(/\{ name: "([^"]+)", location: "(?!Management)/g)].map((m) => m[1].toLowerCase());
         ok(names.every((n, k) => k === 0 || names[k - 1] <= n), 'employeesData stays alphabetical by first name (Management last, in rank order)');

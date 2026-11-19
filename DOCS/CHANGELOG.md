@@ -168,3 +168,4 @@
 [AMENDED 2026-11-19]: Site Roster: added Ochel Alexis (CFCF Electrician) and filled in full names for Trevor Anderson and Paul Avarachan (CFCF Electricians). Electricians and Laborers checked against the supplied list.
 [AMENDED 2026-11-19]: Site Roster: removed the duplicate "Tim" (CFCF Electrician); he is Tim Neri, already listed at PICC.
 [AMENDED 2026-11-19]: Site Roster phone A-Z rail now lists only the letters in the crew section on screen (RCF, CFCF, PICC...), updating as you scroll between crews; every letter tap lands inside that crew.
+[AMENDED 2026-11-19]: Site Roster: new "Sort by" control (Name A-Z or Role). Role view keeps the site sections and groups people under their main role inside each site (roles A-Z with a count, names A-Z inside each role; Management stays in rank order). The phone letter rail jumps to role headings in that view.

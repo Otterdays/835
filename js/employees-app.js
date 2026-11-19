@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('roster-search');
     const filterRoot = document.getElementById('roster-facility-filters');
     const resultsInfo = document.getElementById('roster-results-info');
+    const sortRoot = document.getElementById('roster-sort');
 
     headerTitle.textContent = 'Site Roster';
     headerParties.textContent = 'Employee and management directory across CFCF, RCF, and PICC.';
@@ -31,6 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
     };
+
+    // "By role" view: inside each site, people are grouped under their main role (the text before " · "),
+    // roles A-Z, names A-Z inside each role. Management stays in rank order.
+    const primaryRole = (employee) => String(employee.role || '').split(' · ')[0].trim();
+    const compareRole = (a, b) => {
+        if (Number.isFinite(rankOf(a)) && Number.isFinite(rankOf(b))) {
+            return rankOf(a) - rankOf(b);
+        }
+        return primaryRole(a).localeCompare(primaryRole(b), undefined, { sensitivity: 'base' }) || compareStaff(a, b);
+    };
+    let sortMode = 'name';
 
     const preferredLocations = ['RCF', 'CFCF', 'PICC'];
     const locations = [...new Set(employeesData.flatMap(sitesOf))]
@@ -104,9 +116,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    const renderSort = () => {
+        if (!sortRoot) {
+            return;
+        }
+        const label = document.createElement('span');
+        label.className = 'roster-sort-label';
+        label.textContent = 'Sort by';
+        sortRoot.replaceChildren(label);
+        [{ id: 'name', text: 'Name A-Z' }, { id: 'role', text: 'Role' }].forEach((option) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'filter-chip';
+            btn.classList.toggle('is-active', option.id === sortMode);
+            btn.textContent = option.text;
+            btn.setAttribute('aria-pressed', String(option.id === sortMode));
+            btn.addEventListener('click', () => {
+                sortMode = option.id;
+                renderSort();
+                renderRoster();
+            });
+            sortRoot.appendChild(btn);
+        });
+    };
+
     /* ---------- A-Z jump rail (phones) ---------- */
     // A slim strip on the right edge. Touch or drag along it to jump to the first name starting with
     // that letter within the crew section you are reading (the strip only lists letters that crew has).
+    // By name it jumps to names; in the By role view it jumps to role headings.
     const letterOf = (employee) => {
         const first = normalize(employee.name).charAt(0).toUpperCase();
         return /[A-Z]/.test(first) ? first : '#';
@@ -128,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const jumpTo = (letter) => {
         const group = currentGroup();
-        const target = group && [...group.querySelectorAll('.employee-card')].find((card) => card.dataset.letter === letter);
+        const target = group && [...group.querySelectorAll('[data-letter]')].find((node) => node.dataset.letter === letter);
         if (target) {
             target.scrollIntoView({ block: 'start', behavior: 'instant' }); // the page is smooth-scroll by default; scrubbing needs it immediate
         }
@@ -205,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const group = currentGroup();
         const letters = group
-            ? [...new Set([...group.querySelectorAll('.employee-card')].map((card) => card.dataset.letter))].sort()
+            ? [...new Set([...group.querySelectorAll('[data-letter]')].map((node) => node.dataset.letter))].sort()
             : [];
         const key = letters.join('');
         if (key !== railKey) {
@@ -259,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // otherwise also pull in a section for every other site they cover.
         const visibleLocations = activeFacility === 'all' ? locations : [activeFacility];
         visibleLocations.forEach((loc) => {
-            const group = filtered.filter((e) => sitesOf(e).includes(loc)).sort(compareStaff);
+            const group = filtered.filter((e) => sitesOf(e).includes(loc)).sort(sortMode === 'role' ? compareRole : compareStaff);
             if (!group.length) {
                 return;
             }
@@ -277,10 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             section.appendChild(heading);
 
-            const grid = document.createElement('div');
-            grid.className = 'employee-grid';
-
-            group.forEach((employee, index) => {
+            const buildCard = (employee, index) => {
                 const card = document.createElement('div');
                 card.className = 'employee-card';
                 if (loc === 'Management') {
@@ -289,7 +323,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.tabIndex = 0;
                 }
                 card.style.animationDelay = `${index * 0.05}s`;
-                card.dataset.letter = letterOf(employee);
+                if (sortMode === 'name') {
+                    card.dataset.letter = letterOf(employee);
+                }
 
                 const name = document.createElement('div');
                 name.className = 'employee-name';
@@ -308,16 +344,45 @@ document.addEventListener('DOMContentLoaded', () => {
                     also.textContent = `Also works at ${otherSites.join(' and ')}`;
                     card.appendChild(also);
                 }
-                grid.appendChild(card);
-            });
+                return card;
+            };
 
-            section.appendChild(grid);
+            const newGrid = () => {
+                const grid = document.createElement('div');
+                grid.className = 'employee-grid';
+                return grid;
+            };
+
+            if (sortMode === 'role' && loc !== 'Management') {
+                const byRole = new Map();
+                group.forEach((employee) => {
+                    const key = primaryRole(employee) || 'Other';
+                    byRole.set(key, [...(byRole.get(key) || []), employee]);
+                });
+                byRole.forEach((people, roleName) => {
+                    const block = document.createElement('div');
+                    block.className = 'role-group';
+                    const roleHeading = document.createElement('h3');
+                    roleHeading.className = 'role-group-heading';
+                    roleHeading.dataset.letter = /[A-Z]/i.test(roleName.charAt(0)) ? roleName.charAt(0).toUpperCase() : '#';
+                    roleHeading.textContent = `${roleName} · ${people.length}`;
+                    const grid = newGrid();
+                    people.forEach((employee, index) => grid.appendChild(buildCard(employee, index)));
+                    block.append(roleHeading, grid);
+                    section.appendChild(block);
+                });
+            } else {
+                const grid = newGrid();
+                group.forEach((employee, index) => grid.appendChild(buildCard(employee, index)));
+                section.appendChild(grid);
+            }
             employeesContainer.appendChild(section);
         });
         renderIndex();
     };
 
     renderFilters();
+    renderSort();
     renderRoster();
 
     searchInput?.addEventListener('input', (event) => {

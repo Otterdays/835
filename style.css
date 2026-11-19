@@ -4408,3 +4408,31 @@ video {
         scroll-margin-top: 4.5rem;
     }
 }
+
+/* Roster sort control and the By role view */
+.roster-sort {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.roster-sort-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.role-group + .role-group {
+    margin-top: 1.4rem;
+}
+
+.role-group-heading {
+    margin: 0 0 0.7rem;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    scroll-margin-top: 4.5rem;
+}
