@@ -30,6 +30,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | how to add a new member page | Add a root HTML page, then connect shared nav in `js/nav-config.js` and search in `js/site-search.js` as needed |
 | where shared navigation groups and page IDs live | `js/nav-config.js` → `SITE_NAV`, `SITE_PAGE_IDS` |
 | where the slide-out menu and breadcrumbs render | `js/shell.js` |
+| where light/dark appearance is set and styled | `js/theme.js`, dark tokens at the end of `style.css`/`forum.css`/`profile.css`, generated `dark.css` (`npm run build:dark`) |
 | how to add a new navigation destination | `js/nav-config.js` → `SITE_NAV`, `SITE_PAGE_IDS` |
 | how sitewide search builds and routes results | `js/site-search.js` |
 | how to add a page to sitewide search | Add a curated entry in `js/site-search.js` and verify its destination |
@@ -105,6 +106,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `suggestions.html` | Structured member feedback form |
 | `forum.html` | Community forum page |
 | `scripts/check-deploy.js` | Checks deploy exclusions and expected auth wiring |
+| `scripts/gen-dark-css.js` | Generates `dark.css` from hard-coded colors in `style.css`, `forum.css`, `profile.css` |
 | `scripts/seed-user.js` | Creates or updates a Mongo user from command-line input |
 | `tests/smoke.js` | Checks page wiring, local assets, search data, and forum validation |
 | `source/IUOE_Local_835_Petition_and_Motion.docx` | Offline Word draft (not opened) |

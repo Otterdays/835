@@ -239,3 +239,7 @@
 .pf-swatch-box{position:absolute;left:14%;right:14%;top:44%;bottom:14%;border-radius:5px;background:var(--pf-box);border:1px solid var(--pf-line)}
 .pf-theme-name{font-size:.9rem;line-height:1.25}
 @media(max-width:720px){.pf-link-row{grid-template-columns:1fr}.pf-link-row .pf-chip-btn{justify-self:start}}
+
+/* Dark appearance for the account pages' own chrome. A member's chosen profile theme
+   (.pf-profile / .pf-theme--*) sets these same variables on its own element and still wins. */
+:root[data-theme="dark"]{--pf-ink:#e9eff8;--pf-muted:#b5c3d5;--pf-line:#30435f}

@@ -64,6 +64,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Appearance switch: Auto follows the device; Light and Dark are remembered on this device.
+    const renderAppearance = () => {
+        if (!sidePanel || !window.SiteTheme || sidePanel.querySelector('.nav-appearance')) {
+            return;
+        }
+        const wrap = document.createElement('section');
+        wrap.className = 'nav-appearance';
+        wrap.setAttribute('aria-label', 'Appearance');
+        const label = document.createElement('span');
+        label.className = 'nav-appearance-label';
+        label.textContent = 'Appearance';
+        const group = document.createElement('div');
+        group.className = 'nav-appearance-group';
+        group.setAttribute('role', 'group');
+        group.setAttribute('aria-label', 'Light or dark appearance');
+        const buttons = [['auto', 'Auto'], ['light', 'Light'], ['dark', 'Dark']].map(([value, text]) => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'nav-appearance-btn';
+            b.dataset.value = value;
+            b.textContent = text;
+            b.addEventListener('click', () => SiteTheme.set(value));
+            group.appendChild(b);
+            return b;
+        });
+        const sync = () => buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.value === SiteTheme.get())));
+        document.addEventListener('sitetheme:change', sync);
+        sync();
+        wrap.append(label, group);
+        sidePanel.appendChild(wrap);
+    };
+
     // Account footer of the menu: who is signed in, shortcuts, and Sign out (or Sign in for guests).
     // Built from the real session once Auth has checked it, so it never flashes the wrong state.
     const renderAccount = () => {
@@ -215,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     renderNav();
+    renderAppearance();
     renderForumBubble();
     window.Auth?.whenReady?.().then(renderAccount).catch((err) => console.error('Account menu failed', err));
     renderBreadcrumb();

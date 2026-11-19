@@ -5,6 +5,7 @@
     --forum-rule: #d4dde7;
     --forum-field-border: #65768b;
     --forum-navy: #0b3558;
+    --forum-fill: #0b3558;
     --forum-wash: #edf3f8;
     --forum-error: #9b1c1c;
     --forum-ok: #1d6b3a;
@@ -192,7 +193,7 @@
 .forum-btn::-webkit-details-marker { display: none; }
 
 .forum-btn--primary {
-    background: var(--forum-navy);
+    background: var(--forum-fill);
     color: #fff;
 }
 
@@ -446,7 +447,7 @@
 }
 
 .forum-view-btn + .forum-view-btn { border-left: 1px solid var(--forum-field-border); }
-.forum-view-btn[aria-pressed="true"] { background: var(--forum-navy); color: #fff; }
+.forum-view-btn[aria-pressed="true"] { background: var(--forum-fill); color: #fff; }
 .forum-view-btn:not([aria-pressed="true"]):hover { background: var(--forum-wash); }
 
 /* The board needs room; the header, forms and notices stay at reading width. */
@@ -495,7 +496,7 @@
     min-width: 1.75rem;
     padding: 0.1rem 0.5rem;
     border-radius: 999px;
-    background: var(--forum-navy);
+    background: var(--forum-fill);
     color: #fff;
     font-size: 0.9rem;
     font-weight: 700;
@@ -660,3 +661,16 @@
     cursor: pointer;
 }
 .forum-delete:hover { color: #6e1d19; }
+
+/* Dark appearance (js/theme.js sets data-theme on <html>) */
+:root[data-theme="dark"] .forum-page {
+    --forum-ink: #e9eff8;
+    --forum-muted: #b5c3d5;
+    --forum-rule: #30435f;
+    --forum-field-border: #7189a8;
+    --forum-navy: #a9d0fa;
+    --forum-fill: #1b5a94;
+    --forum-wash: #15243a;
+    --forum-error: #ffa59c;
+    --forum-ok: #86e0a6;
+}
