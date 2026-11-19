@@ -48,7 +48,7 @@ Vanilla HTML / CSS / JS front end. Production target: private Vercel deploy + Mo
 | `images/` | CBA and policy page scans, named `page_N.jpg` for CBA pages |
 | `js/nav-config.js` | Shared navigation and page IDs |
 | `js/site-search.js` | Sitewide index and result routing |
-| `api/auth/*`, `api/forum/*` | Vercel API routes |
+| `api/auth/*`, `api/forum/*`, `api/profile/*` | Vercel API routes |
 | `middleware.js` | Protects HTML + `data.js` + `images/` on Vercel |
 | `source/` | Offline drafts — excluded from deploy |
 | `tests/smoke.js` | Repository smoke checks |
@@ -66,6 +66,8 @@ When the user supplies a numbered page, complete the page as one connected chang
 - Env: see `.env.example` (`MONGODB_URI`, `MONGODB_DB`, `AUTH_SECRET`). Never print or commit secrets.
 - Checklist: `DOCS/debugs/debug_2026-07-28_security-checklist.md`.
 - Keep the repository private; `source/` stays excluded from production deploy.
+- **Vercel Hobby function cap:** A deployment may contain no more than 12 Serverless Functions on this project's Hobby plan. Count deployable endpoint files before adding routes; keep the total at or below 12. Shared API modules belong under `api/_lib/`, whose underscore-prefixed path keeps helper files out of the function routes. Do not create helper `.js` files in `api/` or ordinary subfolders such as `api/lib/`; Vercel can treat them as functions. See `DOCS/ARCHITECTURE.md` and Vercel's [utility-file guidance](https://vercel.com/docs/functions/configuring-functions/advanced-configuration).
+- **Before an API push:** Run `npm run test:smoke` and `npm run check:deploy`, inspect the function count, then confirm the Vercel deployment succeeds. This project pins `engines.node` to `26.x`; verify the deployment uses Node 26 rather than assuming a successful Git push means a successful deployment.
 
 ## Conventions and handoff
 

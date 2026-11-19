@@ -33,3 +33,7 @@
 - Runtime values are named in `../.env.example`; the database uses `MONGODB_URI` and `MONGODB_DB`, session signing uses `AUTH_SECRET`.
 - Routes use the `mongodb` and `jose` packages from `../package.json`.
 - Forum browser client: `../js/forum-app.js`.
+
+## Vercel Hobby function cap
+- Hobby deployments are limited to 12 Serverless Functions. Keep shared `.js` helpers under `_lib/`; do not add helper files under `api/` or ordinary subfolders where Vercel can count them as functions.
+- Current endpoint count is 9 across `auth/`, `forum/`, and `profile/`; recount before adding a route.

@@ -9,6 +9,7 @@
 - **Navigation:** Added account/profile pages to Home, shared navigation, sitewide search, and the side-panel account block.
 
 ## [Unreleased] - 2026-11-19
+- **Agent guidance:** Documented Vercel Hobby's 12-function cap, `api/_lib/` helper convention, function recount, and post-push deployment/Node 26 verification.
 - **Vercel Hobby deployment:** Moved Mongo, session, password, and login-rate helpers from `api/lib/` into `api/_lib/` so Vercel treats them as helpers, reducing generated functions below the 12-function Hobby cap. Kept Node.js pinned to `26.x`.
 - **Runtime:** Pinned Vercel builds to Node.js 26.x in `package.json` and lockfile so the deployment runtime cannot float to a different major.
 - **Roster tooltip:** Added the user-requested “BEST IN CLASS ASSHOLES” native tooltip to the Management group heading.

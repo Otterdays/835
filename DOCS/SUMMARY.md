@@ -14,6 +14,7 @@
 # Summary
 
 [AMENDED 2026-11-19]: Moved Mongo, session, password, and login-rate helpers into `api/_lib/` to keep Vercel from counting helper modules toward its Hobby serverless-function deployment cap. Updated imports and maps.
+[AMENDED 2026-11-19]: Added a standing agent rule for Vercel Hobby's 12-function-per-deployment cap: keep shared helpers under `api/_lib/`, recount endpoints before API pushes, and verify successful deployment and Node 26 runtime.
 
 [AMENDED 2026-11-19]: Pinned project Node.js engine to `26.x` in the package manifest and lockfile to keep Vercel deployments on Node 26.
 
