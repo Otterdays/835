@@ -4660,15 +4660,18 @@ video {
 
 .nav-appearance-group {
     display: inline-flex;
+    flex: none;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 12px;
 }
 
 .nav-appearance-btn {
-    min-width: 3.3rem;
-    min-height: 40px;
-    padding: 0.3rem 0.7rem;
+    flex: 1 1 0;
+    min-width: 3.6rem;
+    min-height: 44px;
+    padding: 0.3rem 0.8rem;
+    white-space: nowrap;
     border: 0;
     background: rgba(255, 255, 255, 0.06);
     color: #e5eef9;
@@ -4676,6 +4679,18 @@ video {
     font-size: 0.88rem;
     font-weight: 700;
     cursor: pointer;
+}
+
+/* Phones: label above, three equal full-width segments so nothing wraps. */
+@media (max-width: 480px) {
+    .nav-appearance {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.45rem;
+    }
+
+    .nav-appearance-group { display: flex; width: 100%; }
+    .nav-appearance-btn { font-size: 0.95rem; }
 }
 
 .nav-appearance-btn + .nav-appearance-btn { border-left: 1px solid rgba(255, 255, 255, 0.2); }
