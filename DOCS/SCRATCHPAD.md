@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 [AMENDED 2026-11-18]: Compared supplied PICC roster image against `employeesData`; reconciled all 21 listed employee/trade records, completed names and job titles, corrected visible spellings, retained Charles Worrell and Orlando Rivera's steward designations, and added a Project Updates entry. User requested committing all workspace changes and pushing to origin; inspect complete status/diff, preserve existing in-progress account work, and exclude secrets/local-only files as instructed in `AGENTS.md`.
+[AMENDED 2026-11-18; superseded 2026-11-19]: An earlier correction abbreviated Patrick Martin as Pat Martin. The user clarified the full name is Patrick Martin and confirmed his PICC assignment; the duplicate CFCF entry has been removed.
+[AMENDED 2026-11-19]: User confirmed Patrick Martin belongs at PICC, not CFCF. Restored his full name at PICC and recorded the correction in Project Updates.
 
 [AMENDED 2026-11-17]:
 ## Current Task:

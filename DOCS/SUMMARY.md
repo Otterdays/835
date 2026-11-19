@@ -14,6 +14,8 @@
 # Summary
 
 [AMENDED 2026-11-18]: Checked PICC employee/trade data against the supplied 21-person roster image. Completed names and aligned roles/spellings, including Charles Worrell, Orlando Rivera, Andrew Patchak, Gregory Plotts, and Anthony Lange; kept Charles and Orlando's steward designations. Added a member-facing Project Updates entry.
+[AMENDED 2026-11-18; superseded 2026-11-19]: An earlier correction abbreviated Patrick Martin as Pat Martin. The user clarified the full name is Patrick Martin and confirmed his PICC assignment; the duplicate CFCF entry has been removed.
+[AMENDED 2026-11-19]: Confirmed Patrick Martin is assigned to PICC, not CFCF. Updated the roster and added a dated member-facing correction.
 
 [AMENDED 2026-11-18]: **Agreement-first contract reader.** Reworked `contract.html` to reduce the oversized opening area and guide members through the 2026–27 tentative memorandum first, with direct links to each source scan page. Kept ratification/signature status clearly unconfirmed from the supplied copy, then placed the searchable 2022–26 CBA article reader below.
 

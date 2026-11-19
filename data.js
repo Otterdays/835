@@ -706,7 +706,6 @@ const employeesData = [
     { name: "Timothy Neri", location: "PICC", role: "Electrician" },
     { name: "Robert Martin", location: "PICC", role: "Electrician" },
     { name: "Xavier Wilson", location: "PICC", role: "Trades Helper" },
-    { name: "Pat Martin", location: "CFCF", role: "Painter" },
     { name: "Patrick Dugan", location: "RCF", role: "Plumber" },
     { name: "Paulson", location: "CFCF", role: "Electrician" },
     { name: "Ren", location: "RCF", role: "Engineer" },

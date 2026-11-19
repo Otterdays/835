@@ -3,9 +3,13 @@
 ## [Unreleased] - 2026-11-18
 - **Accounts mobile UX:** Grouped profile fields, enlarged touch controls and text, added safe-area-aware save actions, simplified directory cards, and collapsed password change until requested.
 - **PICC roster:** Checked the supplied 21-person list against `employeesData`; completed names, aligned trade titles and spellings, and removed two incomplete/conflicting PICC entries. Preserved steward designations.
+- **PICC roster correction (superseded 2026-11-19):** An earlier correction abbreviated Patrick Martin as Pat Martin. The user clarified the full name is Patrick Martin; PICC remains his location, and the CFCF duplicate was removed.
 - **Accounts:** Added sign-in, optional-code registration, password change, member directory, profile editor/viewer, comments wall, and officer-managed roles/badges.
 - **Forum:** Replaced temporary browser names with signed-in author identity for new threads/replies; retained older guest posts and added profile/badge links.
 - **Navigation:** Added account/profile pages to Home, shared navigation, sitewide search, and the side-panel account block.
+
+## [Unreleased] - 2026-11-19
+- **PICC roster correction:** Confirmed Patrick Martin is assigned to PICC, not CFCF; updated the roster and member-facing update.
 
 ## [Unreleased] - 2026-11-17
 - **Contract reader:** Put a guided, source-linked 2026–27 tentative agreement overview first, with the searchable 2022–26 CBA reader below and a tighter mobile layout.
