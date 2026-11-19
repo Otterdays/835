@@ -119,3 +119,4 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 
 
 [AMENDED 2026-11-18]: Refined account screens for phone use with grouped profile-edit sections, larger type and touch controls, safe-area-aware save action, a collapsed password-change disclosure, and simpler one-column directory/profile cards on narrow screens.
+[AMENDED 2026-11-19]: Sign-in page refined for clarity and older-member readability; password reset remains an officer task via `npm run manage:user`.

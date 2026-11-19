@@ -381,3 +381,10 @@ Digitize the supplied printed CBA page 27, continuing Exhibit C.
 
 ## Actions Log:
 - [2026-11-18 9:59 a.m. EST] Added the full-resolution page image and gallery/search record `cba-p27`. Continued Exhibit C's investigation questions in Article XXIII; preserved the printed numbering, including the visible “(13)” followed by “(2)”, and marked the page's ending after question 11. Updated archive range, bargaining snapshot, member updates, and durable project notes.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Refine the sign-in / create-account page (`signin.html`).
+
+## Actions Log:
+- [2026-11-19, time not recorded] Replaced the banner hero with a plain heading, removed the stray "change password" link, shows the Change password form only to signed-in members who open it from the menu, added an honest "forgot your password" note (officer reset; no email reset yet), helper text for username/display name/password/sign-up code, padded footer note, larger card titles and Show/Hide toggle, loading and error states, and a "continue to the forum/profile" notice from `?next=`. New accounts land on the profile editor. Checked at desktop and 375px widths in a static preview (no API there); `npm run test:smoke` passed. Detector findings left standing are in shared `style.css` selectors this page does not use.
