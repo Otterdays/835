@@ -10,6 +10,7 @@
 
 ## [Unreleased] - 2026-11-19
 - **Roster tooltip:** Added the user-requested “BEST IN CLASS ASSHOLES” native tooltip to the Management group heading.
+- **Roster tooltip behavior:** Superseded the native heading-only tooltip with an immediate hover/focus tooltip on the Management heading and each management card.
 - **PICC roster correction:** Confirmed Patrick Martin is assigned to PICC, not CFCF; updated the roster and member-facing update.
 
 ## [Unreleased] - 2026-11-17

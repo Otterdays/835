@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return haystack.includes(searchQuery);
     };
 
+    const managementTooltip = 'BEST IN CLASS ASSHOLES';
+
     const renderFilters = () => {
         if (!filterRoot) {
             return;
@@ -123,7 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
             heading.className = 'location-heading';
             heading.textContent = `${loc} Crew`;
             if (loc === 'Management') {
-                heading.title = 'BEST IN CLASS ASSHOLES';
+                heading.dataset.tooltip = managementTooltip;
+                heading.setAttribute('aria-label', `${loc} Crew. ${managementTooltip}`);
+                heading.tabIndex = 0;
             }
             section.appendChild(heading);
 
@@ -133,6 +137,11 @@ document.addEventListener('DOMContentLoaded', () => {
             group.forEach((employee, index) => {
                 const card = document.createElement('div');
                 card.className = 'employee-card';
+                if (loc === 'Management') {
+                    card.dataset.tooltip = managementTooltip;
+                    card.setAttribute('aria-label', `${employee.name}, ${employee.role}. ${managementTooltip}`);
+                    card.tabIndex = 0;
+                }
                 card.style.animationDelay = `${index * 0.05}s`;
 
                 const name = document.createElement('div');

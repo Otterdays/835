@@ -1939,6 +1939,40 @@ a.portal-card:hover {
     gap: 0.25rem;
 }
 
+.location-heading[data-tooltip],
+.employee-card[data-tooltip] {
+    position: relative;
+}
+
+.location-heading[data-tooltip]::after,
+.employee-card[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    z-index: 20;
+    left: 50%;
+    bottom: calc(100% + 0.5rem);
+    transform: translateX(-50%);
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.5rem;
+    background: #172b42;
+    color: #fff;
+    font: 700 0.82rem/1.2 "Public Sans", Arial, sans-serif;
+    white-space: nowrap;
+    box-shadow: 0 5px 16px rgba(13, 30, 48, 0.24);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0s;
+}
+
+.location-heading[data-tooltip]:hover::after,
+.location-heading[data-tooltip]:focus-visible::after,
+.employee-card[data-tooltip]:hover::after,
+.employee-card[data-tooltip]:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+}
+
 .employee-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);

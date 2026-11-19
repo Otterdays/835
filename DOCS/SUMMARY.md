@@ -14,6 +14,7 @@
 # Summary
 
 [AMENDED 2026-11-19]: Added a native tooltip reading “BEST IN CLASS ASSHOLES” to the Management group heading in the member roster, per user request.
+[AMENDED 2026-11-19]: Replaced the delayed native tooltip with an immediate custom tooltip on the Management heading and each management card; added keyboard focus access.
 
 [AMENDED 2026-11-18]: Checked PICC employee/trade data against the supplied 21-person roster image. Completed names and aligned roles/spellings, including Charles Worrell, Orlando Rivera, Andrew Patchak, Gregory Plotts, and Anthony Lange; kept Charles and Orlando's steward designations. Added a member-facing Project Updates entry.
 [AMENDED 2026-11-18; superseded 2026-11-19]: An earlier correction abbreviated Patrick Martin as Pat Martin. The user clarified the full name is Patrick Martin and confirmed his PICC assignment; the duplicate CFCF entry has been removed.
