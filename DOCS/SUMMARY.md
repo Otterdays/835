@@ -13,6 +13,8 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
+[AMENDED 2026-11-19]: Pinned project Node.js engine to `26.x` in the package manifest and lockfile to keep Vercel deployments on Node 26.
+
 [AMENDED 2026-11-19]: Added a native tooltip reading “BEST IN CLASS ASSHOLES” to the Management group heading in the member roster, per user request.
 [AMENDED 2026-11-19]: Replaced the delayed native tooltip with an immediate custom tooltip on the Management heading and each management card; added keyboard focus access.
 

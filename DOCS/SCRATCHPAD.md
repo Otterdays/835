@@ -1,4 +1,5 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+[AMENDED 2026-11-19]: Pinned `engines.node` to `26.x` in `package.json` and `package-lock.json` so Vercel cannot auto-upgrade the project to a different major Node.js version.
 [AMENDED 2026-11-19]: Added the user-requested “BEST IN CLASS ASSHOLES” native tooltip to the Management roster heading in `js/employees-app.js`.
 [AMENDED 2026-11-19]: Expanded the roster tooltip to appear immediately over each Management card and the Management heading, with keyboard focus support; replaced the delayed native tooltip.
 [AMENDED 2026-11-18]: Compared supplied PICC roster image against `employeesData`; reconciled all 21 listed employee/trade records, completed names and job titles, corrected visible spellings, retained Charles Worrell and Orlando Rivera's steward designations, and added a Project Updates entry. User requested committing all workspace changes and pushing to origin; inspect complete status/diff, preserve existing in-progress account work, and exclude secrets/local-only files as instructed in `AGENTS.md`.
