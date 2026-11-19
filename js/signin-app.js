@@ -1,6 +1,7 @@
 // [TRACE: ACCOUNTS.md]
 document.addEventListener('DOMContentLoaded', async () => {
  const $=s=>document.querySelector(s), status=(n,t,bad=false)=>{n.textContent=t;n.hidden=!t;n.classList.toggle('is-error',bad);};
+ if(location.hash==='#password') $('#password').open=true;
  const next=new URLSearchParams(location.search).get('next'); const safeNext=next && /^[a-z0-9-]+\.html$/i.test(next) && !['signin.html','index.html'].includes(next) ? next : 'home.html';
  await Auth.whenReady(); if(Auth.isSignedIn() && location.hash !== '#password'){ location.replace(safeNext); return; }
  const info=await Auth.registrationInfo(); const signup=$('#signup-form');

@@ -33,3 +33,6 @@
 [AMENDED 2026-11-17 9:12 p.m. EST]: Search results should state match counts/limits, show ranked order, highlight every normalized match without interpolating unescaped query markup, and keep keyboard selection visible and announced. Contract search must normalize case, accents, and punctuation consistently with its highlights. Keep the contract Document Tools disclosure operable by keyboard; on narrow screens it starts collapsed and is not sticky over contract text.
 
 [AMENDED 2026-11-18]: Contract landing pages should lead with the agreement members need to understand first, using a guided, source-linked reading flow before the searchable archive. Keep tentative status visible and literal; do not imply ratification from an unsigned source. On phones, reduce intro height, provide horizontally scrollable section links with generous touch targets, and keep long-form text readable without sticky controls obscuring it.
+
+
+[AMENDED 2026-11-18]: Account and profile screens use a mobile-first reading size, 48px minimum tap targets, clear field groups, a sticky profile-save action that respects safe-area insets, and single-column filters/cards on narrow screens. Preserve simple labels and visible keyboard focus; keep secondary account tasks such as password change collapsed until requested.

@@ -105,3 +105,6 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 
 
 [AMENDED 2026-11-18]: **Member accounts and profiles.** Continued the account system with sign-in and registration, password change, member directory, editable Myspace-inspired profile pages, fixed-choice themes/avatars, Top 8 and comments wall. Forum posting now uses signed-in identity and shows profile links/badges while preserving legacy guest posts. See `DOCS/ACCOUNTS.md`.
+
+
+[AMENDED 2026-11-18]: Refined account screens for phone use with grouped profile-edit sections, larger type and touch controls, safe-area-aware save action, a collapsed password-change disclosure, and simpler one-column directory/profile cards on narrow screens.

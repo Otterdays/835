@@ -1,6 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
 ## [Unreleased] - 2026-11-18
+- **Accounts mobile UX:** Grouped profile fields, enlarged touch controls and text, added safe-area-aware save actions, simplified directory cards, and collapsed password change until requested.
 - **PICC roster:** Checked the supplied 21-person list against `employeesData`; completed names, aligned trade titles and spellings, and removed two incomplete/conflicting PICC entries. Preserved steward designations.
 - **Accounts:** Added sign-in, optional-code registration, password change, member directory, profile editor/viewer, comments wall, and officer-managed roles/badges.
 - **Forum:** Replaced temporary browser names with signed-in author identity for new threads/replies; retained older guest posts and added profile/badge links.

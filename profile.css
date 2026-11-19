@@ -57,3 +57,5 @@
 .pf-password-box[open]>summary::after{content:'−'}
 .pf-password-box>summary span{font-size:.85rem;font-weight:500;color:var(--pf-muted)}
 .pf-password-box .pf-form{padding-top:.8rem}
+.account-page [hidden]{display:none!important}
+.pf-name-link{display:inline-flex;align-items:center;min-height:44px}

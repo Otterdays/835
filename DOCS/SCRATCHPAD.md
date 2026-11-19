@@ -233,6 +233,7 @@ Continue Local 835 account system: registration/sign-in, profile pages, member d
 - [2026-11-18] Added `signin.html`, profile view/editor, member directory, profile UI helpers, and fixed-choice Myspace-inspired profile styling.
 - [2026-11-18] Reworked forum browser UI to remove local guest-name posting; new posts use the signed-in server session, with profile links and badges. Legacy guest posts remain readable.
 - [2026-11-18] Added account side-panel links, navigation/search/Home links, sign-up environment variables, account documentation, and updated project maps.
+- [2026-11-18] Refined mobile account usability: grouped profile fields, larger controls, safe-area-aware save button, one-column mobile results, and collapsed password-change panel.
 - [2026-11-18] Updated smoke-check expectations and API/file maps. Tests were not run in this continuation.
 
 ## Next Steps:
