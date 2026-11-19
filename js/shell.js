@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (account) {
             const p = document.createElement('p'); p.textContent = `Signed in as ${account.displayName || account.username}`; accountWrap.appendChild(p);
             const links = document.createElement('div'); links.className = 'nav-account-links';
-            [['My profile', `profile.html?u=${encodeURIComponent(account.username)}`], ['Edit profile', 'profile-edit.html'], ['Change password', 'signin.html#password']].forEach(([label, href]) => { const a=document.createElement('a');a.href=href;a.textContent=label;links.appendChild(a); }); accountWrap.appendChild(links);
+            [...(account.role === 'admin' ? [['Admin panel', 'admin.html']] : []), ['My profile', `profile.html?u=${encodeURIComponent(account.username)}`], ['Edit profile', 'profile-edit.html'], ['Change password', 'signin.html#password']].forEach(([label, href]) => { const a=document.createElement('a');a.href=href;a.textContent=label;links.appendChild(a); }); accountWrap.appendChild(links);
         } else { const a=document.createElement('a');a.href=`signin.html?next=${encodeURIComponent(location.pathname.split('/').pop() || 'home.html')}`;a.textContent='Sign in / create account';accountWrap.appendChild(a); }
         sidePanel.appendChild(accountWrap);
         const wrap = document.createElement('div');

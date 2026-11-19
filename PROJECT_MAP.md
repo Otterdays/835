@@ -54,6 +54,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where session cookies and JWT behavior live | `api/_lib/session.js` |
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
+| where the admin panel lives and how it is locked | `admin.html`, `js/admin-app.js`, `api/admin/index.js`, `middleware.js` (see `DOCS/ACCOUNTS.md`) |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
 | where smoke and deploy checks are defined | `tests/smoke.js`, `scripts/check-deploy.js` |
@@ -74,7 +75,8 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `package.json` | Dependencies and `npm` scripts |
 | `package-lock.json` | Locked npm dependency tree |
 | `vercel.json` | Vercel API rewrite configuration |
-| `middleware.js` | Current Vercel middleware; blocks requests for the source folder |
+| `middleware.js` | Vercel middleware; blocks the source folder and serves `/admin*` and `/api/admin` only to a verified admin session |
+| `admin.html` | Admin panel page (admins only; gated by `middleware.js`) |
 | `launch.bat` | Windows static server launcher |
 | `live-setup.md` | MongoDB, Vercel, environment, and deploy setup steps |
 | `local.auth.example.json` | Example local user configuration; values are placeholders |

@@ -157,3 +157,34 @@
  .pf-chip{flex-wrap:wrap}
  .pf-chip-who{flex-basis:calc(100% - 3rem)}
 }
+
+/* ---------- Admin panel ---------- */
+.adm-container{width:min(60rem,100%)}
+.adm-search{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end;margin:0 0 .5rem}
+.adm-search .pf-field{flex:1 1 16rem}
+.adm-list{display:grid;gap:.9rem;margin:.75rem 0 1.25rem}
+.adm-card{padding:1rem;background:#fff;border:1px solid var(--pf-line);border-radius:14px;box-shadow:0 5px 18px #17243a0a}
+.adm-card.is-disabled{background:#f4f5f7;border-style:dashed}
+.adm-card-head{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem}
+.adm-who{display:grid;min-width:0;flex:1 1 10rem}
+.adm-handle{color:var(--pf-muted);font-size:.92rem;overflow-wrap:anywhere}
+.adm-chips{display:flex;gap:.4rem;flex-wrap:wrap}
+.adm-chip{padding:.2rem .6rem;border-radius:999px;background:#e7eef9;color:#274a76;font-size:.82rem;font-weight:700;text-transform:capitalize}
+.adm-chip--admin{background:#173865;color:#fff}
+.adm-chip--steward{background:#fdf1d0;color:#6b4a00}
+.adm-chip--off{background:#fbe3e1;color:#8a2923}
+.adm-meta{margin:.5rem 0 0;color:var(--pf-muted);font-size:.92rem}
+.adm-manage{margin-top:.8rem;border-top:1px solid var(--pf-line);padding-top:.4rem}
+.adm-manage>summary{display:flex;align-items:center;min-height:48px;cursor:pointer;font-weight:700;color:#173865}
+.adm-manage-body{display:grid;gap:1rem;padding:.4rem 0 .2rem}
+.adm-row{display:flex;flex-wrap:wrap;gap:.6rem;align-items:end}
+.adm-row .pf-field{flex:1 1 14rem}
+.adm-titles{display:grid;gap:.1rem;margin:0;padding:0;border:0}
+.adm-titles legend{padding:0;margin-bottom:.3rem;font-weight:700}
+.adm-check{display:flex;align-items:center;gap:.6rem;min-height:44px;font-weight:400}
+.adm-check input{width:1.4rem;height:1.4rem;accent-color:#173865}
+.pf-btn--danger{color:#8a2923;border-color:#c98c88}
+.adm-audit .pf-box-title{cursor:pointer;min-height:52px;display:flex;align-items:center}
+.adm-log{margin:0;padding-left:1.2rem;display:grid;gap:.5rem;white-space:normal}
+.adm-search input,.adm-manage-body input:not([type=checkbox]),.adm-manage-body select{font:inherit;min-height:50px;width:100%;padding:.6rem .75rem;border:1px solid #8c9db3;border-radius:10px;background:#fff;color:var(--pf-ink)}
+@media(max-width:720px){.adm-row .pf-btn{width:100%}}

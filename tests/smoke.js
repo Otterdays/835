@@ -184,6 +184,35 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
     }).catch((err) => { console.error(err); ok(false, 'forum/comment author summaries pick up the admin role from users'); });
 }
 
+// Admin panel: hidden from everyone but admins, at the edge and in the API.
+{
+    const mw = fs.readFileSync(path.join(root, 'middleware.js'), 'utf8');
+    ok(mw.includes('ADMIN_PATTERN') && mw.includes("payload.role === 'admin'") && mw.includes('algorithms'), 'middleware gates admin paths on a verified admin token');
+    ok(mw.includes('decodeURIComponent') && mw.includes('toLowerCase'), 'middleware normalizes encoded and mixed-case admin paths');
+    ok(mw.includes("await import('jose')"), 'middleware loads the token library only for admin paths');
+    const adminApi = fs.readFileSync(path.join(root, 'api/admin/index.js'), 'utf8');
+    ok(adminApi.indexOf('requireAdmin(req)') < adminApi.indexOf("req.method === 'GET'"), 'admin API checks the admin role before looking at the method');
+    ok(adminApi.includes('last active admin') && adminApi.includes('cannot change your own role'), 'admin API protects the last admin and the caller');
+    ok(adminApi.includes('admin_audit') && !/audit\([^)]*newPassword/.test(adminApi), 'admin changes are logged without passwords');
+    const vercel = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+    ok(JSON.stringify(vercel.headers || []).includes('no-store') && JSON.stringify(vercel.headers).includes('noindex'), 'admin page is served uncached and noindex');
+    const adminHtml = fs.readFileSync(path.join(root, 'admin.html'), 'utf8');
+    ok(adminHtml.includes('noindex'), 'admin.html asks search engines not to index it');
+    ok(!nav.includes('admin.html'), 'admin page is not in the shared public navigation');
+    ok(!siteSearchSource().includes('admin.html'), 'admin page is not in sitewide search');
+    ok(fs.readFileSync(path.join(root, 'js/shell.js'), 'utf8').includes("account.role === 'admin'"), 'menu shows the Admin panel link only to admins');
+    const endpoints = [];
+    (function walk(dir) {
+        fs.readdirSync(dir, { withFileTypes: true }).forEach((e) => {
+            const full = path.join(dir, e.name);
+            if (e.isDirectory() && e.name !== '_lib') walk(full);
+            else if (e.isFile() && e.name.endsWith('.js')) endpoints.push(full);
+        });
+    })(path.join(root, 'api'));
+    ok(endpoints.length <= 12, `API has ${endpoints.length} deployable functions (Hobby cap is 12)`);
+}
+function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8'); }
+
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
 ['home.html', 'member-action.html', 'evidence-log.html', 'bargaining.html', 'suggestions.html'].forEach((page) => {

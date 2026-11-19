@@ -41,6 +41,7 @@ async function ensureIndexes(db) {
     await db.collection('profiles').createIndex({ visibility: 1, lastSeenAt: -1 });
     await db.collection('profiles').createIndex({ visibility: 1, createdAt: -1 });
     await db.collection('profile_comments').createIndex({ profileUsername: 1, createdAt: -1 });
+    await db.collection('admin_audit').createIndex({ at: -1 });
 
     // Community forum
     await db.collection('forum_threads').createIndex({ lastActivityAt: -1 });

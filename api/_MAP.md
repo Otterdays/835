@@ -12,6 +12,7 @@
 | `auth/password.js` | Changes the signed-in member password | `handler()` |
 | `profile/index.js` | Serves fixed profile options, profile reads/edits, and member directory | `handler()` |
 | `profile/comments.js` | Lists, creates, and deletes profile comments | `handler()` |
+| `admin/index.js` | Admin-only account management (roles, titles, disable, password reset, audit log); 404 for everyone else | `handler()`, `requireAdmin()` |
 | `forum/threads.js` | Lists/searches threads and creates account-authored threads | `handler()` |
 | `forum/thread.js` | Loads a thread and replies, or adds a signed-in reply | `handler()` |
 | `_lib/accounts.js` | Resolves sessions and shapes safe account/profile responses | `requireUser()`, `accountOut()` |
@@ -36,4 +37,4 @@
 
 ## Vercel Hobby function cap
 - Hobby deployments are limited to 12 Serverless Functions. Keep shared `.js` helpers under `_lib/`; do not add helper files under `api/` or ordinary subfolders where Vercel can count them as functions.
-- Current endpoint count is 9 across `auth/`, `forum/`, and `profile/`; recount before adding a route.
+- Current endpoint count is 10 across `auth/`, `forum/`, `profile/`, and `admin/`; recount before adding a route.
