@@ -104,6 +104,116 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    /* ---------- A-Z jump rail (phones) ---------- */
+    // A slim strip on the right edge. Touch or drag along it to jump to the first name starting with
+    // that letter. Sections are per site, so a letter can repeat; the jump stays in the section you are
+    // reading when it can, otherwise goes to the next match further down, otherwise to the first match.
+    const letterOf = (employee) => {
+        const first = normalize(employee.name).charAt(0).toUpperCase();
+        return /[A-Z]/.test(first) ? first : '#';
+    };
+    const rail = document.createElement('nav');
+    rail.className = 'roster-index';
+    rail.setAttribute('aria-label', 'Jump to a letter');
+    rail.hidden = true;
+    const bubble = document.createElement('div');
+    bubble.className = 'roster-index-bubble';
+    bubble.setAttribute('aria-hidden', 'true');
+    document.body.append(rail, bubble);
+
+    const jumpTo = (letter) => {
+        const cards = [...employeesContainer.querySelectorAll('.employee-card')];
+        const matches = cards.filter((card) => card.dataset.letter === letter);
+        if (!matches.length) {
+            return;
+        }
+        const reading = [...employeesContainer.querySelectorAll('.location-group')]
+            .filter((group) => group.getBoundingClientRect().top <= window.innerHeight * 0.35)
+            .pop();
+        const target =
+            matches.find((card) => reading && reading.contains(card)) ||
+            matches.find((card) => card.getBoundingClientRect().top > 8) ||
+            matches[0];
+        target.scrollIntoView({ block: 'start', behavior: 'instant' }); // the page is smooth-scroll by default; scrubbing needs it immediate
+    };
+
+    let bubbleTimer = 0;
+    const showBubble = (letter, button) => {
+        bubble.textContent = letter;
+        const box = button.getBoundingClientRect();
+        bubble.style.top = `${box.top + box.height / 2}px`;
+        bubble.classList.add('is-on');
+        window.clearTimeout(bubbleTimer);
+        bubbleTimer = window.setTimeout(() => bubble.classList.remove('is-on'), 700);
+    };
+
+    let lastLetter = '';
+    const scrub = (event) => {
+        const buttons = [...rail.querySelectorAll('button')];
+        if (!buttons.length) {
+            return;
+        }
+        const box = rail.getBoundingClientRect();
+        const ratio = Math.min(0.999, Math.max(0, (event.clientY - box.top) / box.height));
+        const button = buttons[Math.floor(ratio * buttons.length)];
+        if (button.dataset.letter === lastLetter) {
+            return;
+        }
+        lastLetter = button.dataset.letter;
+        showBubble(lastLetter, button);
+        jumpTo(lastLetter);
+    };
+    rail.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) {
+            return;
+        }
+        lastLetter = '';
+        rail.setPointerCapture(event.pointerId);
+        rail.classList.add('is-dragging');
+        scrub(event);
+    });
+    rail.addEventListener('pointermove', (event) => {
+        if (rail.classList.contains('is-dragging')) {
+            scrub(event);
+        }
+    });
+    const endScrub = () => {
+        rail.classList.remove('is-dragging');
+        lastLetter = '';
+    };
+    rail.addEventListener('pointerup', endScrub);
+    rail.addEventListener('pointercancel', endScrub);
+    // Keyboard and screen readers: the letters are real buttons.
+    rail.addEventListener('keydown', (event) => {
+        const button = event.target.closest('button');
+        if (button && (event.key === 'Enter' || event.key === ' ')) {
+            event.preventDefault();
+            showBubble(button.dataset.letter, button);
+            jumpTo(button.dataset.letter);
+        }
+    });
+
+    // Only show the rail while the list is on screen, so it never sits over the page header.
+    if ('IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => rail.classList.toggle('is-away', !entry.isIntersecting)).observe(employeesContainer);
+        rail.classList.add('is-away');
+    }
+
+    const renderIndex = () => {
+        const letters = [...new Set([...employeesContainer.querySelectorAll('.employee-card')].map((c) => c.dataset.letter))].sort();
+        rail.replaceChildren(
+            ...letters.map((letter) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.dataset.letter = letter;
+                button.textContent = letter;
+                button.setAttribute('aria-label', `Jump to names starting with ${letter}`);
+                return button;
+            })
+        );
+        rail.hidden = letters.length < 2;
+    };
+
     const renderRoster = () => {
         employeesContainer.innerHTML = '';
         const filtered = employeesData.filter(matchesFilter);
@@ -122,6 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             empty.className = 'roster-empty';
             empty.textContent = 'No matches. Try another name, role, or facility.';
             employeesContainer.appendChild(empty);
+            renderIndex();
             return;
         }
 
@@ -159,6 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.tabIndex = 0;
                 }
                 card.style.animationDelay = `${index * 0.05}s`;
+                card.dataset.letter = letterOf(employee);
 
                 const name = document.createElement('div');
                 name.className = 'employee-name';
@@ -183,6 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
             section.appendChild(grid);
             employeesContainer.appendChild(section);
         });
+        renderIndex();
     };
 
     renderFilters();

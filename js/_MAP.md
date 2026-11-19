@@ -21,7 +21,7 @@
 | `scans-app.js` | Connects `cbaScannedPages` to the scan archive panel | — |
 | `tool-app.js` | Connects `toolProgramScans` to the tool-policy archive panel | — |
 | `stewards-app.js` | Renders and filters steward contacts by facility | — |
-| `employees-app.js` | Renders, searches, and filters the employee roster | — |
+| `employees-app.js` | Renders, searches, filters and sorts (A-Z by first name) the employee roster; phone A-Z jump rail | — |
 | `member-action-app.js` | Copies grievance-preparation worksheets and related text | — |
 | `evidence-log-app.js` | Keeps evidence entries in memory and exports Markdown | — |
 | `bargaining-app.js` | Copies factual bargaining meeting language | — |

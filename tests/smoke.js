@@ -370,6 +370,11 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     ok(/name: "Mike Brown", location: "CFCF", role: "Plumber"/.test(dataJs) && /name: "Lauren Battilana", location: "CFCF", role: "Data Clerk"/.test(dataJs), 'roster has Mike Brown and Lauren Battilana at CFCF');
     ok(['Eric Levin', 'Kent Koung', 'Kyle Lloyd'].every((n) => new RegExp(`name: "${n}", location: "PICC", alsoAt: \\["RCF", "CFCF"\\], role: "Electronic Security"`).test(dataJs)), 'electronic security staff are listed at all three sites');
     ok(app.includes('alsoAt') && searchJs.includes('alsoAt'), 'roster page and search handle people at several sites');
+    {
+        const css = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
+        ok(app.includes('roster-index') && app.includes('setPointerCapture') && app.includes("behavior: 'instant'") && /\.roster-index\s*\{[^}]*position:\s*fixed/.test(css), 'roster has a phone A-Z jump rail with drag support');
+        ok(/@media \(max-width: 767px\)\s*\{\s*\.roster-index\s*\{/.test(css) && /\.roster-index,\s*\.roster-index-bubble\s*\{\s*display:\s*none/.test(css), 'jump rail is phone-only');
+    }
     ok(app.includes('.sort(compareStaff)') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');
     {
         const names = [...dataJs.matchAll(/\{ name: "([^"]+)", location: "(?!Management)/g)].map((m) => m[1].toLowerCase());

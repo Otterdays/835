@@ -4315,3 +4315,96 @@ video {
 @media (max-width: 680px) {
     .updates-entry { grid-template-columns: 1fr; gap: 0.45rem; padding: 1.1rem; }
 }
+
+/* Roster A-Z jump rail: phones only (js/employees-app.js builds it) */
+.roster-index,
+.roster-index-bubble {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .roster-index {
+        position: fixed;
+        top: 50%;
+        right: max(0.3rem, env(safe-area-inset-right));
+        z-index: 80;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        width: 2rem;
+        height: min(78vh, 30rem);
+        padding: 0.35rem 0;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid var(--border-strong);
+        border-radius: 999px;
+        box-shadow: var(--shadow-sm);
+        touch-action: none;
+        transition: opacity 0.15s ease;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .roster-index[hidden] {
+        display: none;
+    }
+
+    .roster-index.is-away {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .roster-index button {
+        flex: 1 1 0;
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--accent-strong);
+        font: 800 0.78rem/1 "Public Sans", system-ui, sans-serif;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .roster-index.is-dragging {
+        background: var(--surface-strong);
+        border-color: var(--accent-color);
+    }
+
+    .roster-index button:focus-visible {
+        outline: 2px solid var(--accent-color);
+        outline-offset: -2px;
+        border-radius: 999px;
+    }
+
+    .roster-index-bubble {
+        position: fixed;
+        right: 3.2rem;
+        z-index: 81;
+        display: block;
+        width: 3.4rem;
+        height: 3.4rem;
+        margin-top: -1.7rem;
+        border-radius: 50%;
+        background: var(--accent-strong);
+        color: #fff;
+        font: 800 1.7rem/3.4rem "Public Sans", system-ui, sans-serif;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.12s ease;
+    }
+
+    .roster-index-bubble.is-on {
+        opacity: 1;
+    }
+
+    /* keep the last words of each card clear of the rail, and leave headroom when jumping */
+    #employees-container {
+        padding-right: 2.2rem;
+    }
+
+    #employees-container .employee-card {
+        scroll-margin-top: 4.5rem;
+    }
+}
