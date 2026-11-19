@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const rankOf = (employee) => Number.parseInt(employee.role, 10);
     const compareStaff = (a, b) => {
         if (Number.isFinite(rankOf(a)) && Number.isFinite(rankOf(b))) {
-            return rankOf(a) - rankOf(b);
+            return rankOf(a) - rankOf(b) || a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
         }
         return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
     };
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .find((part) => part && !/shop steward/i.test(part)) || NO_TRADE;
     const compareRole = (a, b) => {
         if (Number.isFinite(rankOf(a)) && Number.isFinite(rankOf(b))) {
-            return rankOf(a) - rankOf(b);
+            return rankOf(a) - rankOf(b) || a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
         }
         const ra = primaryRole(a);
         const rb = primaryRole(b);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     let sortMode = 'name';
 
-    const preferredLocations = ['RCF', 'CFCF', 'PICC'];
+    const preferredLocations = ['RCF', 'CFCF', 'PICC', 'Management', 'Supervisors', 'Warehouse', 'Security', 'Kitchen'];
     const locations = [...new Set(employeesData.flatMap(sitesOf))]
         .sort((a, b) => {
             const ai = preferredLocations.indexOf(a);
@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return grid;
             };
 
-            if (sortMode === 'role' && loc !== 'Management') {
+            if (sortMode === 'role' && loc !== 'Management' && loc !== 'Supervisors') {
                 const byRole = new Map();
                 group.forEach((employee) => {
                     const key = primaryRole(employee);

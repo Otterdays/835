@@ -133,3 +133,4 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Forum board has scroll arrows that appear only when the board scrolls sideways.
 [AMENDED 2026-11-19]: A floating forum speech bubble links to the forum from most pages.
 [AMENDED 2026-11-19]: Whole portal has Auto/Light/Dark appearance from the menu, remembered per device; member profile themes keep their own colors.
+[AMENDED 2026-11-19]: Site Roster: added Luong Trinh, Mathew-George, William Bates, Baris Kaya, Justin Lowe, Ho Song; Adrian Molina now Welder, Michael Jones now CFCF Painter, Sabu now Sabu Gokul (Building Engineer, RCF). New "Supervisors" group (John Carroll III 3, Roman Solecki 4, shift supervisors 5) and "Security" group: electronic security techs are one entry under Security, no longer repeated under every building. JOB_TITLES: Welder replaces Maintenance Mechanic.

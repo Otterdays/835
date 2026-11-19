@@ -171,7 +171,7 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
     };
     const rosterTitles = [...new Set(
         sandbox.roster
-            .filter((e) => e.location !== 'Management')
+            .filter((e) => e.location !== 'Management' && e.location !== 'Supervisors')
             .map((e) => e.role.split(' · ')[0].trim())
             .filter((title) => !/Shop Steward$/.test(title))
             .flatMap((title) => separateRoles[title] || [title])
@@ -385,7 +385,7 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     const searchJs = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
     ok(/name: "Mike Henry", location: "RCF", alsoAt: \["CFCF"\], role: "Plumber"/.test(dataJs), 'Mike Henry is listed once at RCF and CFCF');
     ok(/name: "Mike Brown", location: "CFCF", role: "Plumber"/.test(dataJs) && /name: "Lauren Battilana", location: "CFCF", role: "Data Clerk"/.test(dataJs), 'roster has Mike Brown and Lauren Battilana at CFCF');
-    ok(['Eric Levin', 'Kent Koung', 'Kyle Lloyd'].every((n) => new RegExp(`name: "${n}", location: "PICC", alsoAt: \\["RCF", "CFCF"\\], role: "Electronic Security"`).test(dataJs)), 'electronic security staff are listed at all three sites');
+    ok(['Eric Levin', 'Kent Koung', 'Kyle Lloyd'].every((n) => new RegExp(`name: "${n}", location: "Security", role: "Electronic Security"`).test(dataJs)), 'electronic security staff have their own Security category, not every building');
     ok(app.includes('alsoAt') && searchJs.includes('alsoAt'), 'roster page and search handle people at several sites');
     {
         const css = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
@@ -398,7 +398,7 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     ok(app.includes('compareRole') && app.includes('role-group-heading') && fs.readFileSync(path.join(root, 'employees.html'), 'utf8').includes('id="roster-sort"'), 'roster can be grouped by role inside each site');
     ok(app.includes('compareStaff') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');
     {
-        const names = [...dataJs.matchAll(/\{ name: "([^"]+)", location: "(?!Management)/g)].map((m) => m[1].toLowerCase());
+        const names = [...dataJs.matchAll(/\{ name: "([^"]+)", location: "(?!Management|Supervisors)/g)].map((m) => m[1].toLowerCase());
         ok(names.every((n, k) => k === 0 || names[k - 1] <= n), 'employeesData stays alphabetical by first name (Management last, in rank order)');
     }
     ok(app.includes("activeFacility === 'all' ? locations : [activeFacility]"), 'a facility filter shows only that facility\'s crew section');

@@ -24,12 +24,12 @@ const JOB_TITLES = [
     'Kitchen Supervisor',
     'Laborer',
     'Locksmith',
-    'Maintenance Mechanic',
     'Painter',
     'Plumber',
     'Stationary Engineer',
     'Trades Helper',
-    'Warehouse Crew'
+    'Warehouse Crew',
+    'Welder'
 ];
 
 // Verified titles. Only an admin can award these (scripts/manage-user.js);
