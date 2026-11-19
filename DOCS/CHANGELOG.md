@@ -161,3 +161,4 @@
 [AMENDED 2026-11-19]: Split the combined job titles (kitchen supervisor and mechanic; stationary and building engineer) into separate choices.
 [AMENDED 2026-11-19]: Profile links (up to 5, validated http/https, safe new-tab opening, shown with the real site name) and four dark plus five light profile themes with a swatch picker; admins can remove a member's links.
 [AMENDED 2026-11-19]: Site Roster: added Mike Brown (Plumber, CFCF) and Lauren Battilana (Data Clerk, CFCF); Mike Henry now shows at both RCF and CFCF through a new optional `alsoAt` field (one person, counted once, shown under each site with an "Also works at" note; search shows both sites).
+[AMENDED 2026-11-19]: Site Roster: Electronic Security staff Eric Levin, Kent Koung and Kyle Lloyd (no single site) are listed under RCF, CFCF and PICC.

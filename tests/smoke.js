@@ -368,5 +368,6 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     const searchJs = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
     ok(/name: "Mike Henry", location: "RCF", alsoAt: \["CFCF"\], role: "Plumber"/.test(dataJs), 'Mike Henry is listed once at RCF and CFCF');
     ok(/name: "Mike Brown", location: "CFCF", role: "Plumber"/.test(dataJs) && /name: "Lauren Battilana", location: "CFCF", role: "Data Clerk"/.test(dataJs), 'roster has Mike Brown and Lauren Battilana at CFCF');
+    ok(['Eric Levin', 'Kent Koung', 'Kyle Lloyd'].every((n) => new RegExp(`name: "${n}", location: "PICC", alsoAt: \\["RCF", "CFCF"\\], role: "Electronic Security"`).test(dataJs)), 'electronic security staff are listed at all three sites');
     ok(app.includes('alsoAt') && searchJs.includes('alsoAt'), 'roster page and search handle people at several sites');
 }
