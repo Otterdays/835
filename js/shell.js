@@ -141,6 +141,50 @@ document.addEventListener('DOMContentLoaded', () => {
         sidePanel.appendChild(footer);
     };
 
+    // Floating speech bubble that leads to the forum. Not shown where it would be redundant or in the way.
+    const renderForumBubble = () => {
+        const file = window.location.pathname.split('/').pop();
+        if (!file || ['forum.html', 'index.html', 'signin.html', 'admin.html', 'profile-edit.html'].includes(file)) {
+            return;
+        }
+        if (document.querySelector('.forum-bubble')) {
+            return;
+        }
+        const link = document.createElement('a');
+        link.className = 'forum-bubble';
+        link.href = 'forum.html';
+        link.setAttribute('aria-label', 'Open the Community Forum');
+
+        const icon = document.createElement('span');
+        icon.className = 'forum-bubble-icon';
+        icon.setAttribute('aria-hidden', 'true');
+        const svgNs = 'http://www.w3.org/2000/svg';
+        const svg = document.createElementNS(svgNs, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('width', '18');
+        svg.setAttribute('height', '18');
+        svg.setAttribute('fill', 'none');
+        svg.setAttribute('stroke', 'currentColor');
+        svg.setAttribute('stroke-width', '2.4');
+        svg.setAttribute('stroke-linecap', 'round');
+        svg.setAttribute('stroke-linejoin', 'round');
+        const path = document.createElementNS(svgNs, 'path');
+        path.setAttribute('d', 'M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z');
+        svg.appendChild(path);
+        icon.appendChild(svg);
+
+        const text = document.createElement('span');
+        text.className = 'forum-bubble-text';
+        const title = document.createElement('strong');
+        title.textContent = 'Community Forum';
+        const sub = document.createElement('small');
+        sub.textContent = 'Talk with members';
+        text.append(title, sub);
+
+        link.append(icon, text);
+        document.body.appendChild(link);
+    };
+
     const renderBreadcrumb = () => {
         const crumb = document.querySelector('.breadcrumb[data-page-title]');
         if (!crumb || currentPageId() === 'home') {
@@ -171,6 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     renderNav();
+    renderForumBubble();
     window.Auth?.whenReady?.().then(renderAccount).catch((err) => console.error('Account menu failed', err));
     renderBreadcrumb();
 

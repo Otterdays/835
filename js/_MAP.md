@@ -13,7 +13,7 @@
 | `profile-edit-app.js` | Profile editor: grouped fields, counters, picture/color pickers, Top 8 list, live preview, unsaved-changes warning | — |
 | `login-app.js` | Handles the login/entry form and redirects to Home | — |
 | `nav-config.js` | Defines shared menu groups and page IDs | `SITE_NAV`, `SITE_PAGE_IDS` |
-| `shell.js` | Renders navigation, breadcrumbs, the account footer (profile links, Sign out or Sign in), and menu behavior | — |
+| `shell.js` | Renders navigation, breadcrumbs, the account footer (profile links, Sign out or Sign in), the floating forum bubble, and menu behavior | — |
 | `site-search.js` | Builds the cross-page search index and handles result routing/highlighting | — |
 | `contract-app.js` | Renders, searches, deep-links, and navigates CBA articles | — |
 | `paneled-archive.js` | Renders and filters scan/policy archive panels | `filterScanQuery()`, `renderPaneledArchive()` |

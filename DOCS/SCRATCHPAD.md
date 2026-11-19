@@ -481,3 +481,10 @@ Forum board sideways-scroll arrows.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Wrapped the board in `#forum-board-wrap` with prev/next buttons (`forum.html`), `syncArrows` in `js/forum-app.js` (show only on the side with more content; click scrolls 80% of the width; smooth unless reduced motion), arrow tabs flush to the screen edge on phones plus an edge fade and a 3x nudge in `forum.css`. Checked at 375px with mocked threads: right arrow first, left appears after scrolling, right hides at the end; desktop wraps so both stay hidden. Smoke and deploy checks pass. Not yet tested on the live site or a real touch device.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Floating forum speech bubble.
+
+## Actions Log:
+- [2026-11-19, time not recorded] `renderForumBubble` in `js/shell.js` builds `a.forum-bubble` (SVG via DOM, no innerHTML) on all shell pages except forum/index/signin/admin/profile-edit; styles in `style.css` (rounded bubble with tail, gold icon, entrance animation, reduced-motion and print rules, offset above the contract page's split-view button). Removed the old `.forum-fab` (home page markup and CSS) and updated the smoke check. Fixed stale home callout copy ("no password needed"). Checked home at 375px, contract page at ~1024px (no overlap with the split button after raising it), roster page at 375px (clear of the letter rail). Roster fix confirmed present: Mike Brown (CFCF Plumber), Mike Henry RCF with alsoAt CFCF. Smoke and deploy checks pass. Not yet tested on the live site.

@@ -364,7 +364,8 @@ forumThreadsHandler({ method: 'GET', url: '/api/forum/threads?q=holiday' }, apiR
         process.exit(failed ? 1 : 0);
     });
 const homeHtml = fs.readFileSync(path.join(root, 'home.html'), 'utf8');
-ok(homeHtml.includes('forum-fab') && homeHtml.includes('home-forum-callout'), 'home promotes the forum (floating button + callout)');
+ok(homeHtml.includes('home-forum-callout') && !homeHtml.includes('forum-fab'), 'home promotes the forum with a callout (the floating bubble comes from shell.js)');
+ok(fs.readFileSync(path.join(root, 'js/shell.js'), 'utf8').includes('renderForumBubble') && fs.readFileSync(path.join(root, 'style.css'), 'utf8').includes('.forum-bubble::after'), 'shared menu script adds a styled floating forum speech bubble');
 
 const agents = fs.readFileSync(path.join(root, 'AGENTS.md'), 'utf8');
 const claude = fs.readFileSync(path.join(root, 'CLAUDE.md'), 'utf8');
