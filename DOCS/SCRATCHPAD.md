@@ -430,3 +430,10 @@ Admin panel visible and reachable only by admins.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Added `admin.html`, `js/admin-app.js`, `api/admin/index.js`, edge gate in `middleware.js`, no-store/noindex headers in `vercel.json`, admin-only menu link, `admin_audit` log, smoke checks. Tested the gate against guest/member/steward/forged/expired/alg-none tokens and encoded-path bypasses (all 404), and the API with an in-memory database; page checked with mocked data. NOT yet tested on the live site: confirm after deploy that a signed-out browser gets 404 for /admin.html and an admin gets the page.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Let authors and admins delete forum posts.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Added DELETE to `api/forum/thread.js`, confirmed Delete buttons in the thread view (own posts; everything for admins), admin audit entries, smoke checks. Permissions tested with an in-memory database (guest 401, other member 403, forged admin token 403, cross-site 403, legacy guest posts admin-only); buttons and a reply delete checked with mocked data. Not yet tested on the live site.

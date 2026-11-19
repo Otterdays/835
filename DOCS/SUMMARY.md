@@ -125,3 +125,4 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Admin accounts now show a Site Admin badge; Lead Admin title available through `npm run manage:user`.
 [AMENDED 2026-11-19]: Profile editor improved (live preview, Top 8 list, back link); dropdown "none" bug fixed.
 [AMENDED 2026-11-19]: Admin panel (accounts, roles, titles, disable, password reset) for admins only.
+[AMENDED 2026-11-19]: Forum deletion for authors and admins.

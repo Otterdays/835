@@ -51,7 +51,32 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(view==='board')renderBoard();else renderRows();
     };
     const loadList=async()=>{list.replaceChildren(el('p','forum-empty','Loading threads…'));try{const cat=$('forum-filter').value;threads=(await APIcall(`/threads${cat?`?category=${encodeURIComponent(cat)}`:''}`)).threads;renderList();}catch(e){list.replaceChildren(el('p','forum-status forum-status--error',e.message));}};
-    const renderThread=()=>{const {thread,replies}=openThread;$('forum-thread-main').replaceChildren(el('h2','',thread.title),metaNode(thread,`${labels[thread.category]||thread.category} · ${new Date(thread.createdAt).toLocaleString()}`,false),el('p','forum-body',thread.body));$('forum-replies-count').textContent=replies.length?`(${replies.length})`:'';const target=$('forum-reply-list');target.replaceChildren();if(!replies.length)target.append(el('p','forum-empty','No replies yet.'));replies.forEach(r=>{const p=el('article','forum-post');p.append(metaNode(r,new Date(r.createdAt).toLocaleString(),false),el('p','forum-body',r.body));target.append(p);});};
+    // Delete: your own posts, or any post if you are an admin. The server decides; this only decides whether to show the button.
+    const canDelete=(item)=>Boolean(user&&(user.role==='admin'||you(item.authorKey)));
+    const deleteButton=(label,onClick)=>{const b=el('button','forum-delete',label);b.type='button';b.addEventListener('click',onClick);return b;};
+    const removeThread=async()=>{
+        const {thread,replies}=openThread;const mine=you(thread.authorKey);
+        const others=replies.filter(r=>!you(r.authorKey)).length;
+        const note=replies.length?` This also removes its ${replies.length} ${replies.length===1?'reply':'replies'}${others?`, including ${others} from other members`:''}.`:'';
+        if(!window.confirm(`Delete ${mine?'your thread':`${thread.author}'s thread`} "${thread.title}"?${note} This cannot be undone.`))return;
+        try{await APIcall(`/thread?id=${encodeURIComponent(thread.id)}`,{method:'DELETE'});openThread=null;location.hash='';}
+        catch(e){window.alert(e.message);}
+    };
+    const removeReply=async(reply)=>{
+        if(!window.confirm(`Delete ${you(reply.authorKey)?'your reply':`${reply.author}'s reply`}? This cannot be undone.`))return;
+        try{await APIcall(`/thread?reply=${encodeURIComponent(reply.id)}`,{method:'DELETE'});openThread.replies=openThread.replies.filter(r=>r.id!==reply.id);openThread.thread.replyCount=Math.max(0,(openThread.thread.replyCount||1)-1);renderThread();}
+        catch(e){window.alert(e.message);}
+    };
+    const renderThread=()=>{
+        const {thread,replies}=openThread;
+        const main=$('forum-thread-main');
+        main.replaceChildren(el('h2','',thread.title),metaNode(thread,`${labels[thread.category]||thread.category} · ${new Date(thread.createdAt).toLocaleString()}`,false),el('p','forum-body',thread.body));
+        if(canDelete(thread))main.append(deleteButton('Delete thread',removeThread));
+        $('forum-replies-count').textContent=replies.length?`(${replies.length})`:'';
+        const target=$('forum-reply-list');target.replaceChildren();
+        if(!replies.length)target.append(el('p','forum-empty','No replies yet.'));
+        replies.forEach(r=>{const p=el('article','forum-post');p.append(metaNode(r,new Date(r.createdAt).toLocaleString(),false),el('p','forum-body',r.body));if(canDelete(r))p.append(deleteButton('Delete reply',()=>removeReply(r)));target.append(p);});
+    };
     const loadThread=async(id)=>{try{openThread=await APIcall(`/thread?id=${encodeURIComponent(id)}`);renderThread();}catch(e){$('forum-thread-main').replaceChildren(el('p','forum-status forum-status--error',e.message));}};
     const route=()=>{const m=/^#t=([a-f0-9]{24})$/i.exec(location.hash),id=m?.[1];$('forum-list-view').hidden=Boolean(id);$('forum-thread-view').hidden=!id;syncView();if(id)loadThread(id);else{openThread=null;loadList();}};
     $('forum-filter').add(new Option('All categories',''));CATEGORIES.forEach(([v,l])=>{$('forum-thread-category').add(new Option(l,v));$('forum-filter').add(new Option(l,v));});

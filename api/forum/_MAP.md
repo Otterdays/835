@@ -6,7 +6,7 @@
 | File | What it does | Key symbols |
 |---|---|---|
 | `threads.js` | GET lists/searches threads; POST creates a thread | `handler()` |
-| `thread.js` | GET loads a thread and replies; POST adds a reply | `handler()` |
+| `thread.js` | GET loads a thread and replies; POST adds a reply; DELETE removes a thread (with replies) or one reply for its author or an admin | `handler()` |
 
 ## Connects to
 - Both routes use `../_lib/forum.js` for input checks, response helpers, and limits.

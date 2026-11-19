@@ -25,18 +25,6 @@ function notFound(res) {
     return forum.json(res, 404, { ok: false, error: 'Not found' });
 }
 
-function sameSite(req) {
-    const origin = req.headers.origin;
-    if (!origin) {
-        return true; // same-origin form/fetch without Origin (older browsers); cookie is SameSite=Strict
-    }
-    try {
-        return new URL(origin).host === req.headers.host;
-    } catch (err) {
-        return false;
-    }
-}
-
 async function requireAdmin(req) {
     const user = await accounts.getSessionUser(req);
     if (!user || user.role !== 'admin') {
@@ -213,7 +201,7 @@ module.exports = async function handler(req, res) {
         }
 
         if (req.method === 'POST') {
-            if (!sameSite(req)) {
+            if (!accounts.sameSite(req)) {
                 throw forum.httpError(403, 'Request not allowed.');
             }
             await forum.consumeRateLimit(admin.db, `admin:${admin.username}`, ADMIN_RATE);

@@ -14,7 +14,7 @@
 | `profile/comments.js` | Lists, creates, and deletes profile comments | `handler()` |
 | `admin/index.js` | Admin-only account management (roles, titles, disable, password reset, audit log); 404 for everyone else | `handler()`, `requireAdmin()` |
 | `forum/threads.js` | Lists/searches threads and creates account-authored threads | `handler()` |
-| `forum/thread.js` | Loads a thread and replies, or adds a signed-in reply | `handler()` |
+| `forum/thread.js` | Loads a thread and replies, adds a signed-in reply, or deletes a post (author or admin) | `handler()` |
 | `_lib/accounts.js` | Resolves sessions and shapes safe account/profile responses | `requireUser()`, `accountOut()` |
 | `_lib/profile-schema.js` | Fixed profile options and validation | `cleanProfileUpdate()`, `options()` |
 | `_lib/forum.js` | Request parsing, forum validation, rate limits, and response shaping | `readJson()`, `cleanText()`, `consumeRateLimit()` |

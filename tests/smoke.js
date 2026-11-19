@@ -213,6 +213,14 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
 }
 function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8'); }
 
+// Forum deletion: author or admin only, logged when an admin removes someone else's post.
+{
+    const threadApi = fs.readFileSync(path.join(root, 'api/forum/thread.js'), 'utf8');
+    ok(threadApi.includes("req.method === 'DELETE'") && threadApi.includes('accounts.requireUser') && threadApi.includes("user.role === 'admin'") && threadApi.includes('doc.authorKey === user.username'), 'forum delete is limited to the author or an admin');
+    ok(threadApi.includes('accounts.sameSite(req)') && threadApi.includes('forumDeleteThread') && threadApi.includes('forumDeleteReply'), 'forum delete blocks cross-site requests and logs admin deletions');
+    ok(forumApp.includes('canDelete') && forumApp.includes("method:'DELETE'") && forumApp.includes('window.confirm'), 'forum shows confirmed delete buttons only where allowed');
+}
+
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
 ['home.html', 'member-action.html', 'evidence-log.html', 'bargaining.html', 'suggestions.html'].forEach((page) => {

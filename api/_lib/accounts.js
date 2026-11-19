@@ -165,7 +165,21 @@ async function attachAuthors(db, items) {
     });
 }
 
+/** Browser requests that change data must come from this site (on top of the SameSite=Strict cookie). */
+function sameSite(req) {
+    const origin = req.headers.origin;
+    if (!origin) {
+        return true;
+    }
+    try {
+        return new URL(origin).host === req.headers.host;
+    } catch (err) {
+        return false;
+    }
+}
+
 module.exports = {
+    sameSite,
     ONLINE_WINDOW_MS,
     SEEN_THROTTLE_MS,
     ensureProfile,

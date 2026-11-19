@@ -203,7 +203,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         activate: () => 'enabled',
         badgeAdd: (r) => `awarded "${r.detail.badge}" to`,
         badgeRemove: (r) => `removed "${r.detail.badge}" from`,
-        resetPassword: () => 'reset the password for'
+        resetPassword: () => 'reset the password for',
+        forumDeleteThread: (r) => `deleted the thread "${r.detail.title}" (${r.detail.replies} replies) by`,
+        forumDeleteReply: (r) => `deleted a reply ("${r.detail.excerpt}") by`
     };
     auditBox.addEventListener('toggle', async () => {
         if (!auditBox.open) {

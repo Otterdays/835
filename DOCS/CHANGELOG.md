@@ -157,3 +157,4 @@
 [AMENDED 2026-11-19]: Added a Lead Admin title and an automatic Site Admin marker for admin accounts, shown on profiles, directory, forum and comments.
 [AMENDED 2026-11-19]: Edit Profile page rebuilt with back/cancel, unsaved-changes warning, live preview, pickers and a reorderable Top 8; fixed blank "none" dropdowns that broke saving.
 [AMENDED 2026-11-19]: Admin panel added, locked to admins at the edge and in the API, with an audit log.
+[AMENDED 2026-11-19]: Forum posts can be deleted by their author or an admin; admin deletions are logged.
