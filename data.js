@@ -683,7 +683,7 @@ const employeesData = [
     { name: "Dan O'Donnell", location: "PICC", role: "Trades Helper" },
     { name: "Dan Pagano", location: "Kitchen", role: "Kitchen Supervisor/Mechanic" },
     { name: "Demarc Hamilton", location: "PICC", role: "Stationary Engineer" },
-    { name: "Derrick Smith", location: "PICC", role: "Stationary Engineer" },
+    { name: "Derrick Smith", location: "PICC", role: "Building Engineer" },
     { name: "Dylan O'Donnell", location: "CFCF", role: "Helper" },
     { name: "Elliott Pinto", location: "CFCF", role: "Helper" },
     { name: "Eric Levin", location: "PICC", alsoAt: ["RCF", "CFCF"], role: "Electronic Security" },
