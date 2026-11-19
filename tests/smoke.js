@@ -376,6 +376,8 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
         ok(app.includes('const currentGroup') && app.includes("group.querySelectorAll('[data-letter]')") && app.includes("addEventListener('scroll'"), 'jump rail lists only the letters of the crew section on screen');
         ok(/@media \(max-width: 767px\)\s*\{\s*\.roster-index\s*\{/.test(css) && /\.roster-index,\s*\.roster-index-bubble\s*\{\s*display:\s*none/.test(css), 'jump rail is phone-only');
     }
+    ok(app.includes('shop steward') && app.includes('NO_TRADE') && /name: "Ryan Lorenz", location: "RCF", role: "Plumber · Assistant Shop Steward"/.test(dataJs), 'steward titles never form a role group; stewards are grouped by their trade');
+    ok((dataJs.match(/const employeesData = \[[\s\S]*?\n\];/)[0].match(/role: "[^"]*Shop Steward"/g) || []).every((r) => /· (Lead|Assistant) Shop Steward"$/.test(r)), 'every steward on the roster lists a trade before the steward title');
     ok(app.includes('compareRole') && app.includes('role-group-heading') && fs.readFileSync(path.join(root, 'employees.html'), 'utf8').includes('id="roster-sort"'), 'roster can be grouped by role inside each site');
     ok(app.includes('compareStaff') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');
     {

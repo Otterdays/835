@@ -169,3 +169,4 @@
 [AMENDED 2026-11-19]: Site Roster: removed the duplicate "Tim" (CFCF Electrician); he is Tim Neri, already listed at PICC.
 [AMENDED 2026-11-19]: Site Roster phone A-Z rail now lists only the letters in the crew section on screen (RCF, CFCF, PICC...), updating as you scroll between crews; every letter tap lands inside that crew.
 [AMENDED 2026-11-19]: Site Roster: new "Sort by" control (Name A-Z or Role). Role view keeps the site sections and groups people under their main role inside each site (roles A-Z with a count, names A-Z inside each role; Management stays in rank order). The phone letter rail jumps to role headings in that view.
+[AMENDED 2026-11-19]: Site Roster By role view: shop steward titles no longer form their own group. Stewards are grouped under their trade and keep the steward title on their card; anyone with no trade listed goes last under "Trade not listed". Ryan Lorenz is now listed as Plumber · Assistant Shop Steward.

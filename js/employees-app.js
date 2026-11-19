@@ -33,14 +33,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
     };
 
-    // "By role" view: inside each site, people are grouped under their main role (the text before " · "),
+    // "By role" view: inside each site, people are grouped under their main trade (first part of the role),
     // roles A-Z, names A-Z inside each role. Management stays in rank order.
-    const primaryRole = (employee) => String(employee.role || '').split(' · ')[0].trim();
+    // A shop steward title is an extra duty, not a trade, so it never makes a group of its own: the person
+    // is grouped under their trade and the steward title stays on their card. With no trade listed they go
+    // under "Trade not listed" rather than under "Assistant Shop Steward".
+    const NO_TRADE = 'Trade not listed';
+    const primaryRole = (employee) =>
+        String(employee.role || '')
+            .split(' · ')
+            .map((part) => part.trim())
+            .find((part) => part && !/shop steward/i.test(part)) || NO_TRADE;
     const compareRole = (a, b) => {
         if (Number.isFinite(rankOf(a)) && Number.isFinite(rankOf(b))) {
             return rankOf(a) - rankOf(b);
         }
-        return primaryRole(a).localeCompare(primaryRole(b), undefined, { sensitivity: 'base' }) || compareStaff(a, b);
+        const ra = primaryRole(a);
+        const rb = primaryRole(b);
+        if ((ra === NO_TRADE) !== (rb === NO_TRADE)) {
+            return ra === NO_TRADE ? 1 : -1; // unknown trades go last
+        }
+        return ra.localeCompare(rb, undefined, { sensitivity: 'base' }) || compareStaff(a, b);
     };
     let sortMode = 'name';
 
@@ -356,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sortMode === 'role' && loc !== 'Management') {
                 const byRole = new Map();
                 group.forEach((employee) => {
-                    const key = primaryRole(employee) || 'Other';
+                    const key = primaryRole(employee);
                     byRole.set(key, [...(byRole.get(key) || []), employee]);
                 });
                 byRole.forEach((people, roleName) => {

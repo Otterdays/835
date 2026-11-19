@@ -716,7 +716,7 @@ const employeesData = [
     { name: "Robert Korchak", location: "CFCF", role: "Trades Helper" },
     { name: "Robert Martin", location: "PICC", role: "Electrician" },
     { name: "Ron DeMarco", location: "RCF", role: "Trades Helper" },
-    { name: "Ryan Lorenz", location: "RCF", role: "Assistant Shop Steward" },
+    { name: "Ryan Lorenz", location: "RCF", role: "Plumber · Assistant Shop Steward" },
     { name: "Sabu", location: "RCF", role: "Engineer" },
     { name: "Scott", location: "Warehouse", role: "Warehouse Crew" },
     { name: "Subin", location: "CFCF", role: "Engineer" },
