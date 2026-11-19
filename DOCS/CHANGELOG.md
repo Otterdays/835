@@ -155,3 +155,4 @@
 [AMENDED 2026-11-19]: Forum shows all categories by default with a Board (kanban-style, columns per topic) and List toggle; profile, editor and directory pages now load their shared helper script.
 [AMENDED 2026-11-19]: Profile job title changed from free text to a dropdown of the roster's trades, enforced by the API and guarded by a smoke check.
 [AMENDED 2026-11-19]: Added a Lead Admin title and an automatic Site Admin marker for admin accounts, shown on profiles, directory, forum and comments.
+[AMENDED 2026-11-19]: Edit Profile page rebuilt with back/cancel, unsaved-changes warning, live preview, pickers and a reorderable Top 8; fixed blank "none" dropdowns that broke saving.

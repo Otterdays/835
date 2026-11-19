@@ -135,7 +135,7 @@ ok(forumApp.includes('ProfileUI.badgeRow') || forumApp.includes('P.badgeRow'), '
 ['profile.html', 'profile-edit.html', 'members.html', 'forum.html'].forEach((page) => {
     const html = fs.readFileSync(path.join(root, page), 'utf8');
     const ui = html.indexOf('js/profile-ui.js');
-    const app = Math.max(html.indexOf('js/profile-app.js'), html.indexOf('js/forum-app.js'));
+    const app = Math.max(html.indexOf('js/profile-app.js'), html.indexOf('js/profile-edit-app.js'), html.indexOf('js/forum-app.js'));
     ok(ui !== -1 && ui < app, `${page} loads profile-ui.js before its page script`);
 });
 

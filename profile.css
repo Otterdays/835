@@ -101,3 +101,59 @@
 /* Website admins stand out from member titles: dark fill with white text (contrast > 10:1). */
 .pf-badge--admin,.pf-badge--lead-admin{background:#173865;color:#fff}
 .pf-badge--lead-admin{background:#0f2a4d;box-shadow:inset 0 0 0 1px #d5a52f}
+
+/* ---------- Profile editor ---------- */
+.pf-edit-container{width:min(72rem,100%)}
+.account-head .pf-back{display:inline-flex;align-items:center;min-height:44px;margin:0 0 .35rem;color:#1b3d66;font-weight:700;text-decoration:underline;text-underline-offset:.18em}
+.pf-edit-layout{display:grid;grid-template-columns:minmax(0,1fr) 21rem;gap:1.25rem;align-items:start}
+.pf-edit-form{display:grid;gap:1.1rem;background:#fff;border:1px solid var(--pf-line);border-radius:14px;padding:clamp(.8rem,3vw,1.2rem);box-shadow:0 5px 18px #17243a0a}
+.pf-edit-form .pf-editor-group{margin:0}
+.pf-field{display:grid;gap:.4rem;font-weight:400}
+.pf-field-label{font-weight:700;color:var(--pf-ink)}
+.pf-field-help{color:var(--pf-muted);font-size:.9rem}
+.pf-field input:not([type=radio]),.pf-field textarea,.pf-field select{font:inherit;font-size:1rem;width:100%;min-height:50px;padding:.65rem .75rem;border:1px solid #8c9db3;border-radius:10px;background:#fff;color:var(--pf-ink)}
+.pf-field textarea{line-height:1.5;resize:vertical}
+.pf-field input:focus-visible,.pf-field textarea:focus-visible,.pf-field select:focus-visible{outline:3px solid #173865;outline-offset:1px;border-color:#173865}
+.pf-counter{justify-self:end;color:var(--pf-muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.pf-titles{display:grid;gap:.35rem}
+.pf-titles p{margin:0}
+.pf-choice-set{min-width:0;margin:0;padding:0;border:0}
+.pf-choice-set legend{padding:0;margin-bottom:.45rem;font-weight:700}
+.pf-choice-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(3.25rem,1fr));gap:.5rem}
+.pf-choice{position:relative;display:block;cursor:pointer}
+.pf-choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.pf-choice-face{display:grid;place-items:center;aspect-ratio:1;min-height:3.25rem;border:2px solid #b9c6d8;border-radius:12px;background:#f3f6fa;font-size:1.6rem}
+.pf-choice input:checked+.pf-choice-face{border-color:#173865;box-shadow:0 0 0 2px #fff inset,0 0 0 2px #173865}
+.pf-choice input:focus-visible+.pf-choice-face{outline:3px solid #173865;outline-offset:2px}
+.pf-choice:hover .pf-choice-face{border-color:#173865}
+.pf-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pf-chips{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.pf-chip{display:flex;align-items:center;gap:.5rem;padding:.5rem .6rem;border:1px solid var(--pf-line);border-radius:10px;background:#f7f9fc}
+.pf-chip-pos{display:grid;place-items:center;flex:0 0 auto;width:1.9rem;height:1.9rem;border-radius:50%;background:#173865;color:#fff;font-weight:700;font-size:.9rem}
+.pf-chip-who{display:grid;min-width:0;flex:1}
+.pf-chip-name{font-weight:700;overflow-wrap:anywhere}
+.pf-chip-handle{color:var(--pf-muted);font-size:.9rem;overflow-wrap:anywhere}
+.pf-chip-btn{min-width:44px;min-height:44px;padding:.3rem .6rem;border:1px solid #9aabc0;border-radius:8px;background:#fff;color:#173865;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer}
+.pf-chip-btn:disabled{opacity:.4;cursor:default}
+.pf-chip-btn:not(:disabled):hover{background:#edf2f8}
+.pf-top8-add{display:grid;gap:.6rem;align-items:end}
+.pf-editor-actions{position:sticky;bottom:0;z-index:2;display:grid;gap:.6rem;margin:0 -.2rem -.2rem;padding:.8rem .2rem calc(.8rem + env(safe-area-inset-bottom));background:#ffffffed;border-top:1px solid var(--pf-line);backdrop-filter:blur(10px)}
+.pf-editor-buttons{display:flex;flex-wrap:wrap;gap:.6rem}
+.pf-editor-buttons .pf-btn{width:auto;min-width:8rem}
+.pf-preview{position:sticky;top:1rem;display:grid;gap:.6rem}
+.pf-preview-title{margin:0;font-size:1.1rem;color:#173865}
+.pf-preview .pf-profile{display:grid;gap:.75rem}
+.pf-preview .pf-box{margin:0}
+.pf-preview .pf-masthead{align-items:flex-start;flex-wrap:wrap}
+.pf-preview-name{margin:0;font-size:1.2rem}
+.pf-preview-info{min-width:0}
+.pf-preview-info p{margin:.2rem 0}
+@media(max-width:900px){
+ .pf-edit-layout{grid-template-columns:1fr}
+ .pf-preview{position:static;order:-1}
+}
+@media(max-width:720px){
+ .pf-editor-buttons .pf-btn{flex:1 1 40%}
+ .pf-chip{flex-wrap:wrap}
+ .pf-chip-who{flex-basis:calc(100% - 3rem)}
+}

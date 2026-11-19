@@ -93,6 +93,25 @@ const AVATAR_GLYPHS = {
     shield: '🛡️'
 };
 
+const AVATAR_LABELS = {
+    hardhat: 'Hard hat',
+    wrench: 'Wrench',
+    key: 'Key',
+    gear: 'Gear',
+    tools: 'Tools',
+    tractor: 'Tractor',
+    truck: 'Truck',
+    bolt: 'Lightning bolt',
+    flame: 'Flame',
+    snow: 'Snowflake',
+    bulb: 'Light bulb',
+    fist: 'Raised fist',
+    star: 'Star',
+    anchor: 'Anchor',
+    eagle: 'Eagle',
+    shield: 'Shield'
+};
+
 const AVATAR_COLORS = {
     blue: '#1f4e9c',
     gold: '#b7791f',
@@ -294,7 +313,7 @@ function options() {
         patterns: labelled(PATTERNS),
         visibility: labelled(VISIBILITY),
         moods: Object.entries(MOODS).map(([id, m]) => ({ id, ...m })),
-        avatarGlyphs: Object.entries(AVATAR_GLYPHS).map(([id, emoji]) => ({ id, emoji })),
+        avatarGlyphs: Object.entries(AVATAR_GLYPHS).map(([id, emoji]) => ({ id, emoji, label: AVATAR_LABELS[id] || id })),
         avatarColors: Object.entries(AVATAR_COLORS).map(([id, hex]) => ({ id, hex })),
         limits: LIMITS
     };

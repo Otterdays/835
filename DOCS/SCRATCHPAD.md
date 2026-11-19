@@ -416,3 +416,10 @@ Add Lead Admin badge and show admin status on profiles.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Added `lead-admin` (awardable) and automatic `admin` ("Site Admin") badges; `adminKeys()` in `api/_lib/accounts.js` reads roles from `users`; badge styling in `profile.css`; smoke checks added. Badge look checked with mocked data; not checked against the live API.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Improve the Edit Profile page; add a way back.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Fixed a bug where "none" choices (job title, facility, mood) had the value "[object Object]", showing blank dropdowns and making saves with no job title fail. Rebuilt the editor as `js/profile-edit-app.js` (old editor code removed from `profile-app.js`): Back link and Cancel, warning before leaving unsaved changes, live preview, character counters, picture and color pickers with names, a reorderable Top 8 list with member lookup (directory search, so no profile-view inflation), and a saved confirmation with a link to the profile. Checked with mocked data at 1300px and 375px; not checked against the live API.

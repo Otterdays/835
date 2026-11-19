@@ -41,69 +41,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         form.addEventListener('submit', load); form.elements.sort.addEventListener('change', load); load(); return;
     }
 
-    if ($('#profile-edit-root')) {
-        const host = $('#profile-edit-root');
-        if (!signedIn) { host.replaceChildren(P.signInPrompt('Profile editing', 'profile-edit.html')); return; }
-        try {
-            const me = Auth.account();
-            const data = await P.api(`/api/profile?u=${encodeURIComponent(me.username)}`);
-            const profile = data.profile;
-            const form = P.el('form', 'pf-box pf-form pf-editor');
-            const groups = [
-                ['Basics and work', 'Your display name, headline, and work details.'],
-                ['About you', 'Share only what you are comfortable sharing with other signed-in members.'],
-                ['Profile look', 'Choose from the available colors, patterns, and icons.'],
-                ['Top 8 and visibility', 'Add up to eight members by username. Hidden profiles are visible only to you.']
-            ].map(([title, help]) => {
-                const group = document.createElement('fieldset');
-                group.className = 'pf-editor-group';
-                const legend = document.createElement('legend'); legend.textContent = title;
-                group.append(legend, P.el('p', 'pf-muted pf-editor-help', help));
-                form.append(group);
-                return group;
-            });
-            let groupIndex = 0;
-            const field = (label, name, value = '', type = 'text', max = 1500) => {
-                const wrap = P.el('label', 'pf-field', label);
-                const input = type === 'textarea' ? P.el('textarea') : P.el('input');
-                if (type !== 'textarea') input.type = type;
-                input.name = name; input.maxLength = max; input.value = value || '';
-                wrap.append(input); groups[groupIndex].append(wrap); return input;
-            };
-            const select = (label, name, rows, selected) => {
-                const wrap = P.el('label', 'pf-field', label), input = document.createElement('select');
-                input.name = name;
-                rows.forEach(row => input.add(new Option(row.label || row, row.id || row)));
-                input.value = selected || ''; wrap.append(input); groups[groupIndex].append(wrap); return input;
-            };
-            groupIndex = 0;
-            field('Display name', 'displayName', profile.displayName, 'text', 30);
-            field('Short headline', 'headline', profile.headline, 'text', 80);
-            select('Job title (self-reported)', 'jobTitle', [{id:'',label:'Not listed / prefer not to say'}, ...options.jobTitles.map(x => ({id:x,label:x}))], options.jobTitles.includes(profile.jobTitle) ? profile.jobTitle : '');
-            select('Facility', 'facility', [{id:'',label:'Choose a facility'}, ...options.facilities.map(x => ({id:x,label:x}))], profile.facility);
-            groupIndex = 1;
-            field('About me', 'aboutMe', profile.aboutMe, 'textarea', 1500);
-            field('Interests', 'interests', profile.interests, 'textarea', 800);
-            field("Who I'd like to meet", 'wantToMeet', profile.wantToMeet, 'textarea', 800);
-            groupIndex = 2;
-            select('Mood', 'mood', [{id:'',label:'No mood'}, ...options.moods], profile.mood);
-            select('Profile theme', 'theme', options.themes, profile.theme);
-            select('Background pattern', 'pattern', options.patterns, profile.pattern);
-            select('Avatar icon', 'avatarGlyph', options.avatarGlyphs.map(x => ({id:x.id,label:`${x.emoji} ${x.id}`})), profile.avatar.glyph);
-            select('Avatar color', 'avatarColor', options.avatarColors.map(x => ({id:x.id,label:x.id})), profile.avatar.color);
-            groupIndex = 3;
-            select('Profile visibility', 'visibility', options.visibility, profile.visibility);
-            field('Top 8 member usernames, separated by commas', 'top8', (profile.top8Handles || []).join(', '), 'text', 200);
-            const actions = P.el('div', 'pf-editor-actions');
-            const submit = P.el('button', 'pf-btn pf-btn--primary', 'Save profile'); submit.type = 'submit'; actions.append(submit);
-            const status = P.el('p', 'pf-status'); status.hidden = true; status.setAttribute('aria-live', 'polite'); actions.append(status);
-            form.append(actions);
-            host.replaceChildren(form);
-            form.addEventListener('submit',async e=>{e.preventDefault();submit.disabled=true;const f=new FormData(form);const body=Object.fromEntries(f);body.avatar={glyph:body.avatarGlyph,color:body.avatarColor};delete body.avatarGlyph;delete body.avatarColor;body.top8=String(body.top8||'').split(',').map(x=>x.trim()).filter(Boolean);try{await P.api('/api/profile',{method:'PUT',body});setStatus(status,'Profile saved.');}catch(err){setStatus(status,err.message,true);}finally{submit.disabled=false;}});
-        } catch(err) { host.replaceChildren(P.el('p','pf-status pf-status--error',err.message)); }
-        return;
-    }
-
     if (!root) return;
     if (!signedIn) { root.replaceChildren(P.signInPrompt('Member profiles', 'profile.html')); return; }
     const handle = new URLSearchParams(location.search).get('u') || Auth.account()?.username;

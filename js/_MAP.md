@@ -8,7 +8,8 @@
 | `auth.js` | Provides the `Auth` browser object and current open/API/local access behavior | `Auth` |
 | `signin-app.js` | Handles account sign-in, registration, password changes, and safe next redirects | — |
 | `profile-ui.js` | Shared account API, avatar, badges, and member-safe DOM helpers | `ProfileUI` |
-| `profile-app.js` | Renders member profiles, profile editor, comments wall, and directory | — |
+| `profile-app.js` | Renders member profiles, comments wall, and directory | — |
+| `profile-edit-app.js` | Profile editor: grouped fields, counters, picture/color pickers, Top 8 list, live preview, unsaved-changes warning | — |
 | `login-app.js` | Handles the login/entry form and redirects to Home | — |
 | `nav-config.js` | Defines shared menu groups and page IDs | `SITE_NAV`, `SITE_PAGE_IDS` |
 | `shell.js` | Renders navigation, breadcrumbs, logout, and menu behavior | — |
