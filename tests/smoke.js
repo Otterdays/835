@@ -419,6 +419,7 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     ok(!/\.pf-(profile|swatch|theme--)/.test(darkCss), 'dark.css never restyles a member\'s own profile theme');
     ok(JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).scripts['build:dark'] === 'node scripts/gen-dark-css.js', 'npm run build:dark regenerates dark.css');
     const shellJs = fs.readFileSync(path.join(root, 'js/shell.js'), 'utf8');
-    ok(shellJs.includes('renderAppearance') && shellJs.includes('nav-appearance') && shellJs.includes('sitetheme:change'), 'menu has an Appearance switch (Auto, Light, Dark)');
+    ok(shellJs.includes('renderAppearance') && shellJs.includes('nav-appearance') && shellJs.includes('sitetheme:change') && shellJs.includes("[['dark', 'Dark'], ['light', 'Light'], ['auto', 'Auto']]"), 'menu has an Appearance switch (Dark, Light, Auto)');
+    ok(themeJs.includes("? value : 'dark'"), 'appearance defaults to dark when no choice is saved');
     ok(/:root\[data-theme="dark"\] \.forum-page\s*\{/.test(fs.readFileSync(path.join(root, 'forum.css'), 'utf8')), 'forum has dark tokens');
 }

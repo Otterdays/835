@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Appearance switch: Auto follows the device; Light and Dark are remembered on this device.
+    // Appearance switch: Dark is the default; Light and Auto (follows the device) are remembered on this device.
     const renderAppearance = () => {
         if (!sidePanel || !window.SiteTheme || sidePanel.querySelector('.nav-appearance')) {
             return;
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         group.className = 'nav-appearance-group';
         group.setAttribute('role', 'group');
         group.setAttribute('aria-label', 'Light or dark appearance');
-        const buttons = [['auto', 'Auto'], ['light', 'Light'], ['dark', 'Dark']].map(([value, text]) => {
+        const buttons = [['dark', 'Dark'], ['light', 'Light'], ['auto', 'Auto']].map(([value, text]) => {
             const b = document.createElement('button');
             b.type = 'button';
             b.className = 'nav-appearance-btn';
