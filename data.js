@@ -667,6 +667,8 @@ Tool Identification - 8
     ]
 };
 
+// Optional `alsoAt: ["SITE"]` lists extra facilities for someone who works at more than one site;
+// `location` stays their main site. The person is one entry and is counted once.
 const employeesData = [
     { name: "Al Andalis", location: "CFCF", role: "Laborer" },
     { name: "Andrew Gniewek", location: "PICC", role: "Painter" },
@@ -689,13 +691,15 @@ const employeesData = [
     { name: "Kent Koung", location: "PICC", role: "Electronic Security" },
     { name: "Ian Roonen", location: "CFCF", role: "Helper" },
     { name: "Jason Kinser", location: "CFCF", role: "Locksmith" },
+    { name: "Lauren Battilana", location: "CFCF", role: "Data Clerk" },
     { name: "Luke Jacoby", location: "PICC", role: "Building Engineer" },
     { name: "Michael Jones", location: "PICC", role: "Painter" },
     { name: "Anthony Lange", location: "PICC", role: "Trades Helper" },
     { name: "Jim Turner", location: "RCF", role: "Engineer" },
     { name: "Jerome Hudson", location: "RCF", role: "Helper · Injured" },
     { name: "Kevin Lyons", location: "CFCF", role: "Painter · Assistant Shop Steward" },
-    { name: "Mike Henry", location: "RCF", role: "Plumber" },
+    { name: "Mike Henry", location: "RCF", alsoAt: ["CFCF"], role: "Plumber" },
+    { name: "Mike Brown", location: "CFCF", role: "Plumber" },
     { name: "Mike Knepper", location: "RCF", role: "Locksmith" },
     { name: "Monica Manning", location: "RCF", role: "Data Clerk" },
     { name: "Nate Villanueva", location: "RCF", role: "Painter · Let go; contesting the firing" },

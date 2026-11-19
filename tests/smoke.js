@@ -279,7 +279,7 @@ ok(contractApp.includes('.normalize(\'NFKD\')') && contractApp.includes('tokens.
 ok(contractApp.includes('normalizeWithOffsets(source, true)') && contractApp.includes('source.replace(/([\\p{L}\\p{N}])'), 'contract search supports joined and hyphenated word forms');
 ok(contractApp.includes('result entries') || contractApp.includes('itemLabel'), 'contract search reports matching entry counts');
 const employeesApp = fs.readFileSync(path.join(root, 'js/employees-app.js'), 'utf8');
-ok(employeesApp.includes('new Set(employeesData.map') && employeesApp.includes(".normalize('NFKD')"), 'roster filters follow current locations and normalize searches');
+ok(employeesApp.includes('new Set(employeesData.flatMap(sitesOf))') && employeesApp.includes(".normalize('NFKD')"), 'roster filters follow current locations and normalize searches');
 const mongo = fs.readFileSync(path.join(root, 'api/_lib/mongo.js'), 'utf8');
 ok(mongo.includes('forum_threads_search') && mongo.includes('forum_replies_search'), 'forum text-search indexes exist');
 const forumThreadsApi = fs.readFileSync(path.join(root, 'api/forum/threads.js'), 'utf8');
@@ -360,3 +360,13 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
 ['cbaScannedPages', 'sitewide search', 'printed page', 'America/New_York', 'partial'].forEach((term) => {
     ok(ingestionGuide.includes(term), `page-ingestion guide covers ${term}`);
 });
+
+// Roster: people at more than one site use `alsoAt`; the roster page and search both honor it.
+{
+    const dataJs = fs.readFileSync(path.join(root, 'data.js'), 'utf8');
+    const app = fs.readFileSync(path.join(root, 'js/employees-app.js'), 'utf8');
+    const searchJs = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
+    ok(/name: "Mike Henry", location: "RCF", alsoAt: \["CFCF"\], role: "Plumber"/.test(dataJs), 'Mike Henry is listed once at RCF and CFCF');
+    ok(/name: "Mike Brown", location: "CFCF", role: "Plumber"/.test(dataJs) && /name: "Lauren Battilana", location: "CFCF", role: "Data Clerk"/.test(dataJs), 'roster has Mike Brown and Lauren Battilana at CFCF');
+    ok(app.includes('alsoAt') && searchJs.includes('alsoAt'), 'roster page and search handle people at several sites');
+}

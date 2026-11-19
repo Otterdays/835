@@ -451,3 +451,10 @@ Profile links and light/dark themes.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Added `links` to profiles (schema validation, API output, profile Links box, editor rows, admin `clearLinks` + button + log text) and 9 CSS-variable themes with a swatch picker. Contrast of every theme pair checked (min 5.16:1). Verified in the browser pane with mocked data: dark and light profiles, editor swatches, link rows at 375px (no sideways scroll), save payload carries theme and links. Smoke checks added (theme list, link rejections, safe-link attributes, admin clearLinks); smoke and deploy checks pass; function count 10. Not yet tested on the live site.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Roster updates and multi-site people.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Added Mike Brown (CFCF Plumber) and Lauren Battilana (CFCF Data Clerk) to `employeesData`; Ryan Lorenz (RCF), Monica Manning (RCF), Christie Hildebrand (PICC) and Kent Koung (PICC, "Electronic Security") were already present. Added optional `alsoAt` to roster entries (`js/employees-app.js` groups/filters/searches by every site; `js/site-search.js` shows both sites; `.employee-also` style). Smoke and deploy checks pass. Not checked in a browser (local preview server was blocked). Eric Levin and Kyle Lloyd (security technicians) NOT added: sites not supplied.

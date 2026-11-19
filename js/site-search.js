@@ -267,11 +267,12 @@
 
         if (typeof employeesData !== 'undefined') {
             employeesData.forEach((employee) => {
+                const sites = [employee.location, ...(employee.alsoAt || [])].filter(Boolean).join(' + ');
                 index.push({
                     category: 'Site Roster',
                     title: employee.name,
-                    body: [employee.name, employee.role, employee.location].join('\n'),
-                    meta: `${employee.location} — ${employee.role}`,
+                    body: [employee.name, employee.role, sites].join('\n'),
+                    meta: `${sites} — ${employee.role}`,
                     href: (query) =>
                         `employees.html?q=${encodeURIComponent(query || employee.name)}`
                 });

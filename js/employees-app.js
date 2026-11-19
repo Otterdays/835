@@ -19,8 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
         statEmployees.textContent = employeesData.length;
     }
 
+    // Main site first, then any extra sites (`alsoAt`) for people who work at more than one facility.
+    const sitesOf = (employee) => [employee.location, ...(employee.alsoAt || [])].filter(Boolean);
+
     const preferredLocations = ['RCF', 'CFCF', 'PICC'];
-    const locations = [...new Set(employeesData.map((employee) => employee.location).filter(Boolean))]
+    const locations = [...new Set(employeesData.flatMap(sitesOf))]
         .sort((a, b) => {
             const ai = preferredLocations.indexOf(a);
             const bi = preferredLocations.indexOf(b);
@@ -50,13 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const matchesFilter = (employee) => {
-        if (activeFacility !== 'all' && employee.location !== activeFacility) {
+        if (activeFacility !== 'all' && !sitesOf(employee).includes(activeFacility)) {
             return false;
         }
         if (!searchQuery) {
             return true;
         }
-        const haystack = normalize(`${employee.name} ${employee.role} ${employee.location}`);
+        const haystack = normalize(`${employee.name} ${employee.role} ${sitesOf(employee).join(' ')}`);
         return haystack.includes(searchQuery);
     };
 
@@ -113,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         locations.forEach((loc) => {
-            const group = filtered.filter((e) => e.location === loc);
+            const group = filtered.filter((e) => sitesOf(e).includes(loc));
             if (!group.length) {
                 return;
             }
@@ -154,6 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 card.appendChild(name);
                 card.appendChild(role);
+                const otherSites = sitesOf(employee).filter((site) => site !== loc);
+                if (otherSites.length) {
+                    const also = document.createElement('div');
+                    also.className = 'employee-also';
+                    also.textContent = `Also works at ${otherSites.join(' and ')}`;
+                    card.appendChild(also);
+                }
                 grid.appendChild(card);
             });
 

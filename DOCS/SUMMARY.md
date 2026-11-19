@@ -128,3 +128,4 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Forum deletion for authors and admins.
 [AMENDED 2026-11-19]: Job title list updated: kitchen supervisor and kitchen mechanic are separate; stationary and building engineer are separate.
 [AMENDED 2026-11-19]: Members can add clickable links to their profile and choose from five light and four dark themes; admins can remove links.
+[AMENDED 2026-11-19]: Roster additions (Mike Brown, Lauren Battilana) and support for people who work at two facilities (`alsoAt`); Mike Henry is at RCF and CFCF.

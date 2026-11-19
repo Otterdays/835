@@ -41,7 +41,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where tool-policy archive behavior lives | `tool-program.html` + `js/tool-app.js` + `js/paneled-archive.js` |
 | where shop steward contacts are maintained | `data.js` → `shopStewards`; display/filter in `js/stewards-app.js` |
 | where employee roster data is maintained | `data.js` → `employeesData`; display/filter in `js/employees-app.js` |
-| how to add a steward or roster entry | Add it to `shopStewards` or `employeesData` in `data.js` |
+| how to add a steward or roster entry | Add it to `shopStewards` or `employeesData` in `data.js` (`alsoAt: ["SITE"]` for a second facility) |
 | where member grievance preparation lives | `member-action.html` + `js/member-action-app.js` |
 | where evidence entries are stored and exported | `evidence-log.html` + `js/evidence-log-app.js` (in memory only) |
 | where bargaining checklists and copy language live | `bargaining.html` + `js/bargaining-app.js` |
