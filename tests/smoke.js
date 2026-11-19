@@ -131,6 +131,14 @@ ok(!forumApp.includes('innerHTML'), 'forum client never uses innerHTML');
 ok(!forumApp.includes('oe835_forum_username') && !forumApp.includes('body: JSON.stringify({\n                    author'), 'forum client does not accept or store guest author names');
 ok(forumApp.includes('ProfileUI.badgeRow') || forumApp.includes('P.badgeRow'), 'forum displays account profile badges');
 
+// Every page that runs a script using window.ProfileUI must load js/profile-ui.js first.
+['profile.html', 'profile-edit.html', 'members.html', 'forum.html'].forEach((page) => {
+    const html = fs.readFileSync(path.join(root, page), 'utf8');
+    const ui = html.indexOf('js/profile-ui.js');
+    const app = Math.max(html.indexOf('js/profile-app.js'), html.indexOf('js/forum-app.js'));
+    ok(ui !== -1 && ui < app, `${page} loads profile-ui.js before its page script`);
+});
+
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
 ['home.html', 'member-action.html', 'evidence-log.html', 'bargaining.html', 'suggestions.html'].forEach((page) => {
