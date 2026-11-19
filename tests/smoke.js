@@ -161,6 +161,29 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
     ok(schemaLib.cleanProfileUpdate({ jobTitle: 'Plumber' }).jobTitle === 'Plumber' && schemaLib.cleanProfileUpdate({ jobTitle: '' }).jobTitle === '', 'profile accepts a roster title or none');
 }
 
+// Admin markers: Lead Admin is an awardable title; Site Admin is automatic from the role.
+{
+    const schemaLib = require(path.join(root, 'api/_lib/profile-schema.js'));
+    const accountsLib = require(path.join(root, 'api/_lib/accounts.js'));
+    ok(schemaLib.BADGES['lead-admin'] === 'Lead Admin', 'Lead Admin is an awardable badge');
+    ok(!('admin' in schemaLib.BADGES) && schemaLib.AUTO_BADGES.admin === 'Site Admin', 'Site Admin is automatic, never awardable');
+    ok(schemaLib.options().badges.some((b) => b.id === 'admin'), 'badge options include the automatic Site Admin label');
+    const profile = { username: 'ryanlorenz', handle: 'RyanLorenz', displayName: 'Ryan', badges: ['lead-admin'], avatar: {} };
+    ok(accountsLib.summaryOut(profile, true).badges.join() === 'admin,lead-admin', 'admin profiles show Site Admin before awarded titles');
+    ok(accountsLib.summaryOut(profile, false).badges.join() === 'lead-admin', 'non-admin profiles show only awarded titles');
+    ok(accountsLib.accountOut({ role: 'admin', profile }).badges.includes('admin'), 'signed-in admin account reports the Site Admin marker');
+    ok(!accountsLib.accountOut({ role: 'member', profile }).badges.includes('admin'), 'member account does not report Site Admin');
+    const rows = (list) => ({ limit() { return this; }, toArray: async () => list });
+    const adminDb = {
+        collection: (name) => ({
+            find: () => rows(name === 'users' ? [{ username: 'ryanlorenz', role: 'admin' }] : [profile])
+        })
+    };
+    accountsLib.loadSummaries(adminDb, ['RyanLorenz']).then((map) => {
+        ok(map.get('ryanlorenz')?.badges[0] === 'admin', 'forum/comment author summaries pick up the admin role from users');
+    }).catch((err) => { console.error(err); ok(false, 'forum/comment author summaries pick up the admin role from users'); });
+}
+
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
 ['home.html', 'member-action.html', 'evidence-log.html', 'bargaining.html', 'suggestions.html'].forEach((page) => {

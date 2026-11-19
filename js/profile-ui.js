@@ -3,6 +3,8 @@
 // Everything is built with textContent / DOM nodes. Member text is never parsed as HTML.
 window.ProfileUI = (() => {
     const BADGE_ICONS = {
+        admin: '🛠️',
+        'lead-admin': '👑',
         verified: '✔',
         steward: '🛡️',
         'lead-steward': '⭐',
@@ -97,7 +99,7 @@ window.ProfileUI = (() => {
     const badgeNode = (id) => {
         const node = el('span', `pf-badge pf-badge--${id}`);
         node.append(el('span', 'pf-badge-icon', BADGE_ICONS[id] || '•'), document.createTextNode(` ${badgeLabel(id)}`));
-        node.title = id === 'verified' ? 'Verified by a Local 835 officer' : `${badgeLabel(id)} (awarded by Local 835)`;
+        node.title = id === 'verified' ? 'Verified by a Local 835 officer' : id === 'admin' ? 'Runs this website for Local 835' : `${badgeLabel(id)} (awarded by Local 835)`;
         return node;
     };
 

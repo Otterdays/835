@@ -409,3 +409,10 @@ Make profile job titles a fixed list taken from the roster.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Job title is now a dropdown of the 17 trades on the site roster (`JOB_TITLES` in `api/_lib/profile-schema.js`), enforced by the server. Left out on purpose: status notes ("Injured", "Let go..."), steward titles (verified badges instead), and the three Management entries. `tests/smoke.js` fails if the list stops matching `employeesData` (non-management, status/steward stripped). Editor checked with mocked data; not checked against the live API.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Add Lead Admin badge and show admin status on profiles.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Added `lead-admin` (awardable) and automatic `admin` ("Site Admin") badges; `adminKeys()` in `api/_lib/accounts.js` reads roles from `users`; badge styling in `profile.css`; smoke checks added. Badge look checked with mocked data; not checked against the live API.

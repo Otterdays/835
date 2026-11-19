@@ -122,3 +122,4 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Sign-in page refined for clarity and older-member readability; password reset remains an officer task via `npm run manage:user`.
 [AMENDED 2026-11-19]: Forum board view added (all topics visible at once, columns per category); profile-page helper-script bug fixed.
 [AMENDED 2026-11-19]: Job titles on profiles are limited to the 17 trades on the site roster.
+[AMENDED 2026-11-19]: Admin accounts now show a Site Admin badge; Lead Admin title available through `npm run manage:user`.

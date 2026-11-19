@@ -50,11 +50,12 @@ async function directory(viewer, params, res) {
         .limit(DIRECTORY_LIMIT)
         .toArray();
     const total = await viewer.db.collection('profiles').countDocuments(filter);
+    const admins = await accounts.adminKeys(viewer.db, rows.map((row) => row.username));
     return forum.json(res, 200, {
         ok: true,
         total,
         truncated: total > rows.length,
-        profiles: rows.map(accounts.summaryOut)
+        profiles: rows.map((row) => accounts.summaryOut(row, admins.has(row.username)))
     });
 }
 
@@ -91,9 +92,10 @@ module.exports = async function handler(req, res) {
                 profile.views = (profile.views || 0) + 1;
             }
             const top8 = await resolveTop8(viewer.db, profile);
+            const isAdmin = (await accounts.adminKeys(viewer.db, [profile.username])).has(profile.username);
             return forum.json(res, 200, {
                 ok: true,
-                profile: accounts.fullProfileOut(profile, { top8, isSelf }),
+                profile: accounts.fullProfileOut(profile, { top8, isSelf, isAdmin }),
                 viewer: { username: viewer.username, isAdmin: viewer.role === 'admin' }
             });
         }
@@ -121,7 +123,7 @@ module.exports = async function handler(req, res) {
             const top8 = await resolveTop8(viewer.db, fresh);
             return forum.json(res, 200, {
                 ok: true,
-                profile: accounts.fullProfileOut(fresh, { top8, isSelf: true })
+                profile: accounts.fullProfileOut(fresh, { top8, isSelf: true, isAdmin: viewer.role === 'admin' })
             });
         }
 

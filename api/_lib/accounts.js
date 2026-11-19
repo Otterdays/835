@@ -73,7 +73,13 @@ function iso(value) {
 }
 
 /** Small card used in lists, Top 8 tiles and forum author chips. */
-function summaryOut(profile) {
+/** Badges to show: the automatic Site Admin marker (role "admin") first, then awarded titles. */
+function badgesFor(profile, isAdmin) {
+    const awarded = Array.isArray(profile.badges) ? profile.badges : [];
+    return isAdmin ? ['admin', ...awarded.filter((id) => id !== 'admin')] : awarded;
+}
+
+function summaryOut(profile, isAdmin = false) {
     return {
         handle: profile.handle,
         username: profile.username,
@@ -82,14 +88,14 @@ function summaryOut(profile) {
         jobTitle: profile.jobTitle || '',
         facility: profile.facility || '',
         avatar: profile.avatar || { glyph: 'hardhat', color: 'blue' },
-        badges: Array.isArray(profile.badges) ? profile.badges : [],
+        badges: badgesFor(profile, isAdmin),
         online: isOnline(profile)
     };
 }
 
-function fullProfileOut(profile, { top8 = [], isSelf = false } = {}) {
+function fullProfileOut(profile, { top8 = [], isSelf = false, isAdmin = false } = {}) {
     return {
-        ...summaryOut(profile),
+        ...summaryOut(profile, isAdmin),
         mood: profile.mood || '',
         aboutMe: profile.aboutMe || '',
         interests: profile.interests || '',
@@ -114,8 +120,22 @@ function accountOut(user) {
         role: user.role,
         displayName: profile.displayName,
         avatar: profile.avatar || { glyph: 'hardhat', color: 'blue' },
-        badges: Array.isArray(profile.badges) ? profile.badges : []
+        badges: badgesFor(profile, user.role === 'admin')
     };
+}
+
+/** Which of these usernames are admins (read from `users`, the source of truth for roles). */
+async function adminKeys(db, usernames) {
+    const keys = [...new Set(usernames.filter(Boolean).map((u) => String(u).toLowerCase()))];
+    if (!keys.length) {
+        return new Set();
+    }
+    const rows = await db
+        .collection('users')
+        .find({ username: { $in: keys }, role: 'admin', active: true })
+        .limit(keys.length)
+        .toArray();
+    return new Set(rows.map((row) => row.username));
 }
 
 async function loadSummaries(db, usernames) {
@@ -128,7 +148,8 @@ async function loadSummaries(db, usernames) {
         .find({ username: { $in: keys }, visibility: { $ne: 'hidden' } })
         .limit(keys.length)
         .toArray();
-    return new Map(rows.map((row) => [row.username, summaryOut(row)]));
+    const admins = await adminKeys(db, rows.map((row) => row.username));
+    return new Map(rows.map((row) => [row.username, summaryOut(row, admins.has(row.username))]));
 }
 
 /** Add `authorProfile` to forum threads / replies that came from an account. */
@@ -154,6 +175,7 @@ module.exports = {
     summaryOut,
     fullProfileOut,
     accountOut,
+    adminKeys,
     loadSummaries,
     attachAuthors
 };

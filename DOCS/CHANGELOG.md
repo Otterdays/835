@@ -154,3 +154,4 @@
 [AMENDED 2026-11-19]: Forum member names are clearer links with larger touch targets; thread rows use a stretched title link so names inside them are valid separate links; pre-account guest posts are tagged "guest".
 [AMENDED 2026-11-19]: Forum shows all categories by default with a Board (kanban-style, columns per topic) and List toggle; profile, editor and directory pages now load their shared helper script.
 [AMENDED 2026-11-19]: Profile job title changed from free text to a dropdown of the roster's trades, enforced by the API and guarded by a smoke check.
+[AMENDED 2026-11-19]: Added a Lead Admin title and an automatic Site Admin marker for admin accounts, shown on profiles, directory, forum and comments.

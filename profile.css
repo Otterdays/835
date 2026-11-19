@@ -97,3 +97,7 @@
 .account-help h3{font-size:1.05rem}
 #signup-note{margin:0}
 @media(max-width:720px){.account-container{padding-top:4.25rem}}
+
+/* Website admins stand out from member titles: dark fill with white text (contrast > 10:1). */
+.pf-badge--admin,.pf-badge--lead-admin{background:#173865;color:#fff}
+.pf-badge--lead-admin{background:#0f2a4d;box-shadow:inset 0 0 0 1px #d5a52f}

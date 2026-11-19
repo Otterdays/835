@@ -35,12 +35,17 @@ const JOB_TITLES = [
 // a member can never set their own.
 const BADGES = {
     verified: 'Verified Member',
+    'lead-admin': 'Lead Admin',
     steward: 'Shop Steward',
     'lead-steward': 'Lead Steward',
     'exec-board': 'Executive Board',
     'bargaining-committee': 'Bargaining Committee',
     'safety-committee': 'Safety Committee'
 };
+
+// Shown automatically on every account whose role is "admin". Not awardable, so it
+// always matches the real role (including a role edited directly in the database).
+const AUTO_BADGES = { admin: 'Site Admin' };
 
 const THEMES = {
     classic: 'Classic Blue',
@@ -284,7 +289,7 @@ function options() {
     return {
         facilities: FACILITIES,
         jobTitles: JOB_TITLES,
-        badges: labelled(BADGES),
+        badges: labelled({ ...AUTO_BADGES, ...BADGES }),
         themes: labelled(THEMES),
         patterns: labelled(PATTERNS),
         visibility: labelled(VISIBILITY),
@@ -297,6 +302,7 @@ function options() {
 
 module.exports = {
     FACILITIES,
+    AUTO_BADGES,
     JOB_TITLES,
     BADGES,
     THEMES,

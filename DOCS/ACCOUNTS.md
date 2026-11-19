@@ -36,3 +36,5 @@ Mongo indexes for `profiles` and `profile_comments` are created in `api/_lib/mon
 There is no web-based admin panel, email-based password reset, or verified connection to the static Site Roster. Signup policy should be configured in the live environment before sharing the registration link. Keep the repository private and never put account secrets in project documentation.
 
 [AMENDED 2026-11-19]: Profile job title is a fixed list (`JOB_TITLES`, 17 roster trades), not free text. When the roster in `data.js` gains a new trade, add it to `api/_lib/profile-schema.js`; the smoke test will flag the mismatch. Steward titles remain verified badges.
+
+[AMENDED 2026-11-19]: Admin markers. Every account with role `admin` automatically shows a dark "Site Admin" badge (read from `users` at request time, so it matches the real role even if edited in Atlas; not awardable). "Lead Admin" is a new awardable title: `npm run manage:user badge <username> add lead-admin`. Both show on profiles, the directory, forum posts and the comments wall.
