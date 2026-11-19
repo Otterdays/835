@@ -373,6 +373,7 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     {
         const css = fs.readFileSync(path.join(root, 'style.css'), 'utf8');
         ok(app.includes('roster-index') && app.includes('setPointerCapture') && app.includes("behavior: 'instant'") && /\.roster-index\s*\{[^}]*position:\s*fixed/.test(css), 'roster has a phone A-Z jump rail with drag support');
+        ok(app.includes('const currentGroup') && app.includes("group.querySelectorAll('.employee-card')") && app.includes("addEventListener('scroll'"), 'jump rail lists only the letters of the crew section on screen');
         ok(/@media \(max-width: 767px\)\s*\{\s*\.roster-index\s*\{/.test(css) && /\.roster-index,\s*\.roster-index-bubble\s*\{\s*display:\s*none/.test(css), 'jump rail is phone-only');
     }
     ok(app.includes('.sort(compareStaff)') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');

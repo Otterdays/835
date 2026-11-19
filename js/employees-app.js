@@ -106,8 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ---------- A-Z jump rail (phones) ---------- */
     // A slim strip on the right edge. Touch or drag along it to jump to the first name starting with
-    // that letter. Sections are per site, so a letter can repeat; the jump stays in the section you are
-    // reading when it can, otherwise goes to the next match further down, otherwise to the first match.
+    // that letter within the crew section you are reading (the strip only lists letters that crew has).
     const letterOf = (employee) => {
         const first = normalize(employee.name).charAt(0).toUpperCase();
         return /[A-Z]/.test(first) ? first : '#';
@@ -121,20 +120,18 @@ document.addEventListener('DOMContentLoaded', () => {
     bubble.setAttribute('aria-hidden', 'true');
     document.body.append(rail, bubble);
 
+    // The crew section being read: the last one whose top has passed 35% of the screen, else the first.
+    const currentGroup = () => {
+        const groups = [...employeesContainer.querySelectorAll('.location-group')];
+        return groups.filter((group) => group.getBoundingClientRect().top <= window.innerHeight * 0.35).pop() || groups[0] || null;
+    };
+
     const jumpTo = (letter) => {
-        const cards = [...employeesContainer.querySelectorAll('.employee-card')];
-        const matches = cards.filter((card) => card.dataset.letter === letter);
-        if (!matches.length) {
-            return;
+        const group = currentGroup();
+        const target = group && [...group.querySelectorAll('.employee-card')].find((card) => card.dataset.letter === letter);
+        if (target) {
+            target.scrollIntoView({ block: 'start', behavior: 'instant' }); // the page is smooth-scroll by default; scrubbing needs it immediate
         }
-        const reading = [...employeesContainer.querySelectorAll('.location-group')]
-            .filter((group) => group.getBoundingClientRect().top <= window.innerHeight * 0.35)
-            .pop();
-        const target =
-            matches.find((card) => reading && reading.contains(card)) ||
-            matches.find((card) => card.getBoundingClientRect().top > 8) ||
-            matches[0];
-        target.scrollIntoView({ block: 'start', behavior: 'instant' }); // the page is smooth-scroll by default; scrubbing needs it immediate
     };
 
     let bubbleTimer = 0;
@@ -199,20 +196,42 @@ document.addEventListener('DOMContentLoaded', () => {
         rail.classList.add('is-away');
     }
 
+    // The rail lists only the letters in the crew section on screen, so every tap lands in that crew.
+    // It follows you as you scroll from one crew to the next (and is left alone while you are dragging).
+    let railKey = '';
     const renderIndex = () => {
-        const letters = [...new Set([...employeesContainer.querySelectorAll('.employee-card')].map((c) => c.dataset.letter))].sort();
-        rail.replaceChildren(
-            ...letters.map((letter) => {
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.dataset.letter = letter;
-                button.textContent = letter;
-                button.setAttribute('aria-label', `Jump to names starting with ${letter}`);
-                return button;
-            })
-        );
+        if (rail.classList.contains('is-dragging')) {
+            return;
+        }
+        const group = currentGroup();
+        const letters = group
+            ? [...new Set([...group.querySelectorAll('.employee-card')].map((card) => card.dataset.letter))].sort()
+            : [];
+        const key = letters.join('');
+        if (key !== railKey) {
+            railKey = key;
+            rail.replaceChildren(
+                ...letters.map((letter) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.dataset.letter = letter;
+                    button.textContent = letter;
+                    button.setAttribute('aria-label', `Jump to names starting with ${letter}`);
+                    return button;
+                })
+            );
+        }
         rail.hidden = letters.length < 2;
     };
+    let indexFrame = 0;
+    window.addEventListener('scroll', () => {
+        if (!indexFrame) {
+            indexFrame = window.setTimeout(() => {
+                indexFrame = 0;
+                renderIndex();
+            }, 80);
+        }
+    }, { passive: true });
 
     const renderRoster = () => {
         employeesContainer.innerHTML = '';
