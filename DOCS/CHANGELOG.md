@@ -166,3 +166,4 @@
 [AMENDED 2026-11-19]: Site Roster: every crew section is sorted A-Z by first name (Management keeps its 1/2/3 rank order), and the roster entries in `data.js` are kept in the same order. New staff should be added in alphabetical position.
 [AMENDED 2026-11-19]: Site Roster on phones: a slim A-Z rail on the right edge (touch or drag to jump to the first name with that letter; shows only letters that exist, hidden until the list is on screen). Jumps stay in the section being read when possible.
 [AMENDED 2026-11-19]: Site Roster: added Ochel Alexis (CFCF Electrician) and filled in full names for Trevor Anderson and Paul Avarachan (CFCF Electricians). Electricians and Laborers checked against the supplied list.
+[AMENDED 2026-11-19]: Site Roster: removed the duplicate "Tim" (CFCF Electrician); he is Tim Neri, already listed at PICC.

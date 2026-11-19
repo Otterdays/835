@@ -720,7 +720,6 @@ const employeesData = [
     { name: "Sabu", location: "RCF", role: "Engineer" },
     { name: "Scott", location: "Warehouse", role: "Warehouse Crew" },
     { name: "Subin", location: "CFCF", role: "Engineer" },
-    { name: "Tim", location: "CFCF", role: "Electrician" },
     { name: "Timothy Neri", location: "PICC", role: "Electrician" },
     { name: "Trevor Anderson", location: "CFCF", role: "Electrician" },
     { name: "Xavier Wilson", location: "PICC", role: "Trades Helper" },
