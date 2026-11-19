@@ -1,10 +1,10 @@
 // [TRACE: ACCOUNTS.md]
 // POST /api/auth/password { currentPassword, newPassword } -> change own password.
 // Older sessions (other devices) stop working; this one is re-issued.
-const { getDb } = require('../lib/mongo');
-const { hashPassword, verifyPassword } = require('../lib/password');
-const { createSessionToken, sessionCookie } = require('../lib/session');
-const { assertNotRateLimited, recordFailedAttempt, clearAttempts } = require('../lib/rate-limit');
+const { getDb } = require('../_lib/mongo');
+const { hashPassword, verifyPassword } = require('../_lib/password');
+const { createSessionToken, sessionCookie } = require('../_lib/session');
+const { assertNotRateLimited, recordFailedAttempt, clearAttempts } = require('../_lib/rate-limit');
 const forum = require('../_lib/forum');
 const schema = require('../_lib/profile-schema');
 const accounts = require('../_lib/accounts');

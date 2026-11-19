@@ -1,5 +1,5 @@
 // [TRACE: ARCHITECTURE.md]
-const { clearSessionCookie } = require('../lib/session');
+const { clearSessionCookie } = require('../_lib/session');
 
 module.exports = async function handler(req, res) {
     if (req.method !== 'POST') {

@@ -49,9 +49,9 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where accounts, profiles and member roles are handled | `api/auth/`, `api/profile/`, `api/_lib/accounts.js`, and `scripts/manage-user.js` (see `DOCS/ACCOUNTS.md`) |
 | where forum threads and replies are handled | `api/forum/` (see `api/forum/_MAP.md`) and `js/forum-app.js` |
 | how to add a forum endpoint | Add a Vercel route under `api/forum/`, reuse `api/_lib/forum.js`, and update `tests/smoke.js` when behavior changes |
-| how to add an API endpoint | Add a route under `api/`; shared database/session helpers are in `api/lib/` |
-| where Mongo connection and indexes are configured | `api/lib/mongo.js` → `getDb()`, `ensureIndexes()` |
-| where session cookies and JWT behavior live | `api/lib/session.js` |
+| how to add an API endpoint | Add a route under `api/`; shared helpers are in `api/_lib/` so they do not count as routes |
+| where Mongo connection and indexes are configured | `api/_lib/mongo.js` → `getDb()`, `ensureIndexes()` |
+| where session cookies and JWT behavior live | `api/_lib/session.js` |
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
@@ -111,7 +111,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `source/IUOE_Local_835_Working_Packet.md` | Offline Markdown draft (not opened) |
 
 ## Not mapped
-`images/` is summarized above; `.git/` and ignored/generated/dependency folders are omitted. `api/lib/password.js` exists, not opened.
+`images/` is summarized above; `.git/` and ignored/generated/dependency folders are omitted.
 
 ## Known oddities
 - `README.md`, `DOCS/ARCHITECTURE.md`, and `live-setup.md` describe gated production pages, but current `js/auth.js` sets `AUTH_DISABLED = true` and `middleware.js` allows all traffic except requests for the source folder.

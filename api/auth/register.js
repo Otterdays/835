@@ -6,9 +6,9 @@
 //   SIGNUP_CODE   if set, new accounts must supply it (hand it out at meetings)
 //   SIGNUP_CLOSED set to "1" to stop new sign-ups entirely
 const crypto = require('crypto');
-const { getDb } = require('../lib/mongo');
-const { hashPassword } = require('../lib/password');
-const { createSessionToken, sessionCookie } = require('../lib/session');
+const { getDb } = require('../_lib/mongo');
+const { hashPassword } = require('../_lib/password');
+const { createSessionToken, sessionCookie } = require('../_lib/session');
 const forum = require('../_lib/forum');
 const schema = require('../_lib/profile-schema');
 const accounts = require('../_lib/accounts');

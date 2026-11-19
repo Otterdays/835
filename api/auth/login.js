@@ -1,16 +1,16 @@
 // [TRACE: ARCHITECTURE.md]
-const { getDb } = require('../lib/mongo');
+const { getDb } = require('../_lib/mongo');
 const accounts = require('../_lib/accounts');
-const { verifyPassword } = require('../lib/password');
+const { verifyPassword } = require('../_lib/password');
 const {
     createSessionToken,
     sessionCookie
-} = require('../lib/session');
+} = require('../_lib/session');
 const {
     assertNotRateLimited,
     recordFailedAttempt,
     clearAttempts
-} = require('../lib/rate-limit');
+} = require('../_lib/rate-limit');
 
 function clientKey(req, username) {
     const fwd = req.headers['x-forwarded-for'];

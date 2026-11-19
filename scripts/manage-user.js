@@ -27,8 +27,8 @@ const path = require('path');
         });
 })();
 
-const { getDb } = require('../api/lib/mongo');
-const { hashPassword } = require('../api/lib/password');
+const { getDb } = require('../api/_lib/mongo');
+const { hashPassword } = require('../api/_lib/password');
 const schema = require('../api/_lib/profile-schema');
 const accounts = require('../api/_lib/accounts');
 

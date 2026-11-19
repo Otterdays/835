@@ -29,7 +29,7 @@ New forum threads and replies take the author from the signed-in session, not su
 - `api/_lib/profile-schema.js`: profile option lists and validation.
 - `scripts/manage-user.js`: officer account/role/badge operations.
 
-Mongo indexes for `profiles` and `profile_comments` are created in `api/lib/mongo.js`. Runtime sign-up options are listed in `.env.example`. Browser helpers are in `js/profile-ui.js`, `js/profile-app.js`, and `js/signin-app.js`.
+Mongo indexes for `profiles` and `profile_comments` are created in `api/_lib/mongo.js`. Runtime sign-up options are listed in `.env.example`. Browser helpers are in `js/profile-ui.js`, `js/profile-app.js`, and `js/signin-app.js`.
 
 ## Current boundaries
 

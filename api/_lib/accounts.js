@@ -2,8 +2,8 @@
 // Shared account helpers: session lookup, profile creation, and response shaping.
 // Auth data (`users`: password hash, role) stays separate from profile data
 // (`profiles`: what other members can see), and nothing secret is ever returned.
-const { getDb } = require('../lib/mongo');
-const { COOKIE_NAME, readCookie, verifySessionToken } = require('../lib/session');
+const { getDb } = require('./mongo');
+const { COOKIE_NAME, readCookie, verifySessionToken } = require('./session');
 const forum = require('./forum');
 const schema = require('./profile-schema');
 

@@ -12,7 +12,7 @@
 | `me.js` | GET session status route; validates the cookie and returns the session user | `handler()` |
 
 ## Connects to
-- `../lib/mongo.js` and `../lib/rate-limit.js` for login verification and attempt tracking.
-- `../lib/session.js` for JWT and cookie behavior.
-- `../lib/password.js` hashes and verifies member passwords.
+- `../_lib/mongo.js` and `../_lib/rate-limit.js` for login verification and attempt tracking.
+- `../_lib/session.js` for JWT and cookie behavior.
+- `../_lib/password.js` hashes and verifies member passwords.
 - Browser login entry and auth state: `../../js/auth.js`, `../../js/signin-app.js`.

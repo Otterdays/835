@@ -161,7 +161,7 @@ ok(contractApp.includes('normalizeWithOffsets(source, true)') && contractApp.inc
 ok(contractApp.includes('result entries') || contractApp.includes('itemLabel'), 'contract search reports matching entry counts');
 const employeesApp = fs.readFileSync(path.join(root, 'js/employees-app.js'), 'utf8');
 ok(employeesApp.includes('new Set(employeesData.map') && employeesApp.includes(".normalize('NFKD')"), 'roster filters follow current locations and normalize searches');
-const mongo = fs.readFileSync(path.join(root, 'api/lib/mongo.js'), 'utf8');
+const mongo = fs.readFileSync(path.join(root, 'api/_lib/mongo.js'), 'utf8');
 ok(mongo.includes('forum_threads_search') && mongo.includes('forum_replies_search'), 'forum text-search indexes exist');
 const forumThreadsApi = fs.readFileSync(path.join(root, 'api/forum/threads.js'), 'utf8');
 ok(forumThreadsApi.includes('matchedReplies'), 'forum search returns matching replies');
@@ -202,7 +202,7 @@ const fakeDb = {
         };
     }
 };
-const mongoModulePath = require.resolve(path.join(root, 'api/lib/mongo.js'));
+const mongoModulePath = require.resolve(path.join(root, 'api/_lib/mongo.js'));
 require.cache[mongoModulePath] = {
     id: mongoModulePath,
     filename: mongoModulePath,

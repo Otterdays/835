@@ -20,8 +20,8 @@ const path = require('path');
     });
 })();
 
-const { getDb } = require('../api/lib/mongo');
-const { hashPassword } = require('../api/lib/password');
+const { getDb } = require('../api/_lib/mongo');
+const { hashPassword } = require('../api/_lib/password');
 
 async function main() {
     const username = String(process.argv[2] || '')

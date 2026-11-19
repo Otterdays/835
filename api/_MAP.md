@@ -17,17 +17,16 @@
 | `_lib/accounts.js` | Resolves sessions and shapes safe account/profile responses | `requireUser()`, `accountOut()` |
 | `_lib/profile-schema.js` | Fixed profile options and validation | `cleanProfileUpdate()`, `options()` |
 | `_lib/forum.js` | Request parsing, forum validation, rate limits, and response shaping | `readJson()`, `cleanText()`, `consumeRateLimit()` |
-| `lib/mongo.js` | Connects to MongoDB and creates indexes | `getDb()`, `ensureIndexes()` |
-| `lib/rate-limit.js` | Tracks failed login attempts | `assertNotRateLimited()`, `recordFailedAttempt()` |
-| `lib/session.js` | Signs/verifies JWTs and formats session cookies | `createSessionToken()`, `verifySessionToken()` |
-| `lib/password.js` | Hashes and verifies passwords | `hashPassword()`, `verifyPassword()` |
+| `_lib/mongo.js` | Connects to MongoDB and creates indexes | `getDb()`, `ensureIndexes()` |
+| `_lib/rate-limit.js` | Tracks failed login attempts | `assertNotRateLimited()`, `recordFailedAttempt()` |
+| `_lib/session.js` | Signs/verifies JWTs and formats session cookies | `createSessionToken()`, `verifySessionToken()` |
+| `_lib/password.js` | Hashes and verifies passwords | `hashPassword()`, `verifyPassword()` |
 
 ## Subfolders
 - `auth/`: Login/session endpoints (see `auth/_MAP.md`).
 - `forum/`: Thread and reply endpoints (see `forum/_MAP.md`).
 - `profile/`: Member directory, profile, and comments endpoints (see `profile/_MAP.md`).
-- `_lib/`: Shared forum route helpers (see `_lib/_MAP.md`).
-- `lib/`: Mongo, session, and login-rate helpers (see `lib/_MAP.md`).
+- `_lib/`: Shared account, forum, Mongo, session, password, and login-rate helpers; underscore prefix keeps them out of the serverless route count (see `_lib/_MAP.md`).
 
 ## Connects to
 - Account/profile behavior is described in `../DOCS/ACCOUNTS.md`; management commands are in `../scripts/manage-user.js`.

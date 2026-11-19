@@ -1,4 +1,5 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+[AMENDED 2026-11-19]: Fixed Hobby deployment function-count failure by moving shared API helpers from `api/lib/` to `api/_lib/`, updating imports/tests/maps, and keeping nine endpoint files in deployable route directories. Node 26 pin remains in effect.
 [AMENDED 2026-11-19]: Pinned `engines.node` to `26.x` in `package.json` and `package-lock.json` so Vercel cannot auto-upgrade the project to a different major Node.js version.
 [AMENDED 2026-11-19]: Added the user-requested “BEST IN CLASS ASSHOLES” native tooltip to the Management roster heading in `js/employees-app.js`.
 [AMENDED 2026-11-19]: Expanded the roster tooltip to appear immediately over each Management card and the Management heading, with keyboard focus support; replaced the delayed native tooltip.

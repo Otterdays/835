@@ -119,7 +119,7 @@ flowchart LR
 
 - **Client:** `forum.html` + `js/forum-app.js`. Hash routing (`#t=<threadId>`). Temp username in `localStorage` key `oe835_forum_username`; all post text rendered via `textContent`.
 - **API:** `api/forum/threads.js` (GET list / POST new thread), `api/forum/thread.js` (GET thread + replies / POST reply). Shared validation + rate limiting in `api/_lib/forum.js` (underscore = not deployed as its own function).
-- **Mongo collections:** `forum_threads` (title, body, category, author, createdAt, lastActivityAt, replyCount), `forum_replies` (threadId, body, author, createdAt), `forum_rate` (per-IP counters, TTL). Indexes created in `api/lib/mongo.js`.
+- **Mongo collections:** `forum_threads` (title, body, category, author, createdAt, lastActivityAt, replyCount), `forum_replies` (threadId, body, author, createdAt), `forum_rate` (per-IP counters, TTL). Indexes created in `api/_lib/mongo.js`.
 - **Trust model:** author names are self-asserted labels, not identities. Server enforces format + reserved prefixes only.
 
 [AMENDED 2026-11-17 9:12 p.m. EST]: Search surfaces now share accent/punctuation-insensitive matching and source-safe match highlighting. Sitewide results include score order, ordinal labels, total/truncation status, and keyboard selection announcements; forum lookup starts only for a non-trivial query. Contract tools use an accessible disclosure on mobile (≤767px) and do not stick over the reading area; `/` and `?focus=search` expand the tools before focusing the field.

@@ -10,5 +10,5 @@
 
 ## Connects to
 - Both routes use `../_lib/forum.js` for input checks, response helpers, and limits.
-- Both routes use `../lib/mongo.js` for forum collections.
+- Both routes use `../_lib/mongo.js` for forum collections.
 - Browser UI: `../../js/forum-app.js`; collection/index notes: `../../DOCS/ARCHITECTURE.md`.

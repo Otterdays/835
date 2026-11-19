@@ -1,7 +1,7 @@
 // [TRACE: ARCHITECTURE.md]
 // GET  /api/forum/threads[?category=CFCF]  -> newest-activity-first thread list
 // POST /api/forum/threads                  -> create a thread (signed-in members only)
-const { getDb } = require('../lib/mongo');
+const { getDb } = require('../_lib/mongo');
 const forum = require('../_lib/forum');
 const accounts = require('../_lib/accounts');
 

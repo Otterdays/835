@@ -1,7 +1,7 @@
 // [TRACE: ARCHITECTURE.md]
 // GET  /api/forum/thread?id=<threadId>  -> one thread + its replies (oldest first)
 // POST /api/forum/thread                -> reply { threadId, body } (signed-in members only)
-const { getDb } = require('../lib/mongo');
+const { getDb } = require('../_lib/mongo');
 const forum = require('../_lib/forum');
 const accounts = require('../_lib/accounts');
 
