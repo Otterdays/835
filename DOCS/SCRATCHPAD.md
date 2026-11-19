@@ -395,3 +395,10 @@ Make forum usernames tappable.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Member names in forum lists and threads are underlined links to profiles with a 44px+ touch area. Thread rows no longer nest a profile link inside the row link (stretched-link pattern instead). Posts made with a temporary name before accounts existed cannot link to a profile; they now show a small "guest" tag. Checked with mocked data at 375px; no live-API check.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Forum "show all" and kanban-style board; fix profile pages that never loaded `js/profile-ui.js`.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Fixed profile.html, profile-edit.html, members.html (missing `profile-ui.js`, caused "P is undefined"); added a smoke check. Forum filter now starts at "All categories" (the rewritten client had dropped that option, so it opened on General). Added Board (default) and List views: one column per topic with thread counts, cards with excerpt/author/replies/date, saved view preference, wider page in board mode, sideways snap lanes on phones. Checked with mocked data at 1400px and 375px; not checked against the live API.

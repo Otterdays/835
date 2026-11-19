@@ -139,6 +139,9 @@ ok(forumApp.includes('ProfileUI.badgeRow') || forumApp.includes('P.badgeRow'), '
     ok(ui !== -1 && ui < app, `${page} loads profile-ui.js before its page script`);
 });
 
+ok(forumApp.includes("new Option('All categories'") && forumApp.includes('renderBoard') && forumApp.includes('forum-col'), 'forum defaults to all categories with a board of topic columns');
+ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum can switch between board and list');
+
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
 ['home.html', 'member-action.html', 'evidence-log.html', 'bargaining.html', 'suggestions.html'].forEach((page) => {

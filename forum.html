@@ -76,12 +76,19 @@
 
             <div class="forum-list-head">
                 <h2 id="forum-board-heading">Threads</h2>
-                <div class="forum-filter">
-                    <label for="forum-filter">Show</label>
-                    <select id="forum-filter"></select>
+                <div class="forum-tools">
+                    <div class="forum-view" role="group" aria-label="Thread layout">
+                        <button type="button" class="forum-view-btn" data-view="board" aria-pressed="true">Board</button>
+                        <button type="button" class="forum-view-btn" data-view="list" aria-pressed="false">List</button>
+                    </div>
+                    <div class="forum-filter">
+                        <label for="forum-filter">Show</label>
+                        <select id="forum-filter"></select>
+                    </div>
                 </div>
             </div>
-            <div id="forum-thread-list" class="forum-list" aria-live="polite"></div>
+            <p class="forum-board-hint" id="forum-board-hint" hidden><span class="forum-hint-swipe">Swipe sideways to see every topic. </span><span id="forum-limit-note"></span></p>
+            <div id="forum-thread-list" class="forum-board" aria-live="polite"></div>
         </div>
 
         <!-- Single thread -->
