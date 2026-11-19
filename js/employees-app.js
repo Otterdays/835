@@ -115,7 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        locations.forEach((loc) => {
+        // A facility filter shows only that facility's crew. Multi-site staff (e.g. security) would
+        // otherwise also pull in a section for every other site they cover.
+        const visibleLocations = activeFacility === 'all' ? locations : [activeFacility];
+        visibleLocations.forEach((loc) => {
             const group = filtered.filter((e) => sitesOf(e).includes(loc));
             if (!group.length) {
                 return;
