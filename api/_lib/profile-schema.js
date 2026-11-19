@@ -51,10 +51,26 @@ const AUTO_BADGES = { admin: 'Site Admin' };
 const THEMES = {
     classic: 'Classic Blue',
     hardhat: 'Hard Hat Yellow',
-    midnight: 'Midnight',
     steel: 'Steel',
     brick: 'Brick Red',
-    pine: 'Pine'
+    pine: 'Pine',
+    midnight: 'Midnight',
+    graphite: 'Graphite',
+    ember: 'Ember',
+    forest: 'Dark Forest'
+};
+
+// Light or dark, so the editor can group them. The colors themselves live in profile.css.
+const THEME_MODES = {
+    classic: 'light',
+    hardhat: 'light',
+    steel: 'light',
+    brick: 'light',
+    pine: 'light',
+    midnight: 'dark',
+    graphite: 'dark',
+    ember: 'dark',
+    forest: 'dark'
 };
 
 const PATTERNS = {
@@ -136,6 +152,9 @@ const LIMITS = {
     interests: { min: 0, max: 800 },
     wantToMeet: { min: 0, max: 800 },
     comment: { min: 1, max: 500 },
+    links: 5,
+    linkLabel: { min: 1, max: 40 },
+    linkUrl: 300,
     top8: 8,
     passwordMin: 8,
     passwordMax: 128
@@ -232,6 +251,7 @@ function defaultProfile(handle, displayName) {
         pattern: 'none',
         avatar: { glyph: 'hardhat', color: 'blue' },
         top8: [],
+        links: [],
         visibility: 'members',
         badges: [],
         views: 0,
@@ -241,6 +261,72 @@ function defaultProfile(handle, displayName) {
         lastSeenAt: null,
         schemaVersion: 1
     };
+}
+
+/**
+ * A member-supplied web address. Only plain http(s) pages on a normal hostname are kept:
+ * no javascript:/data: links, no logins inside the address, no IP numbers or local names.
+ * Returns the normalized address (the browser's own parsing, with the hostname lowercased).
+ */
+function cleanUrl(raw) {
+    let text = String(raw || '').trim();
+    if (!text) {
+        throw forum.httpError(400, 'Enter a web address for each link.');
+    }
+    if (text.length > LIMITS.linkUrl) {
+        throw forum.httpError(400, 'That web address is too long.');
+    }
+    if (/\s/.test(text)) {
+        throw forum.httpError(400, 'Web addresses cannot contain spaces.');
+    }
+    // "example.com" is fine; anything with another scheme (javascript:, data:, ftp:) is not.
+    if (!/^https?:\/\//i.test(text)) {
+        if (/^[a-z][a-z0-9+.-]*:/i.test(text) && !/^[^/]*\.[^/]*(:\d+)?(\/|$)/.test(text)) {
+            throw forum.httpError(400, 'Links must start with http:// or https://.');
+        }
+        text = `https://${text}`;
+    }
+    let url;
+    try {
+        url = new URL(text);
+    } catch (err) {
+        throw forum.httpError(400, 'That does not look like a web address.');
+    }
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+        throw forum.httpError(400, 'Links must start with http:// or https://.');
+    }
+    if (url.username || url.password) {
+        throw forum.httpError(400, 'Web addresses with a login inside them are not allowed.');
+    }
+    const host = url.hostname.toLowerCase();
+    const looksLocal =
+        !host.includes('.') ||
+        host.includes(':') ||
+        host.startsWith('[') ||
+        /^\d+(\.\d+)*$/.test(host) ||
+        host === 'localhost' ||
+        /\.(local|internal|localhost|lan)$/.test(host);
+    if (looksLocal) {
+        throw forum.httpError(400, 'Use a normal website address (not an IP number or a local name).');
+    }
+    return url.href;
+}
+
+function cleanLinks(raw) {
+    if (!Array.isArray(raw) || raw.length > LIMITS.links) {
+        throw forum.httpError(400, `You can add up to ${LIMITS.links} links.`);
+    }
+    const seen = new Set();
+    return raw.map((item) => {
+        const entry = item && typeof item === 'object' ? item : {};
+        const label = forum.cleanText(entry.label, LIMITS.linkLabel, 'Link name').replace(/\s+/g, ' ');
+        const url = cleanUrl(entry.url);
+        if (seen.has(url)) {
+            throw forum.httpError(400, 'Each link must be different.');
+        }
+        seen.add(url);
+        return { label, url };
+    });
 }
 
 /**
@@ -292,6 +378,9 @@ function cleanProfileUpdate(body, { allowReservedName = false } = {}) {
             color: pick(AVATAR_COLORS, avatar.color, 'avatar color')
         };
     }
+    if (has('links')) {
+        out.links = cleanLinks(body.links);
+    }
     if (has('top8')) {
         if (!Array.isArray(body.top8) || body.top8.length > LIMITS.top8) {
             throw forum.httpError(400, `Top ${LIMITS.top8} can list up to ${LIMITS.top8} members.`);
@@ -310,7 +399,7 @@ function options() {
         facilities: FACILITIES,
         jobTitles: JOB_TITLES,
         badges: labelled({ ...AUTO_BADGES, ...BADGES }),
-        themes: labelled(THEMES),
+        themes: Object.entries(THEMES).map(([id, label]) => ({ id, label, mode: THEME_MODES[id] })),
         patterns: labelled(PATTERNS),
         visibility: labelled(VISIBILITY),
         moods: Object.entries(MOODS).map(([id, m]) => ({ id, ...m })),
@@ -321,6 +410,8 @@ function options() {
 }
 
 module.exports = {
+    THEME_MODES,
+    cleanUrl,
     FACILITIES,
     AUTO_BADGES,
     JOB_TITLES,

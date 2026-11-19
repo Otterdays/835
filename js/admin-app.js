@@ -129,7 +129,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             );
         }
 
-        body.append(roleRow, titleSet, accountRow);
+        // Moderation: take down a member's links (they can add new ones afterwards).
+        const linksRow = P.el('div', 'adm-row');
+        linksRow.append(
+            button('Remove profile links', 'pf-btn', () => {
+                if (!window.confirm(`Remove all links from ${row.displayName}'s profile? They can add new ones later.`)) {
+                    return;
+                }
+                run({ action: 'clearLinks' }, 'Profile links removed.');
+            })
+        );
+
+        body.append(roleRow, titleSet, accountRow, linksRow);
 
         // Password reset
         if (!row.isSelf) {
@@ -204,6 +215,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         badgeAdd: (r) => `awarded "${r.detail.badge}" to`,
         badgeRemove: (r) => `removed "${r.detail.badge}" from`,
         resetPassword: () => 'reset the password for',
+        clearLinks: (r) => `removed ${r.detail.removed} profile link${r.detail.removed === 1 ? '' : 's'} from`,
         forumDeleteThread: (r) => `deleted the thread "${r.detail.title}" (${r.detail.replies} replies) by`,
         forumDeleteReply: (r) => `deleted a reply ("${r.detail.excerpt}") by`
     };

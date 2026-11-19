@@ -131,14 +131,91 @@ document.addEventListener('DOMContentLoaded', async () => {
         textField("Who I'd like to meet", 'wantToMeet', profile.wantToMeet, { area: true })
     );
 
+    // Theme swatches grouped into light and dark. Colors come from profile.css (one source).
+    const themePicker = () => {
+        const set = document.createElement('fieldset');
+        set.className = 'pf-choice-set pf-theme-set';
+        const lg = document.createElement('legend');
+        lg.textContent = 'Profile theme';
+        set.append(lg);
+        [['light', 'Light themes'], ['dark', 'Dark themes']].forEach(([mode, caption]) => {
+            set.append(P.el('p', 'pf-theme-caption', caption));
+            const grid = P.el('div', 'pf-choice-grid pf-theme-grid');
+            options.themes.filter((t) => t.mode === mode).forEach((theme) => {
+                const label = P.el('label', 'pf-choice pf-theme-choice');
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'theme';
+                input.value = theme.id;
+                input.checked = theme.id === profile.theme;
+                const face = P.el('span', `pf-choice-face pf-swatch pf-theme--${theme.id}`);
+                face.append(P.el('span', 'pf-swatch-bar'), P.el('span', 'pf-swatch-box'));
+                label.append(input, face, P.el('span', 'pf-theme-name', theme.label));
+                grid.append(label);
+            });
+            set.append(grid);
+        });
+        return set;
+    };
+
     const look = group('Profile look', 'Pick a theme, a background pattern, and your picture.');
     look.append(
         selectField('Mood', 'mood', [{ id: '', label: 'No mood' }, ...options.moods.map((m) => ({ id: m.id, label: `${m.emoji} ${m.label}` }))], profile.mood),
-        selectField('Profile theme', 'theme', options.themes, profile.theme),
+        themePicker(),
         selectField('Background pattern', 'pattern', options.patterns, profile.pattern),
         choiceGrid('Picture', 'avatarGlyph', options.avatarGlyphs, profile.avatar.glyph, (face, item) => { face.textContent = item.emoji; }),
         choiceGrid('Picture color', 'avatarColor', options.avatarColors.map((c) => ({ ...c, label: c.id.charAt(0).toUpperCase() + c.id.slice(1) })), profile.avatar.color, (face, item) => { face.style.background = item.hex; })
     );
+
+    /* ---------- Links ---------- */
+
+    const linksGroup = group('Links', `Add up to ${limits.links} links to your own pages or anything you want to share. Everyone sees the website name next to what you call the link, and links open in a new tab.`);
+    let links = (profile.links || []).map((l) => ({ label: l.label, url: l.url }));
+    const linkRows = P.el('div', 'pf-link-rows');
+    const addLinkButton = P.el('button', 'pf-btn', 'Add a link');
+    addLinkButton.type = 'button';
+
+    const renderLinkRows = () => {
+        linkRows.replaceChildren();
+        links.forEach((link, index) => {
+            const row = P.el('div', 'pf-link-row');
+            const nameWrap = P.el('label', 'pf-field');
+            nameWrap.append(P.el('span', 'pf-field-label', `Link ${index + 1} name`));
+            const name = P.el('input');
+            name.type = 'text';
+            name.maxLength = limits.linkLabel.max;
+            name.value = link.label;
+            name.placeholder = 'For example: My band';
+            name.addEventListener('input', () => { link.label = name.value; markDirty(); });
+            nameWrap.append(name);
+            const urlWrap = P.el('label', 'pf-field');
+            urlWrap.append(P.el('span', 'pf-field-label', `Link ${index + 1} web address`));
+            const url = P.el('input');
+            url.type = 'text';
+            url.inputMode = 'url';
+            url.autocapitalize = 'none';
+            url.spellcheck = false;
+            url.maxLength = limits.linkUrl;
+            url.value = link.url;
+            url.placeholder = 'https://example.com';
+            url.addEventListener('input', () => { link.url = url.value; markDirty(); });
+            urlWrap.append(url);
+            const remove = P.el('button', 'pf-chip-btn', 'Remove');
+            remove.type = 'button';
+            remove.setAttribute('aria-label', `Remove link ${index + 1}`);
+            remove.addEventListener('click', () => { links.splice(index, 1); markDirty(); renderLinkRows(); });
+            row.append(nameWrap, urlWrap, remove);
+            linkRows.append(row);
+        });
+        addLinkButton.disabled = links.length >= limits.links;
+    };
+    addLinkButton.addEventListener('click', () => {
+        links.push({ label: '', url: '' });
+        markDirty();
+        renderLinkRows();
+        linkRows.querySelector('.pf-link-row:last-child input').focus();
+    });
+    linksGroup.append(linkRows, addLinkButton);
 
     /* ---------- Top 8 ---------- */
 
@@ -276,7 +353,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     buttons.append(submit, cancel, viewLink);
     actions.append(buttons, status);
 
-    form.append(basics, about, look, people, actions);
+    form.append(basics, about, linksGroup, look, people, actions);
 
     /* ---------- live preview ---------- */
 
@@ -315,7 +392,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             P.el('h3', 'pf-box-title', 'About me'),
             P.el('div', 'pf-box-body', text ? (text.length > 220 ? `${text.slice(0, 220)}…` : text) : 'Nothing here yet.')
         );
+        const previewLinks = links
+            .filter((l) => l.label.trim() && l.url.trim())
+            .map((l) => ({ label: l.label.trim(), url: /^https?:\/\//i.test(l.url.trim()) ? l.url.trim() : `https://${l.url.trim()}` }));
         page.append(mast, aboutBox);
+        if (previewLinks.length) {
+            page.append(P.linksBox(previewLinks));
+        }
         previewHost.replaceChildren(page);
     };
 
@@ -352,6 +435,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             pattern: value('pattern'),
             visibility: value('visibility'),
             avatar: { glyph: value('avatarGlyph'), color: value('avatarColor') },
+            links: links.filter((l) => l.label.trim() || l.url.trim()),
             top8: top8.map((m) => m.handle)
         };
         try {
@@ -371,5 +455,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     layout.append(form, preview);
     host.replaceChildren(layout);
     renderChips();
+    renderLinkRows();
     renderPreview();
 });

@@ -109,6 +109,38 @@ window.ProfileUI = (() => {
         return row;
     };
 
+    /**
+     * A member's links. The address is re-checked here (http/https only) even though the server
+     * already did, and the real website name is always shown next to the member's label so the
+     * label cannot disguise where a link goes. Opens in a new tab without passing the page along.
+     */
+    const linksBox = (links) => {
+        const box = el('section', 'pf-box pf-links');
+        box.append(el('h2', 'pf-box-title', 'Links'));
+        const list = el('ul', 'pf-link-list');
+        (links || []).forEach((link) => {
+            let url;
+            try {
+                url = new URL(link.url);
+            } catch (err) {
+                console.error('Skipping invalid profile link', err);
+                return;
+            }
+            if (url.protocol !== 'https:' && url.protocol !== 'http:') {
+                return;
+            }
+            const li = el('li', 'pf-link-item');
+            const a = el('a', 'pf-link', link.label);
+            a.href = url.href;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer nofollow ugc';
+            li.append(a, el('span', 'pf-link-host', url.hostname.replace(/^www\./, '')));
+            list.append(li);
+        });
+        box.append(list, el('p', 'pf-muted pf-link-note', 'Links open in a new tab. They are chosen by the member, not checked by Local 835.'));
+        return box;
+    };
+
     const profileHref = (handle) => `profile.html?u=${encodeURIComponent(handle)}`;
 
     const formatDate = (iso) => {
@@ -150,6 +182,7 @@ window.ProfileUI = (() => {
         badgeNode,
         badgeRow,
         badgeLabel,
+        linksBox,
         profileHref,
         formatDate,
         formatDateTime,

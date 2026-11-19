@@ -159,3 +159,4 @@
 [AMENDED 2026-11-19]: Admin panel added, locked to admins at the edge and in the API, with an audit log.
 [AMENDED 2026-11-19]: Forum posts can be deleted by their author or an admin; admin deletions are logged.
 [AMENDED 2026-11-19]: Split the combined job titles (kitchen supervisor and mechanic; stationary and building engineer) into separate choices.
+[AMENDED 2026-11-19]: Profile links (up to 5, validated http/https, safe new-tab opening, shown with the real site name) and four dark plus five light profile themes with a swatch picker; admins can remove a member's links.

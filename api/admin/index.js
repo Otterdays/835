@@ -3,7 +3,7 @@
 //   GET  /api/admin?users=1[&q=]   -> accounts with roles, status, awarded titles
 //   GET  /api/admin?audit=1        -> recent admin actions
 //   POST /api/admin { action, username, ... }
-//        action: setRole | setActive | badge | resetPassword
+//        action: setRole | setActive | badge | clearLinks | resetPassword
 //
 // Security rules:
 //   - The caller's role is read from the database on every request (not from the token).
@@ -163,6 +163,13 @@ async function act(admin, body, res) {
                 .collection('profiles')
                 .updateOne({ username: target }, body.on ? { $addToSet: { badges: body.badge } } : { $pull: { badges: body.badge } });
             await audit(db, admin.username, body.on ? 'badgeAdd' : 'badgeRemove', target, { badge: body.badge });
+            break;
+        }
+        case 'clearLinks': {
+            await accounts.ensureProfile(db, user);
+            const profile = await db.collection('profiles').findOne({ username: target });
+            await db.collection('profiles').updateOne({ username: target }, { $set: { links: [], updatedAt: now } });
+            await audit(db, admin.username, 'clearLinks', target, { removed: (profile.links || []).length });
             break;
         }
         case 'resetPassword': {

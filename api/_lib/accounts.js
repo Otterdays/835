@@ -106,6 +106,7 @@ function fullProfileOut(profile, { top8 = [], isSelf = false, isAdmin = false } 
         views: profile.views || 0,
         memberSince: iso(profile.createdAt),
         lastLoginAt: iso(profile.lastLoginAt),
+        links: Array.isArray(profile.links) ? profile.links : [],
         top8Handles: profile.top8 || [],
         top8,
         isSelf

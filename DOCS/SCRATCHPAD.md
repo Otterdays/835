@@ -444,3 +444,10 @@ Split combined job titles.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Replaced "Kitchen Supervisor/Mechanic" with "Kitchen Supervisor" and "Kitchen Mechanic"; removed "Stationary/Building Engineer" (separate titles already existed). Smoke check updated to map those combined roster titles to their separate roles. Smoke and deploy checks passed.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Profile links and light/dark themes.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Added `links` to profiles (schema validation, API output, profile Links box, editor rows, admin `clearLinks` + button + log text) and 9 CSS-variable themes with a swatch picker. Contrast of every theme pair checked (min 5.16:1). Verified in the browser pane with mocked data: dark and light profiles, editor swatches, link rows at 375px (no sideways scroll), save payload carries theme and links. Smoke checks added (theme list, link rejections, safe-link attributes, admin clearLinks); smoke and deploy checks pass; function count 10. Not yet tested on the live site.

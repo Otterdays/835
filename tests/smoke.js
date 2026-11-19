@@ -167,6 +167,29 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
     ok(schemaLib.cleanProfileUpdate({ jobTitle: 'Plumber' }).jobTitle === 'Plumber' && schemaLib.cleanProfileUpdate({ jobTitle: '' }).jobTitle === '', 'profile accepts a roster title or none');
 }
 
+// Profile links and themes: fixed theme list with light/dark modes, strict http(s) link validation.
+{
+    const schemaLib = require(path.join(root, 'api/_lib/profile-schema.js'));
+    const themes = schemaLib.options().themes;
+    ok(themes.length >= 8 && themes.some((t) => t.mode === 'light') && themes.some((t) => t.mode === 'dark'), 'profile offers several light and dark themes');
+    ok(themes.every((t) => t.id in schemaLib.THEME_MODES), 'every theme has a light/dark mode');
+    ok(schemaLib.cleanProfileUpdate({ theme: 'forest' }).theme === 'forest' && rejects(() => schemaLib.cleanProfileUpdate({ theme: 'neon;}body{display:none' })), 'profile accepts listed themes and rejects anything else');
+    const cssText = fs.readFileSync(path.join(root, 'profile.css'), 'utf8');
+    ok(themes.every((t) => t.id === 'classic' || cssText.includes(`.pf-theme--${t.id}{`)), 'profile.css styles every listed theme');
+    const links = schemaLib.cleanProfileUpdate({ links: [{ label: ' My shop ', url: 'example.com/shop' }] }).links;
+    ok(links.length === 1 && links[0].label === 'My shop' && links[0].url === 'https://example.com/shop', 'profile link gets https:// added and label trimmed');
+    ['javascript:alert(1)', 'data:text/html,hi', 'file:///etc/passwd', 'ftp://example.com', 'mailto:a@b.com', 'http://localhost/x', 'http://127.0.0.1/', 'https://user:pw@example.com/', 'https://[::1]/', 'https://intranet/', 'https://exa mple.com'].forEach((bad) => {
+        ok(rejects(() => schemaLib.cleanProfileUpdate({ links: [{ label: 'x', url: bad }] })), `profile link rejects ${bad}`);
+    });
+    ok(rejects(() => schemaLib.cleanProfileUpdate({ links: [{ label: '', url: 'https://example.com' }] })), 'profile link needs a name');
+    ok(rejects(() => schemaLib.cleanProfileUpdate({ links: Array.from({ length: 6 }, (_, i) => ({ label: `l${i}`, url: `https://example${i}.com` })) })), 'profile allows at most 5 links');
+    ok(rejects(() => schemaLib.cleanProfileUpdate({ links: [{ label: 'a', url: 'https://example.com' }, { label: 'b', url: 'https://example.com' }] })), 'profile rejects duplicate links');
+    const ui = fs.readFileSync(path.join(root, 'js/profile-ui.js'), 'utf8');
+    ok(ui.includes("'noopener noreferrer nofollow ugc'") && ui.includes("url.protocol !== 'https:' && url.protocol !== 'http:'"), 'profile links open safely and are re-checked in the browser');
+    const adminApi = fs.readFileSync(path.join(root, 'api/admin/index.js'), 'utf8');
+    ok(adminApi.includes("case 'clearLinks'") && fs.readFileSync(path.join(root, 'js/admin-app.js'), 'utf8').includes("action: 'clearLinks'"), 'admins can remove a member\'s links');
+}
+
 // Admin markers: Lead Admin is an awardable title; Site Admin is automatic from the role.
 {
     const schemaLib = require(path.join(root, 'api/_lib/profile-schema.js'));
