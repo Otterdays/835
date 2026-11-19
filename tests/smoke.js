@@ -148,11 +148,17 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
     const sandbox = {};
     vm.createContext(sandbox);
     vm.runInContext(`${data}\nthis.roster = employeesData;`, sandbox);
+    // A roster entry with a combined title counts as each of its separate roles.
+    const separateRoles = {
+        'Kitchen Supervisor/Mechanic': ['Kitchen Supervisor', 'Kitchen Mechanic'],
+        'Stationary/Building Engineer': ['Stationary Engineer', 'Building Engineer']
+    };
     const rosterTitles = [...new Set(
         sandbox.roster
             .filter((e) => e.location !== 'Management')
             .map((e) => e.role.split(' · ')[0].trim())
             .filter((title) => !/Shop Steward$/.test(title))
+            .flatMap((title) => separateRoles[title] || [title])
     )].sort();
     const schemaTitles = [...require(path.join(root, 'api/_lib/profile-schema.js')).JOB_TITLES].sort();
     ok(JSON.stringify(rosterTitles) === JSON.stringify(schemaTitles), 'profile job titles match the roster trades exactly');

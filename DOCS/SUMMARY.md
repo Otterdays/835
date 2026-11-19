@@ -126,3 +126,4 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Profile editor improved (live preview, Top 8 list, back link); dropdown "none" bug fixed.
 [AMENDED 2026-11-19]: Admin panel (accounts, roles, titles, disable, password reset) for admins only.
 [AMENDED 2026-11-19]: Forum deletion for authors and admins.
+[AMENDED 2026-11-19]: Job title list updated: kitchen supervisor and kitchen mechanic are separate; stationary and building engineer are separate.

@@ -9,7 +9,8 @@ const forum = require('./forum');
 const FACILITIES = ['CFCF', 'RCF', 'PICC', 'Other'];
 
 // Job titles a member can pick: the trades shown on the site roster (data.js
-// employeesData), without status notes, steward titles, or management roles.
+// employeesData), without status notes, steward titles, or management roles. Combined roster
+// titles are listed as their separate roles (Kitchen Supervisor/Mechanic, Stationary/Building Engineer).
 // Steward titles are verified badges. tests/smoke.js fails if this drifts from the roster.
 const JOB_TITLES = [
     'Building Engineer',
@@ -18,15 +19,15 @@ const JOB_TITLES = [
     'Electronic Security',
     'Engineer',
     'Helper',
+    'Kitchen Mechanic',
     'Kitchen Mechanic Helper',
-    'Kitchen Supervisor/Mechanic',
+    'Kitchen Supervisor',
     'Laborer',
     'Locksmith',
     'Maintenance Mechanic',
     'Painter',
     'Plumber',
     'Stationary Engineer',
-    'Stationary/Building Engineer',
     'Trades Helper',
     'Warehouse Crew'
 ];

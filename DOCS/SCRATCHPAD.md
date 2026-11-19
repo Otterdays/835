@@ -437,3 +437,10 @@ Let authors and admins delete forum posts.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Added DELETE to `api/forum/thread.js`, confirmed Delete buttons in the thread view (own posts; everything for admins), admin audit entries, smoke checks. Permissions tested with an in-memory database (guest 401, other member 403, forged admin token 403, cross-site 403, legacy guest posts admin-only); buttons and a reply delete checked with mocked data. Not yet tested on the live site.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Split combined job titles.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Replaced "Kitchen Supervisor/Mechanic" with "Kitchen Supervisor" and "Kitchen Mechanic"; removed "Stationary/Building Engineer" (separate titles already existed). Smoke check updated to map those combined roster titles to their separate roles. Smoke and deploy checks passed.
