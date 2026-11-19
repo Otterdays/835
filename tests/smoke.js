@@ -370,5 +370,10 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     ok(/name: "Mike Brown", location: "CFCF", role: "Plumber"/.test(dataJs) && /name: "Lauren Battilana", location: "CFCF", role: "Data Clerk"/.test(dataJs), 'roster has Mike Brown and Lauren Battilana at CFCF');
     ok(['Eric Levin', 'Kent Koung', 'Kyle Lloyd'].every((n) => new RegExp(`name: "${n}", location: "PICC", alsoAt: \\["RCF", "CFCF"\\], role: "Electronic Security"`).test(dataJs)), 'electronic security staff are listed at all three sites');
     ok(app.includes('alsoAt') && searchJs.includes('alsoAt'), 'roster page and search handle people at several sites');
+    ok(app.includes('.sort(compareStaff)') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');
+    {
+        const names = [...dataJs.matchAll(/\{ name: "([^"]+)", location: "(?!Management)/g)].map((m) => m[1].toLowerCase());
+        ok(names.every((n, k) => k === 0 || names[k - 1] <= n), 'employeesData stays alphabetical by first name (Management last, in rank order)');
+    }
     ok(app.includes("activeFacility === 'all' ? locations : [activeFacility]"), 'a facility filter shows only that facility\'s crew section');
 }

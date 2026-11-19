@@ -163,3 +163,4 @@
 [AMENDED 2026-11-19]: Site Roster: added Mike Brown (Plumber, CFCF) and Lauren Battilana (Data Clerk, CFCF); Mike Henry now shows at both RCF and CFCF through a new optional `alsoAt` field (one person, counted once, shown under each site with an "Also works at" note; search shows both sites).
 [AMENDED 2026-11-19]: Site Roster: Electronic Security staff Eric Levin, Kent Koung and Kyle Lloyd (no single site) are listed under RCF, CFCF and PICC.
 [AMENDED 2026-11-19]: Site Roster: choosing a facility filter (e.g. PICC) now shows only that site's crew section; Electronic Security staff no longer pull in the other sites' sections. "All sites" still lists them under each site.
+[AMENDED 2026-11-19]: Site Roster: every crew section is sorted A-Z by first name (Management keeps its 1/2/3 rank order), and the roster entries in `data.js` are kept in the same order. New staff should be added in alphabetical position.

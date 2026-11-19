@@ -22,6 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Main site first, then any extra sites (`alsoAt`) for people who work at more than one facility.
     const sitesOf = (employee) => [employee.location, ...(employee.alsoAt || [])].filter(Boolean);
 
+    // Sort rule: A-Z by first name (names are stored "First Last"), then by full name. Management is the
+    // exception and keeps its rank order, which is the leading number in the role ("1 · Project Manager").
+    const rankOf = (employee) => Number.parseInt(employee.role, 10);
+    const compareStaff = (a, b) => {
+        if (Number.isFinite(rankOf(a)) && Number.isFinite(rankOf(b))) {
+            return rankOf(a) - rankOf(b);
+        }
+        return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+    };
+
     const preferredLocations = ['RCF', 'CFCF', 'PICC'];
     const locations = [...new Set(employeesData.flatMap(sitesOf))]
         .sort((a, b) => {
@@ -119,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // otherwise also pull in a section for every other site they cover.
         const visibleLocations = activeFacility === 'all' ? locations : [activeFacility];
         visibleLocations.forEach((loc) => {
-            const group = filtered.filter((e) => sitesOf(e).includes(loc));
+            const group = filtered.filter((e) => sitesOf(e).includes(loc)).sort(compareStaff);
             if (!group.length) {
                 return;
             }
