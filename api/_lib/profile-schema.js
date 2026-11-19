@@ -8,6 +8,29 @@ const forum = require('./forum');
 
 const FACILITIES = ['CFCF', 'RCF', 'PICC', 'Other'];
 
+// Job titles a member can pick: the trades shown on the site roster (data.js
+// employeesData), without status notes, steward titles, or management roles.
+// Steward titles are verified badges. tests/smoke.js fails if this drifts from the roster.
+const JOB_TITLES = [
+    'Building Engineer',
+    'Data Clerk',
+    'Electrician',
+    'Electronic Security',
+    'Engineer',
+    'Helper',
+    'Kitchen Mechanic Helper',
+    'Kitchen Supervisor/Mechanic',
+    'Laborer',
+    'Locksmith',
+    'Maintenance Mechanic',
+    'Painter',
+    'Plumber',
+    'Stationary Engineer',
+    'Stationary/Building Engineer',
+    'Trades Helper',
+    'Warehouse Crew'
+];
+
 // Verified titles. Only an admin can award these (scripts/manage-user.js);
 // a member can never set their own.
 const BADGES = {
@@ -207,14 +230,21 @@ function cleanProfileUpdate(body, { allowReservedName = false } = {}) {
     if (has('displayName')) {
         out.displayName = validateDisplayName(body.displayName, { allowReserved: allowReservedName });
     }
-    ['headline', 'jobTitle', 'aboutMe', 'interests', 'wantToMeet'].forEach((key) => {
+    ['headline', 'aboutMe', 'interests', 'wantToMeet'].forEach((key) => {
         if (has(key)) {
             out[key] = forum.cleanText(body[key], LIMITS[key], key);
-            if (key === 'headline' || key === 'jobTitle') {
+            if (key === 'headline') {
                 out[key] = out[key].replace(/\s+/g, ' ');
             }
         }
     });
+    if (has('jobTitle')) {
+        const title = String(body.jobTitle || '');
+        if (title !== '' && !JOB_TITLES.includes(title)) {
+            throw forum.httpError(400, 'Pick a job title from the list.');
+        }
+        out.jobTitle = title;
+    }
     if (has('facility')) {
         out.facility = pick(Object.fromEntries(FACILITIES.map((f) => [f, f])), body.facility, 'facility', { allowEmpty: true });
     }
@@ -253,6 +283,7 @@ function options() {
     const labelled = (map) => Object.entries(map).map(([id, label]) => ({ id, label }));
     return {
         facilities: FACILITIES,
+        jobTitles: JOB_TITLES,
         badges: labelled(BADGES),
         themes: labelled(THEMES),
         patterns: labelled(PATTERNS),
@@ -266,6 +297,7 @@ function options() {
 
 module.exports = {
     FACILITIES,
+    JOB_TITLES,
     BADGES,
     THEMES,
     PATTERNS,

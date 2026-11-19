@@ -142,6 +142,25 @@ ok(forumApp.includes('ProfileUI.badgeRow') || forumApp.includes('P.badgeRow'), '
 ok(forumApp.includes("new Option('All categories'") && forumApp.includes('renderBoard') && forumApp.includes('forum-col'), 'forum defaults to all categories with a board of topic columns');
 ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum can switch between board and list');
 
+// Profile job titles are exactly the trades on the roster (no status notes, stewards, or management).
+{
+    const vm = require('vm');
+    const sandbox = {};
+    vm.createContext(sandbox);
+    vm.runInContext(`${data}\nthis.roster = employeesData;`, sandbox);
+    const rosterTitles = [...new Set(
+        sandbox.roster
+            .filter((e) => e.location !== 'Management')
+            .map((e) => e.role.split(' · ')[0].trim())
+            .filter((title) => !/Shop Steward$/.test(title))
+    )].sort();
+    const schemaTitles = [...require(path.join(root, 'api/_lib/profile-schema.js')).JOB_TITLES].sort();
+    ok(JSON.stringify(rosterTitles) === JSON.stringify(schemaTitles), 'profile job titles match the roster trades exactly');
+    const schemaLib = require(path.join(root, 'api/_lib/profile-schema.js'));
+    ok(rejects(() => schemaLib.cleanProfileUpdate({ jobTitle: 'Project Manager' })), 'profile rejects job titles outside the roster list');
+    ok(schemaLib.cleanProfileUpdate({ jobTitle: 'Plumber' }).jobTitle === 'Plumber' && schemaLib.cleanProfileUpdate({ jobTitle: '' }).jobTitle === '', 'profile accepts a roster title or none');
+}
+
 const siteSearch = fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8');
 ok(siteSearch.includes('/api/forum/threads'), 'site search indexes forum threads');
 ['home.html', 'member-action.html', 'evidence-log.html', 'bargaining.html', 'suggestions.html'].forEach((page) => {

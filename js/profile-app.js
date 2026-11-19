@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             groupIndex = 0;
             field('Display name', 'displayName', profile.displayName, 'text', 30);
             field('Short headline', 'headline', profile.headline, 'text', 80);
-            field('Job title (self-reported)', 'jobTitle', profile.jobTitle, 'text', 40);
+            select('Job title (self-reported)', 'jobTitle', [{id:'',label:'Not listed / prefer not to say'}, ...options.jobTitles.map(x => ({id:x,label:x}))], options.jobTitles.includes(profile.jobTitle) ? profile.jobTitle : '');
             select('Facility', 'facility', [{id:'',label:'Choose a facility'}, ...options.facilities.map(x => ({id:x,label:x}))], profile.facility);
             groupIndex = 1;
             field('About me', 'aboutMe', profile.aboutMe, 'textarea', 1500);

@@ -402,3 +402,10 @@ Forum "show all" and kanban-style board; fix profile pages that never loaded `js
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Fixed profile.html, profile-edit.html, members.html (missing `profile-ui.js`, caused "P is undefined"); added a smoke check. Forum filter now starts at "All categories" (the rewritten client had dropped that option, so it opened on General). Added Board (default) and List views: one column per topic with thread counts, cards with excerpt/author/replies/date, saved view preference, wider page in board mode, sideways snap lanes on phones. Checked with mocked data at 1400px and 375px; not checked against the live API.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Make profile job titles a fixed list taken from the roster.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Job title is now a dropdown of the 17 trades on the site roster (`JOB_TITLES` in `api/_lib/profile-schema.js`), enforced by the server. Left out on purpose: status notes ("Injured", "Let go..."), steward titles (verified badges instead), and the three Management entries. `tests/smoke.js` fails if the list stops matching `employeesData` (non-management, status/steward stripped). Editor checked with mocked data; not checked against the live API.

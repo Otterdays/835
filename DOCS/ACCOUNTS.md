@@ -34,3 +34,5 @@ Mongo indexes for `profiles` and `profile_comments` are created in `api/_lib/mon
 ## Current boundaries
 
 There is no web-based admin panel, email-based password reset, or verified connection to the static Site Roster. Signup policy should be configured in the live environment before sharing the registration link. Keep the repository private and never put account secrets in project documentation.
+
+[AMENDED 2026-11-19]: Profile job title is a fixed list (`JOB_TITLES`, 17 roster trades), not free text. When the roster in `data.js` gains a new trade, add it to `api/_lib/profile-schema.js`; the smoke test will flag the mismatch. Steward titles remain verified badges.
