@@ -57,5 +57,12 @@
 .pf-password-box[open]>summary::after{content:'−'}
 .pf-password-box>summary span{font-size:.85rem;font-weight:500;color:var(--pf-muted)}
 .pf-password-box .pf-form{padding-top:.8rem}
+.pf-password-field{display:grid;gap:.45rem}
+.pf-password-field>label{font-weight:650}
+.pf-password-input-wrap{position:relative;min-width:0}
+.pf-password-input-wrap input{padding-right:9.25rem}
+.pf-password-toggle{position:absolute;top:50%;right:.35rem;transform:translateY(-50%);min-height:44px;padding:.35rem .45rem;border:0;border-radius:6px;background:transparent;color:#1f4e9c;font:700 .82rem/1.2 'Public Sans',Arial,sans-serif;cursor:pointer}
+.pf-password-toggle:hover{background:#edf2f8}
+.pf-password-toggle:focus-visible{outline:2px solid #1f4e9c;outline-offset:1px}
 .account-page [hidden]{display:none!important}
 .pf-name-link{display:inline-flex;align-items:center;min-height:44px}

@@ -1,4 +1,5 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+[AMENDED 2026-11-19]: Added accessible click-to-show/hide controls for the sign-in and create-account password fields; password-change fields remain untouched per requested scope.
 [AMENDED 2026-11-19]: Added the Vercel Hobby 12-function cap and helper-placement rule to `AGENTS.md`, API maps, and architecture docs; required function recounts and checking deployment status/runtime after API pushes.
 [AMENDED 2026-11-19]: Fixed Hobby deployment function-count failure by moving shared API helpers from `api/lib/` to `api/_lib/`, updating imports/tests/maps, and keeping nine endpoint files in deployable route directories. Node 26 pin remains in effect.
 [AMENDED 2026-11-19]: Pinned `engines.node` to `26.x` in `package.json` and `package-lock.json` so Vercel cannot auto-upgrade the project to a different major Node.js version.

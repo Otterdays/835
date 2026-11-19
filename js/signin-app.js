@@ -1,6 +1,15 @@
 // [TRACE: ACCOUNTS.md]
 document.addEventListener('DOMContentLoaded', async () => {
  const $=s=>document.querySelector(s), status=(n,t,bad=false)=>{n.textContent=t;n.hidden=!t;n.classList.toggle('is-error',bad);};
+ document.querySelectorAll('[data-password-toggle]').forEach(toggle=>{
+  const input=document.getElementById(toggle.getAttribute('aria-controls'));
+  toggle.addEventListener('click',()=>{
+   const show=input.type==='password';
+   input.type=show?'text':'password';
+   toggle.textContent=show?'Hide password':'Show password';
+   toggle.setAttribute('aria-pressed',String(show));
+  });
+ });
  if(location.hash==='#password') $('#password').open=true;
  const next=new URLSearchParams(location.search).get('next'); const safeNext=next && /^[a-z0-9-]+\.html$/i.test(next) && !['signin.html','index.html'].includes(next) ? next : 'home.html';
  await Auth.whenReady(); if(Auth.isSignedIn() && location.hash !== '#password'){ location.replace(safeNext); return; }

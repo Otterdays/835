@@ -9,6 +9,7 @@
 - **Navigation:** Added account/profile pages to Home, shared navigation, sitewide search, and the side-panel account block.
 
 ## [Unreleased] - 2026-11-19
+- **Sign-in usability:** Added accessible show/hide password controls to sign-in and account creation forms.
 - **Agent guidance:** Documented Vercel Hobby's 12-function cap, `api/_lib/` helper convention, function recount, and post-push deployment/Node 26 verification.
 - **Vercel Hobby deployment:** Moved Mongo, session, password, and login-rate helpers from `api/lib/` into `api/_lib/` so Vercel treats them as helpers, reducing generated functions below the 12-function Hobby cap. Kept Node.js pinned to `26.x`.
 - **Runtime:** Pinned Vercel builds to Node.js 26.x in `package.json` and lockfile so the deployment runtime cannot float to a different major.
