@@ -151,3 +151,4 @@
 
 [AMENDED 2026-11-18 9:59 a.m. EST]: CBA page 27 added to the scan archive and search. Continued Article XXIII's Exhibit C investigation questions; the page ends after question 11.
 [AMENDED 2026-11-19]: Refined `signin.html`, `js/signin-app.js`, and `profile.css` — clearer sign-in/create-account layout, field help text, loading/error states, password change shown only when signed in, and mobile spacing so the floating menu button no longer covers the breadcrumb.
+[AMENDED 2026-11-19]: Forum member names are clearer links with larger touch targets; thread rows use a stretched title link so names inside them are valid separate links; pre-account guest posts are tagged "guest".

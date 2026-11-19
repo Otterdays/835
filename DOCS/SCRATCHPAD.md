@@ -388,3 +388,10 @@ Refine the sign-in / create-account page (`signin.html`).
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Replaced the banner hero with a plain heading, removed the stray "change password" link, shows the Change password form only to signed-in members who open it from the menu, added an honest "forgot your password" note (officer reset; no email reset yet), helper text for username/display name/password/sign-up code, padded footer note, larger card titles and Show/Hide toggle, loading and error states, and a "continue to the forum/profile" notice from `?next=`. New accounts land on the profile editor. Checked at desktop and 375px widths in a static preview (no API there); `npm run test:smoke` passed. Detector findings left standing are in shared `style.css` selectors this page does not use.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Make forum usernames tappable.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Member names in forum lists and threads are underlined links to profiles with a 44px+ touch area. Thread rows no longer nest a profile link inside the row link (stretched-link pattern instead). Posts made with a temporary name before accounts existed cannot link to a profile; they now show a small "guest" tag. Checked with mocked data at 375px; no live-API check.
