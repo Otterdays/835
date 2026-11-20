@@ -19,10 +19,10 @@
 | `_lib/profile-schema.js` | Fixed profile options and validation | `cleanProfileUpdate()`, `options()` |
 | `_lib/forum.js` | Request parsing, forum validation, rate limits, machine-readable error codes, and response shaping | `readJson()`, `cleanText()`, `consumeRateLimit()`, `peekRateLimit()` |
 | `_lib/ai-catalog.js` | Free-only OpenRouter model catalog (`/models` + `/endpoints/zdr`) with strict-ZDR detection and 5-minute caching | `getCatalog()`, `isFreeChatModel()`, `zdrProvidersByModel()`, `catalogOut()` |
-| `_lib/ai-context.js` | Retrieval over the generated `ai-site-data.json` (page directory + contract article index + excerpts) | `buildContext()`, `retrieve()` |
+| `_lib/ai-context.js` | Retrieval over generated `ai-site-data.json` (page directory, contract index, public roster/steward directories, excerpts) | `buildContext()`, `retrieve()` |
 | `_lib/ai.js` | Single-shot OpenRouter chat-completions client (fixed URL, timeout, error mapping) | `askOpenRouter()`, `buildRequestBody()`, `providerPreferences()` |
 | `_lib/admin-ai.js` | AI assistant status + ask: server-side allowlist, quotas, usage log | `status()`, `ask()`, `normalizeMessages()`, `resolveModel()` |
-| `_lib/ai-site-data.json` | Generated site knowledge export for the AI context (regenerate: `npm run build:ai-context`); no rosters or steward contacts | — |
+| `_lib/ai-site-data.json` | Generated AI context (regenerate: `npm run build:ai-context`); includes public roster fields and steward directory, excludes sensitive statuses, private contacts, account/profile/forum data | — |
 | `_lib/mongo.js` | Connects to MongoDB and creates indexes | `getDb()`, `ensureIndexes()` |
 | `_lib/rate-limit.js` | Tracks failed login attempts | `assertNotRateLimited()`, `recordFailedAttempt()` |
 | `_lib/session.js` | Signs/verifies JWTs and formats session cookies | `createSessionToken()`, `verifySessionToken()` |

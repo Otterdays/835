@@ -28,7 +28,9 @@ function isConfigured() {
 }
 
 function allowNonZdr() {
-    return process.env.LLM_ALLOW_NON_ZDR === '1';
+    // Owner explicitly enabled all free-model choices; the UI requires a fresh
+    // per-model warning confirmation before sending to a provider without ZDR.
+    return process.env.LLM_ALLOW_NON_ZDR !== '0';
 }
 
 function priceIsZero(value) {

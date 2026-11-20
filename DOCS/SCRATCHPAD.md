@@ -2,6 +2,13 @@
 
 [AMENDED 2026-11-19]:
 ## Current Task:
+Expand admin AI roster lookup and enable other free models with the user's confirmation.
+
+## Actions Log:
+- [2026-11-19, time not recorded] User approved enabling non-ZDR free models while retaining per-model confirmation. Expanded generated AI context with public roster name/trade/facility fields and steward directory; excludes injury/termination notes, private contact details, account/profile data and user-generated posts. Updated prompt/privacy text and docs.
+
+[AMENDED 2026-11-19]:
+## Current Task:
 Add Local 835 President Bryant Barr and note the Philadelphia Detention Center crew covered by an 835–USF agreement.
 
 ## Actions Log:

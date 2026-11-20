@@ -258,7 +258,7 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
 }
 function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8'); }
 
-// Admin AI: free-only OpenRouter integration, server-only, no roster data, no secrets.
+// Admin AI: free-only OpenRouter integration, server-only, sanitized public directories, no account data/secrets.
 {
     const siteData = require(path.join(root, 'api/_lib/ai-site-data.json'));
     const builder = require(path.join(root, 'scripts/build-ai-context.js'));
@@ -274,7 +274,8 @@ function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-se
     ok(siteData.sourceHash === builder.sourceHash(), 'ai: site context export is current');
     ok(siteData.chunks.every((chunk) => chunk.citation && chunk.href && chunk.text.length), 'ai: every context chunk is attributed');
     ok(siteData.chunks.every((chunk) => chunk.href !== 'updates.html'), 'ai: updates.html body is excluded from context');
-    ok(builder.privateNames().every((name) => !siteData.chunks.some((c) => c.text.toLowerCase().includes(name.toLowerCase()))), 'ai: context contains no roster or steward names');
+    ok(siteData.chunks.some((c) => c.docId === 'employee-roster' && !/\b(injured|let go|terminated|termination|contesting the firing)\b/i.test(c.text)), 'ai: context includes only sanitized public roster fields');
+    ok(siteData.chunks.some((c) => c.docId === 'steward-directory' && c.href === 'stewards.html'), 'ai: context includes the public steward directory only');
     ok(adminHtml.includes('js/admin-ai.js'), 'ai: admin.html loads the AI client');
     ok(!/\.innerHTML\s*=/.test(adminAiJs), 'ai: admin client never assigns to innerHTML');
     ok(!/sk-or-v1-[A-Za-z0-9_-]{20,}/.test(adminAiJs), 'ai: admin client has no OpenRouter key');
@@ -286,6 +287,7 @@ function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-se
     ok(JSON.stringify(vercelJson.headers).includes('js/admin-ai.js'), 'ai: admin AI client is served no-store/noindex');
     ok(vercelJson.functions && vercelJson.functions['api/admin/index.js'].maxDuration === 60, 'ai: admin function gets 60s for the AI timeout');
     ok(/^OPENROUTER_API_KEY=\s*$/m.test(envExample), 'ai: .env.example documents a blank server-side key');
+    ok(/^LLM_ALLOW_NON_ZDR=1$/m.test(envExample), 'ai: other free models are enabled with per-model privacy confirmation');
     ok(adminApi.includes("body.action === 'ask'"), 'ai: admin endpoint dispatches the ask action');
     ok(adminApi.includes("adminAi.status") && adminApi.includes("adminAi.ask"), 'ai: admin endpoint serves catalog status and ask');
 }

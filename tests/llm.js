@@ -76,6 +76,15 @@ ok(!catalogLib.isFreeChatModel({ ...baseModel, architecture: { input_modalities:
 ok(!catalogLib.isFreeChatModel({ ...baseModel, architecture: { input_modalities: ['text'], output_modalities: ['audio'] } }), 'catalog: rejects non-text output');
 ok(!catalogLib.isFreeChatModel({ ...baseModel, supported_parameters: ['temperature'] }), 'catalog: rejects a model without a token limit parameter');
 ok(!catalogLib.isFreeChatModel({ ...baseModel, supported_parameters: undefined }), 'catalog: rejects a model with no capability list');
+{
+    const originalFlag = process.env.LLM_ALLOW_NON_ZDR;
+    delete process.env.LLM_ALLOW_NON_ZDR;
+    ok(catalogLib.allowNonZdr(), 'catalog: other free models are enabled by default per owner approval');
+    process.env.LLM_ALLOW_NON_ZDR = '0';
+    ok(!catalogLib.allowNonZdr(), 'catalog: server can disable non-ZDR models explicitly');
+    if (originalFlag === undefined) delete process.env.LLM_ALLOW_NON_ZDR;
+    else process.env.LLM_ALLOW_NON_ZDR = originalFlag;
+}
 
 const catalog = catalogLib.buildCatalog(
     [
@@ -341,13 +350,20 @@ async function contextTests() {
     ok(siteData.chunks.every((chunk) => chunk.id && chunk.citation && chunk.href && chunk.text), 'context: every chunk has an id, citation, href and text');
     ok(siteData.chunks.every((chunk) => chunk.href !== 'updates.html'), 'context: no updates.html body chunks');
     ok(!JSON.stringify(siteData).includes('Roster: added facility trades'), 'context: excluded updates.html roster text is absent');
-    const names = builder.privateNames();
     const text = siteData.chunks.map((chunk) => chunk.text.toLowerCase()).join('\n');
-    ok(names.every((name) => !text.includes(name.toLowerCase())), 'context: no roster or steward names in the export');
+    const directory = siteData.chunks.find((chunk) => chunk.docId === 'steward-directory');
+    ok(Boolean(directory) && directory.href === 'stewards.html', 'context: includes a separately cited public steward directory');
+    const roster = siteData.chunks.find((chunk) => chunk.docId === 'employee-roster');
+    ok(Boolean(roster) && roster.href === 'employees.html', 'context: includes a separately cited sanitized employee roster');
+    ok(!/\b(injured|let go|terminated|termination|contesting the firing)\b/i.test(roster.text), 'context: excludes sensitive employee status notes');
     ok(!JSON.stringify(siteData).includes('"phone"') && !JSON.stringify(siteData).includes('"email"'), 'context: no contact fields in the export');
 
     const holiday = context.retrieve('What does Article XIX say about holiday pay?');
     ok(holiday.some((chunk) => chunk.docId === 'article:article-19'), 'context: holiday question retrieves Article XIX');
+    const stewardAnswerSources = context.retrieve('Who is the shop steward at CFCF?');
+    ok(stewardAnswerSources.some((chunk) => chunk.docId === 'steward-directory' && chunk.text.includes('Kevin Lyons') && chunk.text.includes('CFCF')), 'context: CFCF steward query retrieves Kevin Lyons and the facility');
+    const rosterAnswerSources = context.retrieve('Who is a painter at CFCF?');
+    ok(rosterAnswerSources.some((chunk) => chunk.docId === 'employee-roster' && chunk.text.includes('Cregg Lix') && chunk.text.includes('CFCF')), 'context: roster query retrieves public trade and facility data');
     const calendar = context.retrieve('When is the member calendar meeting?');
     ok(calendar.some((chunk) => chunk.href === 'calendar.html'), 'context: calendar question retrieves the calendar page');
     ok(context.retrieve('').length === 0, 'context: an empty question retrieves nothing');

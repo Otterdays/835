@@ -5,10 +5,11 @@
 // the contract, the calendar or any of the HTML pages listed in PAGE_SOURCES.
 //
 // Privacy rules enforced here (the build fails instead of leaking):
-//   - Only contractData, cbaScannedPages and toolProgramScans are read from data.js.
-//     employeesData, shopStewards and every other roster/contact field are never read.
+//   - Contract/scans plus sanitized public roster and shopStewards fields are read
+//     from data.js. Account/profile/forum and user-submitted content stay excluded.
 //   - updates.html, members.html, forum.html and all account pages are excluded.
-//   - The generated text is checked against every full roster/steward name.
+//   - Employee and steward names may appear only in their dedicated public-directory
+//     chunks. Injury/termination notes and contact/account fields are never included.
 //   - The output stays server-side under api/_lib/, which Vercel does not serve as static files.
 const fs = require('fs');
 const path = require('path');
@@ -39,7 +40,9 @@ const PAGE_SOURCES = [
 // Short directory of every page, including pages whose body text is not included.
 const PAGES = [
     { href: 'home.html', title: 'Home', summary: 'Gateway with links to the contract, scans, tools, roster, calendar, forum and account pages.' },
-    { href: 'members.html', title: 'Member Directory', summary: 'Facility roster of employees and shop stewards. Roster and steward contact details are not provided to the assistant.' },
+    { href: 'employees.html', title: 'Site Roster', summary: 'Public facility roster with employee names, trades, and facility assignments; sensitive status notes are not provided to the assistant.' },
+    { href: 'stewards.html', title: 'Union Leadership & Shop Stewards', summary: 'Public Local 835 leadership and shop steward names, roles, and facility assignments.' },
+    { href: 'members.html', title: 'Member Directory', summary: 'Member profile directory; account and profile data are not provided to the assistant.' },
     { href: 'calendar.html', title: 'Member Calendar', summary: 'Upcoming Local 835 meetings and events with dates, times and locations.' },
     { href: 'updates.html', title: 'Project Updates', summary: 'Dated log of portal and content changes. Body text is not included in the assistant context because it contains member names.' },
     { href: 'contract-updates.html', title: 'Contract & Employment Updates', summary: 'Dated contract and employment notices.' },
@@ -115,25 +118,18 @@ function loadData() {
     const sandbox = {};
     vm.createContext(sandbox);
     vm.runInContext(
-        `${source}\nthis.contract = contractData;this.scans = cbaScannedPages;this.tool = toolProgramScans;`,
+        `${source}\nthis.contract = contractData;this.scans = cbaScannedPages;this.tool = toolProgramScans;this.stewards = shopStewards;this.employees = employeesData;`,
         sandbox,
         { filename: 'data.js' }
     );
-    return { contract: sandbox.contract, scans: sandbox.scans || [], tool: sandbox.tool || [] };
+    return { contract: sandbox.contract, scans: sandbox.scans || [], tool: sandbox.tool || [], stewards: sandbox.stewards || [], employees: sandbox.employees || [] };
 }
 
-/** Full names that must never appear in the assistant context. */
-function privateNames(data) {
-    const source = fs.readFileSync(path.join(root, 'data.js'), 'utf8');
-    const sandbox = {};
-    vm.createContext(sandbox);
-    vm.runInContext(`${source}\nthis.employees = employeesData;this.stewards = shopStewards;`, sandbox, {
-        filename: 'data.js'
-    });
-    const names = [...(sandbox.employees || []), ...(sandbox.stewards || [])]
-        .map((row) => String(row && row.name ? row.name : '').trim())
-        .filter((name) => name.includes(' ') && name.length >= 7);
-    return [...new Set(names)];
+const publicEmployeeName = (row) => String(row && row.name || '').trim();
+const publicStewardName = (row) => String(row && row.name || '').trim();
+function containsName(text, name) {
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'iu').test(text);
 }
 
 function sourceHash() {
@@ -248,6 +244,36 @@ function build() {
     const data = loadData();
     const chunks = [];
 
+    const stewardDirectory = (data.stewards || [])
+        .map((steward) => `- ${String(steward.name || '').trim()} — ${String(steward.role || '').trim()}${steward.location ? `, ${String(steward.location).trim()}` : ''}`)
+        .filter((line) => !/^[- ]+—/.test(line));
+    if (stewardDirectory.length) {
+        addDocument(chunks, {
+            id: 'steward-directory',
+            kind: 'directory',
+            title: 'Union Leadership & Shop Stewards',
+            citation: 'Union Leadership & Shop Steward Directory',
+            href: 'stewards.html',
+            text: `Current public directory listing from the member portal:\n${stewardDirectory.join('\n')}\n\nThe directory provides names, roles and facility assignments only; it does not provide phone numbers or email addresses.`
+        });
+    }
+
+    const rosterRows = (data.employees || []).map((employee) => {
+        const role = String(employee.role || '').split(' · ')[0].trim();
+        const sites = [employee.location, ...(employee.alsoAt || [])].filter(Boolean);
+        return `- ${publicEmployeeName(employee)} — ${role}${sites.length ? ` (${[...new Set(sites)].join(', ')})` : ''}`;
+    }).filter((line) => !/^[- ]+—/.test(line));
+    if (rosterRows.length) {
+        addDocument(chunks, {
+            id: 'employee-roster',
+            kind: 'directory',
+            title: 'Site Roster',
+            citation: 'Public Site Roster',
+            href: 'employees.html',
+            text: `Public roster fields only: name, listed trade or role, and facility assignment. No member account/profile details or private contact information are included.\n\n${rosterRows.join('\n')}`
+        });
+    }
+
     for (const article of data.contract.articles || []) {
         addDocument(chunks, {
             id: `article:${article.id}`,
@@ -297,10 +323,21 @@ function build() {
         });
     }
 
-    const allText = chunks.map((chunk) => chunk.text).join('\n');
-    const leaked = privateNames(data).filter((name) => allText.toLowerCase().includes(name.toLowerCase()));
-    if (leaked.length) {
-        throw new Error(`Refusing to build: roster/steward names found in assistant context: ${leaked.join(', ')}`);
+    const rosterChunks = chunks.filter((chunk) => chunk.docId === 'employee-roster');
+    const stewardChunks = chunks.filter((chunk) => chunk.docId === 'steward-directory');
+    if (!rosterChunks.length || !stewardChunks.length) {
+        throw new Error('Refusing to build: public roster or steward directory chunk is missing or duplicated.');
+    }
+    const sensitiveStatus = /\b(injured|let go|terminated|termination|contest(?:ing)? the firing)\b/i;
+    if (rosterChunks.some((chunk) => sensitiveStatus.test(chunk.text))) {
+        throw new Error('Refusing to build: sensitive employee status text found in public roster context.');
+    }
+    const sourceNames = [...(data.employees || []).map(publicEmployeeName), ...(data.stewards || []).map(publicStewardName)].filter(Boolean);
+    const leakedOutsideDirectory = chunks
+        .filter((chunk) => !['employee-roster', 'steward-directory'].includes(chunk.docId))
+        .flatMap((chunk) => sourceNames.filter((name) => containsName(chunk.text, name)));
+    if (leakedOutsideDirectory.length) {
+        throw new Error(`Refusing to build: directory names found outside their dedicated chunks: ${[...new Set(leakedOutsideDirectory)].join(', ')}`);
     }
     if (chunks.some((chunk) => chunk.href === 'updates.html')) {
         throw new Error('Refusing to build: updates.html content is excluded.');
@@ -350,4 +387,4 @@ if (require.main === module) {
     }
 }
 
-module.exports = { build, sourceHash, htmlText, chunkText, privateNames, OUT_FILE, PAGE_SOURCES, PAGES };
+module.exports = { build, sourceHash, htmlText, chunkText, OUT_FILE, PAGE_SOURCES, PAGES };

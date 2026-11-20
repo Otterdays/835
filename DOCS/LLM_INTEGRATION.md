@@ -216,14 +216,14 @@ The Free-only OpenRouter assistant is now built and wired into the admin panel.
 **Built**
 - `api/_lib/ai-catalog.js` — Free-only model discovery: `GET /api/v1/models` + `GET /api/v1/endpoints/zdr`, filtered to `:free` models with zero prompt/completion prices, text in/out, usable context, and Google excluded. Strict-ZDR detection uses the ZDR endpoint list (`safety_retention` false; the endpoint `tag` becomes the `provider.only` slug). 5-minute cache; fails closed if the catalog is unavailable.
 - `api/_lib/ai.js` — Single-shot `POST https://openrouter.ai/api/v1/chat/completions`. The URL is hardcoded. `max_price` is `{prompt:"0",completion:"0",request:"0"}`, `data_collection:"deny"`, strict models get `provider.zdr:true` + `provider.only:[...]` + `allow_fallbacks:false`, `ignore:["google-vertex","google-ai-studio"]`, `max_tokens:1000`, `stream:false`, 50 s timeout. One request, no retries.
-- `api/_lib/ai-context.js` — Retrieval over `api/_lib/ai-site-data.json` (regenerate with `npm run build:ai-context`): page directory + contract article index + top ~8 source excerpts (~16 k chars). Source text is always delimited as untrusted data; roster names, steward contacts, and `updates.html` body text are excluded from the export (build-time guard).
+- `api/_lib/ai-context.js` — Retrieval over `api/_lib/ai-site-data.json` (regenerate with `npm run build:ai-context`): page directory + contract article index + top source excerpts. Source text is always delimited as untrusted data. Includes the published roster's names, trades/roles and facility assignments plus steward names/roles/sites; excludes injury/termination status notes, private contact fields, account/profile data, forum posts and `updates.html` body text.
 - `api/_lib/admin-ai.js` — `status()` (`GET /api/admin?ai=1[&refresh=1]`) and `ask()` (`POST /api/admin {action:"ask", ...}`). Server-side allowlist (`resolveModel`), quota (10/hour per admin, 30/day site-wide via `forum.peekRateLimit`/`consumeRateLimit`), and metadata-only `admin_ai_log` (TTL 365 days).
 - `api/admin/index.js` — Wires `?ai=1` and `action:"ask"`; function count unchanged (10).
-- `admin.html` + `js/admin-ai.js` — Admin panel AI section: model selector (strict-ZDR group always; non-ZDR group requires `LLM_ALLOW_NON_ZDR=1` and an explicit per-model `confirm`), quota line, conversation log, Enter-to-send, clear button. All conversation text uses `textContent`.
+- `admin.html` + `js/admin-ai.js` — Admin panel AI section: model selector (strict-ZDR group always; non-ZDR group is enabled by owner approval and requires an explicit per-model confirmation), quota line, conversation log, Enter-to-send, clear button. All conversation text uses `textContent`.
 - `profile.css` / `dark.css` — New `.adm-ai*` styles; dark.css regenerated.
-- `.env.example` — `OPENROUTER_API_KEY` (server-only) and `LLM_ALLOW_NON_ZDR=0`.
+- `.env.example` — `OPENROUTER_API_KEY` (server-only) and `LLM_ALLOW_NON_ZDR=1` per owner approval; use `0` to restore ZDR-only choices.
 - `tests/llm.js` — Catalog/request/message/allowlist unit tests plus mocked OpenRouter responses (success, 429, 5xx, malformed JSON, empty answer, timeout; one request each, no retry). `npm run test:llm`.
-- `tests/smoke.js` — Admin AI wiring, privacy (no roster/updates body), no-key, header headers, `maxDuration: 60`, `.env.example` blank key, function count.
+- `tests/smoke.js` — Admin AI wiring, sanitized public roster/steward context, no updates body/account data/key, headers, `maxDuration: 60`, `.env.example` blank key, function count.
 - `scripts/check-deploy.js` — Fails on secret-shaped keys or an assigned `OPENROUTER_API_KEY` in deployed files.
 
 **Verification (2026-11-19)**
@@ -233,6 +233,10 @@ The Free-only OpenRouter assistant is now built and wired into the admin panel.
 - Function count still 10; no new serverless route.
 
 **Outstanding**
-- Owner: set `OPENROUTER_API_KEY` in Vercel and push; watch the ZDR-only model group (currently `inclusionai/ling-3.2-flash:free` via `antdigital`).
+- Owner: set `OPENROUTER_API_KEY` in Vercel. The owner approved other free models with explicit in-UI privacy confirmation; `LLM_ALLOW_NON_ZDR` defaults enabled unless set to `0`.
 - New zero-data-retention free models appear automatically via the Refresh models button.
 - Local Vercel dev (`npm run vercel:dev`) is not yet tested (no `OPENROUTER_API_KEY` in this environment).
+
+[AMENDED 2026-11-19]: Owner approved enabling all eligible free models, including providers without verified ZDR, provided the existing warning and per-model confirmation remain. `LLM_ALLOW_NON_ZDR` now defaults to enabled; set it to `0` to disable those choices. The model catalog and every request remain restricted to `:free` IDs with zero prompt/completion prices, and the UI identifies models that may retain prompts.
+
+[AMENDED 2026-11-19]: Owner requested broader admin assistant lookup. The generated context now includes the publicly displayed roster's names, listed trade/role, and facility assignments, plus the public steward directory. Injury, termination/contested-firing notes, private contact fields, account/profile data, forum content, and Project Updates body text remain excluded. The UI explains that published roster fields are sent to OpenRouter and warns against grievance/confidential details.

@@ -58,7 +58,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
 | where the admin panel lives and how it is locked | `admin.html`, `js/admin-app.js`, `api/admin/index.js`, `middleware.js` (see `DOCS/ACCOUNTS.md`) |
-| where the admin-only AI assistant (free OpenRouter models only) is built | `admin.html`, `js/admin-ai.js`, `api/admin/index.js` (`?ai=1`, `action:"ask"`), `api/_lib/ai-catalog.js`, `api/_lib/ai-context.js`, `api/_lib/ai.js`, `api/_lib/admin-ai.js`; see `DOCS/LLM_INTEGRATION.md` |
+| where the admin-only AI assistant (free OpenRouter models only) is built | `admin.html`, `js/admin-ai.js`, `api/admin/index.js` (`?ai=1`, `action:"ask"`), `api/_lib/ai-catalog.js`, `api/_lib/ai-context.js`, `api/_lib/ai.js`, `api/_lib/admin-ai.js`; curated public roster/steward context, with sensitive status and account data excluded; see `DOCS/LLM_INTEGRATION.md` |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
 | where smoke and deploy checks are defined | `tests/smoke.js`, `scripts/check-deploy.js` |

@@ -2,6 +2,7 @@
 
 [AMENDED 2026-11-19]: Added Bryant Barr to union leadership contacts and the site roster; broadened the leadership directory labels to cover union leadership and shop stewards. Added a member-facing notice for the 835–USF covered crew currently working at Philadelphia Detention Center, with contract terms and names explicitly pending receipt.
 [AMENDED 2026-11-19]: Added Home page links for Local 835 leadership and the Philadelphia Detention Center. The site roster now offers a DC filter with a notice that crew names are pending.
+[AMENDED 2026-11-19]: Admin AI can retrieve published roster and steward directory fields; it excludes sensitive status notes and account/contact data. Other eligible free models are enabled with a per-model privacy warning and confirmation.
 
 ## [Unreleased] - 2026-11-18
 - **Accounts mobile UX:** Grouped profile fields, enlarged touch controls and text, added safe-area-aware save actions, simplified directory cards, and collapsed password change until requested.
