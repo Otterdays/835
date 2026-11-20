@@ -12,10 +12,10 @@
 | `rate-limit.js` | Tracks failed login attempts | `assertNotRateLimited()`, `recordFailedAttempt()` |
 | `session.js` | Signs/verifies JWTs and formats session cookies | `createSessionToken()`, `verifySessionToken()` |
 | `password.js` | Hashes and verifies passwords | `hashPassword()`, `verifyPassword()` |
-| `ai-catalog.js` | Free-only OpenRouter model catalog (`/models` + `/endpoints/zdr`) with strict-ZDR detection and caching | `getCatalog()`, `isFreeChatModel()`, `zdrProvidersByModel()`, `buildCatalog()`, `catalogOut()` |
+| `ai-catalog.js` | Free-only OpenRouter model catalog (`/models` + `/endpoints/zdr`) with strict-ZDR detection and caching; live per-model uptime from OpenRouter endpoints | `getCatalog()`, `isFreeChatModel()`, `zdrProvidersByModel()`, `buildCatalog()`, `catalogOut()` |
 | `ai-context.js` | Retrieval over `ai-site-data.json`: page directory, contract article index, public roster/steward directories and top excerpts | `retrieve()`, `buildContext()` |
 | `ai.js` | One-request OpenRouter chat client (reasoning budget, retry hints), current-key daily free quota lookup, rate-limit parsing | `askOpenRouter()`, `getFreeModelDailyRequests()`, `rateLimitInfo()`, `buildRequestBody()` |
-| `admin-ai.js` | AI status + ask with retry/backup-model fallback (live daily free counter, server-side allowlist, metadata-only log) | `status()`, `ask()`, `askWithFallback()`, `fallbackCandidates()` |
+| `admin-ai.js` | AI status + ask: Auto pick, health ranking (uptime + own recent results + cooldown), retry/backup fallback, allowlist, metadata-only log | `status()`, `ask()`, `askWithFallback()`, `rankModels()`, `healthScore()` |
 | `ai-site-data.json` | Generated site knowledge export (sanitized public roster/steward fields; no status notes, private contacts, accounts, forum or updates body); regenerate with `npm run build:ai-context` | — |
 
 ## Connects to

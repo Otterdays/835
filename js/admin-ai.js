@@ -88,7 +88,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const hasOther = () => state.allowNonZdr && [...state.models.values()].some((entry) => !entry.strict);
+
     const renderModelNote = () => {
+        if (modelSelect.value === 'auto') {
+            modelNote.hidden = false;
+            modelNote.textContent = hasOther()
+                ? 'Auto picks the healthiest free model from live uptime and this site’s recent results, zero-retention models first, and switches if one is busy. You’ll be asked once whether it may also use models that may retain prompts. Model charge: $0.'
+                : 'Auto picks the healthiest zero-retention free model and switches if one is busy. Model charge: $0.';
+            return;
+        }
         const model = state.models.get(modelSelect.value);
         if (!model) {
             modelNote.hidden = true;
@@ -207,14 +216,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 source.textContent = 'No matching site source was found.';
             }
             row.append(source);
-            if (meta && meta.fellBack && meta.answeredBy && meta.answeredBy.name) {
-                row.append(P.el('p', 'adm-ai-source', `Answered by backup model ${meta.answeredBy.name} because the selected model was busy or returned nothing.`));
+            if (meta && meta.answeredBy && meta.answeredBy.name && (meta.fellBack || meta.auto)) {
+                const why = meta.fellBack ? (meta.auto ? ' (the first pick was busy)' : ' because the selected model was busy or returned nothing') : '';
+                row.append(P.el('p', 'adm-ai-source', `${meta.fellBack && !meta.auto ? 'Answered by backup model' : 'Answered by'} ${meta.answeredBy.name}${why}.`));
             }
         }
         log.append(row);
         log.scrollTop = log.scrollHeight;
         return row;
     };
+
+    // Short health hint from live uptime and this site's own recent results.
+    const healthLabel = (model) => {
+        if (model.coolingDown || (model.recentFailed > 0 && !model.recentOk)) return ' · busy recently';
+        if (model.recentOk > 0) return ' · worked recently';
+        if (Number.isFinite(model.uptime30m) && model.uptime30m < 90) return ` · ${Math.round(model.uptime30m)}% up`;
+        return '';
+    };
+    const byRank = (a, b) => (a.rank || 999) - (b.rank || 999);
 
     const addGroup = (label, models, disabled) => {
         if (!models.length) {
@@ -227,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const suffix = model.strict
                 ? `${formatContext(model.contextLength)} · $0 · ${model.providers.join(', ') || 'ZDR'}`
                 : `${formatContext(model.contextLength)} · $0 · may retain/use prompts`;
-            group.append(new Option(`${model.name} — ${suffix}`, model.id));
+            group.append(new Option(`${model.name} — ${suffix}${healthLabel(model)}`, model.id));
         });
         modelSelect.append(group);
     };
@@ -240,8 +259,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const previous = modelSelect.value;
         modelSelect.replaceChildren();
-        const strict = [...state.models.values()].filter((model) => model.strict);
-        const other = [...state.models.values()].filter((model) => !model.strict);
+        const strict = [...state.models.values()].filter((model) => model.strict).sort(byRank);
+        const other = [...state.models.values()].filter((model) => !model.strict).sort(byRank);
+        if (state.models.size) {
+            modelSelect.append(new Option('Auto — healthiest free model right now (recommended)', 'auto'));
+        }
         addGroup('Zero data retention (recommended)', strict, false);
         addGroup(
             state.allowNonZdr ? 'Other free models (may retain prompts)' : 'Other free models (disabled by the server)',
@@ -252,6 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const previousModel = state.models.get(previous);
         if (previousModel && (previousModel.strict || state.allowNonZdr)) {
             modelSelect.value = previous;
+        } else if (state.models.size) {
+            modelSelect.value = 'auto';
         } else if (strict.length) {
             modelSelect.value = strict[0].id;
         } else if (state.allowNonZdr && other.length) {
@@ -275,7 +299,26 @@ document.addEventListener('DOMContentLoaded', () => {
         setBusy(false);
     };
 
-    const loadModels = async (force) => {
+    // quiet: background refresh of health labels after an answer; never touches status or busy state.
+    const loadModels = async (force, quiet) => {
+        if (quiet) {
+            try {
+                const data = await P.api('/api/admin?ai=1');
+                if (data.catalog && data.catalog.ok && !state.sending) {
+                    const keepText = statusNode.hidden ? '' : statusNode.textContent;
+                    const keepClass = statusNode.className;
+                    fillModels(data);
+                    if (keepText) {
+                        statusNode.textContent = keepText;
+                        statusNode.className = keepClass;
+                        statusNode.hidden = false;
+                    }
+                }
+            } catch (err) {
+                console.error('AI model health refresh failed', err);
+            }
+            return;
+        }
         modelSelect.disabled = true;
         refreshBtn.disabled = true;
         sendBtn.disabled = true;
@@ -324,12 +367,31 @@ document.addEventListener('DOMContentLoaded', () => {
             status('Questions must be 2,000 characters or fewer.', 'error');
             return;
         }
-        const model = state.models.get(modelSelect.value);
+        const auto = modelSelect.value === 'auto';
+        const model = auto ? { id: 'auto', name: 'Auto', strict: !hasOther() } : state.models.get(modelSelect.value);
+        if (auto && !model.strict && state.approvedNonZdr !== 'auto' && state.autoStrictOnly !== true) {
+            const widen = window.confirm(
+                'Auto uses zero-retention models first. If they are all busy, may it also use free models whose providers may retain or use prompts?\n\nOK = allow them (non-confidential questions only)\nCancel = zero-retention models only'
+            );
+            if (widen) {
+                state.approvedNonZdr = 'auto';
+            } else {
+                state.autoStrictOnly = true;
+            }
+        }
+        if (auto) {
+            model.strict = state.approvedNonZdr !== 'auto';
+            if (model.strict && ![...state.models.values()].some((entry) => entry.strict)) {
+                status('No zero-retention free model is available. Choose Auto again and allow other free models, or pick a model.', 'error');
+                state.autoStrictOnly = false;
+                return;
+            }
+        }
         if (!model) {
             status('Choose a free model first.', 'error');
             return;
         }
-        if (!model.strict) {
+        if (!auto && !model.strict) {
             if (!state.allowNonZdr) {
                 status('That model is disabled by the server because its provider may retain prompts.', 'error');
                 return;
@@ -371,12 +433,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     action: 'ask',
                     model: model.id,
                     messages: outgoing,
-                    acceptNonZdr: !model.strict
+                    acceptNonZdr: auto ? state.approvedNonZdr === 'auto' : !model.strict
                 }
             });
             updateFreeModelDailyRequests(data.freeModelDailyRequests);
             pending.remove();
-            appendMessage('assistant', data.answer, data.sources, data.sourceLinks, data.articleLinks, { fellBack: data.fellBack, answeredBy: data.answeredBy });
+            appendMessage('assistant', data.answer, data.sources, data.sourceLinks, data.articleLinks, { fellBack: data.fellBack, auto: data.auto, answeredBy: data.answeredBy });
+            if (data.fellBack || data.auto) {
+                loadModels(false, true);
+            }
             state.history = [...outgoing, { role: 'assistant', content: data.answer }];
             if (state.history.length > 8) {
                 state.history = state.history.slice(state.history.length - 8);
@@ -406,6 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         state.history = [];
         state.approvedNonZdr = null;
+        state.autoStrictOnly = false;
         input.value = '';
         updateCount();
         emptyLog();

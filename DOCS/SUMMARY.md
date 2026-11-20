@@ -162,3 +162,5 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Added Mark to the CFCF employee roster as a Project Management Assistant; the supplied name was “Mark” with no surname.
 
 [AMENDED 2026-11-20]: Admin AI assistant now handles reasoning-model output budgets and retries busy/empty free models on backups without widening privacy (see `DOCS/LLM_INTEGRATION.md`).
+
+[AMENDED 2026-11-20]: Admin AI assistant has an Auto mode that picks the healthiest free model (live uptime + own recent results), zero-retention first.

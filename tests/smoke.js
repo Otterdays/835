@@ -290,6 +290,20 @@ function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-se
     ok(/^LLM_ALLOW_NON_ZDR=1$/m.test(envExample), 'ai: other free models are enabled with per-model privacy confirmation');
     ok(adminApi.includes("body.action === 'ask'"), 'ai: admin endpoint dispatches the ask action');
     ok(adminApi.includes("adminAi.status") && adminApi.includes("adminAi.ask"), 'ai: admin endpoint serves catalog status and ask');
+    {
+        const aiLib = require(path.join(root, 'api/_lib/ai.js'));
+        const adminAiLib = require(path.join(root, 'api/_lib/admin-ai.js'));
+        const catLib = require(path.join(root, 'api/_lib/ai-catalog.js'));
+        const reasoning = { id: 'x/y:free', reasoning: true, maxCompletion: 200000, strict: false };
+        const reqBody = aiLib.buildRequestBody(reasoning, [{ role: 'user', content: 'q' }]);
+        ok(reqBody.max_tokens >= 4000 && reqBody.reasoning && reqBody.reasoning.exclude === true, 'ai: reasoning models get answer room and hidden low-effort reasoning');
+        const zdr = { id: 'z:free', strict: true, contextLength: 200000, health: { uptime5m: 10 } };
+        const open = { id: 'o:free', strict: false, contextLength: 200000, health: { uptime5m: 100 } };
+        ok(adminAiLib.fallbackCandidates({ models: [zdr, open] }, zdr, 10).length === 0, 'ai: a zero-retention pick never falls back to a model that may retain prompts');
+        ok(adminAiLib.rankModels([open, zdr], new Map())[0].id === 'z:free', 'ai: zero-retention models rank first regardless of health');
+        ok(catLib.healthFromEndpoints([{ tag: 'p/us', pricing: { prompt: '1', completion: '1' }, uptime_last_5m: 100 }]) === null, 'ai: health ignores paid endpoints');
+        ok(adminAiLib.resolveModel({ models: [zdr] }, 'auto', { allowNonZdr: false }).auto === true, 'ai: Auto model choice is accepted');
+    }
 }
 
 

@@ -13,6 +13,10 @@ const forum = require('./forum');
 
 const MODELS_URL = 'https://openrouter.ai/api/v1/models';
 const ZDR_URL = 'https://openrouter.ai/api/v1/endpoints/zdr';
+const ENDPOINTS_URL = (id) => `https://openrouter.ai/api/v1/models/${id.split('/').map(encodeURIComponent).join('/')}/endpoints`;
+const HEALTH_TIMEOUT_MS = 6000;
+const MAX_HEALTH_LOOKUPS = 40;
+const ID_PATTERN = /^[\w.-]+\/[\w.:-]+$/;
 const CATALOG_TTL_MS = 5 * 60 * 1000;
 const FETCH_TIMEOUT_MS = 15000;
 const MIN_CONTEXT = 32768;
@@ -157,9 +161,58 @@ async function fetchJson(url) {
     return data.data;
 }
 
+function percent(value) {
+    const number = Number(value);
+    return Number.isFinite(number) && number >= 0 && number <= 100 ? Math.round(number * 10) / 10 : null;
+}
+
+/** Pure: best live health among a model's free, non-Google endpoints. */
+function healthFromEndpoints(endpoints) {
+    const free = (Array.isArray(endpoints) ? endpoints : []).filter((endpoint) => {
+        const slug = String((endpoint && endpoint.tag) || '').split('/')[0].toLowerCase();
+        return endpoint
+            && priceIsZero(endpoint.pricing && endpoint.pricing.prompt)
+            && priceIsZero(endpoint.pricing && endpoint.pricing.completion)
+            && !GOOGLE_PROVIDERS.has(slug);
+    });
+    if (!free.length) {
+        return null;
+    }
+    const rows = free.map((endpoint) => ({
+        status: Number.isFinite(Number(endpoint.status)) ? Number(endpoint.status) : 0,
+        uptime5m: percent(endpoint.uptime_last_5m),
+        uptime30m: percent(endpoint.uptime_last_30m),
+        uptime1d: percent(endpoint.uptime_last_1d)
+    }));
+    const key = (row) => (row.uptime30m ?? row.uptime1d ?? -1);
+    rows.sort((a, b) => key(b) - key(a));
+    return rows[0];
+}
+
+/** Live uptime per free model, fail-soft: a missing value just means "unknown". */
+async function attachHealth(catalog) {
+    const targets = catalog.models.filter((model) => ID_PATTERN.test(model.id)).slice(0, MAX_HEALTH_LOOKUPS);
+    await Promise.all(targets.map(async (model) => {
+        try {
+            const res = await fetch(ENDPOINTS_URL(model.id), {
+                headers: { Accept: 'application/json' },
+                signal: AbortSignal.timeout(HEALTH_TIMEOUT_MS)
+            });
+            if (!res.ok) {
+                return;
+            }
+            const data = await res.json();
+            model.health = healthFromEndpoints(data && data.data && data.data.endpoints);
+        } catch (err) {
+            // Health is a ranking hint only; never fail the catalog over it.
+        }
+    }));
+    return catalog;
+}
+
 async function loadCatalog() {
     const [modelsData, zdrData] = await Promise.all([fetchJson(MODELS_URL), fetchJson(ZDR_URL)]);
-    const catalog = buildCatalog(modelsData, zdrData);
+    const catalog = await attachHealth(buildCatalog(modelsData, zdrData));
     if (!catalog.models.length) {
         throw new Error('OpenRouter returned no eligible free chat models');
     }
@@ -196,17 +249,19 @@ function publicModel(model) {
         name: model.name,
         contextLength: model.contextLength,
         strict: model.strict,
-        providers: model.strict ? model.zdrProviders.map((provider) => provider.label) : []
+        providers: model.strict ? model.zdrProviders.map((provider) => provider.label) : [],
+        uptime30m: model.health ? model.health.uptime30m : null
     };
 }
 
 /** Shape sent to the admin page. Never includes the key, raw catalog or paid entries. */
-function catalogOut(catalog) {
+function catalogOut(catalog, extra) {
+    const add = typeof extra === 'function' ? extra : () => ({});
     return {
         ok: true,
         fetchedAt: new Date(catalog.fetchedAt).toISOString(),
         counts: catalog.counts,
-        models: catalog.models.map(publicModel)
+        models: catalog.models.map((model) => ({ ...publicModel(model), ...add(model) }))
     };
 }
 
@@ -226,6 +281,7 @@ module.exports = {
     isFreeChatModel,
     zdrProvidersByModel,
     buildCatalog,
+    healthFromEndpoints,
     getCatalog,
     catalogOut,
     resetCache

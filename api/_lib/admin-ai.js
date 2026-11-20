@@ -22,26 +22,104 @@ const MAX_WAIT_SECONDS = 5;
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// Errors that say "this model/provider is struggling right now".
+const BUSY_CODES = new Set(['ai_rate_limit', 'ai_budget', 'ai_model_unavailable', 'ai_timeout', 'ai_provider', 'ai_empty', 'ai_truncated', 'ai_network']);
+const RECENT_WINDOW_MS = 30 * 60 * 1000;
+const COOLDOWN_MS = 3 * 60 * 1000;
+const AUTO = 'auto';
+
+// Per warm function instance: models that just failed sit out briefly.
+const cooldowns = new Map();
+function coolDown(modelId, now = Date.now()) {
+    cooldowns.set(modelId, now + COOLDOWN_MS);
+}
+function isCooling(modelId, now = Date.now()) {
+    const until = cooldowns.get(modelId);
+    if (until && until > now) return true;
+    if (until) cooldowns.delete(modelId);
+    return false;
+}
+
+/** Our own recent results per model (last 30 min), from the metadata-only usage log. */
+async function recentOutcomes(db) {
+    const stats = new Map();
+    const bump = (id, field) => {
+        if (typeof id !== 'string') return;
+        const row = stats.get(id) || { ok: 0, failed: 0 };
+        row[field] += 1;
+        stats.set(id, row);
+    };
+    try {
+        const rows = await db.collection('admin_ai_log')
+            .find({ at: { $gte: new Date(Date.now() - RECENT_WINDOW_MS) } }, { projection: { attempts: 1, requestedModel: 1, status: 1, code: 1 } })
+            .sort({ at: -1 })
+            .limit(200)
+            .toArray();
+        for (const row of rows) {
+            if (Array.isArray(row.attempts) && row.attempts.length) {
+                row.attempts.forEach((attempt) => {
+                    if (attempt.outcome === 'ok') bump(attempt.model, 'ok');
+                    else if (BUSY_CODES.has(attempt.outcome)) bump(attempt.model, 'failed');
+                });
+            } else if (row.status === 'ok') {
+                bump(row.requestedModel, 'ok');
+            } else if (BUSY_CODES.has(row.code)) {
+                bump(row.requestedModel, 'failed');
+            }
+        }
+    } catch (err) {
+        console.error('AI recent outcome lookup failed', err.message);
+    }
+    return stats;
+}
+
+/** Higher is better. Live uptime is the base; our own recent failures weigh more,
+ *  because providers report 100% uptime while rejecting free traffic. */
+function healthScore(model, recent, now = Date.now()) {
+    const health = model.health || {};
+    // Weighted blend of whatever windows OpenRouter reported; unknown counts as 90.
+    const parts = [[health.uptime5m, 0.5], [health.uptime30m, 0.3], [health.uptime1d, 0.2]].filter(([value]) => Number.isFinite(value));
+    const weight = parts.reduce((total, [, w]) => total + w, 0);
+    const uptime = weight ? parts.reduce((total, [value, w]) => total + value * w, 0) / weight : 90;
+    const mine = (recent && recent.get(model.id)) || { ok: 0, failed: 0 };
+    let score = uptime;
+    if (health.status < 0) score -= 30;
+    score -= Math.min(mine.failed, 4) * 20;
+    score += Math.min(mine.ok, 2) * 10;
+    if (isCooling(model.id, now)) score -= 200;
+    return score;
+}
+
+function rankModels(models, recent) {
+    return [...models].sort((a, b) => {
+        if (a.strict !== b.strict) return a.strict ? -1 : 1;
+        const diff = healthScore(b, recent) - healthScore(a, recent);
+        return diff !== 0 ? diff : b.contextLength - a.contextLength;
+    });
+}
+
 /**
  * Backup models for when the chosen one is busy, empty, or has no route.
  * Never widens privacy: a zero-retention pick falls back only to zero-retention
- * models. A non-ZDR pick (already confirmed by the admin) tries ZDR models first.
- * Larger context and reasoning-capable output caps are preferred.
+ * models unless the admin confirmed non-ZDR use. ZDR models are always tried first,
+ * then the healthiest. Backups need enough context and output room.
  */
-function fallbackCandidates(catalog, chosen, needChars) {
+function fallbackCandidates(catalog, chosen, needChars, { allowNonStrict = !chosen.strict, recent = new Map() } = {}) {
     const minContext = Math.ceil(needChars / 3) + 8000;
-    return catalog.models
-        .filter((entry) => entry.id !== chosen.id)
-        .filter((entry) => (chosen.strict ? entry.strict : true))
-        .filter((entry) => !(entry.contextLength < minContext))
-        .filter((entry) => !(entry.maxCompletion && entry.maxCompletion < 4000))
-        .sort((a, b) => (a.strict !== b.strict ? (a.strict ? -1 : 1) : b.contextLength - a.contextLength));
+    return rankModels(
+        catalog.models
+            .filter((entry) => entry.id !== chosen.id)
+            .filter((entry) => entry.strict || allowNonStrict)
+            .filter((entry) => !(entry.contextLength < minContext))
+            .filter((entry) => !(entry.maxCompletion && entry.maxCompletion < 4000)),
+        recent
+    );
 }
 
 /** Try the chosen model, then backups, the way a resilient client would. */
-async function askWithFallback({ apiKey, catalog, chosen, messages, needChars, allowFallback }) {
+async function askWithFallback({ apiKey, catalog, chosen, messages, needChars, allowFallback, allowNonStrict, recent }) {
     const started = Date.now();
-    const backups = allowFallback ? fallbackCandidates(catalog, chosen, needChars) : [];
+    const backups = allowFallback ? fallbackCandidates(catalog, chosen, needChars, { allowNonStrict, recent }) : [];
     const attempts = [];
     let model = chosen;
     let maxTokens;
@@ -52,10 +130,12 @@ async function askWithFallback({ apiKey, catalog, chosen, messages, needChars, a
         try {
             const result = await ai.askOpenRouter({ apiKey, model, messages, maxTokens, timeoutMs: left });
             attempts.push({ model: model.id, outcome: 'ok' });
+            cooldowns.delete(model.id);
             return { ...result, attempts, answeredBy: model };
         } catch (err) {
             lastError = err;
             attempts.push({ model: model.id, outcome: err.code || 'error' });
+            if (err.retry === 'next') coolDown(model.id);
             if (err.retry === 'bigger') {
                 maxTokens = ai.RETRY_OUTPUT_TOKENS;
                 continue;
@@ -147,6 +227,9 @@ function resolveModel(catalog, modelId, { allowNonZdr, acceptNonZdr }) {
     if (!id || id.length > 160) {
         throw forum.httpError(400, 'Choose a free model first.', 'ai_model');
     }
+    if (id === AUTO) {
+        return { auto: true };
+    }
     const model = catalog.models.find((entry) => entry.id === id);
     if (!model) {
         throw forum.httpError(400, 'That model is not in the current free-model list. Refresh the list and try again.', 'ai_model');
@@ -184,6 +267,20 @@ async function logUsage(db, admin, row) {
     }
 }
 
+async function catalogWithHealth(admin, catalog) {
+    const recent = await recentOutcomes(admin.db);
+    const order = rankModels(catalog.models, recent).map((model) => model.id);
+    return catalogLib.catalogOut(catalog, (model) => {
+        const mine = recent.get(model.id) || { ok: 0, failed: 0 };
+        return {
+            recentOk: mine.ok,
+            recentFailed: mine.failed,
+            coolingDown: isCooling(model.id),
+            rank: order.indexOf(model.id) + 1
+        };
+    });
+}
+
 async function status(admin, params, res) {
     const force = params.get('refresh') === '1';
     let catalog = null;
@@ -199,7 +296,7 @@ async function status(admin, params, res) {
         configured: catalogLib.isConfigured(),
         allowNonZdr: catalogLib.allowNonZdr(),
         freeModelDailyRequests,
-        catalog: catalog ? catalogLib.catalogOut(catalog) : { ok: false, error: catalogError || 'The free model catalog is unavailable right now.' }
+        catalog: catalog ? await catalogWithHealth(admin, catalog) : { ok: false, error: catalogError || 'The free model catalog is unavailable right now.' }
     });
 }
 
@@ -209,10 +306,23 @@ async function ask(admin, body, res) {
     }
     const messages = normalizeMessages(body.messages);
     const catalog = await catalogLib.getCatalog();
-    const model = resolveModel(catalog, body.model, {
+    const picked = resolveModel(catalog, body.model, {
         allowNonZdr: catalogLib.allowNonZdr(),
         acceptNonZdr: body.acceptNonZdr
     });
+    const recent = await recentOutcomes(admin.db);
+    // Auto may use non-ZDR models only when the server allows it and the admin confirmed.
+    const allowNonStrict = picked.auto
+        ? catalogLib.allowNonZdr() && body.acceptNonZdr === true
+        : !picked.strict;
+    let model = picked;
+    if (picked.auto) {
+        const pool = rankModels(catalog.models.filter((entry) => entry.strict || allowNonStrict), recent);
+        if (!pool.length) {
+            throw forum.httpError(503, 'No zero-retention free model is available right now. Allow other free models or try again later.', 'ai_model');
+        }
+        model = pool[0];
+    }
 
     const context = contextLib.buildContext(messages);
     const outgoing = [{ role: 'system', content: context.system }, ...context.messages];
@@ -225,7 +335,9 @@ async function ask(admin, body, res) {
             chosen: model,
             messages: outgoing,
             needChars: outgoing.reduce((total, message) => total + message.content.length, 0),
-            allowFallback: body.allowFallback !== false
+            allowFallback: body.allowFallback !== false,
+            allowNonStrict,
+            recent
         });
     } catch (err) {
         if (err && (err.status === 429 || err.status === 503 && err.code === 'ai_budget')) {
@@ -236,6 +348,7 @@ async function ask(admin, body, res) {
             code: err.code || 'ai_unknown',
             httpStatus: err.status || 500,
             requestedModel: model.id,
+            auto: Boolean(picked.auto),
             strict: model.strict,
             turns: messages.length,
             inputChars: messages.reduce((total, message) => total + message.content.length, 0),
@@ -249,6 +362,7 @@ async function ask(admin, body, res) {
     await logUsage(admin.db, admin, {
         status: 'ok',
         requestedModel: model.id,
+        auto: Boolean(picked.auto),
         actualModel: result.model,
         strict: model.strict,
         turns: messages.length,
@@ -265,6 +379,7 @@ async function ask(admin, body, res) {
         model: result.model,
         answeredBy: { id: result.answeredBy.id, name: result.answeredBy.name, strict: result.answeredBy.strict },
         fellBack: result.answeredBy.id !== model.id,
+        auto: Boolean(picked.auto),
         attempts: result.attempts.length,
         sources: context.sources,
         sourceLinks: context.sourceLinks,
@@ -281,6 +396,9 @@ module.exports = {
     MAX_TOTAL_CHARS,
     MAX_ATTEMPTS,
     fallbackCandidates,
+    healthScore,
+    rankModels,
+    recentOutcomes,
     askWithFallback,
     normalizeMessages,
     resolveModel,

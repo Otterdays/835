@@ -1,6 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
 ## [Unreleased] - 2026-11-20
+- **Admin AI Auto mode:** The default choice now picks the healthiest free model, ranked by OpenRouter's live uptime, this site's recent results and a cooldown after failures (zero-retention first). The model list is sorted by health with busy/working hints.
 - **Admin AI reliability:** Fixed empty answers from reasoning free models (bigger output budget, low reasoning effort, hidden reasoning). Busy, empty or unroutable models now retry automatically on a backup free model of the same or stricter privacy class (max 3 attempts). The admin function gets 120 s. Rebuilt the stale AI site context; added the `Project Management Assistant` job title.
 
 [AMENDED 2026-11-19]: Admin AI shows visible progress while responding, makes source/article citations open in a new tab, and removes the portal's 10-per-hour and 30-per-day question caps; provider limits remain.

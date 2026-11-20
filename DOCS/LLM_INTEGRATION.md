@@ -258,3 +258,12 @@ Official references checked 2026-11-19: [Get current API key](https://openrouter
 - UI: the answer notes when a backup model answered, the non-ZDR confirmation mentions backups, the pending message explains the wait, and "1 seconds" is fixed.
 - Also fixed two failing smoke checks from the 2026-11-19 roster commits: the stale `ai-site-data.json` was rebuilt (`npm run build:ai-context`), so the assistant sees the current roster, and `Project Management Assistant` was added to profile `JOB_TITLES`.
 Verified with mocked-fetch tests of each retry path, plus `npm run test:smoke` and `npm run check:deploy`. Not yet verified against live OpenRouter from this environment (there is no key locally).
+
+[AMENDED 2026-11-20]: **Health-aware model choice and Auto mode.**
+- `ai-catalog.js` → `attachHealth()`: on each catalog refresh (5-minute cache), fetches `GET /api/v1/models/{id}/endpoints` for each free model in parallel (6 s timeout each, fail-soft) and keeps the best free non-Google endpoint's `status` and `uptime_last_5m/30m/1d`. A live run took about 0.5 s for 10 models.
+- `admin-ai.js` → `healthScore()`: a weighted uptime blend (5 m 0.5, 30 m 0.3, 1 d 0.2; unknown = 90). Subtracts 30 for a degraded `status`, 20 per failure in this site's own `admin_ai_log` over the last 30 minutes (max 4), and 200 while a model is cooling down (3 minutes after a `retry: next` failure, per warm instance). Adds 10 per recent success (max 2). Own results weigh more because providers reported 100 % uptime while rejecting free traffic (Particle-1, 2026-11-20).
+- `rankModels()` orders zero-retention models first, then by score, then by context length. Backups use the same ranking.
+- **Auto** (`model: "auto"`, the default in the dropdown) picks the top-ranked model. It uses non-ZDR models only when `LLM_ALLOW_NON_ZDR` allows it and the admin accepts a one-time confirmation; Cancel keeps Auto zero-retention-only.
+- The dropdown is sorted by rank and shows "busy recently", "worked recently" or a low-uptime hint. Health labels refresh quietly after Auto or backup answers, and answers name the model that replied.
+- Log rows record `auto` and per-attempt outcomes (model + code only).
+- Added smoke checks for reasoning budget, privacy-preserving fallback, ZDR-first ranking, paid-endpoint exclusion from health, and Auto acceptance.
