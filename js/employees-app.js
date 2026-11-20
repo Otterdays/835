@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortRoot = document.getElementById('roster-sort');
 
     headerTitle.textContent = 'Site Roster';
-    headerParties.textContent = 'Employee and management directory across CFCF, RCF, and PICC.';
+    headerParties.textContent = 'Employee and management directory across CFCF, RCF, PICC, and the Philadelphia Detention Center.';
     headerDate.textContent = `${employeesData.length} total staff members`;
     headerStatus.textContent = 'Facility Directory';
     viewDescription.textContent = 'Search by name or role, or filter by facility.';
@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     let sortMode = 'name';
 
-    const preferredLocations = ['RCF', 'CFCF', 'PICC', 'Management', 'Supervisors', 'Warehouse', 'Security', 'Kitchen'];
-    const locations = [...new Set(employeesData.flatMap(sitesOf))]
+    const preferredLocations = ['RCF', 'CFCF', 'PICC', 'DC', 'Management', 'Supervisors', 'Warehouse', 'Security', 'Kitchen'];
+    const locations = [...new Set([...employeesData.flatMap(sitesOf), 'DC'])]
         .sort((a, b) => {
             const ai = preferredLocations.indexOf(a);
             const bi = preferredLocations.indexOf(b);
@@ -80,6 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .trim();
 
     const urlParams = new URLSearchParams(window.location.search);
+    if (locations.includes(urlParams.get('site'))) {
+        activeFacility = urlParams.get('site');
+    }
     if (urlParams.get('q')) {
         searchQuery = normalize(urlParams.get('q'));
         if (searchInput) {
@@ -297,6 +300,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!visibleCount) {
+            if (activeFacility === 'DC' && !searchQuery) {
+                const section = document.createElement('section');
+                section.className = 'location-group';
+                const heading = document.createElement('h2');
+                heading.className = 'location-heading';
+                heading.textContent = 'Philadelphia Detention Center (DC)';
+                const note = document.createElement('p');
+                note.className = 'roster-empty';
+                note.textContent = 'The crew list is pending. Names and roster details will be added after the agreement and crew list are provided and reviewed.';
+                const link = document.createElement('a');
+                link.href = 'contract-updates.html';
+                link.textContent = 'Read the current worksite notice';
+                section.append(heading, note, link);
+                employeesContainer.appendChild(section);
+                renderIndex();
+                return;
+            }
             const empty = document.createElement('p');
             empty.className = 'roster-empty';
             empty.textContent = 'No matches. Try another name, role, or facility.';

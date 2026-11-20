@@ -14,6 +14,7 @@
 # Summary
 
 [AMENDED 2026-11-19]: Added Bryant Barr as Local 835 Union President to the leadership directory and employee roster. Added a contract/employment notice that a small crew covered by an 835–USF agreement is working at the Philadelphia Detention Center; the agreement and crew list remain pending submission and review.
+[AMENDED 2026-11-19]: Home page now links directly to Bryant Barr under union leadership and lists the Philadelphia Detention Center as a site. The roster has a DC filter and a pending crew-list message until the agreement and names are provided.
 
 [AMENDED 2026-11-19]: Moved Mongo, session, password, and login-rate helpers into `api/_lib/` to keep Vercel from counting helper modules toward its Hobby serverless-function deployment cap. Updated imports and maps.
 [AMENDED 2026-11-19]: Added a standing agent rule for Vercel Hobby's 12-function-per-deployment cap: keep shared helpers under `api/_lib/`, recount endpoints before API pushes, and verify successful deployment and Node 26 runtime.

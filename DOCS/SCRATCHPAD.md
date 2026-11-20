@@ -6,6 +6,7 @@ Add Local 835 President Bryant Barr and note the Philadelphia Detention Center c
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Added Bryant Barr (Union President) to the leadership directory and site roster. Added a dated member notice that a small crew covered by an 835–USF agreement is working at the Philadelphia Detention Center (DC). Agreement terms and crew names are explicitly pending submission and review. Updated Project Updates, Summary, and Changelog.
+- [2026-11-19, time not recorded] Follow-up: added Bryant Barr and Philadelphia Detention Center to the Home page's leadership/site links. Added DC as a selectable roster filter with a pending crew-list notice and link to the worksite update.
 
 [AMENDED 2026-11-19]:
 ## Current Task:

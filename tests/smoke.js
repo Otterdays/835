@@ -295,7 +295,7 @@ ok(contractApp.includes('.normalize(\'NFKD\')') && contractApp.includes('tokens.
 ok(contractApp.includes('normalizeWithOffsets(source, true)') && contractApp.includes('source.replace(/([\\p{L}\\p{N}])'), 'contract search supports joined and hyphenated word forms');
 ok(contractApp.includes('result entries') || contractApp.includes('itemLabel'), 'contract search reports matching entry counts');
 const employeesApp = fs.readFileSync(path.join(root, 'js/employees-app.js'), 'utf8');
-ok(employeesApp.includes('new Set(employeesData.flatMap(sitesOf))') && employeesApp.includes(".normalize('NFKD')"), 'roster filters follow current locations and normalize searches');
+ok(employeesApp.includes("...employeesData.flatMap(sitesOf), 'DC'") && employeesApp.includes(".normalize('NFKD')"), 'roster filters include the pending DC site and normalize searches');
 const mongo = fs.readFileSync(path.join(root, 'api/_lib/mongo.js'), 'utf8');
 ok(mongo.includes('forum_threads_search') && mongo.includes('forum_replies_search'), 'forum text-search indexes exist');
 const forumThreadsApi = fs.readFileSync(path.join(root, 'api/forum/threads.js'), 'utf8');
@@ -402,6 +402,7 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
         ok(names.every((n, k) => k === 0 || names[k - 1] <= n), 'employeesData stays alphabetical by first name (Management last, in rank order)');
     }
     ok(app.includes("activeFacility === 'all' ? locations : [activeFacility]"), 'a facility filter shows only that facility\'s crew section');
+    ok(app.includes("activeFacility === 'DC' && !searchQuery") && app.includes('crew list is pending'), 'Detention Center roster view explains that names are pending');
 }
 
 // Site-wide light/dark appearance: early init script on every page, generated dark.css, menu toggle.
