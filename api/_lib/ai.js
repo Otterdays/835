@@ -22,7 +22,11 @@ function providerPreferences(model) {
     const prefs = {
         // Keep a paid provider from ever answering, even if a model were mislabeled.
         max_price: { prompt: '0', completion: '0', request: '0' },
-        data_collection: 'deny',
+        // Non-ZDR models are offered only after the UI's per-model warning and
+        // the server's acceptNonZdr check. Let those providers serve the request;
+        // otherwise OpenRouter can return 404 when every eligible endpoint is
+        // filtered out by data_collection=deny.
+        data_collection: model.strict ? 'deny' : 'allow',
         ignore: [...GOOGLE_PROVIDERS]
     };
     if (model.strict) {
@@ -89,7 +93,7 @@ function httpErrorFor(status, raw) {
         return aiError(503, 'ai_budget', 'The AI service reports no available free capacity. Try again later.');
     }
     if (status === 404) {
-        return aiError(400, 'ai_model_unavailable', 'That model is no longer available. Refresh the free model list.');
+        return aiError(503, 'ai_model_unavailable', 'OpenRouter has no available provider route for this model right now. Refresh the free model list or choose another model.');
     }
     if (status === 429) {
         return aiError(429, 'ai_rate_limit', 'The free model is rate limited or its daily quota is exhausted. Try again later or choose another model.');

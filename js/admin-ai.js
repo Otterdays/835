@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const providers = model.providers.length ? model.providers.join(', ') : 'verified ZDR endpoint';
             modelNote.textContent = `Zero data retention: ${providers}. Model charge: $0. Free capacity is limited and models can disappear.`;
         } else {
-            modelNote.textContent = 'This model is not verified for zero data retention. The provider may retain prompts. Model charge: $0.';
+            modelNote.textContent = 'This model is not verified for zero data retention. Its provider may retain or use prompts. Model charge: $0.';
         }
     };
 
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         models.forEach((model) => {
             const suffix = model.strict
                 ? `${formatContext(model.contextLength)} · $0 · ${model.providers.join(', ') || 'ZDR'}`
-                : `${formatContext(model.contextLength)} · $0 · may retain prompts`;
+                : `${formatContext(model.contextLength)} · $0 · may retain/use prompts`;
             group.append(new Option(`${model.name} — ${suffix}`, model.id));
         });
         modelSelect.append(group);

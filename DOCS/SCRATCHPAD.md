@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Investigated the admin AI's OpenRouter HTTP 404 using the provided screenshots. Non-ZDR model requests were filtered with `data_collection: deny`, which can exclude their only serving providers. Changed routing so strict ZDR models retain `deny` while user-confirmed non-ZDR models use `allow`; kept the `$0` max-price cap and free-only server validation. Updated the 404 message and UI disclosure, added tests and documentation. Sources checked: OpenRouter provider routing docs (https://openrouter.ai/docs/guides/routing/provider-selection) and free-model page (https://openrouter.ai/collections/free-models/).
+
 [AMENDED 2026-11-19]:
 ## Current Task:
 Expand admin AI roster lookup and enable other free models with the user's confirmation.

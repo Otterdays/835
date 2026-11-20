@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Admin AI routing fix: strict ZDR requests continue to deny data-collecting endpoints; confirmed non-ZDR free-model requests allow those providers under the existing UI warning/confirmation. All requests remain server-validated `:free` models with zero maximum price. OpenRouter 404 errors now describe an unavailable provider route. See `DOCS/LLM_INTEGRATION.md`.
+
 [AMENDED 2026-11-17]: **Home page readability.** Reorganized the State Road member home page with a restrained, compact layout, clear primary actions, facility steward links, and grouped resource links sized for mobile reading.
 
 [AMENDED 2026-11-17]: **CBA page 15.** Added the page 15 scan; completed Article XX Pension Sections 1–4 across pages 14–15; transcribed Article XXI Wages Sections 1–2 and the opening of Article XXII Health Care Insurance. Updated scan search, article coverage, bargaining reference, and member updates. Articles XXI and XXII remain partial.

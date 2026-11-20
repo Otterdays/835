@@ -137,6 +137,7 @@ ok(
 );
 const otherBody = ai.buildRequestBody(otherModel, [{ role: 'user', content: 'hello' }]);
 ok(otherBody.provider.zdr === undefined && otherBody.provider.only === undefined, 'request: non-ZDR models do not request ZDR');
+ok(otherBody.provider.data_collection === 'allow', 'request: explicitly approved non-ZDR models are not filtered by data collection');
 ok(otherBody.provider.max_price.prompt === '0', 'request: non-ZDR models still enforce zero price');
 ok(!('models' in strictBody) && !('route' in strictBody), 'request: no model fallback array or alternate route');
 
@@ -220,6 +221,9 @@ async function providerTests() {
     mockFetch({ ok: false, status: 429, body: '{"error":"rate limited"}' });
     await rejectsWithAsync(() => ai.askOpenRouter({ apiKey: 'sk-test', model: strictModel, messages }), 'ai_rate_limit', 'provider: maps 429 to a visible quota error');
     ok(fetchCount === 1, 'provider: does not retry after 429');
+
+    mockFetch({ ok: false, status: 404, body: '{"error":"No endpoints found"}' });
+    await rejectsWithAsync(() => ai.askOpenRouter({ apiKey: 'sk-test', model: otherModel, messages }), 'ai_model_unavailable', 'provider: maps missing routes to a clear unavailable message');
 
     mockFetch({ ok: false, status: 503, body: '{"error":"down"}' });
     await rejectsWithAsync(() => ai.askOpenRouter({ apiKey: 'sk-test', model: strictModel, messages }), 'ai_provider', 'provider: maps 5xx to unavailable');

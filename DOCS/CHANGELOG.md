@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Fixed admin AI non-ZDR provider routing: after per-model confirmation, the request no longer filters out providers with `data_collection: deny`; strict ZDR requests retain the restriction. Clarified transient 404 copy and non-ZDR provider-use disclosure.
+
 [AMENDED 2026-11-19]: Added Bryant Barr to union leadership contacts and the site roster; broadened the leadership directory labels to cover union leadership and shop stewards. Added a member-facing notice for the 835–USF covered crew currently working at Philadelphia Detention Center, with contract terms and names explicitly pending receipt.
 [AMENDED 2026-11-19]: Added Home page links for Local 835 leadership and the Philadelphia Detention Center. The site roster now offers a DC filter with a notice that crew names are pending.
 [AMENDED 2026-11-19]: Admin AI can retrieve published roster and steward directory fields; it excludes sensitive status notes and account/contact data. Other eligible free models are enabled with a per-model privacy warning and confirmation.
