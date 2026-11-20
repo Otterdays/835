@@ -13,6 +13,8 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
+[AMENDED 2026-11-19]: Added Bryant Barr as Local 835 Union President to the leadership directory and employee roster. Added a contract/employment notice that a small crew covered by an 835–USF agreement is working at the Philadelphia Detention Center; the agreement and crew list remain pending submission and review.
+
 [AMENDED 2026-11-19]: Moved Mongo, session, password, and login-rate helpers into `api/_lib/` to keep Vercel from counting helper modules toward its Hobby serverless-function deployment cap. Updated imports and maps.
 [AMENDED 2026-11-19]: Added a standing agent rule for Vercel Hobby's 12-function-per-deployment cap: keep shared helpers under `api/_lib/`, recount endpoints before API pushes, and verify successful deployment and Node 26 runtime.
 [AMENDED 2026-11-19]: Added click-to-show password controls to sign-in and account creation; controls toggle between Show and Hide and expose pressed state to assistive technology.
@@ -138,3 +140,6 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: Site Roster: added Luong Trinh, Mathew-George, William Bates, Baris Kaya, Justin Lowe, Ho Song; Adrian Molina now Welder, Michael Jones now CFCF Painter, Sabu now Sabu Gokul (Building Engineer, RCF). New "Supervisors" group (John Carroll III 3, Roman Solecki 4, shift supervisors 5) and "Security" group: electronic security techs are one entry under Security, no longer repeated under every building. JOB_TITLES: Welder replaces Maintenance Mechanic.
 
 [AMENDED 2026-11-19]: **CBA pages 28–30 digitized.** Added `images/page_28.jpg` through `images/page_30.jpg` and scan/search records `cba-p28` through `cba-p30`. Continued Exhibit C in Article XXIII through the reasonable-suspicion questions, testing procedures, cutoff levels, federal workplace notice, and Drug-Free Awareness Program. Printed page 30 concludes the supplied Exhibit C text; current CBA scan range is pages 1–30. Updated the bargaining reference and member-facing Project Updates entry.
+
+[AMENDED 2026-11-19]: Planned (not built) an admin-only AI chat assistant through OpenRouter (no Google services); design, Vercel/key handling, and open owner questions are in `DOCS/LLM_INTEGRATION.md`.
+[AMENDED 2026-11-19]: Updated the planned admin AI assistant to the owner's strict FREE ONLY requirement. The plan now calls for API-discovered `:free` zero-price chat models, server-enforced allowlisting with no paid fallback, no member personal data in context by default, and a model-selector/privacy/quota/error UX plus TDD acceptance plan. No code is built; see `DOCS/LLM_INTEGRATION.md` for current official references.

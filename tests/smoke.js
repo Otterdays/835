@@ -158,7 +158,7 @@ ok(forumApp.includes('ProfileUI.badgeRow') || forumApp.includes('P.badgeRow'), '
 ok(forumApp.includes("new Option('All categories'") && forumApp.includes('renderBoard') && forumApp.includes('forum-col'), 'forum defaults to all categories with a board of topic columns');
 ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum can switch between board and list');
 
-// Profile job titles are exactly the trades on the roster (no status notes, stewards, or management).
+// Profile job titles are exactly the trades on the roster (no status notes, leadership, stewards, or management).
 {
     const vm = require('vm');
     const sandbox = {};
@@ -171,7 +171,7 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
     };
     const rosterTitles = [...new Set(
         sandbox.roster
-            .filter((e) => e.location !== 'Management' && e.location !== 'Supervisors')
+            .filter((e) => !['Management', 'Supervisors', 'Local 835'].includes(e.location))
             .map((e) => e.role.split(' · ')[0].trim())
             .filter((title) => !/Shop Steward$/.test(title))
             .flatMap((title) => separateRoles[title] || [title])

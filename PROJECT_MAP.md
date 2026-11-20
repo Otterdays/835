@@ -40,7 +40,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where CBA page images are browsed | `scans.html` + `js/scans-app.js` + `js/paneled-archive.js` |
 | how to add a tool-policy scan | Add the image and `toolProgramScans` entry in `data.js`; see `tool-program.html` |
 | where tool-policy archive behavior lives | `tool-program.html` + `js/tool-app.js` + `js/paneled-archive.js` |
-| where shop steward contacts are maintained | `data.js` → `shopStewards`; display/filter in `js/stewards-app.js` |
+| where union leadership and shop steward contacts are maintained | `data.js` → `shopStewards`; display/filter in `js/stewards-app.js` |
 | where employee roster data is maintained | `data.js` → `employeesData`; display/filter in `js/employees-app.js` |
 | how to add a steward or roster entry | Add it to `shopStewards` or `employeesData` in `data.js` (`alsoAt: ["SITE"]` for a second facility) |
 | where member grievance preparation lives | `member-action.html` + `js/member-action-app.js` |
@@ -56,6 +56,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
 | where the admin panel lives and how it is locked | `admin.html`, `js/admin-app.js`, `api/admin/index.js`, `middleware.js` (see `DOCS/ACCOUNTS.md`) |
+| where the planned admin AI/LLM assistant (OpenRouter, free models only) is designed | `DOCS/LLM_INTEGRATION.md` (plan only; not built) |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
 | where smoke and deploy checks are defined | `tests/smoke.js`, `scripts/check-deploy.js` |

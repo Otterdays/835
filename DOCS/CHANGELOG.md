@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Added Bryant Barr to union leadership contacts and the site roster; broadened the leadership directory labels to cover union leadership and shop stewards. Added a member-facing notice for the 835–USF covered crew currently working at Philadelphia Detention Center, with contract terms and names explicitly pending receipt.
+
 ## [Unreleased] - 2026-11-18
 - **Accounts mobile UX:** Grouped profile fields, enlarged touch controls and text, added safe-area-aware save actions, simplified directory cards, and collapsed password change until requested.
 - **PICC roster:** Checked the supplied 21-person list against `employeesData`; completed names, aligned trade titles and spellings, and removed two incomplete/conflicting PICC entries. Preserved steward designations.
@@ -9,6 +11,8 @@
 - **Navigation:** Added account/profile pages to Home, shared navigation, sitewide search, and the side-panel account block.
 
 ## [Unreleased] - 2026-11-19
+- **Admin AI plan:** Updated `DOCS/LLM_INTEGRATION.md` for the owner's FREE ONLY requirement: dynamic free-model selection, server-side zero-price enforcement, no paid fallback/credits, provider privacy limits, interface behavior, and TDD acceptance coverage. Planning only; no AI code built.
+- **Docs:** Added `DOCS/LLM_INTEGRATION.md`, a plan for an admin-only AI assistant (OpenRouter, OpenCode Zen alternative). Planning only; no code changes.
 - **Roster:** Added the supplied PICC and CFCF trades and part-time Warehouse Crew member; Roman Solecki (#4) now also appears under Warehouse while remaining in Management.
 - **Roster:** Moved John Carroll III (3 · Supervisor) and Roman Solecki (4 · Warehouse Supervisor) into the Management group while keeping their ranks and titles.
 - **Sign-in usability:** Added accessible show/hide password controls to sign-in and account creation forms.

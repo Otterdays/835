@@ -1,4 +1,19 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Add Local 835 President Bryant Barr and note the Philadelphia Detention Center crew covered by an 835–USF agreement.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Added Bryant Barr (Union President) to the leadership directory and site roster. Added a dated member notice that a small crew covered by an 835–USF agreement is working at the Philadelphia Detention Center (DC). Agreement terms and crew names are explicitly pending submission and review. Updated Project Updates, Summary, and Changelog.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Review and expand the admin LLM integration plan for OpenRouter, live free-model selection, and TDD/UI behavior.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Checked official OpenRouter free-model catalog, catalog API, pricing/rate limits, privacy policy, and ZDR guide. Amended `DOCS/LLM_INTEGRATION.md` to make FREE ONLY an owner requirement: dynamic `:free` + zero input/output price filtering, server-side validation, no paid fallback/credits, no roster or personal data by default, model selector UX, errors/quota handling, and a layered TDD acceptance plan. Updated the project maps. No integration code built and no tests run.
+[AMENDED 2026-11-19]: Wrote `DOCS/LLM_INTEGRATION.md`, a plan for an admin-only AI chatbox via OpenRouter (OpenCode Zen as alternative; no Google). `action: "ask"` on `api/admin/index.js` keeps the function count at 10; config in Vercel env `LLM_BASE_URL`/`LLM_API_KEY`/`LLM_MODEL`/`LLM_PROVIDER`. Nothing built; owner questions in §8.
 [AMENDED 2026-11-19]: Added Chris Mallon (PICC Painter), Cregg Lix and Keith Doyle (CFCF Painters), Elias Pinto and Stever Driscoll (CFCF Stationary Engineers), and Pat Murphy (part-time Warehouse Crew). Roman Solecki remains Management #4 and now also appears under Warehouse as Warehouse Crew.
 [AMENDED 2026-11-19]: Moved John Carroll III (3 · Supervisor) and Roman Solecki (4 · Warehouse Supervisor) into the Management roster group, preserving their displayed rank numbers and titles; recorded the member-facing roster update.
 [AMENDED 2026-11-19]: Added accessible click-to-show/hide controls for the sign-in and create-account password fields; password-change fields remain untouched per requested scope.

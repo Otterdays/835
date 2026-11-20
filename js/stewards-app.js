@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const statStewards = document.getElementById('stat-stewards');
     const filterRoot = document.getElementById('steward-facility-filters');
 
-    headerTitle.textContent = 'Shop Stewards';
-    headerParties.textContent = 'Current representation contacts for Local 835 members.';
-    headerDate.textContent = `${shopStewards.length} active steward profiles`;
+    headerTitle.textContent = 'Union Leadership & Shop Stewards';
+    headerParties.textContent = 'Union leadership and facility representation contacts for Local 835 members.';
+    headerDate.textContent = `${shopStewards.length} leadership and steward contacts`;
     headerStatus.textContent = 'Leadership Contacts';
-    viewDescription.textContent = 'Filter by site to find who represents your facility.';
+    viewDescription.textContent = 'Filter by site to find union leadership and who represents your facility.';
     if (statStewards) {
         statStewards.textContent = shopStewards.length;
     }

@@ -749,6 +749,7 @@ const employeesData = [
     { name: "Barry Sanchez", location: "CFCF", role: "Helper" },
     { name: "Bill Vetter", location: "RCF", role: "Laborer" },
     { name: "Bryan Phillips", location: "Kitchen", role: "Kitchen Mechanic Helper" },
+    { name: "Bryant Barr", location: "Local 835", role: "Union President" },
     { name: "Charles Worrell", location: "PICC", role: "Stationary/Building Engineer · Lead Shop Steward" },
     { name: "Chris Mallon", location: "PICC", role: "Painter" },
     { name: "Christie Hildebrand", location: "PICC", role: "Data Clerk" },
@@ -821,6 +822,7 @@ const employeesData = [
 ];
 
 const shopStewards = [
+    { name: "Bryant Barr", role: "Union President", location: "Local 835" },
     { name: "Charles", role: "Lead Shop Steward", location: "PICC" },
     { name: "Kevin Lyons", role: "Assistant Shop Steward", location: "CFCF" },
     { name: "Ryan", role: "Assistant Shop Steward", location: "RCF" },

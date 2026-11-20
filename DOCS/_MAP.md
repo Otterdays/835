@@ -14,6 +14,7 @@
 | `CHANGELOG.md` | Versioned project changes and unreleased notes | — |
 | `CONTRACT_PAGE_INGESTION.md` | End-to-end scan identification, transcription, data, search, and verification workflow | — |
 | `My_Thoughts.md` | Project notes | — |
+| `LLM_INTEGRATION.md` | Admin-only OpenRouter AI assistant plan; owner requirement is free-only with server-enforced model eligibility, UI, and TDD plan | — |
 
 ## Subfolders
 - `debugs/`: Security and site audit records (see `debugs/_MAP.md`)
