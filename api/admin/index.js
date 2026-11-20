@@ -2,8 +2,10 @@
 // Admin-only account management. ONE function (Vercel Hobby cap), every request re-checked.
 //   GET  /api/admin?users=1[&q=]   -> accounts with roles, status, awarded titles
 //   GET  /api/admin?audit=1        -> recent admin actions
+//   GET  /api/admin?ai=1[&refresh=1] -> free-only AI catalog, quota and privacy state
 //   POST /api/admin { action, username, ... }
 //        action: setRole | setActive | badge | clearLinks | resetPassword
+//        action: ask { model, messages, acceptNonZdr } -> single-shot free-model answer
 //
 // Security rules:
 //   - The caller's role is read from the database on every request (not from the token).
@@ -14,6 +16,7 @@
 const forum = require('../_lib/forum');
 const schema = require('../_lib/profile-schema');
 const accounts = require('../_lib/accounts');
+const adminAi = require('../_lib/admin-ai');
 const { hashPassword } = require('../_lib/password');
 
 const ROLES = ['member', 'steward', 'admin'];
@@ -201,6 +204,9 @@ module.exports = async function handler(req, res) {
         const params = new URL(req.url, 'http://localhost').searchParams;
 
         if (req.method === 'GET') {
+            if (params.has('ai')) {
+                return await adminAi.status(admin, params, res);
+            }
             if (params.get('audit')) {
                 return await listAudit(admin, res);
             }
@@ -212,7 +218,11 @@ module.exports = async function handler(req, res) {
                 throw forum.httpError(403, 'Request not allowed.');
             }
             await forum.consumeRateLimit(admin.db, `admin:${admin.username}`, ADMIN_RATE);
-            return await act(admin, await forum.readJson(req), res);
+            const body = await forum.readJson(req);
+            if (body.action === 'ask') {
+                return await adminAi.ask(admin, body, res);
+            }
+            return await act(admin, body, res);
         }
 
         res.setHeader('Allow', 'GET, POST');

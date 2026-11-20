@@ -10,7 +10,9 @@
     "manage:user": "node scripts/manage-user.js",
     "test:smoke": "node tests/smoke.js",
     "check:deploy": "node scripts/check-deploy.js",
-    "build:dark": "node scripts/gen-dark-css.js"
+    "build:dark": "node scripts/gen-dark-css.js",
+    "build:ai-context": "node scripts/build-ai-context.js",
+    "test:llm": "node tests/llm.js"
   },
   "dependencies": {
     "mongodb": "^6.17.0",

@@ -5,9 +5,14 @@
       "destination": "/api/$1"
     }
   ],
+  "functions": {
+    "api/admin/index.js": {
+      "maxDuration": 60
+    }
+  },
   "headers": [
     {
-      "source": "/(admin.html|js/admin-app.js)",
+      "source": "/(admin.html|js/admin-app.js|js/admin-ai.js)",
       "headers": [
         {
           "key": "Cache-Control",

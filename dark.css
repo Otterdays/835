@@ -192,6 +192,13 @@
 :where(:root[data-theme="dark"]) .adm-manage-body input:not([type=checkbox]),
 :where(:root[data-theme="dark"]) .adm-manage-body select { border: 1px solid #506178; background: #19232e; }
 :where(:root[data-theme="dark"]) .pf-link-row { background: #152237; }
+:where(:root[data-theme="dark"]) .adm-ai-summary::before { color: #b4cdeb; }
+:where(:root[data-theme="dark"]) .adm-ai-tag { background: #102342; color: #aac3e3; }
+:where(:root[data-theme="dark"]) .adm-ai-log { background: #152237; }
+:where(:root[data-theme="dark"]) .adm-ai-msg { background: #19232e; }
+:where(:root[data-theme="dark"]) .adm-ai-msg--user { background: #12243d; border-color: #324e72; }
+:where(:root[data-theme="dark"]) .adm-ai-who { color: #b4cdeb; }
+:where(:root[data-theme="dark"]) .adm-ai-msg--assistant .adm-ai-who { color: #bbe4c9; }
 @media (max-width: 767px) {
   :where(:root[data-theme="dark"]) .roster-index { background: rgba(25, 35, 46, 0.94); }
 }

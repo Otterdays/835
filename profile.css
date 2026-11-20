@@ -240,6 +240,31 @@
 .pf-theme-name{font-size:.9rem;line-height:1.25}
 @media(max-width:720px){.pf-link-row{grid-template-columns:1fr}.pf-link-row .pf-chip-btn{justify-self:start}}
 
+/* Admin AI assistant */
+.adm-ai{margin:0 0 1.25rem}
+.adm-ai-summary{display:flex;align-items:center;gap:.55rem;cursor:pointer;min-height:52px;list-style:none}
+.adm-ai-summary::-webkit-details-marker{display:none}
+.adm-ai-summary::before{content:'▸';font-size:.9rem;color:#1b3d66}
+.adm-ai[open] .adm-ai-summary::before{content:'▾'}
+.adm-ai-tag{margin-left:auto;padding:.18rem .5rem;border-radius:999px;background:#e7eef9;color:#274a76;font-size:.72rem;font-weight:700;letter-spacing:.02em;white-space:nowrap}
+.adm-ai-body{display:grid;gap:.75rem;white-space:normal}
+.adm-ai-intro{margin:0;max-width:80ch}
+.adm-ai-models{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.6rem;align-items:end}
+.adm-ai-note{margin:0;min-height:1.2em}
+.adm-ai-log{display:grid;gap:.7rem;align-content:start;max-height:26rem;min-height:5rem;overflow-y:auto;padding:.85rem;border:1px solid var(--pf-line);border-radius:12px;background:#f7f9fc}
+.adm-ai-empty{margin:0}
+.adm-ai-msg{display:grid;gap:.28rem;padding:.65rem .75rem;border:1px solid var(--pf-line);border-radius:10px;background:#fff}
+.adm-ai-msg--user{background:#eef3fa;border-color:#cfdbea}
+.adm-ai-who{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#1b3d66}
+.adm-ai-msg--assistant .adm-ai-who{color:#245c37}
+.adm-ai-text{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
+.adm-ai-source{margin:.1rem 0 0;padding-top:.35rem;border-top:1px dashed var(--pf-line);color:var(--pf-muted);font-size:.8rem}
+.adm-ai-field textarea{min-height:5.5rem}
+.adm-ai-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.adm-ai-spacer{flex:1 1 auto}
+.adm-ai-actions .pf-btn{min-height:44px}
+@media(max-width:720px){.adm-ai-models{grid-template-columns:1fr}.adm-ai-models .pf-btn{width:100%}.adm-ai-actions .pf-btn{flex:1 1 9rem}}
+
 /* Dark appearance for the account pages' own chrome. A member's chosen profile theme
    (.pf-profile / .pf-theme--*) sets these same variables on its own element and still wins. */
 :root[data-theme="dark"]{--pf-ink:#e9eff8;--pf-muted:#b5c3d5;--pf-line:#30435f}

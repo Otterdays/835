@@ -12,12 +12,17 @@
 | `auth/password.js` | Changes the signed-in member password | `handler()` |
 | `profile/index.js` | Serves fixed profile options, profile reads/edits, and member directory | `handler()` |
 | `profile/comments.js` | Lists, creates, and deletes profile comments | `handler()` |
-| `admin/index.js` | Admin-only account management (roles, titles, disable, password reset, audit log); 404 for everyone else | `handler()`, `requireAdmin()` |
+| `admin/index.js` | Admin-only account management (roles, titles, disable, password reset, audit log) and the free-only OpenRouter AI assistant (`?ai=1` status, `action:"ask"` ask); 404 for everyone else | `handler()`, `requireAdmin()`, `adminAi.status()`, `adminAi.ask()` |
 | `forum/threads.js` | Lists/searches threads and creates account-authored threads | `handler()` |
 | `forum/thread.js` | Loads a thread and replies, adds a signed-in reply, or deletes a post (author or admin) | `handler()` |
 | `_lib/accounts.js` | Resolves sessions and shapes safe account/profile responses | `requireUser()`, `accountOut()` |
 | `_lib/profile-schema.js` | Fixed profile options and validation | `cleanProfileUpdate()`, `options()` |
-| `_lib/forum.js` | Request parsing, forum validation, rate limits, and response shaping | `readJson()`, `cleanText()`, `consumeRateLimit()` |
+| `_lib/forum.js` | Request parsing, forum validation, rate limits, machine-readable error codes, and response shaping | `readJson()`, `cleanText()`, `consumeRateLimit()`, `peekRateLimit()` |
+| `_lib/ai-catalog.js` | Free-only OpenRouter model catalog (`/models` + `/endpoints/zdr`) with strict-ZDR detection and 5-minute caching | `getCatalog()`, `isFreeChatModel()`, `zdrProvidersByModel()`, `catalogOut()` |
+| `_lib/ai-context.js` | Retrieval over the generated `ai-site-data.json` (page directory + contract article index + excerpts) | `buildContext()`, `retrieve()` |
+| `_lib/ai.js` | Single-shot OpenRouter chat-completions client (fixed URL, timeout, error mapping) | `askOpenRouter()`, `buildRequestBody()`, `providerPreferences()` |
+| `_lib/admin-ai.js` | AI assistant status + ask: server-side allowlist, quotas, usage log | `status()`, `ask()`, `normalizeMessages()`, `resolveModel()` |
+| `_lib/ai-site-data.json` | Generated site knowledge export for the AI context (regenerate: `npm run build:ai-context`); no rosters or steward contacts | — |
 | `_lib/mongo.js` | Connects to MongoDB and creates indexes | `getDb()`, `ensureIndexes()` |
 | `_lib/rate-limit.js` | Tracks failed login attempts | `assertNotRateLimited()`, `recordFailedAttempt()` |
 | `_lib/session.js` | Signs/verifies JWTs and formats session cookies | `createSessionToken()`, `verifySessionToken()` |
@@ -27,7 +32,7 @@
 - `auth/`: Login/session endpoints (see `auth/_MAP.md`).
 - `forum/`: Thread and reply endpoints (see `forum/_MAP.md`).
 - `profile/`: Member directory, profile, and comments endpoints (see `profile/_MAP.md`).
-- `_lib/`: Shared account, forum, Mongo, session, password, and login-rate helpers; underscore prefix keeps them out of the serverless route count (see `_lib/_MAP.md`).
+- `_lib/`: Shared account, forum, Mongo, session, password, login-rate, and AI helpers; underscore prefix keeps them out of the serverless route count (see `_lib/_MAP.md`).
 
 ## Connects to
 - Account/profile behavior is described in `../DOCS/ACCOUNTS.md`; management commands are in `../scripts/manage-user.js`.

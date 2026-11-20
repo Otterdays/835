@@ -31,6 +31,46 @@
         <p>Manage member accounts, roles and titles. Every change is recorded in the log at the bottom of this page.</p>
     </header>
 
+    <details class="pf-box adm-ai" id="adm-ai">
+        <summary class="pf-box-title adm-ai-summary">AI assistant <span class="adm-ai-tag">Free models only</span></summary>
+        <div class="pf-box-body adm-ai-body">
+            <p class="pf-muted adm-ai-intro">
+                Ask about the portal, contract text, scans, policies or how the site works. Answers use a curated copy of site content.
+                Prompts are sent to OpenRouter and the selected model provider. Never include member names, grievance details or other confidential information.
+            </p>
+
+            <div class="adm-ai-models">
+                <label class="pf-field">
+                    <span class="pf-field-label">Free model</span>
+                    <select id="adm-ai-model" disabled>
+                        <option value="">Loading models…</option>
+                    </select>
+                </label>
+                <button id="adm-ai-refresh" class="pf-btn" type="button" disabled>Refresh models</button>
+            </div>
+            <p id="adm-ai-model-note" class="pf-muted adm-ai-note"></p>
+            <p id="adm-ai-quota" class="pf-muted adm-ai-note"></p>
+
+            <div id="adm-ai-log" class="adm-ai-log" role="log" aria-live="polite" aria-label="AI conversation">
+                <p class="pf-muted adm-ai-empty">No questions yet. Open a model, type a question, and press Send.</p>
+            </div>
+
+            <label class="pf-field adm-ai-field">
+                <span class="pf-field-label">Your question</span>
+                <textarea id="adm-ai-input" rows="3" maxlength="2000" placeholder="e.g. What does Article XIX say about holiday pay?" disabled></textarea>
+            </label>
+
+            <div class="adm-ai-actions">
+                <span id="adm-ai-count" class="pf-muted">0 / 2000</span>
+                <span class="adm-ai-spacer"></span>
+                <button id="adm-ai-clear" class="pf-btn" type="button" disabled>Clear conversation</button>
+                <button id="adm-ai-send" class="pf-btn pf-btn--primary" type="button" disabled>Send</button>
+            </div>
+
+            <p id="adm-ai-status" class="pf-status" role="status" aria-live="polite" hidden></p>
+        </div>
+    </details>
+
     <form id="adm-search" class="adm-search" role="search">
         <label class="pf-field">
             <span class="pf-field-label">Find an account</span>
@@ -53,5 +93,6 @@
 <script src="js/site-search.js"></script>
 <script src="js/profile-ui.js"></script>
 <script src="js/admin-app.js"></script>
+<script src="js/admin-ai.js"></script>
 </body>
 </html>

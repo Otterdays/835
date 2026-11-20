@@ -54,7 +54,10 @@ window.ProfileUI = (() => {
             return {};
         });
         if (!res.ok || !data.ok) {
-            throw Object.assign(new Error(data.error || `Request failed (${res.status}).`), { status: res.status });
+            throw Object.assign(new Error(data.error || `Request failed (${res.status}).`), {
+                status: res.status,
+                code: data.code || null
+            });
         }
         return data;
     };

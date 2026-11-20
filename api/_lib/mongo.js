@@ -57,6 +57,11 @@ async function ensureIndexes(db) {
     );
     await db.collection('forum_rate').createIndex({ key: 1 }, { unique: true });
     await db.collection('forum_rate').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+
+    // Admin AI: metadata only (no prompt/answer text), expires after one year.
+    await db.collection('admin_ai_log').createIndex({ at: -1 });
+    await db.collection('admin_ai_log').createIndex({ admin: 1, at: -1 });
+    await db.collection('admin_ai_log').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 }
 
 module.exports = { getDb };

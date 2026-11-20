@@ -45,9 +45,12 @@ const RESERVED_PREFIXES = [
 
 const USERNAME_PATTERN = /^[A-Za-z0-9][A-Za-z0-9 _-]*[A-Za-z0-9]$/;
 
-function httpError(status, message) {
+function httpError(status, message, code) {
     const err = new Error(message);
     err.status = status;
+    if (code) {
+        err.code = code;
+    }
     return err;
 }
 
@@ -60,7 +63,7 @@ function json(res, status, body) {
 
 function handleError(res, err, label, fallback = 'Forum is temporarily unavailable.') {
     if (err && err.status) {
-        return json(res, err.status, { ok: false, error: err.message });
+        return json(res, err.status, { ok: false, error: err.message, code: err.code });
     }
     console.error(`${label} failed`, err);
     return json(res, 500, { ok: false, error: fallback });
@@ -147,8 +150,16 @@ function parseObjectId(raw) {
     return new ObjectId(value);
 }
 
+/** Read a fixed-window counter without incrementing it (used for quota displays and pre-checks). */
+async function peekRateLimit(db, key, { max }) {
+    const doc = await db.collection('forum_rate').findOne({ key });
+    const live = doc && doc.expiresAt && new Date(doc.expiresAt).getTime() > Date.now();
+    const count = live ? Number(doc.count) || 0 : 0;
+    return { count, max, remaining: Math.max(0, max - count) };
+}
+
 /** Fixed-window per-key counter in Mongo (TTL index cleans expired docs). */
-async function consumeRateLimit(db, key, { max, windowMs }) {
+async function consumeRateLimit(db, key, { max, windowMs, code, message }) {
     const coll = db.collection('forum_rate');
     const now = new Date();
     await coll.deleteOne({ key, expiresAt: { $lte: now } });
@@ -172,7 +183,11 @@ async function consumeRateLimit(db, key, { max, windowMs }) {
         }
     }
     if (doc.count > max) {
-        throw httpError(429, 'Slow down — too many posts from your connection. Try again later.');
+        throw httpError(
+            429,
+            message || 'Slow down — too many posts from your connection. Try again later.',
+            code
+        );
     }
 }
 
@@ -217,6 +232,7 @@ module.exports = {
     cleanText,
     validateCategory,
     parseObjectId,
+    peekRateLimit,
     consumeRateLimit,
     threadOut,
     replyOut

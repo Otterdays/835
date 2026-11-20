@@ -13,6 +13,8 @@
 [AMENDED 2026-11-17]: Added a project navigation index in `PROJECT_MAP.md` with folder maps in `DOCS/`, `api/`, and `js/`; linked it from the Codex/OpenAI and Claude Code instructions. The map records observed documentation/code mismatches without changing application behavior.
 # Summary
 
+[AMENDED 2026-11-19]: Built the Free-only OpenRouter admin AI assistant. New: `api/_lib/ai-catalog.js` (free-only `:free` catalog with strict-ZDR detection from `/endpoints/zdr`), `api/_lib/ai-context.js` (retrieval over the generated `api/_lib/ai-site-data.json`; roster/steward/`updates.html` excluded), `api/_lib/ai.js` (hardcoded OpenRouter URL, `max_price` 0, `data_collection:"deny"`, provider-only for strict models), `api/_lib/admin-ai.js` (status + ask: server allowlist, 10/h per admin, 30/day site, `admin_ai_log` metadata), admin panel AI section (`admin.html` + `js/admin-ai.js`, text-only), styles (`profile.css`/`dark.css`), `tests/llm.js`, deploy-check key scanning, `.env.example` entries, and `api/_lib/ai-site-data.json` built by `npm run build:ai-context` with a roster-name leak guard.
+
 [AMENDED 2026-11-19]: Added Bryant Barr as Local 835 Union President to the leadership directory and employee roster. Added a contract/employment notice that a small crew covered by an 835–USF agreement is working at the Philadelphia Detention Center; the agreement and crew list remain pending submission and review.
 [AMENDED 2026-11-19]: Home page now links directly to Bryant Barr under union leadership and lists the Philadelphia Detention Center as a site. The roster has a DC filter and a pending crew-list message until the agreement and names are provided.
 

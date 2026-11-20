@@ -10,6 +10,8 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 - `npm run vercel:dev` — local Vercel runtime with API routes.
 - `npm run seed:user` — seed an API user; requires Mongo settings.
 - `npm run test:smoke` — page, asset, search, and forum checks.
+- `npm run test:llm` — AI assistant unit/mocked-provider checks.
+- `npm run build:ai-context` — regenerate `api/_lib/ai-site-data.json` after editing `data.js` or portal pages.
 - `npm run check:deploy` — deploy-exclusion and auth wiring checks.
 
 ## Layout
@@ -56,7 +58,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
 | where the admin panel lives and how it is locked | `admin.html`, `js/admin-app.js`, `api/admin/index.js`, `middleware.js` (see `DOCS/ACCOUNTS.md`) |
-| where the planned admin AI/LLM assistant (OpenRouter, free models only) is designed | `DOCS/LLM_INTEGRATION.md` (plan only; not built) |
+| where the admin-only AI assistant (free OpenRouter models only) is built | `admin.html`, `js/admin-ai.js`, `api/admin/index.js` (`?ai=1`, `action:"ask"`), `api/_lib/ai-catalog.js`, `api/_lib/ai-context.js`, `api/_lib/ai.js`, `api/_lib/admin-ai.js`; see `DOCS/LLM_INTEGRATION.md` |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
 | where smoke and deploy checks are defined | `tests/smoke.js`, `scripts/check-deploy.js` |
@@ -68,7 +70,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 ## Files (root and folders without their own map)
 | File | What it does |
 |---|---|
-| `.env.example` | Environment variable names and local auth-mode example; contains placeholders only |
+| `.env.example` | Environment variable names and local auth-mode example; contains placeholders only (`OPENROUTER_API_KEY` stays blank) |
 | `.gitignore` | Excludes local credentials, dependencies, and generated files from Git |
 | `.vercelignore` | Keeps offline drafts, docs, setup files, and local config out of deployment |
 | `AGENTS.md` | Shared agent rules and project workflow |
@@ -78,7 +80,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `package-lock.json` | Locked npm dependency tree |
 | `vercel.json` | Vercel API rewrite configuration |
 | `middleware.js` | Vercel middleware; blocks the source folder and serves `/admin*` and `/api/admin` only to a verified admin session |
-| `admin.html` | Admin panel page (admins only; gated by `middleware.js`) |
+| `admin.html` | Admin panel page (admins only; gated by `middleware.js`); includes the lazy-loaded AI assistant section |
 | `launch.bat` | Windows static server launcher |
 | `live-setup.md` | MongoDB, Vercel, environment, and deploy setup steps |
 | `local.auth.example.json` | Example local user configuration; values are placeholders |
@@ -106,10 +108,13 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `employees.html` | Facility employee roster |
 | `suggestions.html` | Structured member feedback form |
 | `forum.html` | Community forum page |
-| `scripts/check-deploy.js` | Checks deploy exclusions and expected auth wiring |
+| `scripts/check-deploy.js` | Checks deploy exclusions, expected auth wiring, and secret-shaped key scans (`OPENROUTER_API_KEY`) |
+| `scripts/build-ai-context.js` | Generates `api/_lib/ai-site-data.json` from `data.js` + selected HTML pages; fails if roster/steward names leak (`npm run build:ai-context`) |
 | `scripts/gen-dark-css.js` | Generates `dark.css` from hard-coded colors in `style.css`, `forum.css`, `profile.css` |
 | `scripts/seed-user.js` | Creates or updates a Mongo user from command-line input |
-| `tests/smoke.js` | Checks page wiring, local assets, search data, and forum validation |
+| `tests/smoke.js` | Checks page wiring, local assets, search data, forum validation, and the admin AI wiring/privacy block |
+| `tests/llm.js` | Pure and mocked OpenRouter AI tests: catalog filter, request builder, allowlist, mocked provider responses, context retrieval, site-data freshness, no-roster privacy, key scans (`npm run test:llm`) |
+| `api/_lib/ai-site-data.json` | Generated AI context export: page directory + contract article index + curated excerpts; no rosters, steward contacts, or `updates.html` body text |
 | `source/IUOE_Local_835_Petition_and_Motion.docx` | Offline Word draft (not opened) |
 | `source/IUOE_Local_835_Petition_and_Motion.md` | Offline Markdown draft (not opened) |
 | `source/IUOE_Local_835_Working_Packet.docx` | Offline Word draft (not opened) |

@@ -258,6 +258,39 @@ ok(forumApp.includes("data-view") || forumApp.includes('dataset.view'), 'forum c
 }
 function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-search.js'), 'utf8'); }
 
+// Admin AI: free-only OpenRouter integration, server-only, no roster data, no secrets.
+{
+    const siteData = require(path.join(root, 'api/_lib/ai-site-data.json'));
+    const builder = require(path.join(root, 'scripts/build-ai-context.js'));
+    const adminAiJs = fs.readFileSync(path.join(root, 'js/admin-ai.js'), 'utf8');
+    const adminHtml = fs.readFileSync(path.join(root, 'admin.html'), 'utf8');
+    const forumJs = fs.readFileSync(path.join(root, 'api/_lib/forum.js'), 'utf8');
+    const mongoJs = fs.readFileSync(path.join(root, 'api/_lib/mongo.js'), 'utf8');
+    const vercelJson = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+    const envExample = fs.readFileSync(path.join(root, '.env.example'), 'utf8');
+    const adminApi = fs.readFileSync(path.join(root, 'api/admin/index.js'), 'utf8');
+
+    ok(fs.existsSync(path.join(root, 'api/_lib/ai-site-data.json')), 'ai: exported site context exists');
+    ok(siteData.sourceHash === builder.sourceHash(), 'ai: site context export is current');
+    ok(siteData.chunks.every((chunk) => chunk.citation && chunk.href && chunk.text.length), 'ai: every context chunk is attributed');
+    ok(siteData.chunks.every((chunk) => chunk.href !== 'updates.html'), 'ai: updates.html body is excluded from context');
+    ok(builder.privateNames().every((name) => !siteData.chunks.some((c) => c.text.toLowerCase().includes(name.toLowerCase()))), 'ai: context contains no roster or steward names');
+    ok(adminHtml.includes('js/admin-ai.js'), 'ai: admin.html loads the AI client');
+    ok(!/\.innerHTML\s*=/.test(adminAiJs), 'ai: admin client never assigns to innerHTML');
+    ok(!/sk-or-v1-[A-Za-z0-9_-]{20,}/.test(adminAiJs), 'ai: admin client has no OpenRouter key');
+    ok(!/OPENROUTER_API_KEY\s*=\s*['"][^'"]+['"]/.test(adminAiJs), 'ai: admin client has no key assignment');
+    ok(forumJs.includes('peekRateLimit'), 'ai: forum supports rate-limit peeking');
+    ok(forumJs.includes('code'), 'ai: API errors carry a machine-readable code');
+    ok(mongoJs.includes('admin_ai_log'), 'ai: Mongo has an admin_ai_log collection with TTL and indexes');
+    ok(mongoJs.includes('expireAfterSeconds'), 'ai: admin_ai_log is TTL-indexed');
+    ok(JSON.stringify(vercelJson.headers).includes('js/admin-ai.js'), 'ai: admin AI client is served no-store/noindex');
+    ok(vercelJson.functions && vercelJson.functions['api/admin/index.js'].maxDuration === 60, 'ai: admin function gets 60s for the AI timeout');
+    ok(/^OPENROUTER_API_KEY=\s*$/m.test(envExample), 'ai: .env.example documents a blank server-side key');
+    ok(adminApi.includes("body.action === 'ask'"), 'ai: admin endpoint dispatches the ask action');
+    ok(adminApi.includes("adminAi.status") && adminApi.includes("adminAi.ask"), 'ai: admin endpoint serves catalog status and ask');
+}
+
+
 // Forum deletion: author or admin only, logged when an admin removes someone else's post.
 {
     const threadApi = fs.readFileSync(path.join(root, 'api/forum/thread.js'), 'utf8');
