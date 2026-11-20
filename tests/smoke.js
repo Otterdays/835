@@ -285,7 +285,7 @@ function siteSearchSource() { return fs.readFileSync(path.join(root, 'js/site-se
     ok(mongoJs.includes('admin_ai_log'), 'ai: Mongo has an admin_ai_log collection with TTL and indexes');
     ok(mongoJs.includes('expireAfterSeconds'), 'ai: admin_ai_log is TTL-indexed');
     ok(JSON.stringify(vercelJson.headers).includes('js/admin-ai.js'), 'ai: admin AI client is served no-store/noindex');
-    ok(vercelJson.functions && vercelJson.functions['api/admin/index.js'].maxDuration === 60, 'ai: admin function gets 60s for the AI timeout');
+    ok(vercelJson.functions && vercelJson.functions['api/admin/index.js'].maxDuration === 120, 'ai: admin function gets 120s for retries and fallback');
     ok(/^OPENROUTER_API_KEY=\s*$/m.test(envExample), 'ai: .env.example documents a blank server-side key');
     ok(/^LLM_ALLOW_NON_ZDR=1$/m.test(envExample), 'ai: other free models are enabled with per-model privacy confirmation');
     ok(adminApi.includes("body.action === 'ask'"), 'ai: admin endpoint dispatches the ask action');

@@ -1,5 +1,8 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+## [Unreleased] - 2026-11-20
+- **Admin AI reliability:** Fixed empty answers from reasoning free models (bigger output budget, low reasoning effort, hidden reasoning). Busy, empty or unroutable models now retry automatically on a backup free model of the same or stricter privacy class (max 3 attempts). The admin function gets 120 s. Rebuilt the stale AI site context; added the `Project Management Assistant` job title.
+
 [AMENDED 2026-11-19]: Admin AI shows visible progress while responding, makes source/article citations open in a new tab, and removes the portal's 10-per-hour and 30-per-day question caps; provider limits remain.
 
 [AMENDED 2026-11-19]: Admin panel is wider on desktop, and the AI chat history can display up to 56vh/44rem before its inner scrollbar appears.

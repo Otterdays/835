@@ -110,10 +110,14 @@ function buildCatalog(modelsData, zdrData) {
         .filter(isFreeChatModel)
         .map((model) => {
             const providers = zdr.get(model.id.trim()) || [];
+            const params = Array.isArray(model.supported_parameters) ? model.supported_parameters : [];
+            const maxCompletion = Number(model.top_provider && model.top_provider.max_completion_tokens);
             return {
                 id: model.id.trim(),
                 name: String(model.name || model.id).trim().slice(0, 120),
                 contextLength: Number(model.context_length),
+                reasoning: params.includes('reasoning') || params.includes('include_reasoning'),
+                maxCompletion: Number.isSafeInteger(maxCompletion) && maxCompletion > 0 ? maxCompletion : null,
                 strict: providers.length > 0,
                 zdrProviders: providers
             };

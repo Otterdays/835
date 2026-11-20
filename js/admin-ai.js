@@ -68,14 +68,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const rate = error && error.rateLimit;
         if (!rate || !rate.source) return error.message;
         const reset = rate.resetAt ? new Date(rate.resetAt).toLocaleString() : null;
-        const retry = Number.isSafeInteger(rate.retryAfterSeconds) ? ` Try again in about ${rate.retryAfterSeconds} seconds.` : '';
+        const secs = rate.retryAfterSeconds;
+        const retry = Number.isSafeInteger(secs) ? ` Try again in about ${secs} second${secs === 1 ? '' : 's'}.` : '';
         switch (rate.source) {
             case 'openrouter_free_tier_per_minute':
                 return `OpenRouter's shared free-model per-minute limit was reached${rate.remaining !== undefined ? ` (${rate.remaining} requests remaining)` : ''}.${reset ? ` Resets around ${reset}.` : ''}${retry}`;
             case 'openrouter_free_tier_daily':
                 return `OpenRouter's free-model daily limit was reached.${reset ? ` Resets around ${reset}.` : ' It typically resets at midnight UTC.'}${retry}`;
             case 'upstream_provider_shared_pool':
-                return `The selected model provider${rate.provider ? ` (${rate.provider})` : ''} has no shared capacity right now. This is a provider availability limit; try another free model later.${retry}`;
+                return `The selected model provider${rate.provider ? ` (${rate.provider})` : ''} has no shared capacity right now. This is a provider availability limit; the assistant already tried backup models; try again in a minute.${retry}`;
             case 'openrouter_in_flight_budget':
                 return `OpenRouter's in-flight request budget is full.${retry || ' Wait for an active request to finish, then try again.'}`;
             case 'openrouter_key_limit':
@@ -177,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         node.append(document.createTextNode(text.slice(lastIndex)));
     };
 
-    const appendMessage = (role, text, sources, sourceLinks, articleLinks) => {
+    const appendMessage = (role, text, sources, sourceLinks, articleLinks, meta) => {
         const empty = log.querySelector('.adm-ai-empty');
         if (empty) {
             empty.remove();
@@ -206,6 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 source.textContent = 'No matching site source was found.';
             }
             row.append(source);
+            if (meta && meta.fellBack && meta.answeredBy && meta.answeredBy.name) {
+                row.append(P.el('p', 'adm-ai-source', `Answered by backup model ${meta.answeredBy.name} because the selected model was busy or returned nothing.`));
+            }
         }
         log.append(row);
         log.scrollTop = log.scrollHeight;
@@ -332,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (state.approvedNonZdr !== model.id) {
                 const ok = window.confirm(
-                    `${model.name} is not verified for zero data retention. Its provider may retain or use the prompt. Continue only with non-confidential questions.`
+                    `${model.name} is not verified for zero data retention. Its provider may retain or use the prompt. If it is busy, the assistant may retry on other free models, which may also retain prompts. Continue only with non-confidential questions.`
                 );
                 if (!ok) {
                     return;
@@ -352,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCount();
         setBusy(true);
         const bubble = appendMessage('user', question);
-        const pending = appendMessage('assistant', 'Checking the site sources and asking the selected model…');
+        const pending = appendMessage('assistant', 'Checking the site sources and asking the model (free models can take up to a minute; busy ones are retried automatically)…');
         pending.classList.add('adm-ai-msg--pending');
         pending.setAttribute('role', 'status');
         pending.setAttribute('aria-live', 'polite');
@@ -372,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             updateFreeModelDailyRequests(data.freeModelDailyRequests);
             pending.remove();
-            appendMessage('assistant', data.answer, data.sources, data.sourceLinks, data.articleLinks);
+            appendMessage('assistant', data.answer, data.sources, data.sourceLinks, data.articleLinks, { fellBack: data.fellBack, answeredBy: data.answeredBy });
             state.history = [...outgoing, { role: 'assistant', content: data.answer }];
             if (state.history.length > 8) {
                 state.history = state.history.slice(state.history.length - 8);

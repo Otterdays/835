@@ -13,6 +13,74 @@ const MAX_ASSISTANT_CHARS = 4000;
 // Keep the JSON body well under readJson's 20,000-byte cap even with heavy quoting.
 const MAX_TOTAL_CHARS = 8000;
 const LOG_RETENTION_DAYS = 365;
+// Retry/fallback budget. Every attempt counts toward OpenRouter's free daily
+// request quota, so stay small. The deadline stays under vercel.json maxDuration.
+const MAX_ATTEMPTS = 3;
+const ASK_DEADLINE_MS = 100000;
+const MIN_ATTEMPT_MS = 8000;
+const MAX_WAIT_SECONDS = 5;
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Backup models for when the chosen one is busy, empty, or has no route.
+ * Never widens privacy: a zero-retention pick falls back only to zero-retention
+ * models. A non-ZDR pick (already confirmed by the admin) tries ZDR models first.
+ * Larger context and reasoning-capable output caps are preferred.
+ */
+function fallbackCandidates(catalog, chosen, needChars) {
+    const minContext = Math.ceil(needChars / 3) + 8000;
+    return catalog.models
+        .filter((entry) => entry.id !== chosen.id)
+        .filter((entry) => (chosen.strict ? entry.strict : true))
+        .filter((entry) => !(entry.contextLength < minContext))
+        .filter((entry) => !(entry.maxCompletion && entry.maxCompletion < 4000))
+        .sort((a, b) => (a.strict !== b.strict ? (a.strict ? -1 : 1) : b.contextLength - a.contextLength));
+}
+
+/** Try the chosen model, then backups, the way a resilient client would. */
+async function askWithFallback({ apiKey, catalog, chosen, messages, needChars, allowFallback }) {
+    const started = Date.now();
+    const backups = allowFallback ? fallbackCandidates(catalog, chosen, needChars) : [];
+    const attempts = [];
+    let model = chosen;
+    let maxTokens;
+    let lastError = null;
+    for (let i = 0; i < MAX_ATTEMPTS; i += 1) {
+        const left = ASK_DEADLINE_MS - (Date.now() - started);
+        if (left < MIN_ATTEMPT_MS) break;
+        try {
+            const result = await ai.askOpenRouter({ apiKey, model, messages, maxTokens, timeoutMs: left });
+            attempts.push({ model: model.id, outcome: 'ok' });
+            return { ...result, attempts, answeredBy: model };
+        } catch (err) {
+            lastError = err;
+            attempts.push({ model: model.id, outcome: err.code || 'error' });
+            if (err.retry === 'bigger') {
+                maxTokens = ai.RETRY_OUTPUT_TOKENS;
+                continue;
+            }
+            if (err.retry === 'wait') {
+                const wait = err.rateLimit && err.rateLimit.retryAfterSeconds;
+                if (!(Number.isFinite(wait) && wait <= MAX_WAIT_SECONDS)) break;
+                await sleep(Math.max(1, wait) * 1000);
+                continue;
+            }
+            if (err.retry === 'next' && backups.length) {
+                model = backups.shift();
+                maxTokens = undefined;
+                continue;
+            }
+            break;
+        }
+    }
+    const err = lastError || ai.aiError(504, 'ai_timeout', 'The assistant ran out of time. Try again.');
+    err.attempts = attempts;
+    if (attempts.length > 1) {
+        err.message = `${err.message} (Tried ${attempts.length} times${attempts.some((entry) => entry.model !== chosen.id) ? ' across free models' : ''}.)`;
+    }
+    throw err;
+}
 
 function cleanTurn(text) {
     return String(text)
@@ -147,13 +215,17 @@ async function ask(admin, body, res) {
     });
 
     const context = contextLib.buildContext(messages);
+    const outgoing = [{ role: 'system', content: context.system }, ...context.messages];
     const started = Date.now();
     let result;
     try {
-        result = await ai.askOpenRouter({
+        result = await askWithFallback({
             apiKey: process.env.OPENROUTER_API_KEY.trim(),
-            model,
-            messages: [{ role: 'system', content: context.system }, ...context.messages]
+            catalog,
+            chosen: model,
+            messages: outgoing,
+            needChars: outgoing.reduce((total, message) => total + message.content.length, 0),
+            allowFallback: body.allowFallback !== false
         });
     } catch (err) {
         if (err && (err.status === 429 || err.status === 503 && err.code === 'ai_budget')) {
@@ -168,6 +240,7 @@ async function ask(admin, body, res) {
             turns: messages.length,
             inputChars: messages.reduce((total, message) => total + message.content.length, 0),
             retrievedSources: context.sources.length,
+            attempts: err.attempts || [],
             durationMs: Date.now() - started
         });
         throw err;
@@ -181,14 +254,18 @@ async function ask(admin, body, res) {
         turns: messages.length,
         inputChars: messages.reduce((total, message) => total + message.content.length, 0),
         retrievedSources: context.sources.length,
+        attempts: result.attempts,
         usage: result.usage,
-        durationMs: result.durationMs
+        durationMs: Date.now() - started
     });
 
     return forum.json(res, 200, {
         ok: true,
         answer: result.answer,
         model: result.model,
+        answeredBy: { id: result.answeredBy.id, name: result.answeredBy.name, strict: result.answeredBy.strict },
+        fellBack: result.answeredBy.id !== model.id,
+        attempts: result.attempts.length,
         sources: context.sources,
         sourceLinks: context.sourceLinks,
         articleLinks: context.articleLinks,
@@ -202,6 +279,9 @@ module.exports = {
     MAX_USER_CHARS,
     MAX_ASSISTANT_CHARS,
     MAX_TOTAL_CHARS,
+    MAX_ATTEMPTS,
+    fallbackCandidates,
+    askWithFallback,
     normalizeMessages,
     resolveModel,
     status,

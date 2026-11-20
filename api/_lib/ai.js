@@ -2,14 +2,21 @@
 // The only code that talks to OpenRouter. The URL is fixed: no environment
 // variable can redirect prompts or the API key to another host.
 //
-// One request, no streaming, no tools, no automatic retries, no model fallback.
+// One request per call, no streaming, no tools. Retries and model fallback are
+// decided by admin-ai.js using the `retry` hint on each thrown error.
 // A free model is required; max_price of zero is defense in depth on top of the
 // catalog check in ai-catalog.js.
+//
+// Every current OpenRouter free model is a reasoning model. Reasoning tokens
+// count against max_tokens, so a small cap produced empty answers (the model
+// spent the whole budget thinking). We ask for low effort, hide the reasoning
+// from the response, and leave enough room for the visible answer.
 const CHAT_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const KEY_URL = 'https://openrouter.ai/api/v1/key';
 const AI_TIMEOUT_MS = 50000;
 const KEY_TIMEOUT_MS = 8000;
-const MAX_OUTPUT_TOKENS = 1000;
+const MAX_OUTPUT_TOKENS = 4000;
+const RETRY_OUTPUT_TOKENS = 8000;
 const MAX_ANSWER_CHARS = 8000;
 const GOOGLE_PROVIDERS = ['google-vertex', 'google-ai-studio'];
 
@@ -144,22 +151,33 @@ function providerPreferences(model) {
     return prefs;
 }
 
+function outputTokens(model, requested) {
+    const want = Number.isSafeInteger(requested) && requested > 0 ? requested : MAX_OUTPUT_TOKENS;
+    const cap = Number(model && model.maxCompletion);
+    return Number.isSafeInteger(cap) && cap > 0 ? Math.min(want, cap) : want;
+}
+
 /** Pure request builder (tested without a network call). */
-function buildRequestBody(model, messages) {
+function buildRequestBody(model, messages, { maxTokens } = {}) {
     if (!model || typeof model.id !== 'string' || !model.id.endsWith(':free')) {
         throw aiError(400, 'ai_model', 'Only verified free models are allowed.');
     }
     if (!Array.isArray(messages) || !messages.length) {
         throw aiError(400, 'ai_messages', 'A question is required.');
     }
-    return {
+    const body = {
         model: model.id,
         messages: messages.map((message) => ({ role: message.role, content: message.content })),
-        max_tokens: MAX_OUTPUT_TOKENS,
+        max_tokens: outputTokens(model, maxTokens),
         temperature: 0.2,
         stream: false,
         provider: providerPreferences(model)
     };
+    if (model.reasoning) {
+        // Low effort keeps thinking short; exclude keeps it out of the response.
+        body.reasoning = { effort: 'low', exclude: true };
+    }
+    return body;
 }
 
 function textOf(content) {
@@ -199,14 +217,25 @@ function httpErrorFor(status, raw, headers) {
     if (status === 402) {
         const err = aiError(503, 'ai_budget', 'OpenRouter reports no available free capacity or a key limit. Check the rate details below, then try again later.');
         err.rateLimit = rateLimitInfo(status, raw, headers);
+        // Only a busy upstream provider is worth trying elsewhere; key/credit limits are not.
+        err.retry = err.rateLimit && err.rateLimit.source === 'upstream_provider_shared_pool' ? 'next' : null;
         return err;
     }
     if (status === 404) {
-        return aiError(503, 'ai_model_unavailable', 'OpenRouter has no available provider route for this model right now. Refresh the free model list or choose another model.');
+        const err = aiError(503, 'ai_model_unavailable', 'OpenRouter has no available provider route for this model right now. Refresh the free model list or choose another model.');
+        err.retry = 'next';
+        return err;
     }
     if (status === 429) {
         const err = aiError(429, 'ai_rate_limit', 'OpenRouter rate limited this request. Check whether the limit is on your key or the selected provider below.');
         err.rateLimit = rateLimitInfo(status, raw, headers);
+        const source = err.rateLimit && err.rateLimit.source;
+        // Daily/key limits apply to every free model, so switching models cannot help.
+        err.retry = source === 'openrouter_free_tier_daily' || source === 'openrouter_key_limit' || source === 'openrouter_credits'
+            ? null
+            : source === 'openrouter_free_tier_per_minute'
+                ? 'wait'
+                : 'next';
         return err;
     }
     if (status === 400 && /context|token|length|too large/i.test(String(raw))) {
@@ -215,11 +244,13 @@ function httpErrorFor(status, raw, headers) {
     if (status === 400) {
         return aiError(400, 'ai_request', 'The AI provider rejected the request. Shorten the conversation and try again.');
     }
-    return aiError(502, 'ai_provider', 'The AI provider is unavailable right now. Try again shortly.');
+    const err = aiError(502, 'ai_provider', 'The AI provider is unavailable right now. Try again shortly.');
+    err.retry = 'next';
+    return err;
 }
 
-async function askOpenRouter({ apiKey, model, messages }) {
-    const body = buildRequestBody(model, messages);
+async function askOpenRouter({ apiKey, model, messages, maxTokens, timeoutMs }) {
+    const body = buildRequestBody(model, messages, { maxTokens });
     const started = Date.now();
     let res;
     try {
@@ -231,14 +262,18 @@ async function askOpenRouter({ apiKey, model, messages }) {
                 Accept: 'application/json'
             },
             body: JSON.stringify(body),
-            signal: AbortSignal.timeout(AI_TIMEOUT_MS)
+            signal: AbortSignal.timeout(Math.max(1000, Math.min(timeoutMs || AI_TIMEOUT_MS, AI_TIMEOUT_MS)))
         });
     } catch (err) {
         if (err && (err.name === 'TimeoutError' || err.name === 'AbortError')) {
-            throw aiError(504, 'ai_timeout', 'The model took too long to answer. Try again.');
+            const timeout = aiError(504, 'ai_timeout', 'The model took too long to answer. Try again or choose a smaller model.');
+            timeout.retry = 'next';
+            throw timeout;
         }
         console.error('OpenRouter network failure', err && err.message);
-        throw aiError(502, 'ai_network', 'Could not reach the AI service. Try again shortly.');
+        const network = aiError(502, 'ai_network', 'Could not reach the AI service. Try again shortly.');
+        network.retry = 'next';
+        throw network;
     }
 
     const raw = await res.text();
@@ -256,11 +291,30 @@ async function askOpenRouter({ apiKey, model, messages }) {
         throw aiError(502, 'ai_bad_response', 'The AI service returned an unreadable answer. Try again.');
     }
 
+    // Some providers return HTTP 200 with an error object instead of choices.
+    if (data && data.error && !Array.isArray(data.choices)) {
+        console.error('OpenRouter returned an in-body error', typeof data.error.code === 'number' ? data.error.code : '');
+        const inBody = aiError(502, 'ai_provider', 'The model provider failed while answering. Try again shortly.');
+        inBody.retry = 'next';
+        throw inBody;
+    }
+
     const choice = data && Array.isArray(data.choices) ? data.choices[0] : null;
     const answer = cleanAnswer(textOf(choice && choice.message ? choice.message.content : choice && choice.text));
     if (!answer) {
-        console.error('OpenRouter returned an empty answer');
-        throw aiError(502, 'ai_empty', 'The model returned an empty answer. Try again or choose another model.');
+        const finish = choice && typeof (choice.finish_reason || choice.native_finish_reason) === 'string'
+            ? String(choice.finish_reason || choice.native_finish_reason).toLowerCase()
+            : '';
+        console.error('OpenRouter returned an empty answer; finish_reason =', finish || 'none');
+        if (finish === 'length' || finish === 'max_tokens') {
+            // Reasoning used the whole output budget. One retry with more room usually fixes it.
+            const truncated = aiError(502, 'ai_truncated', 'The model used its whole answer budget thinking and returned no text. Try again or choose another model.');
+            truncated.retry = body.max_tokens < RETRY_OUTPUT_TOKENS ? 'bigger' : 'next';
+            throw truncated;
+        }
+        const empty = aiError(502, 'ai_empty', 'The model returned an empty answer. Try again or choose another model.');
+        empty.retry = 'next';
+        throw empty;
     }
 
     return {
@@ -277,6 +331,8 @@ module.exports = {
     KEY_URL,
     KEY_TIMEOUT_MS,
     MAX_OUTPUT_TOKENS,
+    RETRY_OUTPUT_TOKENS,
+    outputTokens,
     MAX_ANSWER_CHARS,
     aiError,
     providerPreferences,

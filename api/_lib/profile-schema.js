@@ -26,6 +26,7 @@ const JOB_TITLES = [
     'Locksmith',
     'Painter',
     'Plumber',
+    'Project Management Assistant',
     'Stationary Engineer',
     'Trades Helper',
     'Warehouse Crew',

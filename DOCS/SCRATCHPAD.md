@@ -1,4 +1,5 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+[AMENDED 2026-11-20]: Fixed admin AI empty answers (all free models are reasoning models; the 1,000-token cap was consumed by reasoning) and busy-provider errors. Added up to 3 attempts with backup-model fallback that never widens privacy, raised admin maxDuration to 120 s, rebuilt the stale AI context, and added `Project Management Assistant` to JOB_TITLES. Details in `DOCS/LLM_INTEGRATION.md`.
 
 [AMENDED 2026-11-19]: Updated the admin AI chat UX per owner: adds an accessible in-chat working indicator; returns curated article/source links and renders them as same-site links opening in a new tab; removed the app's 10/hour and 30/day AI caps while leaving OpenRouter/provider limits in place. AI questions bypass only the general admin-action rate limiter; account-management POSTs retain it. Added docs updates.
 
