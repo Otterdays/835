@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Admin panel is wider on desktop, and the AI chat history can display up to 56vh/44rem before its inner scrollbar appears.
+
 [AMENDED 2026-11-19]: Fixed admin AI non-ZDR provider routing: after per-model confirmation, the request no longer filters out providers with `data_collection: deny`; strict ZDR requests retain the restriction. Clarified transient 404 copy and non-ZDR provider-use disclosure.
 
 [AMENDED 2026-11-19]: Added Bryant Barr to union leadership contacts and the site roster; broadened the leadership directory labels to cover union leadership and shop stewards. Added a member-facing notice for the 835–USF covered crew currently working at Philadelphia Detention Center, with contract terms and names explicitly pending receipt.
