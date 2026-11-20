@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortRoot = document.getElementById('roster-sort');
 
     headerTitle.textContent = 'Site Roster';
-    headerParties.textContent = 'Employee and management directory across CFCF, RCF, PICC, and the Philadelphia Detention Center.';
+    headerParties.textContent = 'Employee and management directory across CFCF, RCF, PICC, and the Department of Corrections (DOC) Hospital project.';
     headerDate.textContent = `${employeesData.length} total staff members`;
     headerStatus.textContent = 'Facility Directory';
     viewDescription.textContent = 'Search by name or role, or filter by facility.';
@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     let sortMode = 'name';
 
-    const preferredLocations = ['RCF', 'CFCF', 'PICC', 'DC', 'Management', 'Supervisors', 'Warehouse', 'Security', 'Kitchen'];
-    const locations = [...new Set([...employeesData.flatMap(sitesOf), 'DC'])]
+    const preferredLocations = ['RCF', 'CFCF', 'PICC', 'DOC', 'Management', 'Supervisors', 'Warehouse', 'Security', 'Kitchen'];
+    const locations = [...new Set([...employeesData.flatMap(sitesOf), 'DOC'])]
         .sort((a, b) => {
             const ai = preferredLocations.indexOf(a);
             const bi = preferredLocations.indexOf(b);
@@ -300,15 +300,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (!visibleCount) {
-            if (activeFacility === 'DC' && !searchQuery) {
+            if (activeFacility === 'DOC' && !searchQuery) {
                 const section = document.createElement('section');
                 section.className = 'location-group';
                 const heading = document.createElement('h2');
                 heading.className = 'location-heading';
-                heading.textContent = 'Philadelphia Detention Center (DC)';
+                heading.textContent = 'Department of Corrections (DOC) Hospital';
                 const note = document.createElement('p');
                 note.className = 'roster-empty';
-                note.textContent = 'No roster entries are currently listed for this facility. Supplied temporary assignments appear here when available; the agreement remains pending review.';
+                note.textContent = 'No roster entries are currently listed for this facility.';
                 const link = document.createElement('a');
                 link.href = 'contract-updates.html';
                 link.textContent = 'Read the current worksite notice';

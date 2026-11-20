@@ -742,7 +742,7 @@ Tool Identification - 8
 const employeesData = [
     { name: "Adrian Molina", location: "PICC", role: "Welder" },
     { name: "Albert \"Al\" Andalis", location: "CFCF", role: "Laborer" },
-    { name: "Andrew Gniewek", location: "PICC", temporaryAt: ["DC"], role: "Painter" },
+    { name: "Andrew Gniewek", location: "PICC", temporaryAt: ["DOC"], role: "Painter" },
     { name: "Andrew Patchak", location: "PICC", role: "Locksmith" },
     { name: "Anthony Lange", location: "PICC", role: "Trades Helper" },
     { name: "Baris Kaya", location: "RCF", role: "Painter" },
@@ -762,7 +762,7 @@ const employeesData = [
     { name: "Elias Pinto", location: "CFCF", role: "Stationary Engineer" },
     { name: "Elliott Pinto", location: "CFCF", role: "Helper" },
     { name: "Eric Levin", location: "Security", role: "Electronic Security" },
-    { name: "Eric Moran", location: "PICC", temporaryAt: ["DC"], role: "Trades Helper" },
+    { name: "Eric Moran", location: "PICC", temporaryAt: ["DOC"], role: "Trades Helper" },
     { name: "Gregory Plotts", location: "PICC", role: "Plumber" },
     { name: "Ho Song", location: "CFCF", role: "Building Engineer" },
     { name: "Ian Roonen", location: "CFCF", role: "Helper" },
@@ -770,7 +770,7 @@ const employeesData = [
     { name: "Jason Kinser", location: "CFCF", role: "Locksmith" },
     { name: "Jerome Hudson", location: "RCF", role: "Helper · Injured" },
     { name: "Jim Turner", location: "RCF", role: "Engineer" },
-    { name: "Joe Delcampo", location: "PICC", temporaryAt: ["DC"], role: "Plumber" },
+    { name: "Joe Delcampo", location: "PICC", temporaryAt: ["DOC"], role: "Plumber" },
     { name: "Justin Lowe", location: "RCF", role: "Painter" },
     { name: "Keith Doyle", location: "CFCF", role: "Painter" },
     { name: "Kent Koung", location: "Security", role: "Electronic Security" },
@@ -792,11 +792,11 @@ const employeesData = [
     { name: "Orlando Rivera", location: "PICC", role: "Building Engineer · Assistant Shop Steward" },
     { name: "Pat Murphy", location: "Warehouse", role: "Warehouse Crew · Part Time" },
     { name: "Patrick Dugan", location: "RCF", role: "Plumber" },
-    { name: "Patrick \"Pat\" Martin", location: "PICC", temporaryAt: ["DC"], role: "Painter" },
-    { name: "Paul \"Paulson\" Avarachan", location: "CFCF", temporaryAt: ["DC"], role: "Electrician" },
+    { name: "Patrick \"Pat\" Martin", location: "PICC", temporaryAt: ["DOC"], role: "Painter" },
+    { name: "Paul \"Paulson\" Avarachan", location: "CFCF", temporaryAt: ["DOC"], role: "Electrician" },
     { name: "Ren", location: "RCF", role: "Engineer" },
     { name: "Robert Korchak", location: "CFCF", role: "Trades Helper" },
-    { name: "Robert \"Rob\" Martin", location: "PICC", temporaryAt: ["DC"], role: "Electrician" },
+    { name: "Robert \"Rob\" Martin", location: "PICC", temporaryAt: ["DOC"], role: "Electrician" },
     { name: "Ron DeMarco", location: "RCF", role: "Trades Helper" },
     { name: "Ryan Lorenz", location: "RCF", role: "Plumber · Assistant Shop Steward" },
     { name: "Sabu Gokul", location: "RCF", role: "Building Engineer" },
@@ -1441,6 +1441,48 @@ Within ten (10) days of receiving notice of such a conviction, the employer must
 DRUG-FREE AWARENESS PROGRAM
 
 Periodically, U.S. Facilities, Inc., will provide information concerning the dangers of substance abuse to all employees.`
+    },
+    {
+        section: "DOC Hospital Temporary Project Side Letter Agreement (1 page)",
+        id: "doc-temp-2026-p1",
+        url: "images/doc-temp-project-agreement.png",
+        label: "Agreement page 1",
+        title: "Side Letter Agreement — DOC Hospital Temporary Project",
+        description: "One-page side letter entered into November 12, 2026, for temporary DOC Hospital work. It sets an approximate two-week project window (November 16–30), staffing numbers, volunteer staffing, continued CBA coverage and return to regular assignments, an extension meeting, reservation over permanent work, non-precedential effect, and no waiver. The supplied copy bears Bryant Barr's union signature dated November 13, 2026; the employer signature line is blank.",
+        transcription: `SIDE LETTER AGREEMENT
+DOC Hospital Temporary Project
+
+This Side Letter Agreement ("Agreement") is entered into on November 12, 2026, between U.S. Facilities, Inc. ("USF" or the "Employer") and the International Union of Operating Engineers, Local 835, AFL-CIO (the "Union"), collectively the "Parties."
+
+BACKGROUND
+
+USF and the Union are parties to a collective bargaining agreement extended for the period July 1, 2026 through June 30, 2027 and continuing thereafter (the "CBA"). USF intends to perform a temporary project at the DOC Hospital (the "Project"). The Parties enter into this Agreement to set the terms on which bargaining unit employees will staff the Project.
+
+TERMS
+
+1. Project and duration. USF will perform a temporary project at the DOC Hospital. The Project is expected to last approximately two (2) weeks, beginning on or about Monday, November 16, 2026, and ending on or about November 30, 2026.
+
+2. Staffing. The Project will require the following bargaining unit positions: one (1) Electrician; one (1) Painter; two (2) Plumbers; and one (1) Maintenance Trades Helper.
+
+3. Volunteers. USF will staff the Project with volunteers from the bargaining unit.
+
+4. Coverage under the CBA. Employees assigned to the Project remain bargaining unit employees and remain covered by all terms of the CBA while working on the Project. At the end of the Project, each employee will return to their regular facility, shift and assignment.
+
+5. Extension. If the Project is expected to extend significantly beyond the two-week period, the Parties will meet before any extension to address the effects of the extension.
+
+6. Permanent work. If the Project or the work becomes permanent in nature, the Union reserves its right to demand bargaining over that decision.
+
+7. Non-precedential. This Agreement is entered into for this Project only. It does not establish a past practice or precedent, and neither Party may cite it in any other matter except to enforce its terms.
+
+8. No waiver. Except as stated in this Agreement, nothing in it waives or modifies either Party's rights under the CBA or the National Labor Relations Act.
+
+IN WITNESS WHEREOF, the Parties have executed this Agreement on the dates below.
+
+FOR U.S. FACILITIES, INC.                         FOR IUOE LOCAL 835, AFL-CIO
+
+Name: [blank]                                     Name: Bryant Barr (handwritten)
+Title: [blank]                                    Title: BUSINESS MANAGER (handwritten)
+Date: [blank]                                     Date: 11/13/26 (handwritten)`
     },
     {
         section: "2026–2027 Tentative Agreement (3 pages; subject to ratification)",

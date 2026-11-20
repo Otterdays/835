@@ -20,7 +20,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `DOCS/` | Project overview, workflow, architecture, and audits | `DOCS/_MAP.md` |
 | `api/` | Vercel auth, profile, and community-forum endpoints | `api/_MAP.md` |
 | `js/` | Browser auth, profiles, shared shell/search, and page behavior | `js/_MAP.md` |
-| `images/` | 30 CBA page scans, 3 tentative-agreement scans, and tool-policy scans/icons; individual images omitted | — |
+| `images/` | 30 CBA page scans, 3 tentative-agreement scans, the DOC Hospital side-letter scan, and tool-policy scans/icons; individual images omitted | — |
 | `scripts/` | User seeding and deployment checks; see Files below | — |
 | `source/` | Offline Word/Markdown working drafts, excluded from deploy | — |
 | `tests/` | Smoke checks; see Files below | — |
@@ -43,7 +43,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | how to add a tool-policy scan | Add the image and `toolProgramScans` entry in `data.js`; see `tool-program.html` |
 | where tool-policy archive behavior lives | `tool-program.html` + `js/tool-app.js` + `js/paneled-archive.js` |
 | where union leadership and shop steward contacts are maintained | `data.js` → `shopStewards`; display/filter in `js/stewards-app.js` |
-| where employee roster data and site filters are maintained | `data.js` → `employeesData`; display/filter in `js/employees-app.js` (includes temporary Philadelphia Detention Center assignments) |
+| where employee roster data and site filters are maintained | `data.js` → `employeesData`; display/filter in `js/employees-app.js` (includes temporary DOC Hospital project assignments) |
 | how to add a steward or roster entry | Add it to `shopStewards` or `employeesData` in `data.js` (`alsoAt` for regular secondary sites; `temporaryAt` for temporary assignments) |
 | where member grievance preparation lives | `member-action.html` + `js/member-action-app.js` |
 | where evidence entries are stored and exported | `evidence-log.html` + `js/evidence-log-app.js` (in memory only) |

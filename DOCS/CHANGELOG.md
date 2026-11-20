@@ -204,3 +204,4 @@
 [AMENDED 2026-11-19]: Added CBA printed pages 28–30, finishing the supplied Exhibit C transcription in Article XXIII and the searchable scan archive. Updated current CBA range, bargaining reference, project map, and member updates.
 
 [AMENDED 2026-11-19]: Site Roster: added Mark (Project Management Assistant, CFCF).
+[AMENDED 2026-11-20]: Corrected the temporary worksite label and filter to DOC (Department of Corrections) and transcribed the supplied DOC Hospital temporary-project side letter into the searchable scan archive. The agreement states staffing counts and terms; it does not identify which named roster members fill each role.

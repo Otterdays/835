@@ -37,6 +37,13 @@ const PAGE_SOURCES = [
     'suggestions.html'
 ];
 
+// A public Local 835 officer is named as the handwritten signer in the DOC project side letter.
+// Keep that source attribution available in the agreement scan and its member-facing summary.
+const SIGNATORY_CONTEXT_NAMES = new Map([
+    ['scan:doc-temp-2026-p1', ['Bryant Barr']],
+    ['page:contract-updates.html', ['Bryant Barr']]
+]);
+
 // Short directory of every page, including pages whose body text is not included.
 const PAGES = [
     { href: 'home.html', title: 'Home', summary: 'Gateway with links to the contract, scans, tools, roster, calendar, forum and account pages.' },
@@ -340,7 +347,9 @@ function build() {
     const sourceNames = [...(data.employees || []).map(publicEmployeeName), ...(data.stewards || []).map(publicStewardName)].filter(Boolean);
     const leakedOutsideDirectory = chunks
         .filter((chunk) => !['employee-roster', 'steward-directory'].includes(chunk.docId))
-        .flatMap((chunk) => sourceNames.filter((name) => containsName(chunk.text, name)));
+        .flatMap((chunk) => sourceNames.filter((name) =>
+            containsName(chunk.text, name) && !SIGNATORY_CONTEXT_NAMES.get(chunk.docId)?.includes(name)
+        ));
     if (leakedOutsideDirectory.length) {
         throw new Error(`Refusing to build: directory names found outside their dedicated chunks: ${[...new Set(leakedOutsideDirectory)].join(', ')}`);
     }

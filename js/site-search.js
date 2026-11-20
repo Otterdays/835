@@ -137,7 +137,7 @@
             {
                 category: 'Contract & Employment Updates',
                 title: 'Contract & Employment Updates',
-                body: 'contract negotiations employment updates weekly pay weekly payroll bi-weekly pay every two weeks union increases USF U.S. Facilities management implementation timeline Susan Laramore-Johnson',
+                body: 'contract negotiations employment updates weekly pay weekly payroll bi-weekly pay every two weeks union increases USF U.S. Facilities management implementation timeline Susan Laramore-Johnson Department of Corrections DOC Hospital temporary project side letter agreement staffing volunteers electrician painter plumbers maintenance trades helper November 2026',
                 meta: 'Negotiations and workplace changes',
                 href: 'contract-updates.html'
             },
