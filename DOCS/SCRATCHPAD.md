@@ -1,4 +1,6 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
+[AMENDED 2026-11-19]: Added Chris Mallon (PICC Painter), Cregg Lix and Keith Doyle (CFCF Painters), Elias Pinto and Stever Driscoll (CFCF Stationary Engineers), and Pat Murphy (part-time Warehouse Crew). Roman Solecki remains Management #4 and now also appears under Warehouse as Warehouse Crew.
+[AMENDED 2026-11-19]: Moved John Carroll III (3 · Supervisor) and Roman Solecki (4 · Warehouse Supervisor) into the Management roster group, preserving their displayed rank numbers and titles; recorded the member-facing roster update.
 [AMENDED 2026-11-19]: Added accessible click-to-show/hide controls for the sign-in and create-account password fields; password-change fields remain untouched per requested scope.
 [AMENDED 2026-11-19]: Added the Vercel Hobby 12-function cap and helper-placement rule to `AGENTS.md`, API maps, and architecture docs; required function recounts and checking deployment status/runtime after API pushes.
 [AMENDED 2026-11-19]: Fixed Hobby deployment function-count failure by moving shared API helpers from `api/lib/` to `api/_lib/`, updating imports/tests/maps, and keeping nine endpoint files in deployable route directories. Node 26 pin remains in effect.
@@ -489,3 +491,10 @@ Floating forum speech bubble.
 ## Actions Log:
 - [2026-11-19, time not recorded] `renderForumBubble` in `js/shell.js` builds `a.forum-bubble` (SVG via DOM, no innerHTML) on all shell pages except forum/index/signin/admin/profile-edit; styles in `style.css` (rounded bubble with tail, gold icon, entrance animation, reduced-motion and print rules, offset above the contract page's split-view button). Removed the old `.forum-fab` (home page markup and CSS) and updated the smoke check. Fixed stale home callout copy ("no password needed"). Checked home at 375px, contract page at ~1024px (no overlap with the split button after raising it), roster page at 375px (clear of the letter rail). Roster fix confirmed present: Mike Brown (CFCF Plumber), Mike Henry RCF with alsoAt CFCF. Smoke and deploy checks pass. Not yet tested on the live site.
 [AMENDED 2026-11-19]: Dark mode done: `js/theme.js` + `dark.css` (generated) + dark tokens in style/forum/profile css. Workflow: after changing any hard-coded color in style.css, forum.css or profile.css, run `npm run build:dark` and commit `dark.css`. Generator skips `.pf-profile`/`.pf-swatch`/`.pf-theme--*` and the always-dark menu/bubble. Not tested on the live site.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Digitize the supplied final 2022–26 CBA pages, printed pages 28–30.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Added `images/page_28.jpg` through `images/page_30.jpg` and scan/search rows `cba-p28` through `cba-p30`. Continued Exhibit C in Article XXIII through investigation steps 4–9, the screening cutoff tables, the federal workplace notice, and the Drug-Free Awareness Program; page 30 concludes Exhibit C. Updated the CBA range to pages 1–30, member update, bargaining reference, smoke-check expectations, and project map. Preserved printed numbering and source punctuation, including the doubled period on page 29.

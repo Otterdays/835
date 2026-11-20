@@ -21,6 +21,8 @@
 
 [AMENDED 2026-11-19]: Added a native tooltip reading “BEST IN CLASS ASSHOLES” to the Management group heading in the member roster, per user request.
 [AMENDED 2026-11-19]: Replaced the delayed native tooltip with an immediate custom tooltip on the Management heading and each management card; added keyboard focus access.
+[AMENDED 2026-11-19]: Moved John Carroll III (3 · Supervisor) and Roman Solecki (4 · Warehouse Supervisor) from Supervisors into the Management roster group, preserving the supplied rank numbers and titles. Added a member-facing Project Updates entry.
+[AMENDED 2026-11-19]: Added Chris Mallon (PICC Painter), Cregg Lix and Keith Doyle (CFCF Painters), Elias Pinto and Stever Driscoll (CFCF Stationary Engineers), and Pat Murphy (part-time Warehouse Crew). Roman Solecki remains Management #4 and is also listed in Warehouse as Warehouse Crew.
 
 [AMENDED 2026-11-18]: Checked PICC employee/trade data against the supplied 21-person roster image. Completed names and aligned roles/spellings, including Charles Worrell, Orlando Rivera, Andrew Patchak, Gregory Plotts, and Anthony Lange; kept Charles and Orlando's steward designations. Added a member-facing Project Updates entry.
 [AMENDED 2026-11-18; superseded 2026-11-19]: An earlier correction abbreviated Patrick Martin as Pat Martin. The user clarified the full name is Patrick Martin and confirmed his PICC assignment; the duplicate CFCF entry has been removed.
@@ -134,3 +136,5 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-19]: A floating forum speech bubble links to the forum from most pages.
 [AMENDED 2026-11-19]: Whole portal has Auto/Light/Dark appearance from the menu, remembered per device; member profile themes keep their own colors.
 [AMENDED 2026-11-19]: Site Roster: added Luong Trinh, Mathew-George, William Bates, Baris Kaya, Justin Lowe, Ho Song; Adrian Molina now Welder, Michael Jones now CFCF Painter, Sabu now Sabu Gokul (Building Engineer, RCF). New "Supervisors" group (John Carroll III 3, Roman Solecki 4, shift supervisors 5) and "Security" group: electronic security techs are one entry under Security, no longer repeated under every building. JOB_TITLES: Welder replaces Maintenance Mechanic.
+
+[AMENDED 2026-11-19]: **CBA pages 28–30 digitized.** Added `images/page_28.jpg` through `images/page_30.jpg` and scan/search records `cba-p28` through `cba-p30`. Continued Exhibit C in Article XXIII through the reasonable-suspicion questions, testing procedures, cutoff levels, federal workplace notice, and Drug-Free Awareness Program. Printed page 30 concludes the supplied Exhibit C text; current CBA scan range is pages 1–30. Updated the bargaining reference and member-facing Project Updates entry.

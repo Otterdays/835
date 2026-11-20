@@ -18,7 +18,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `DOCS/` | Project overview, workflow, architecture, and audits | `DOCS/_MAP.md` |
 | `api/` | Vercel auth, profile, and community-forum endpoints | `api/_MAP.md` |
 | `js/` | Browser auth, profiles, shared shell/search, and page behavior | `js/_MAP.md` |
-| `images/` | 27 CBA page scans, 3 tentative-agreement scans, and tool-policy scans/icons; individual images omitted | — |
+| `images/` | 30 CBA page scans, 3 tentative-agreement scans, and tool-policy scans/icons; individual images omitted | — |
 | `scripts/` | User seeding and deployment checks; see Files below | — |
 | `source/` | Offline Word/Markdown working drafts, excluded from deploy | — |
 | `tests/` | Smoke checks; see Files below | — |

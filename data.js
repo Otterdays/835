@@ -576,7 +576,77 @@ When did you stop?
 
 Where?
 
-[Page 27 ends after question 11; any continuation is not shown in the supplied scan.]`
+With whom?
+
+(12) Would you submit to appropriate testing by a medical facility so we can be sure you have not used alcohol, illegal drugs, or other controlled substance on the premises and are able to perform your job safely and effectively?
+
+(13) If no, why not?
+
+(14) Do you understand that your refusal to submit to a physical examination, including appropriate testing, will create a presumption that you have used alcohol, illegal drugs, and/or other controlled substances on the premises or that you are under the influence of such substances. If you refuse, you will not be permitted to return to work today. Also, your refusal will be considered cause for discipline up to and including discharge.
+
+(4) If the investigation determines that the employee has not used prohibited substances on the work site or does not appear to be under the influence of alcohol or illegal drugs, including controlled substances and prescription drugs, the employee will be allowed to return to work and will be reimbursed for any lost work time.
+
+(5) In the event the Project Manager or his/her designated, qualified representative determine based on the information provided that drug testing is necessary, the employee will be asked to execute a consent form, in order to obtain the results of such testing, which will be maintained with the strictest confidence. Failure to execute this consent form will be cause for discipline up to and including discharge.
+
+(6) The employee will be taken to an independent medical facility where the employee will provide a urine sample to the laboratory technician for testing. The employee, if a Union member, may elect to be accompanied to the medical facility by his or her Shop Steward, and may elect to have his or her Shop Steward present during the medical questions by that facility. The testing for Drug Abuse will be pursuant to NIDA standards and the testing results will be analyzed by a laboratory that is also NIDA certified. The medical facility and laboratory must maintain the appropriate chain of custody safeguards required for NIDA certification. The results of medical questioning shall remain confidential between the employee, his or her Shop Steward if present during the questioning, and the medical facility, and shall not be revealed to the Company unless required by Court Order or other legal proceeding.
+
+(7) Testing for alcohol will be accomplished by a Breathalyzer or a similar non-invasive testing procedure. The employee may elect to undertake a breathalyzer or other similar non-invasive procedure for alcohol testing on USF/PPS premises. If the test is positive, the employee may elect to obtain a confirmatory blood test.
+
+(8) The testing for drugs will be administered by a means selected by the certified independent medical facility as set forth above under the Random Drug Testing Policy.
+
+(9) The cutoff level for a positive result for alcohol and/or drug screen shall be established in accordance with applicable federal laws, except that USF agrees to comply with applicable Pennsylvania laws regarding utilization of medical marijuana to the extent that such laws do not conflict with USF federal contracts..
+
+The cutoff levels for drug screens shall be as follows:
+
+(1) Initial test:
+
+Marijuana metabolites — 50 ng/ml
+
+Cocaine metabolites — 150 ng/ml
+
+Codeine/Morphine — 2000 ng/ml
+
+Hydrocodone metabolites — 300 ng/ml¹
+
+Oxycodone metabolites — 100 ng/ml
+
+Phencyclidine — 25 ng/ml
+
+Amphetamines — 500 ng/ml
+
+Methamphetamine — 500 ng/ml
+
+(2) Confirmatory Test:
+
+Marijuana metabolites — 15 ng/ml
+
+Cocaine metabolites — 100 ng/ml
+
+Codeine/Morphine metabolites — 2000 ng/ml
+
+Hydrocodone metabolites — 100 ng/ml
+
+Oxycodone metabolites — 100 ng/ml
+
+Phencyclidine metabolites — 25 ng/ml
+
+Amphetamines metabolites — 250 ng/ml
+
+Methamphetamines metabolites — 250 ng/ml
+
+¹ 25 ng/ml if immunoassay specific for free morphine.
+
+These test levels are subject to change based upon regulations issued pursuant to the Federal Workplace Drug Testing Program regulations issued by the Federal Department of Health and Human Services.
+
+(3) The Federal Drug-Free Workplace Act of 1989 specifies that any employee convicted of violating a criminal drug statute on USF/PPS premises or on any work site, or during working hours, must notify the employer within five (5) days of the conviction. Should this happen to an employee, the person to notify is the Director of Human Resources or his/her designated, qualified representative.
+
+Within ten (10) days of receiving notice of such a conviction, the employer must advise the appropriate federal government agency.
+
+DRUG-FREE AWARENESS PROGRAM
+
+Periodically, U.S. Facilities, Inc., will provide information concerning the dangers of substance abuse to all employees.
+
+[Exhibit C concludes on printed page 30.]`
         },
         {
             id: "article-24",
@@ -680,12 +750,15 @@ const employeesData = [
     { name: "Bill Vetter", location: "RCF", role: "Laborer" },
     { name: "Bryan Phillips", location: "Kitchen", role: "Kitchen Mechanic Helper" },
     { name: "Charles Worrell", location: "PICC", role: "Stationary/Building Engineer · Lead Shop Steward" },
+    { name: "Chris Mallon", location: "PICC", role: "Painter" },
     { name: "Christie Hildebrand", location: "PICC", role: "Data Clerk" },
+    { name: "Cregg Lix", location: "CFCF", role: "Painter" },
     { name: "Dan O'Donnell", location: "PICC", role: "Trades Helper" },
     { name: "Dan Pagano", location: "Kitchen", role: "Kitchen Supervisor/Mechanic" },
     { name: "Demarc Hamilton", location: "PICC", role: "Stationary Engineer" },
     { name: "Derrick Smith", location: "PICC", role: "Building Engineer" },
     { name: "Dylan O'Donnell", location: "CFCF", role: "Helper" },
+    { name: "Elias Pinto", location: "CFCF", role: "Stationary Engineer" },
     { name: "Elliott Pinto", location: "CFCF", role: "Helper" },
     { name: "Eric Levin", location: "Security", role: "Electronic Security" },
     { name: "Eric Moran", location: "PICC", role: "Trades Helper" },
@@ -698,6 +771,7 @@ const employeesData = [
     { name: "Jim Turner", location: "RCF", role: "Engineer" },
     { name: "Joe Delcampo", location: "PICC", role: "Plumber" },
     { name: "Justin Lowe", location: "RCF", role: "Painter" },
+    { name: "Keith Doyle", location: "CFCF", role: "Painter" },
     { name: "Kent Koung", location: "Security", role: "Electronic Security" },
     { name: "Kevin Lyons", location: "CFCF", role: "Painter · Assistant Shop Steward" },
     { name: "Kyle Lloyd", location: "Security", role: "Electronic Security" },
@@ -714,6 +788,7 @@ const employeesData = [
     { name: "Nick Martino", location: "RCF", role: "Painter · Let go; contesting the firing" },
     { name: "Ochel Alexis", location: "CFCF", role: "Electrician" },
     { name: "Orlando Rivera", location: "PICC", role: "Building Engineer · Assistant Shop Steward" },
+    { name: "Pat Murphy", location: "Warehouse", role: "Warehouse Crew · Part Time" },
     { name: "Patrick Dugan", location: "RCF", role: "Plumber" },
     { name: "Patrick Martin", location: "PICC", role: "Painter" },
     { name: "Paul Avarachan", location: "CFCF", role: "Electrician" },
@@ -724,6 +799,7 @@ const employeesData = [
     { name: "Ryan Lorenz", location: "RCF", role: "Plumber · Assistant Shop Steward" },
     { name: "Sabu Gokul", location: "RCF", role: "Building Engineer" },
     { name: "Scott", location: "Warehouse", role: "Warehouse Crew" },
+    { name: "Stever Driscoll", location: "CFCF", role: "Stationary Engineer" },
     { name: "Subin", location: "CFCF", role: "Engineer" },
     { name: "Timothy Neri", location: "PICC", role: "Electrician" },
     { name: "Trevor Anderson", location: "CFCF", role: "Electrician" },
@@ -733,8 +809,8 @@ const employeesData = [
     { name: "John Caroll", location: "Management", role: "1 · Project Manager" },
     { name: "Jebouy John", location: "Management", role: "2 · Lead APM" },
     { name: "Vince Regalbuto", location: "Management", role: "3 · Assistant APM" },
-    { name: "John Carroll III", location: "Supervisors", role: "3 · Supervisor" },
-    { name: "Roman Solecki", location: "Supervisors", role: "4 · Warehouse Supervisor" },
+    { name: "John Carroll III", location: "Management", role: "3 · Supervisor" },
+    { name: "Roman Solecki", location: "Management", alsoAt: ["Warehouse"], role: "4 · Warehouse Crew" },
     { name: "Anthony Tonzelli", location: "Supervisors", role: "5 · Shift Supervisor · CFCF" },
     { name: "Christian Shaji", location: "Supervisors", role: "5 · Shift Supervisor · PICC" },
     { name: "Christopher Ramos", location: "Supervisors", role: "5 · Shift Supervisor · PICC" },
@@ -753,7 +829,7 @@ const shopStewards = [
 
 const cbaScannedPages = [
     {
-        section: "2022–2026 CBA (scanned — in progress, pages 1–27)",
+        section: "2022–2026 CBA (scanned — in progress, pages 1–30)",
         id: "cba-p1",
         url: "images/page_1.jpg",
         label: "Page 1",
@@ -1230,7 +1306,7 @@ If an employee appears to have used or be under the influence of alcohol, illega
         url: "images/page_27.jpg",
         label: "Page 27",
         title: "Exhibit C — Investigation questions (reasonable suspicion)",
-        description: "Exhibit C continues the investigation procedure with questions used to establish reasonable suspicion; numbering is transcribed as printed, and the page ends after question 11.",
+        description: "Exhibit C continues the investigation procedure with questions used to establish reasonable suspicion; numbering is transcribed as printed, and the page ends after question 11, which continues on page 28.",
         transcription: `drugs.
 
 (a) Investigation Questions: Any or all of the following questions may be asked in order to establish whether “reasonable suspicion” exists.
@@ -1274,6 +1350,94 @@ When did you start?
 When did you stop?
 
 Where?`
+    },
+    {
+        id: "cba-p28",
+        url: "images/page_28.jpg",
+        label: "Page 28",
+        title: "Exhibit C — Investigation questions and testing procedure",
+        description: "Exhibit C continues the reasonable-suspicion questionnaire through questions 12–14 and sets out procedure steps 4–8 for return to work, consent, medical testing, alcohol testing, and drug testing.",
+        transcription: `With whom?
+
+(12) Would you submit to appropriate testing by a medical facility so we can be sure you have not used alcohol, illegal drugs, or other controlled substance on the premises and are able to perform your job safely and effectively?
+
+(13) If no, why not?
+
+(14) Do you understand that your refusal to submit to a physical examination, including appropriate testing, will create a presumption that you have used alcohol, illegal drugs, and/or other controlled substances on the premises or that you are under the influence of such substances. If you refuse, you will not be permitted to return to work today. Also, your refusal will be considered cause for discipline up to and including discharge.
+
+(4) If the investigation determines that the employee has not used prohibited substances on the work site or does not appear to be under the influence of alcohol or illegal drugs, including controlled substances and prescription drugs, the employee will be allowed to return to work and will be reimbursed for any lost work time.
+
+(5) In the event the Project Manager or his/her designated, qualified representative determine based on the information provided that drug testing is necessary, the employee will be asked to execute a consent form, in order to obtain the results of such testing, which will be maintained with the strictest confidence. Failure to execute this consent form will be cause for discipline up to and including discharge.
+
+(6) The employee will be taken to an independent medical facility where the employee will provide a urine sample to the laboratory technician for testing. The employee, if a Union member, may elect to be accompanied to the medical facility by his or her Shop Steward, and may elect to have his or her Shop Steward present during the medical questions by that facility. The testing for Drug Abuse will be pursuant to NIDA standards and the testing results will be analyzed by a laboratory that is also NIDA certified. The medical facility and laboratory must maintain the appropriate chain of custody safeguards required for NIDA certification. The results of medical questioning shall remain confidential between the employee, his or her Shop Steward if present during the questioning, and the medical facility, and shall not be revealed to the Company unless required by Court Order or other legal proceeding.
+
+(7) Testing for alcohol will be accomplished by a Breathalyzer or a similar non-invasive testing procedure. The employee may elect to undertake a breathalyzer or other similar non-invasive procedure for alcohol testing on USF/PPS premises. If the test is positive, the employee may elect to obtain a confirmatory blood test.
+
+(8) The testing for drugs will be administered by a means selected by the certified independent medical facility as set forth above under the Random Drug Testing Policy.`
+    },
+    {
+        id: "cba-p29",
+        url: "images/page_29.jpg",
+        label: "Page 29",
+        title: "Exhibit C — Drug-screen cutoff levels",
+        description: "Exhibit C states the positive-screen cutoff rule and lists initial and confirmatory drug-screen cutoff levels, including a footnote; the exhibit continues on page 30.",
+        transcription: `(9) The cutoff level for a positive result for alcohol and/or drug screen shall be established in accordance with applicable federal laws, except that USF agrees to comply with applicable Pennsylvania laws regarding utilization of medical marijuana to the extent that such laws do not conflict with USF federal contracts..
+
+The cutoff levels for drug screens shall be as follows:
+
+(1) Initial test:
+
+Marijuana metabolites — 50 ng/ml
+
+Cocaine metabolites — 150 ng/ml
+
+Codeine/Morphine — 2000 ng/ml
+
+Hydrocodone metabolites — 300 ng/ml¹
+
+Oxycodone metabolites — 100 ng/ml
+
+Phencyclidine — 25 ng/ml
+
+Amphetamines — 500 ng/ml
+
+Methamphetamine — 500 ng/ml
+
+(2) Confirmatory Test:
+
+Marijuana metabolites — 15 ng/ml
+
+Cocaine metabolites — 100 ng/ml
+
+Codeine/Morphine metabolites — 2000 ng/ml
+
+Hydrocodone metabolites — 100 ng/ml
+
+Oxycodone metabolites — 100 ng/ml
+
+Phencyclidine metabolites — 25 ng/ml
+
+Amphetamines metabolites — 250 ng/ml
+
+Methamphetamines metabolites — 250 ng/ml
+
+¹ 25 ng/ml if immunoassay specific for free morphine.`
+    },
+    {
+        id: "cba-p30",
+        url: "images/page_30.jpg",
+        label: "Page 30",
+        title: "Exhibit C — Drug-free workplace awareness program",
+        description: "Exhibit C concludes with a notice that test levels may change under federal regulations, a federal conviction-notification provision, and a statement that U.S. Facilities will periodically provide employees with substance-abuse awareness information.",
+        transcription: `These test levels are subject to change based upon regulations issued pursuant to the Federal Workplace Drug Testing Program regulations issued by the Federal Department of Health and Human Services.
+
+(3) The Federal Drug-Free Workplace Act of 1989 specifies that any employee convicted of violating a criminal drug statute on USF/PPS premises or on any work site, or during working hours, must notify the employer within five (5) days of the conviction. Should this happen to an employee, the person to notify is the Director of Human Resources or his/her designated, qualified representative.
+
+Within ten (10) days of receiving notice of such a conviction, the employer must advise the appropriate federal government agency.
+
+DRUG-FREE AWARENESS PROGRAM
+
+Periodically, U.S. Facilities, Inc., will provide information concerning the dangers of substance abuse to all employees.`
     },
     {
         section: "2026–2027 Tentative Agreement (3 pages; subject to ratification)",

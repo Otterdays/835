@@ -9,6 +9,8 @@
 - **Navigation:** Added account/profile pages to Home, shared navigation, sitewide search, and the side-panel account block.
 
 ## [Unreleased] - 2026-11-19
+- **Roster:** Added the supplied PICC and CFCF trades and part-time Warehouse Crew member; Roman Solecki (#4) now also appears under Warehouse while remaining in Management.
+- **Roster:** Moved John Carroll III (3 · Supervisor) and Roman Solecki (4 · Warehouse Supervisor) into the Management group while keeping their ranks and titles.
 - **Sign-in usability:** Added accessible show/hide password controls to sign-in and account creation forms.
 - **Agent guidance:** Documented Vercel Hobby's 12-function cap, `api/_lib/` helper convention, function recount, and post-push deployment/Node 26 verification.
 - **Vercel Hobby deployment:** Moved Mongo, session, password, and login-rate helpers from `api/lib/` into `api/_lib/` so Vercel treats them as helpers, reducing generated functions below the 12-function Hobby cap. Kept Node.js pinned to `26.x`.
@@ -178,3 +180,4 @@
 [AMENDED 2026-11-19]: Appearance now defaults to Dark for everyone who has not chosen; buttons are ordered Dark, Light, Auto. Auto is now stored explicitly (previously 'no saved choice'), so anyone who had been on Auto starts on Dark until they pick Auto again.
 [AMENDED 2026-11-19]: Site Roster: Derrick Smith (PICC) is a Building Engineer.
 [AMENDED 2026-11-19]: Site Roster: added Luong Trinh, Mathew-George, William Bates, Baris Kaya, Justin Lowe, Ho Song; Adrian Molina now Welder, Michael Jones now CFCF Painter, Sabu now Sabu Gokul (Building Engineer, RCF). New "Supervisors" group (John Carroll III 3, Roman Solecki 4, shift supervisors 5) and "Security" group: electronic security techs are one entry under Security, no longer repeated under every building. JOB_TITLES: Welder replaces Maintenance Mechanic.
+[AMENDED 2026-11-19]: Added CBA printed pages 28–30, finishing the supplied Exhibit C transcription in Article XXIII and the searchable scan archive. Updated current CBA range, bargaining reference, project map, and member updates.
