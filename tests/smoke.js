@@ -440,9 +440,10 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     ok(app.includes("activeFacility === 'all' ? locations : [activeFacility]"), 'a facility filter shows only that facility\'s crew section');
     ok(app.includes("activeFacility === 'DC' && !searchQuery") && app.includes('No roster entries are currently listed for this facility'), 'Detention Center roster view explains when no roster entry matches');
     ok(app.includes('temporaryAt') && searchJs.includes('employee.temporaryAt'), 'temporary facility assignments appear in roster cards and sitewide search');
-    ['Joe Delcampo', 'Andrew Gniewek', 'Patrick \\"Pat\\" Martin', 'Robert \\"Rob\\" Martin', 'Paul \\"Paulson\\" Avarachan', 'Albert \\"Al\\" Andalis'].forEach((name) => {
+    ['Joe Delcampo', 'Andrew Gniewek', 'Patrick \\"Pat\\" Martin', 'Robert \\"Rob\\" Martin', 'Paul \\"Paulson\\" Avarachan', 'Eric Moran'].forEach((name) => {
         ok(dataJs.includes(`name: "${name}"`) && dataJs.includes(`temporaryAt: ["DC"]`), `DC roster includes the supplied temporary assignment: ${name}`);
     });
+    ok(/name: "Albert \\"Al\\" Andalis", location: "CFCF", role: "Laborer"/.test(dataJs), 'Albert "Al" Andalis remains at CFCF without a temporary DC assignment');
 }
 
 // Site-wide light/dark appearance: early init script on every page, generated dark.css, menu toggle.

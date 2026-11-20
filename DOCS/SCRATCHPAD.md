@@ -510,6 +510,7 @@ List the user-supplied Philadelphia Detention Center crew as temporary roster as
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Added `temporaryAt: ["DC"]` for Joe Delcampo, Patrick "Pat" Martin, Robert "Rob" Martin, Paul "Paulson" Avarachan, Andrew Gniewek, and Albert "Al" Andalis. Kept each primary site, labeled temporary status on roster cards, indexed DC assignments in site search, and updated the worksite and project notices. Agreement review and complete-crew-list confirmation remain pending.
+- [2026-11-19] Owner correction: removed Albert "Al" Andalis from `temporaryAt: ["DC"]` (he remains at CFCF) and added Eric Moran as a temporary DC assignment. Updated the worksite/project notices and roster checks.
 - [2026-11-19, time not recorded] Roster "Sort by" (`#roster-sort` in employees.html, `renderSort`/`compareRole`/`primaryRole` in js/employees-app.js, `.role-group*` in style.css). Main role = text before " · ". Rail uses `[data-letter]` (cards by name, role headings by role). Checked in headless Chromium by DOM (PICC groups, Management flat, back to name view); a screenshot was not conclusive.
 - [2026-11-19, time not recorded] `primaryRole` now skips "shop steward" parts (fallback `NO_TRADE`, sorted last). Ryan Lorenz's roster role changed from "Assistant Shop Steward" to "Plumber · Assistant Shop Steward": the trade was INFERRED from his profile job title (Plumber, RCF), not stated for the roster by the user — confirm. Checked by DOM in headless Chromium.
 

@@ -741,7 +741,7 @@ Tool Identification - 8
 // temporary assignments. `location` stays their primary site; each person remains one entry.
 const employeesData = [
     { name: "Adrian Molina", location: "PICC", role: "Welder" },
-    { name: "Albert \"Al\" Andalis", location: "CFCF", temporaryAt: ["DC"], role: "Laborer" },
+    { name: "Albert \"Al\" Andalis", location: "CFCF", role: "Laborer" },
     { name: "Andrew Gniewek", location: "PICC", temporaryAt: ["DC"], role: "Painter" },
     { name: "Andrew Patchak", location: "PICC", role: "Locksmith" },
     { name: "Anthony Lange", location: "PICC", role: "Trades Helper" },
@@ -762,7 +762,7 @@ const employeesData = [
     { name: "Elias Pinto", location: "CFCF", role: "Stationary Engineer" },
     { name: "Elliott Pinto", location: "CFCF", role: "Helper" },
     { name: "Eric Levin", location: "Security", role: "Electronic Security" },
-    { name: "Eric Moran", location: "PICC", role: "Trades Helper" },
+    { name: "Eric Moran", location: "PICC", temporaryAt: ["DC"], role: "Trades Helper" },
     { name: "Gregory Plotts", location: "PICC", role: "Plumber" },
     { name: "Ho Song", location: "CFCF", role: "Building Engineer" },
     { name: "Ian Roonen", location: "CFCF", role: "Helper" },
