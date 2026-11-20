@@ -29,8 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sending: false,
         loaded: false,
         history: [],
-        approvedNonZdr: null,
-        limits: { perHour: 10, perDay: 30, hourRemaining: null, dayRemaining: null }
+        approvedNonZdr: null
     };
 
     const status = (text, type = 'info') => P.status(statusNode, text, type);
@@ -50,13 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderQuota = () => {
-        const { hourRemaining, dayRemaining, perHour, perDay } = state.limits;
-        if (hourRemaining === null || dayRemaining === null) {
-            quotaNode.hidden = true;
-            return;
-        }
         quotaNode.hidden = false;
-        quotaNode.textContent = `Questions remaining: ${hourRemaining} this hour (limit ${perHour}) · ${dayRemaining} today, site-wide (limit ${perDay}).`;
+        quotaNode.textContent = 'No question cap in the portal. OpenRouter free-model and provider limits still apply.';
     };
 
     const renderModelNote = () => {
@@ -88,22 +82,96 @@ document.addEventListener('DOMContentLoaded', () => {
         log.setAttribute('aria-busy', busy ? 'true' : 'false');
     };
 
-    const appendMessage = (role, text, sources) => {
+    const safeSiteHref = (href) => {
+        if (typeof href !== 'string' || !href || href.startsWith('//') || href.length > 300) {
+            return null;
+        }
+        try {
+            const url = new URL(href, window.location.href);
+            if (url.origin !== window.location.origin || !/^\/(?:[a-z0-9-]+\.html|contract\.html)$/.test(url.pathname)) {
+                return null;
+            }
+            if (url.pathname.endsWith('/contract.html') && !/^\?article=[a-z0-9-]+$/.test(url.search)) {
+                return null;
+            }
+            if (!url.pathname.endsWith('/contract.html') && url.search) {
+                return null;
+            }
+            return `${url.pathname}${url.search}`;
+        } catch (_) {
+            return null;
+        }
+    };
+
+    const makeSiteLink = (label, href) => {
+        const safeHref = safeSiteHref(href);
+        if (!safeHref) {
+            return document.createTextNode(label);
+        }
+        const link = document.createElement('a');
+        link.className = 'adm-ai-link';
+        link.href = safeHref;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = label;
+        return link;
+    };
+
+    const linkifyArticleCitations = (node, text, articleLinks) => {
+        const variants = new Map();
+        (Array.isArray(articleLinks) ? articleLinks : []).forEach((entry) => {
+            if (!entry || typeof entry.citation !== 'string') {
+                return;
+            }
+            variants.set(entry.citation, entry.href);
+            variants.set(entry.citation.replace(/^CBA\s+/i, ''), entry.href);
+        });
+        const phrases = [...variants.keys()].filter(Boolean).sort((a, b) => b.length - a.length);
+        if (!phrases.length) {
+            node.textContent = text;
+            return;
+        }
+        const pattern = new RegExp(`(?<![A-Za-z0-9])(?:${phrases.map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})(?![A-Za-z0-9])`, 'gi');
+        let lastIndex = 0;
+        let match;
+        while ((match = pattern.exec(text))) {
+            node.append(document.createTextNode(text.slice(lastIndex, match.index)));
+            const href = variants.get(match[0]) || variants.get(phrases.find((phrase) => phrase.toLowerCase() === match[0].toLowerCase()));
+            node.append(makeSiteLink(match[0], href));
+            lastIndex = match.index + match[0].length;
+        }
+        node.append(document.createTextNode(text.slice(lastIndex)));
+    };
+
+    const appendMessage = (role, text, sources, sourceLinks, articleLinks) => {
         const empty = log.querySelector('.adm-ai-empty');
         if (empty) {
             empty.remove();
         }
         const row = P.el('div', `adm-ai-msg adm-ai-msg--${role}`);
         row.append(P.el('span', 'adm-ai-who', role === 'user' ? 'You' : 'Assistant'));
-        row.append(P.el('p', 'adm-ai-text', text));
+        const answer = P.el('p', 'adm-ai-text');
         if (role === 'assistant') {
-            row.append(
-                P.el(
-                    'p',
-                    'adm-ai-source',
-                    sources && sources.length ? `Sources: ${sources.join(' · ')}` : 'No matching site source was found.'
-                )
-            );
+            linkifyArticleCitations(answer, text, articleLinks);
+        } else {
+            answer.textContent = text;
+        }
+        row.append(answer);
+        if (role === 'assistant') {
+            const source = P.el('p', 'adm-ai-source');
+            if (sources && sources.length) {
+                source.append(document.createTextNode('Sources: '));
+                const hrefByCitation = new Map((sourceLinks || []).map((entry) => [entry.citation, entry.href]));
+                sources.forEach((citation, index) => {
+                    if (index) {
+                        source.append(document.createTextNode(' · '));
+                    }
+                    source.append(makeSiteLink(citation, hrefByCitation.get(citation)));
+                });
+            } else {
+                source.textContent = 'No matching site source was found.';
+            }
+            row.append(source);
         }
         log.append(row);
         log.scrollTop = log.scrollHeight;
@@ -130,7 +198,6 @@ document.addEventListener('DOMContentLoaded', () => {
         state.models = new Map((data.catalog.models || []).map((model) => [model.id, model]));
         state.allowNonZdr = Boolean(data.allowNonZdr);
         state.configured = Boolean(data.configured);
-        state.limits = { ...state.limits, ...(data.limits || {}) };
 
         const previous = modelSelect.value;
         modelSelect.replaceChildren();
@@ -249,6 +316,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCount();
         setBusy(true);
         const bubble = appendMessage('user', question);
+        const pending = appendMessage('assistant', 'Checking the site sources and asking the selected model…');
+        pending.classList.add('adm-ai-msg--pending');
+        pending.setAttribute('role', 'status');
+        pending.setAttribute('aria-live', 'polite');
+        const spinner = document.createElement('span');
+        spinner.className = 'adm-ai-spinner';
+        spinner.setAttribute('aria-hidden', 'true');
+        pending.querySelector('.adm-ai-who').prepend(spinner);
         try {
             const data = await P.api('/api/admin', {
                 method: 'POST',
@@ -259,16 +334,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     acceptNonZdr: !model.strict
                 }
             });
-            appendMessage('assistant', data.answer, data.sources);
+            pending.remove();
+            appendMessage('assistant', data.answer, data.sources, data.sourceLinks, data.articleLinks);
             state.history = [...outgoing, { role: 'assistant', content: data.answer }];
             if (state.history.length > 8) {
                 state.history = state.history.slice(state.history.length - 8);
             }
-            state.limits.hourRemaining = Math.max(0, (state.limits.hourRemaining || 0) - 1);
-            state.limits.dayRemaining = Math.max(0, (state.limits.dayRemaining || 0) - 1);
             renderQuota();
         } catch (err) {
             console.error('AI question failed', err);
+            pending.remove();
             bubble.remove();
             if (!log.children.length) {
                 emptyLog();

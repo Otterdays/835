@@ -199,6 +199,8 @@
 :where(:root[data-theme="dark"]) .adm-ai-msg--user { background: #12243d; border-color: #324e72; }
 :where(:root[data-theme="dark"]) .adm-ai-who { color: #b4cdeb; }
 :where(:root[data-theme="dark"]) .adm-ai-msg--assistant .adm-ai-who { color: #bbe4c9; }
+:where(:root[data-theme="dark"]) .adm-ai-link { color: #89b4e2; }
+:where(:root[data-theme="dark"]) .adm-ai-link:hover { color: #a7c6e9; }
 @media (max-width: 767px) {
   :where(:root[data-theme="dark"]) .roster-index { background: rgba(25, 35, 46, 0.94); }
 }

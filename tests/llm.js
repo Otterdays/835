@@ -319,7 +319,7 @@ async function askIntegrationTests() {
         const statusOut = JSON.parse(statusRes.body);
         ok(statusOut.ok && statusOut.catalog.ok, 'ask: status endpoint returns the catalog');
         ok(statusOut.catalog.models[0].id === 'integ/model:free' && statusOut.catalog.models[0].strict, 'ask: status catalog surfaces the strict free model');
-        ok(statusOut.limits.perDay === adminAi.DAILY.max && statusOut.limits.perHour === adminAi.PER_ADMIN.max, 'ask: status reports quota limits');
+        ok(!('limits' in statusOut), 'ask: status does not report portal-level question caps');
 
         // ask()
         const askRes = makeRes();
@@ -331,7 +331,9 @@ async function askIntegrationTests() {
         ok(providerBody.provider.zdr === true && providerBody.provider.only[0] === 'integ-provider', 'ask: strict model routed through verified ZDR provider only');
         ok(providerBody.provider.ignore.includes('google-vertex') && providerBody.provider.ignore.includes('google-ai-studio'), 'ask: outbound request ignores Google providers');
         ok(Array.isArray(askOut.sources), 'ask: response includes source citations');
-        ok(rows.get(adminAi.adminLimitKey('testadmin')) === 1, 'ask: consumes one per-admin slot');
+        ok(Array.isArray(askOut.sourceLinks) && askOut.sourceLinks.every((source) => source.href), 'ask: source citations include page links');
+        ok(Array.isArray(askOut.articleLinks) && askOut.articleLinks.some((article) => article.href.startsWith('contract.html?article=')), 'ask: article index includes deep links');
+        ok(rows.size === 0, 'ask: does not consume a portal-level question quota');
         ok(logRows.length === 1, 'ask: writes one usage row');
         ok(logRows[0].admin === 'testadmin' && logRows[0].status === 'ok' && logRows[0].actualModel === 'integ/model:free', 'ask: usage log records who/status/model');
         ok(!logRows[0].question && !logRows[0].answer && !logRows[0].apiKey, 'ask: usage log has no prompt, answer or key');
@@ -377,6 +379,7 @@ async function contextTests() {
     ok(built.system.includes('SITE DIRECTORY') && built.system.includes('CONTRACT ARTICLE INDEX'), 'context: prompt includes the page and article directory');
     ok(built.system.includes('Never guess contract language'), 'context: prompt refuses unsourced contract answers');
     ok(built.sources.some((source) => source.startsWith('CBA Article XIX')), 'context: returns human-readable source citations');
+    ok(built.articleLinks.some((article) => article.citation.startsWith('CBA Article XIX') && article.href.includes('article-19')), 'context: supplies safe article citation links');
     ok(built.messages.length === 1 && built.messages[0].role === 'user', 'context: forwards only the validated chat turns');
     ok(
         builder.chunkText('Words enough to survive the filter here.\n\nSecond sentence for the same chunk.').length === 1,
@@ -392,6 +395,8 @@ function secretTests() {
     ok(!/sk-or-v1-[A-Za-z0-9]{20,}/.test(clientText), 'secrets: no OpenRouter key-shaped string in browser assets');
     ok(!/OPENROUTER_API_KEY\s*=/.test(clientText), 'secrets: no OpenRouter key value in browser assets');
     ok(!/\.innerHTML\s*=/.test(clientText), 'client: admin AI never assigns to innerHTML');
+    ok(clientText.includes("link.target = '_blank'") && clientText.includes("link.rel = 'noopener noreferrer'"), 'client: known source links open safely in a new tab');
+    ok(clientText.includes("'Checking the site sources and asking the selected model…'") && clientText.includes("setAttribute('aria-live', 'polite')"), 'client: shows accessible progress while a question is running');
     const adminHtml = fs.readFileSync(path.join(root, 'admin.html'), 'utf8');
     ok(adminHtml.includes('js/admin-ai.js') && adminHtml.includes('id="adm-ai"'), 'client: admin page loads the AI panel');
     const adminApi = fs.readFileSync(path.join(root, 'api/admin/index.js'), 'utf8');

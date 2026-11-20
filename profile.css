@@ -257,6 +257,12 @@
 .adm-ai-msg--user{background:#eef3fa;border-color:#cfdbea}
 .adm-ai-who{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#1b3d66}
 .adm-ai-msg--assistant .adm-ai-who{color:#245c37}
+.adm-ai-link{color:#2868ad;font-weight:700;text-decoration:underline;text-underline-offset:.15em}
+.adm-ai-link:hover{color:#174a82}
+.adm-ai-spinner{display:inline-block;width:.72em;height:.72em;margin-right:.4rem;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-.03em;animation:adm-ai-spin .8s linear infinite}
+@keyframes adm-ai-spin{to{transform:rotate(360deg)}}
+.adm-ai-msg--pending .adm-ai-text{color:var(--pf-muted)}
+@media(prefers-reduced-motion:reduce){.adm-ai-spinner{animation:none;border-right-color:currentColor}}
 .adm-ai-text{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
 .adm-ai-source{margin:.1rem 0 0;padding-top:.35rem;border-top:1px dashed var(--pf-line);color:var(--pf-muted);font-size:.8rem}
 .adm-ai-field textarea{min-height:5.5rem}

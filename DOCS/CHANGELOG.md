@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Admin AI shows visible progress while responding, makes source/article citations open in a new tab, and removes the portal's 10-per-hour and 30-per-day question caps; provider limits remain.
+
 [AMENDED 2026-11-19]: Admin panel is wider on desktop, and the AI chat history can display up to 56vh/44rem before its inner scrollbar appears.
 
 [AMENDED 2026-11-19]: Fixed admin AI non-ZDR provider routing: after per-model confirmation, the request no longer filters out providers with `data_collection: deny`; strict ZDR requests retain the restriction. Clarified transient 404 copy and non-ZDR provider-use disclosure.

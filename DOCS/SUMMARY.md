@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Admin AI chat now shows an in-chat pending state, links known source/article citations to same-site pages in a new tab, and has no portal-level hourly/daily question cap. OpenRouter/provider limits still apply; admin account actions retain their rate limit.
+
 [AMENDED 2026-11-19]: Admin desktop layout: widened the account/admin content to 82rem and gave the AI conversation more vertical display space (up to 56vh/44rem); mobile layout remains unchanged.
 
 [AMENDED 2026-11-19]: Admin AI routing fix: strict ZDR requests continue to deny data-collecting endpoints; confirmed non-ZDR free-model requests allow those providers under the existing UI warning/confirmation. All requests remain server-validated `:free` models with zero maximum price. OpenRouter 404 errors now describe an unavailable provider route. See `DOCS/LLM_INTEGRATION.md`.

@@ -1,24 +1,18 @@
 // [TRACE: LLM_INTEGRATION.md]
 // Admin-only AI status and ask handlers, called from api/admin/index.js.
-// The admin role, Origin check and the broad admin rate limit already ran before
-// this module. Here we add the AI-specific allowlist, tight quotas, single-shot
-// provider call and metadata-only usage log.
+// The admin role and Origin check already ran before this module. Here we apply
+// the AI-specific allowlist, single-shot provider call and metadata-only usage log.
 const forum = require('./forum');
 const catalogLib = require('./ai-catalog');
 const contextLib = require('./ai-context');
 const ai = require('./ai');
 
-const PER_ADMIN = { max: 10, windowMs: 60 * 60 * 1000 };
-const DAILY = { max: 30, windowMs: 24 * 60 * 60 * 1000 };
 const MAX_MESSAGES = 8;
 const MAX_USER_CHARS = 2000;
 const MAX_ASSISTANT_CHARS = 4000;
 // Keep the JSON body well under readJson's 20,000-byte cap even with heavy quoting.
 const MAX_TOTAL_CHARS = 8000;
 const LOG_RETENTION_DAYS = 365;
-
-const adminLimitKey = (username) => `ai:admin:${String(username).toLowerCase()}`;
-const dailyLimitKey = (now = new Date()) => `ai:daily:${now.toISOString().slice(0, 10)}`;
 
 function cleanTurn(text) {
     return String(text)
@@ -131,21 +125,11 @@ async function status(admin, params, res) {
     } catch (err) {
         catalogError = err.message;
     }
-    const [hour, day] = await Promise.all([
-        forum.peekRateLimit(admin.db, adminLimitKey(admin.username), PER_ADMIN),
-        forum.peekRateLimit(admin.db, dailyLimitKey(), DAILY)
-    ]);
     return forum.json(res, 200, {
         ok: true,
         configured: catalogLib.isConfigured(),
         allowNonZdr: catalogLib.allowNonZdr(),
-        catalog: catalog ? catalogLib.catalogOut(catalog) : { ok: false, error: catalogError || 'The free model catalog is unavailable right now.' },
-        limits: {
-            perHour: PER_ADMIN.max,
-            perDay: DAILY.max,
-            hourRemaining: hour.remaining,
-            dayRemaining: day.remaining
-        }
+        catalog: catalog ? catalogLib.catalogOut(catalog) : { ok: false, error: catalogError || 'The free model catalog is unavailable right now.' }
     });
 }
 
@@ -158,25 +142,6 @@ async function ask(admin, body, res) {
     const model = resolveModel(catalog, body.model, {
         allowNonZdr: catalogLib.allowNonZdr(),
         acceptNonZdr: body.acceptNonZdr
-    });
-
-    const day = await forum.peekRateLimit(admin.db, dailyLimitKey(), DAILY);
-    if (day.remaining <= 0) {
-        throw forum.httpError(
-            429,
-            'The site-wide AI question limit for today has been reached. Try again tomorrow.',
-            'ai_daily_quota'
-        );
-    }
-    await forum.consumeRateLimit(admin.db, adminLimitKey(admin.username), {
-        ...PER_ADMIN,
-        code: 'ai_hourly_quota',
-        message: `You have used all ${PER_ADMIN.max} AI questions for this hour. Try again later.`
-    });
-    await forum.consumeRateLimit(admin.db, dailyLimitKey(), {
-        ...DAILY,
-        code: 'ai_daily_quota',
-        message: 'The site-wide AI question limit for today has been reached. Try again tomorrow.'
     });
 
     const context = contextLib.buildContext(messages);
@@ -220,15 +185,13 @@ async function ask(admin, body, res) {
         answer: result.answer,
         model: result.model,
         sources: context.sources,
+        sourceLinks: context.sourceLinks,
+        articleLinks: context.articleLinks,
         usage: result.usage
     });
 }
 
 module.exports = {
-    PER_ADMIN,
-    DAILY,
-    adminLimitKey,
-    dailyLimitKey,
     MAX_MESSAGES,
     MAX_USER_CHARS,
     MAX_ASSISTANT_CHARS,

@@ -194,7 +194,7 @@ function systemPrompt(selected) {
         '- The assistant has a sanitized public site roster (names, trades/roles, facility assignments; no injury/termination status notes), plus the public shop steward directory (names, roles and facility assignments). It has no private contact details, member account/profile data, forum posts or user-submitted content. Never invent phone numbers, emails, grievance details or personal information.',
         '- You cannot change the site, accounts or data. Do not claim to perform actions.',
         '- Do not give legal advice. For a grievance, identify the article and point to the Action Center or a steward.',
-        '- Answer in plain text, concise (normally under 400 words), with no HTML and no Markdown links. Short lists with "-" are fine.',
+        '- Answer in plain text, concise (normally under 400 words), with no HTML, Markdown links, raw URLs or file paths. Cite contract articles using their exact article citation only. Short lists with "-" are fine.',
         '',
         'SITE DIRECTORY:',
         pageDirectory(),
@@ -218,10 +218,16 @@ function buildContext(messages) {
     const lastUser = [...messages].reverse().find((message) => message.role === 'user');
     const selected = lastUser ? retrieve(lastUser.content) : [];
     const sources = [...new Set(selected.map((chunk) => chunk.citation))];
+    const sourceLinks = [...new Map(selected.map((chunk) => [chunk.citation, { citation: chunk.citation, href: chunk.href }])).values()];
+    const articleLinks = siteData.chunks
+        .filter((chunk) => chunk.kind === 'article')
+        .map((chunk) => ({ citation: chunk.citation, href: chunk.href }));
     return {
         system: systemPrompt(selected),
         messages: messages.map((message) => ({ role: message.role, content: message.content })),
         sources,
+        sourceLinks,
+        articleLinks,
         retrieved: selected.map((chunk) => ({ id: chunk.docId, citation: chunk.citation, href: chunk.href }))
     };
 }

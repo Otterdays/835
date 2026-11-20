@@ -217,11 +217,11 @@ module.exports = async function handler(req, res) {
             if (!accounts.sameSite(req)) {
                 throw forum.httpError(403, 'Request not allowed.');
             }
-            await forum.consumeRateLimit(admin.db, `admin:${admin.username}`, ADMIN_RATE);
             const body = await forum.readJson(req);
             if (body.action === 'ask') {
                 return await adminAi.ask(admin, body, res);
             }
+            await forum.consumeRateLimit(admin.db, `admin:${admin.username}`, ADMIN_RATE);
             return await act(admin, body, res);
         }
 

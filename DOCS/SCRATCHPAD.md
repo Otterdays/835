@@ -1,5 +1,7 @@
 <!-- PRESERVATION RULE: Never delete or replace content. Append or annotate only. -->
 
+[AMENDED 2026-11-19]: Updated the admin AI chat UX per owner: adds an accessible in-chat working indicator; returns curated article/source links and renders them as same-site links opening in a new tab; removed the app's 10/hour and 30/day AI caps while leaving OpenRouter/provider limits in place. AI questions bypass only the general admin-action rate limiter; account-management POSTs retain it. Added docs updates.
+
 [AMENDED 2026-11-19]: Widened the admin panel to 82rem on desktop and expanded the AI conversation viewport to up to 56vh/44rem so longer chats can remain visible before scrolling. Mobile breakpoints and sizing remain as before.
 
 [AMENDED 2026-11-19]: Investigated the admin AI's OpenRouter HTTP 404 using the provided screenshots. Non-ZDR model requests were filtered with `data_collection: deny`, which can exclude their only serving providers. Changed routing so strict ZDR models retain `deny` while user-confirmed non-ZDR models use `allow`; kept the `$0` max-price cap and free-only server validation. Updated the 404 message and UI disclosure, added tests and documentation. Sources checked: OpenRouter provider routing docs (https://openrouter.ai/docs/guides/routing/provider-selection) and free-model page (https://openrouter.ai/collections/free-models/).
