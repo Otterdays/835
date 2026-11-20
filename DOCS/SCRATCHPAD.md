@@ -549,3 +549,5 @@ Improve admin AI OpenRouter rate detection and user feedback.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Researched OpenRouter's current-key API and structured rate-limit errors. Implemented a fail-soft server lookup for current-key daily free requests, safe extraction of documented limit source/provider/headers, and admin UI messaging to distinguish account limits from upstream shared provider capacity. No new route; API key and raw provider payload remain server-only. Documented official references in `DOCS/LLM_INTEGRATION.md`.
+
+[AMENDED 2026-11-19]: Current task — added Mark (CFCF Project Management Assistant) to `employeesData`, alphabetically, and recorded the member-facing update. The user supplied no surname; the roster uses “Mark” as given.

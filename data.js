@@ -779,6 +779,7 @@ const employeesData = [
     { name: "Lauren Battilana", location: "CFCF", role: "Data Clerk" },
     { name: "Luke Jacoby", location: "PICC", role: "Building Engineer" },
     { name: "Luong Trinh (Benny)", location: "RCF", role: "Stationary Engineer" },
+    { name: "Mark", location: "CFCF", role: "Project Management Assistant" },
     { name: "Mathew-George (Matt)", location: "CFCF", role: "Stationary Engineer" },
     { name: "Michael Jones", location: "CFCF", role: "Painter" },
     { name: "Mike Brown", location: "CFCF", role: "Plumber" },

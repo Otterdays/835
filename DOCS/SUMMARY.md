@@ -158,3 +158,5 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 
 [AMENDED 2026-11-19]: Planned (not built) an admin-only AI chat assistant through OpenRouter (no Google services); design, Vercel/key handling, and open owner questions are in `DOCS/LLM_INTEGRATION.md`.
 [AMENDED 2026-11-19]: Updated the planned admin AI assistant to the owner's strict FREE ONLY requirement. The plan now calls for API-discovered `:free` zero-price chat models, server-enforced allowlisting with no paid fallback, no member personal data in context by default, and a model-selector/privacy/quota/error UX plus TDD acceptance plan. No code is built; see `DOCS/LLM_INTEGRATION.md` for current official references.
+
+[AMENDED 2026-11-19]: Added Mark to the CFCF employee roster as a Project Management Assistant; the supplied name was “Mark” with no surname.

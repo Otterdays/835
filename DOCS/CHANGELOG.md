@@ -198,3 +198,5 @@
 [AMENDED 2026-11-19]: Site Roster: Derrick Smith (PICC) is a Building Engineer.
 [AMENDED 2026-11-19]: Site Roster: added Luong Trinh, Mathew-George, William Bates, Baris Kaya, Justin Lowe, Ho Song; Adrian Molina now Welder, Michael Jones now CFCF Painter, Sabu now Sabu Gokul (Building Engineer, RCF). New "Supervisors" group (John Carroll III 3, Roman Solecki 4, shift supervisors 5) and "Security" group: electronic security techs are one entry under Security, no longer repeated under every building. JOB_TITLES: Welder replaces Maintenance Mechanic.
 [AMENDED 2026-11-19]: Added CBA printed pages 28–30, finishing the supplied Exhibit C transcription in Article XXIII and the searchable scan archive. Updated current CBA range, bargaining reference, project map, and member updates.
+
+[AMENDED 2026-11-19]: Site Roster: added Mark (Project Management Assistant, CFCF).
