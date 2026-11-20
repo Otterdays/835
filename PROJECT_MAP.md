@@ -43,8 +43,8 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | how to add a tool-policy scan | Add the image and `toolProgramScans` entry in `data.js`; see `tool-program.html` |
 | where tool-policy archive behavior lives | `tool-program.html` + `js/tool-app.js` + `js/paneled-archive.js` |
 | where union leadership and shop steward contacts are maintained | `data.js` → `shopStewards`; display/filter in `js/stewards-app.js` |
-| where employee roster data and pending site filters are maintained | `data.js` → `employeesData`; display/filter in `js/employees-app.js` (includes Philadelphia Detention Center while crew list is pending) |
-| how to add a steward or roster entry | Add it to `shopStewards` or `employeesData` in `data.js` (`alsoAt: ["SITE"]` for a second facility) |
+| where employee roster data and site filters are maintained | `data.js` → `employeesData`; display/filter in `js/employees-app.js` (includes temporary Philadelphia Detention Center assignments) |
+| how to add a steward or roster entry | Add it to `shopStewards` or `employeesData` in `data.js` (`alsoAt` for regular secondary sites; `temporaryAt` for temporary assignments) |
 | where member grievance preparation lives | `member-action.html` + `js/member-action-app.js` |
 | where evidence entries are stored and exported | `evidence-log.html` + `js/evidence-log-app.js` (in memory only) |
 | where bargaining checklists and copy language live | `bargaining.html` + `js/bargaining-app.js` |
@@ -58,7 +58,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
 | where the admin panel lives and how it is locked | `admin.html`, `js/admin-app.js`, `api/admin/index.js`, `middleware.js` (see `DOCS/ACCOUNTS.md`) |
-| where the admin-only AI assistant (free OpenRouter models only) is built | `admin.html`, `js/admin-ai.js`, `api/admin/index.js` (`?ai=1`, `action:"ask"`), `api/_lib/ai-catalog.js`, `api/_lib/ai-context.js`, `api/_lib/ai.js`, `api/_lib/admin-ai.js`; curated public roster/steward context, with sensitive status and account data excluded; see `DOCS/LLM_INTEGRATION.md` |
+| where the admin-only AI assistant (free OpenRouter models only) is built | `admin.html`, `js/admin-ai.js`, `api/admin/index.js` (`?ai=1`, `action:"ask"`), `api/_lib/ai-catalog.js`, `api/_lib/ai-context.js`, `api/_lib/ai.js`, `api/_lib/admin-ai.js`; curated public roster/steward context, sensitive status/account data excluded, current-key daily usage and structured rate feedback; see `DOCS/LLM_INTEGRATION.md` |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
 | where smoke and deploy checks are defined | `tests/smoke.js`, `scripts/check-deploy.js` |
@@ -113,8 +113,8 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `scripts/gen-dark-css.js` | Generates `dark.css` from hard-coded colors in `style.css`, `forum.css`, `profile.css` |
 | `scripts/seed-user.js` | Creates or updates a Mongo user from command-line input |
 | `tests/smoke.js` | Checks page wiring, local assets, search data, forum validation, and the admin AI wiring/privacy block |
-| `tests/llm.js` | Pure and mocked OpenRouter AI tests: catalog filter, request builder, allowlist, mocked provider responses, context retrieval, site-data freshness, no-roster privacy, key scans (`npm run test:llm`) |
-| `api/_lib/ai-site-data.json` | Generated AI context export: page directory + contract article index + curated excerpts; no rosters, steward contacts, or `updates.html` body text |
+| `tests/llm.js` | Pure and mocked OpenRouter AI tests: catalog filter, request builder, allowlist, mocked provider responses and rate metadata, context retrieval, curated public-roster privacy, site-data freshness and key scans (`npm run test:llm`) |
+| `api/_lib/ai-site-data.json` | Generated AI context export: page directory + contract article index + curated public roster/steward fields and excerpts; excludes sensitive status notes, private contacts, and `updates.html` body text |
 | `source/IUOE_Local_835_Petition_and_Motion.docx` | Offline Word draft (not opened) |
 | `source/IUOE_Local_835_Petition_and_Motion.md` | Offline Markdown draft (not opened) |
 | `source/IUOE_Local_835_Working_Packet.docx` | Offline Word draft (not opened) |

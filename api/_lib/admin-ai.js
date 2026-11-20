@@ -125,10 +125,12 @@ async function status(admin, params, res) {
     } catch (err) {
         catalogError = err.message;
     }
+    const freeModelDailyRequests = await ai.getFreeModelDailyRequests(process.env.OPENROUTER_API_KEY);
     return forum.json(res, 200, {
         ok: true,
         configured: catalogLib.isConfigured(),
         allowNonZdr: catalogLib.allowNonZdr(),
+        freeModelDailyRequests,
         catalog: catalog ? catalogLib.catalogOut(catalog) : { ok: false, error: catalogError || 'The free model catalog is unavailable right now.' }
     });
 }
@@ -154,6 +156,9 @@ async function ask(admin, body, res) {
             messages: [{ role: 'system', content: context.system }, ...context.messages]
         });
     } catch (err) {
+        if (err && (err.status === 429 || err.status === 503 && err.code === 'ai_budget')) {
+            err.freeModelDailyRequests = await ai.getFreeModelDailyRequests(process.env.OPENROUTER_API_KEY);
+        }
         await logUsage(admin.db, admin, {
             status: 'error',
             code: err.code || 'ai_unknown',
@@ -187,7 +192,8 @@ async function ask(admin, body, res) {
         sources: context.sources,
         sourceLinks: context.sourceLinks,
         articleLinks: context.articleLinks,
-        usage: result.usage
+        usage: result.usage,
+        freeModelDailyRequests: await ai.getFreeModelDailyRequests(process.env.OPENROUTER_API_KEY)
     });
 }
 

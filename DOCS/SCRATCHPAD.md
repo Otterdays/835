@@ -500,8 +500,16 @@ Roster updates and multi-site people.
 - [2026-11-19, time not recorded] Roster sorted A-Z by first name in the page (`compareStaff` in `js/employees-app.js`; Management by rank number) and in `data.js`; smoke checks both. Note: Xavier Wilson appears twice (PICC Trades Helper, CFCF Helper) — left as supplied.
 - [2026-11-19, time not recorded] Added the phone A-Z jump rail (`renderIndex`/`jumpTo` in `js/employees-app.js`, `.roster-index*` at the end of `style.css`; phone-only <=767px). Page uses smooth scrolling globally so jumps use `behavior: 'instant'`. Checked in headless Chromium (jump to M lands on the first M card, rail renders); real touch-drag on a phone not tested.
 - [2026-11-19, time not recorded] Roster check of Electricians and Laborers: added Ochel Alexis (CFCF); "Trevor" -> Trevor Anderson; "Paulson" -> Paul Avarachan (assumed the same CFCF electrician; confirm). Existing nickname entries kept: Al Andalis (Albert), Bill Vetter (William), Robert Martin (Rob), Timothy Neri (Tim). Open question: a separate "Tim" is listed at CFCF as Electrician. Smoke and deploy checks pass.
+- [2026-11-19] Owner's DC crew instruction resolved the prior Paulson note: the CFCF electrician is Paul Avarachan, displayed as Paul "Paulson" Avarachan.
 - [2026-11-19, time not recorded] Removed the extra "Tim" (CFCF Electrician) from the roster at the owner's direction; he is Timothy Neri (PICC). Resolves the open question above.
 - [2026-11-19, time not recorded] Jump rail is now per crew: `currentGroup()` picks the section past 35% of the screen; `renderIndex` runs on render and on throttled (80 ms) scroll, skipped while dragging; `jumpTo` searches only that section. Checked in headless Chromium: letters RCF BEJKMNPRS, CFCF ABDEIJKLMOPRSTX, PICC ACDEGJKLMOPRTX match the data; a P jump in PICC landed on Patrick Martin. Real-finger drag not tested.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+List the user-supplied Philadelphia Detention Center crew as temporary roster assignments.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Added `temporaryAt: ["DC"]` for Joe Delcampo, Patrick "Pat" Martin, Robert "Rob" Martin, Paul "Paulson" Avarachan, Andrew Gniewek, and Albert "Al" Andalis. Kept each primary site, labeled temporary status on roster cards, indexed DC assignments in site search, and updated the worksite and project notices. Agreement review and complete-crew-list confirmation remain pending.
 - [2026-11-19, time not recorded] Roster "Sort by" (`#roster-sort` in employees.html, `renderSort`/`compareRole`/`primaryRole` in js/employees-app.js, `.role-group*` in style.css). Main role = text before " · ". Rail uses `[data-letter]` (cards by name, role headings by role). Checked in headless Chromium by DOM (PICC groups, Management flat, back to name view); a screenshot was not conclusive.
 - [2026-11-19, time not recorded] `primaryRole` now skips "shop steward" parts (fallback `NO_TRADE`, sorted last). Ryan Lorenz's roster role changed from "Assistant Shop Steward" to "Plumber · Assistant Shop Steward": the trade was INFERRED from his profile job title (Plumber, RCF), not stated for the roster by the user — confirm. Checked by DOM in headless Chromium.
 
@@ -533,3 +541,10 @@ Digitize the supplied final 2022–26 CBA pages, printed pages 28–30.
 
 ## Actions Log:
 - [2026-11-19, time not recorded] Added `images/page_28.jpg` through `images/page_30.jpg` and scan/search rows `cba-p28` through `cba-p30`. Continued Exhibit C in Article XXIII through investigation steps 4–9, the screening cutoff tables, the federal workplace notice, and the Drug-Free Awareness Program; page 30 concludes Exhibit C. Updated the CBA range to pages 1–30, member update, bargaining reference, smoke-check expectations, and project map. Preserved printed numbering and source punctuation, including the doubled period on page 29.
+
+[AMENDED 2026-11-19]:
+## Current Task:
+Improve admin AI OpenRouter rate detection and user feedback.
+
+## Actions Log:
+- [2026-11-19, time not recorded] Researched OpenRouter's current-key API and structured rate-limit errors. Implemented a fail-soft server lookup for current-key daily free requests, safe extraction of documented limit source/provider/headers, and admin UI messaging to distinguish account limits from upstream shared provider capacity. No new route; API key and raw provider payload remain server-only. Documented official references in `DOCS/LLM_INTEGRATION.md`.

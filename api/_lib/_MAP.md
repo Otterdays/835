@@ -14,8 +14,8 @@
 | `password.js` | Hashes and verifies passwords | `hashPassword()`, `verifyPassword()` |
 | `ai-catalog.js` | Free-only OpenRouter model catalog (`/models` + `/endpoints/zdr`) with strict-ZDR detection and caching | `getCatalog()`, `isFreeChatModel()`, `zdrProvidersByModel()`, `buildCatalog()`, `catalogOut()` |
 | `ai-context.js` | Retrieval over `ai-site-data.json`: page directory, contract article index, public roster/steward directories and top excerpts | `retrieve()`, `buildContext()` |
-| `ai.js` | Single-shot OpenRouter chat-completions client (fixed URL, timeout, error mapping) | `askOpenRouter()`, `buildRequestBody()`, `providerPreferences()`, `cleanAnswer()` |
-| `admin-ai.js` | AI assistant status + ask (quotas, server-side allowlist, metadata-only log) | `status()`, `ask()`, `normalizeMessages()`, `resolveModel()` |
+| `ai.js` | Single-shot OpenRouter chat client, current-key daily free quota lookup, structured rate-limit parsing | `askOpenRouter()`, `getFreeModelDailyRequests()`, `rateLimitInfo()`, `buildRequestBody()` |
+| `admin-ai.js` | AI status + ask (live daily free counter, server-side allowlist, metadata-only log) | `status()`, `ask()`, `normalizeMessages()`, `resolveModel()` |
 | `ai-site-data.json` | Generated site knowledge export (sanitized public roster/steward fields; no status notes, private contacts, accounts, forum or updates body); regenerate with `npm run build:ai-context` | — |
 
 ## Connects to

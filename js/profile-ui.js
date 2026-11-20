@@ -56,7 +56,9 @@ window.ProfileUI = (() => {
         if (!res.ok || !data.ok) {
             throw Object.assign(new Error(data.error || `Request failed (${res.status}).`), {
                 status: res.status,
-                code: data.code || null
+                code: data.code || null,
+                rateLimit: data.rateLimit || null,
+                freeModelDailyRequests: data.freeModelDailyRequests || null
             });
         }
         return data;

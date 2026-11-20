@@ -267,12 +267,15 @@
 
         if (typeof employeesData !== 'undefined') {
             employeesData.forEach((employee) => {
-                const sites = [employee.location, ...(employee.alsoAt || [])].filter(Boolean).join(' + ');
+                const sites = [employee.location, ...(employee.alsoAt || []), ...(employee.temporaryAt || [])].filter(Boolean).join(' + ');
+                const assignment = employee.temporaryAt && employee.temporaryAt.length
+                    ? `Temporary assignment: ${employee.temporaryAt.join(', ')}`
+                    : '';
                 index.push({
                     category: 'Site Roster',
                     title: employee.name,
-                    body: [employee.name, employee.role, sites].join('\n'),
-                    meta: `${sites} — ${employee.role}`,
+                    body: [employee.name, employee.role, sites, assignment].join('\n'),
+                    meta: `${sites}${assignment ? ' (temporary assignment)' : ''} — ${employee.role}`,
                     href: (query) =>
                         `employees.html?q=${encodeURIComponent(query || employee.name)}`
                 });

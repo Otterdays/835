@@ -330,7 +330,7 @@ ok(contractApp.includes('.normalize(\'NFKD\')') && contractApp.includes('tokens.
 ok(contractApp.includes('normalizeWithOffsets(source, true)') && contractApp.includes('source.replace(/([\\p{L}\\p{N}])'), 'contract search supports joined and hyphenated word forms');
 ok(contractApp.includes('result entries') || contractApp.includes('itemLabel'), 'contract search reports matching entry counts');
 const employeesApp = fs.readFileSync(path.join(root, 'js/employees-app.js'), 'utf8');
-ok(employeesApp.includes("...employeesData.flatMap(sitesOf), 'DC'") && employeesApp.includes(".normalize('NFKD')"), 'roster filters include the pending DC site and normalize searches');
+ok(employeesApp.includes("...employeesData.flatMap(sitesOf), 'DC'") && employeesApp.includes(".normalize('NFKD')"), 'roster filters include DC and normalize searches');
 const mongo = fs.readFileSync(path.join(root, 'api/_lib/mongo.js'), 'utf8');
 ok(mongo.includes('forum_threads_search') && mongo.includes('forum_replies_search'), 'forum text-search indexes exist');
 const forumThreadsApi = fs.readFileSync(path.join(root, 'api/forum/threads.js'), 'utf8');
@@ -433,11 +433,16 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     ok(app.includes('compareRole') && app.includes('role-group-heading') && fs.readFileSync(path.join(root, 'employees.html'), 'utf8').includes('id="roster-sort"'), 'roster can be grouped by role inside each site');
     ok(app.includes('compareStaff') && app.includes('localeCompare'), 'roster sections sort A-Z by first name, with management in rank order');
     {
-        const names = [...dataJs.matchAll(/\{ name: "([^"]+)", location: "(?!Management|Supervisors)/g)].map((m) => m[1].toLowerCase());
+        const names = [...dataJs.matchAll(/\{ name: "((?:\\.|[^"])*)", location: "(?!Management|Supervisors)/g)]
+            .map((m) => m[1].toLowerCase().replace(/[^a-z0-9]/g, ''));
         ok(names.every((n, k) => k === 0 || names[k - 1] <= n), 'employeesData stays alphabetical by first name (Management last, in rank order)');
     }
     ok(app.includes("activeFacility === 'all' ? locations : [activeFacility]"), 'a facility filter shows only that facility\'s crew section');
-    ok(app.includes("activeFacility === 'DC' && !searchQuery") && app.includes('crew list is pending'), 'Detention Center roster view explains that names are pending');
+    ok(app.includes("activeFacility === 'DC' && !searchQuery") && app.includes('No roster entries are currently listed for this facility'), 'Detention Center roster view explains when no roster entry matches');
+    ok(app.includes('temporaryAt') && searchJs.includes('employee.temporaryAt'), 'temporary facility assignments appear in roster cards and sitewide search');
+    ['Joe Delcampo', 'Andrew Gniewek', 'Patrick \\"Pat\\" Martin', 'Robert \\"Rob\\" Martin', 'Paul \\"Paulson\\" Avarachan', 'Albert \\"Al\\" Andalis'].forEach((name) => {
+        ok(dataJs.includes(`name: "${name}"`) && dataJs.includes(`temporaryAt: ["DC"]`), `DC roster includes the supplied temporary assignment: ${name}`);
+    });
 }
 
 // Site-wide light/dark appearance: early init script on every page, generated dark.css, menu toggle.

@@ -23,11 +23,15 @@
 
 [AMENDED 2026-11-19]: Added Bryant Barr as Local 835 Union President to the leadership directory and employee roster. Added a contract/employment notice that a small crew covered by an 835–USF agreement is working at the Philadelphia Detention Center; the agreement and crew list remain pending submission and review.
 [AMENDED 2026-11-19]: Home page now links directly to Bryant Barr under union leadership and lists the Philadelphia Detention Center as a site. The roster has a DC filter and a pending crew-list message until the agreement and names are provided.
+[AMENDED 2026-11-19]: Added temporary DC assignments for Joe Delcampo, Patrick "Pat" Martin, Robert "Rob" Martin, Paul "Paulson" Avarachan, Andrew Gniewek, and Albert "Al" Andalis, preserving their primary facilities. The roster marks temporary assignments, and the worksite notice distinguishes the supplied names from a complete verified crew list. The 835–USF agreement remains pending review.
+[AMENDED 2026-11-19]: The earlier DC roster note's pending-names language is superseded: six names are now listed as temporary assignments. Confirmation that these are the complete covered crew and review of the 835–USF agreement remain pending.
 [AMENDED 2026-11-19]: Expanded admin AI retrieval to include published roster names, roles/trades, facilities, and steward directory entries so admins can ask about them. Injury/termination notes, private contacts, accounts/profiles, forum posts and Project Updates body text remain excluded. Owner approved other free models with the existing per-model privacy warning and confirmation.
 
 [AMENDED 2026-11-19]: Moved Mongo, session, password, and login-rate helpers into `api/_lib/` to keep Vercel from counting helper modules toward its Hobby serverless-function deployment cap. Updated imports and maps.
 [AMENDED 2026-11-19]: Added a standing agent rule for Vercel Hobby's 12-function-per-deployment cap: keep shared helpers under `api/_lib/`, recount endpoints before API pushes, and verify successful deployment and Node 26 runtime.
 [AMENDED 2026-11-19]: Added click-to-show password controls to sign-in and account creation; controls toggle between Show and Hide and expose pressed state to assistive technology.
+
+[AMENDED 2026-11-19]: Improved admin AI OpenRouter limit visibility. The server reads only `free_model_daily_requests` from the current-key endpoint and reports sanitized counters; 429/402 errors distinguish documented OpenRouter account limits from upstream shared provider capacity and include safe retry/reset details when supplied. The key, raw provider body, and other key metadata are never returned. Provider requests remain single-shot without retries.
 
 [AMENDED 2026-11-19]: Pinned project Node.js engine to `26.x` in the package manifest and lockfile to keep Vercel deployments on Node 26.
 

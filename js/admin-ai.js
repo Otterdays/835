@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sending: false,
         loaded: false,
         history: [],
-        approvedNonZdr: null
+        approvedNonZdr: null,
+        freeModelDailyRequests: null
     };
 
     const status = (text, type = 'info') => P.status(statusNode, text, type);
@@ -48,9 +49,42 @@ document.addEventListener('DOMContentLoaded', () => {
         log.replaceChildren(empty);
     };
 
+    const updateFreeModelDailyRequests = (value) => {
+        if (value && ['limit', 'used', 'remaining'].every((key) => Number.isSafeInteger(value[key]) && value[key] >= 0)) {
+            state.freeModelDailyRequests = value;
+        }
+        renderQuota();
+    };
+
     const renderQuota = () => {
         quotaNode.hidden = false;
-        quotaNode.textContent = 'No question cap in the portal. OpenRouter free-model and provider limits still apply.';
+        const daily = state.freeModelDailyRequests;
+        quotaNode.textContent = daily
+            ? `OpenRouter free-model daily usage for this key: ${daily.used} used · ${daily.remaining} remaining of ${daily.limit}. Per-minute and provider limits may also apply.`
+            : 'OpenRouter free-model limits apply. The current key’s daily request counter is unavailable.';
+    };
+
+    const rateLimitMessage = (error) => {
+        const rate = error && error.rateLimit;
+        if (!rate || !rate.source) return error.message;
+        const reset = rate.resetAt ? new Date(rate.resetAt).toLocaleString() : null;
+        const retry = Number.isSafeInteger(rate.retryAfterSeconds) ? ` Try again in about ${rate.retryAfterSeconds} seconds.` : '';
+        switch (rate.source) {
+            case 'openrouter_free_tier_per_minute':
+                return `OpenRouter's shared free-model per-minute limit was reached${rate.remaining !== undefined ? ` (${rate.remaining} requests remaining)` : ''}.${reset ? ` Resets around ${reset}.` : ''}${retry}`;
+            case 'openrouter_free_tier_daily':
+                return `OpenRouter's free-model daily limit was reached.${reset ? ` Resets around ${reset}.` : ' It typically resets at midnight UTC.'}${retry}`;
+            case 'upstream_provider_shared_pool':
+                return `The selected model provider${rate.provider ? ` (${rate.provider})` : ''} has no shared capacity right now. This is a provider availability limit; try another free model later.${retry}`;
+            case 'openrouter_in_flight_budget':
+                return `OpenRouter's in-flight request budget is full.${retry || ' Wait for an active request to finish, then try again.'}`;
+            case 'openrouter_key_limit':
+                return `The OpenRouter API key reached its configured request limit. Check the key's limits in OpenRouter.${retry}`;
+            case 'openrouter_credits':
+                return `OpenRouter reports a key or account credit restriction. Check the key/account settings; the assistant will not switch to a paid model.${retry}`;
+            default:
+                return error.message;
+        }
     };
 
     const renderModelNote = () => {
@@ -195,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const fillModels = (data) => {
+        updateFreeModelDailyRequests(data.freeModelDailyRequests);
         state.models = new Map((data.catalog.models || []).map((model) => [model.id, model]));
         state.allowNonZdr = Boolean(data.allowNonZdr);
         state.configured = Boolean(data.configured);
@@ -243,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         status(force ? 'Refreshing free models…' : 'Loading free models…');
         try {
             const data = await P.api(`/api/admin?ai=1${force ? '&refresh=1' : ''}`);
+            updateFreeModelDailyRequests(data.freeModelDailyRequests);
             if (!data.catalog || !data.catalog.ok) {
                 state.ready = false;
                 modelSelect.replaceChildren(new Option('Free model catalog unavailable', ''));
@@ -334,6 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     acceptNonZdr: !model.strict
                 }
             });
+            updateFreeModelDailyRequests(data.freeModelDailyRequests);
             pending.remove();
             appendMessage('assistant', data.answer, data.sources, data.sourceLinks, data.articleLinks);
             state.history = [...outgoing, { role: 'assistant', content: data.answer }];
@@ -343,6 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderQuota();
         } catch (err) {
             console.error('AI question failed', err);
+            updateFreeModelDailyRequests(err.freeModelDailyRequests);
             pending.remove();
             bubble.remove();
             if (!log.children.length) {
@@ -350,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             input.value = question;
             updateCount();
-            status(err.message, 'error');
+            status(rateLimitMessage(err), 'error');
         } finally {
             state.sending = false;
             setBusy(false);

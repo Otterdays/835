@@ -260,8 +260,13 @@ function build() {
 
     const rosterRows = (data.employees || []).map((employee) => {
         const role = String(employee.role || '').split(' · ')[0].trim();
-        const sites = [employee.location, ...(employee.alsoAt || [])].filter(Boolean);
-        return `- ${publicEmployeeName(employee)} — ${role}${sites.length ? ` (${[...new Set(sites)].join(', ')})` : ''}`;
+        const regularSites = [employee.location, ...(employee.alsoAt || [])].filter(Boolean);
+        const temporarySites = [...new Set(employee.temporaryAt || [])].filter(Boolean);
+        const assignments = [
+            ...regularSites,
+            ...temporarySites.map((site) => `${site} temporary assignment`)
+        ];
+        return `- ${publicEmployeeName(employee)} — ${role}${assignments.length ? ` (${[...new Set(assignments)].join(', ')})` : ''}`;
     }).filter((line) => !/^[- ]+—/.test(line));
     if (rosterRows.length) {
         addDocument(chunks, {

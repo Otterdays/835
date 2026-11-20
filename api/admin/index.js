@@ -228,6 +228,30 @@ module.exports = async function handler(req, res) {
         res.setHeader('Allow', 'GET, POST');
         return forum.json(res, 405, { ok: false, error: 'Method not allowed' });
     } catch (err) {
+        if (err && (err.rateLimit || err.freeModelDailyRequests)) {
+            const details = {};
+            if (err.rateLimit && typeof err.rateLimit === 'object') {
+                const rate = err.rateLimit;
+                const safe = {};
+                if (typeof rate.source === 'string' && /^[a-z0-9_]{1,80}$/.test(rate.source)) safe.source = rate.source;
+                if (typeof rate.provider === 'string' && rate.provider.length <= 80) safe.provider = rate.provider;
+                for (const key of ['limit', 'remaining', 'retryAfterSeconds']) {
+                    if (Number.isFinite(rate[key]) && rate[key] >= 0) safe[key] = Math.min(rate[key], 1000000000);
+                }
+                if (typeof rate.resetAt === 'string' && Number.isFinite(Date.parse(rate.resetAt))) safe.resetAt = new Date(rate.resetAt).toISOString();
+                if (Object.keys(safe).length) details.rateLimit = safe;
+            }
+            const daily = err.freeModelDailyRequests;
+            if (daily && ['limit', 'used', 'remaining'].every((key) => Number.isSafeInteger(daily[key]) && daily[key] >= 0)) {
+                details.freeModelDailyRequests = { limit: daily.limit, used: daily.used, remaining: daily.remaining };
+            }
+            return forum.json(res, err.status || 500, {
+                ok: false,
+                error: err.message || 'The admin tools are temporarily unavailable.',
+                code: err.code || null,
+                ...details
+            });
+        }
         return forum.handleError(res, err, 'admin', 'The admin tools are temporarily unavailable.');
     }
 };

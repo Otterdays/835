@@ -205,6 +205,10 @@ function mockFetch(response) {
         return {
             ok: response.ok,
             status: response.status,
+            headers: { get: (name) => {
+                const key = Object.keys(response.headers || {}).find((header) => header.toLowerCase() === name.toLowerCase());
+                return key ? response.headers[key] : null;
+            } },
             text: async () => response.body
         };
     };
@@ -221,6 +225,30 @@ async function providerTests() {
     mockFetch({ ok: false, status: 429, body: '{"error":"rate limited"}' });
     await rejectsWithAsync(() => ai.askOpenRouter({ apiKey: 'sk-test', model: strictModel, messages }), 'ai_rate_limit', 'provider: maps 429 to a visible quota error');
     ok(fetchCount === 1, 'provider: does not retry after 429');
+
+    mockFetch({
+        ok: false,
+        status: 429,
+        body: JSON.stringify({ error: { metadata: { limit_source: 'upstream_provider_shared_pool', provider_name: 'Test Provider' } } }),
+        headers: { 'Retry-After': '12' }
+    });
+    let rateError;
+    try {
+        await ai.askOpenRouter({ apiKey: 'sk-test', model: strictModel, messages });
+    } catch (err) {
+        rateError = err;
+    }
+    ok(rateError && rateError.rateLimit.source === 'upstream_provider_shared_pool' && rateError.rateLimit.provider === 'Test Provider', 'provider: identifies upstream shared capacity separately');
+    ok(rateError && rateError.rateLimit.retryAfterSeconds === 12, 'provider: parses Retry-After seconds');
+
+    const originalForKey = global.fetch;
+    global.fetch = async (url) => url === ai.KEY_URL
+        ? { ok: true, status: 200, json: async () => ({ data: { free_model_daily_requests: { limit: 50, used: 4, remaining: 46 }, hash: 'private-hash' } }) }
+        : { ok: false, status: 500 };
+    const keyUsage = await ai.getFreeModelDailyRequests('sk-test');
+    ok(keyUsage.used === 4 && keyUsage.remaining === 46 && !JSON.stringify(keyUsage).includes('private-hash'), 'key usage: returns only the validated daily free-request counter');
+    ok(ai.freeModelDailyRequestsOut({ limit: 50, used: 4, remaining: 51 }) === null, 'key usage: rejects inconsistent counter values');
+    global.fetch = originalForKey;
 
     mockFetch({ ok: false, status: 404, body: '{"error":"No endpoints found"}' });
     await rejectsWithAsync(() => ai.askOpenRouter({ apiKey: 'sk-test', model: otherModel, messages }), 'ai_model_unavailable', 'provider: maps missing routes to a clear unavailable message');
@@ -298,6 +326,7 @@ async function askIntegrationTests() {
     const catalogModels = [{ ...baseModel, id: 'integ/model:free', name: 'Integration Model (free)' }];
     const catalogZdr = [{ ...baseZdr, model_id: 'integ/model:free', tag: 'integ-provider', safety_retention: false }];
     let providerBody = null;
+    const dailyCounter = { limit: 50, used: 3, remaining: 47 };
     catalogLib.resetCache();
     global.fetch = async (url, options) => {
         if (url === catalogLib.MODELS_URL) {
@@ -305,6 +334,9 @@ async function askIntegrationTests() {
         }
         if (url === catalogLib.ZDR_URL) {
             return { ok: true, status: 200, json: async () => ({ data: catalogZdr }) };
+        }
+        if (url === ai.KEY_URL) {
+            return { ok: true, status: 200, json: async () => ({ data: { free_model_daily_requests: dailyCounter, hash: 'must-not-leak', label: 'private' } }) };
         }
         providerBody = JSON.parse(options.body);
         return { ok: true, status: 200, text: async () => JSON.stringify({ model: 'integ/model:free', choices: [{ message: { content: 'Time bank rules apply.' } }] }) };
@@ -319,6 +351,7 @@ async function askIntegrationTests() {
         const statusOut = JSON.parse(statusRes.body);
         ok(statusOut.ok && statusOut.catalog.ok, 'ask: status endpoint returns the catalog');
         ok(statusOut.catalog.models[0].id === 'integ/model:free' && statusOut.catalog.models[0].strict, 'ask: status catalog surfaces the strict free model');
+        ok(statusOut.freeModelDailyRequests.remaining === 47 && !JSON.stringify(statusOut).includes('must-not-leak'), 'ask: status exposes only the current key daily request counter');
         ok(!('limits' in statusOut), 'ask: status does not report portal-level question caps');
 
         // ask()
@@ -326,6 +359,7 @@ async function askIntegrationTests() {
         await adminAi.ask(admin, { model: 'integ/model:free', messages: [{ role: 'user', content: 'How do I get sick time?' }] }, askRes);
         const askOut = JSON.parse(askRes.body);
         ok(askOut.ok && askOut.answer === 'Time bank rules apply.', 'ask: returns the provider answer as text');
+        ok(askOut.freeModelDailyRequests.remaining === 47, 'ask: refreshes OpenRouter daily counter after success');
         ok(providerBody && providerBody.provider.max_price.prompt === '0' && providerBody.provider.max_price.completion === '0', 'ask: outbound request enforces $0 price');
         ok(providerBody.provider.data_collection === 'deny', 'ask: outbound request denies data collection');
         ok(providerBody.provider.zdr === true && providerBody.provider.only[0] === 'integ-provider', 'ask: strict model routed through verified ZDR provider only');

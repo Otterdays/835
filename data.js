@@ -737,12 +737,12 @@ Tool Identification - 8
     ]
 };
 
-// Optional `alsoAt: ["SITE"]` lists extra facilities for someone who works at more than one site;
-// `location` stays their main site. The person is one entry and is counted once.
+// Optional `alsoAt: ["SITE"]` lists additional regular facilities. `temporaryAt: ["SITE"]` marks
+// temporary assignments. `location` stays their primary site; each person remains one entry.
 const employeesData = [
     { name: "Adrian Molina", location: "PICC", role: "Welder" },
-    { name: "Al Andalis", location: "CFCF", role: "Laborer" },
-    { name: "Andrew Gniewek", location: "PICC", role: "Painter" },
+    { name: "Albert \"Al\" Andalis", location: "CFCF", temporaryAt: ["DC"], role: "Laborer" },
+    { name: "Andrew Gniewek", location: "PICC", temporaryAt: ["DC"], role: "Painter" },
     { name: "Andrew Patchak", location: "PICC", role: "Locksmith" },
     { name: "Anthony Lange", location: "PICC", role: "Trades Helper" },
     { name: "Baris Kaya", location: "RCF", role: "Painter" },
@@ -770,7 +770,7 @@ const employeesData = [
     { name: "Jason Kinser", location: "CFCF", role: "Locksmith" },
     { name: "Jerome Hudson", location: "RCF", role: "Helper · Injured" },
     { name: "Jim Turner", location: "RCF", role: "Engineer" },
-    { name: "Joe Delcampo", location: "PICC", role: "Plumber" },
+    { name: "Joe Delcampo", location: "PICC", temporaryAt: ["DC"], role: "Plumber" },
     { name: "Justin Lowe", location: "RCF", role: "Painter" },
     { name: "Keith Doyle", location: "CFCF", role: "Painter" },
     { name: "Kent Koung", location: "Security", role: "Electronic Security" },
@@ -791,11 +791,11 @@ const employeesData = [
     { name: "Orlando Rivera", location: "PICC", role: "Building Engineer · Assistant Shop Steward" },
     { name: "Pat Murphy", location: "Warehouse", role: "Warehouse Crew · Part Time" },
     { name: "Patrick Dugan", location: "RCF", role: "Plumber" },
-    { name: "Patrick Martin", location: "PICC", role: "Painter" },
-    { name: "Paul Avarachan", location: "CFCF", role: "Electrician" },
+    { name: "Patrick \"Pat\" Martin", location: "PICC", temporaryAt: ["DC"], role: "Painter" },
+    { name: "Paul \"Paulson\" Avarachan", location: "CFCF", temporaryAt: ["DC"], role: "Electrician" },
     { name: "Ren", location: "RCF", role: "Engineer" },
     { name: "Robert Korchak", location: "CFCF", role: "Trades Helper" },
-    { name: "Robert Martin", location: "PICC", role: "Electrician" },
+    { name: "Robert \"Rob\" Martin", location: "PICC", temporaryAt: ["DC"], role: "Electrician" },
     { name: "Ron DeMarco", location: "RCF", role: "Trades Helper" },
     { name: "Ryan Lorenz", location: "RCF", role: "Plumber · Assistant Shop Steward" },
     { name: "Sabu Gokul", location: "RCF", role: "Building Engineer" },

@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         statEmployees.textContent = employeesData.length;
     }
 
-    // Main site first, then any extra sites (`alsoAt`) for people who work at more than one facility.
-    const sitesOf = (employee) => [employee.location, ...(employee.alsoAt || [])].filter(Boolean);
+    // Main site first, then regular (`alsoAt`) and temporary (`temporaryAt`) assignments.
+    const sitesOf = (employee) => [...new Set([employee.location, ...(employee.alsoAt || []), ...(employee.temporaryAt || [])])].filter(Boolean);
 
     // Sort rule: A-Z by first name (names are stored "First Last"), then by full name. Management is the
     // exception and keeps its rank order, which is the leading number in the role ("1 · Project Manager").
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 heading.textContent = 'Philadelphia Detention Center (DC)';
                 const note = document.createElement('p');
                 note.className = 'roster-empty';
-                note.textContent = 'The crew list is pending. Names and roster details will be added after the agreement and crew list are provided and reviewed.';
+                note.textContent = 'No roster entries are currently listed for this facility. Supplied temporary assignments appear here when available; the agreement remains pending review.';
                 const link = document.createElement('a');
                 link.href = 'contract-updates.html';
                 link.textContent = 'Read the current worksite notice';
@@ -371,10 +371,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.appendChild(name);
                 card.appendChild(role);
                 const otherSites = sitesOf(employee).filter((site) => site !== loc);
-                if (otherSites.length) {
+                const temporarySites = employee.temporaryAt || [];
+                if (temporarySites.includes(loc)) {
                     const also = document.createElement('div');
                     also.className = 'employee-also';
-                    also.textContent = `Also works at ${otherSites.join(' and ')}`;
+                    also.textContent = `Temporary assignment · Primary site: ${employee.location}`;
+                    card.appendChild(also);
+                } else if (otherSites.length) {
+                    const regularSites = otherSites.filter((site) => !temporarySites.includes(site));
+                    const temporaryOtherSites = otherSites.filter((site) => temporarySites.includes(site));
+                    const also = document.createElement('div');
+                    also.className = 'employee-also';
+                    also.textContent = [
+                        regularSites.length ? `Also works at ${regularSites.join(' and ')}` : '',
+                        temporaryOtherSites.length ? `Temporary assignment at ${temporaryOtherSites.join(' and ')}` : ''
+                    ].filter(Boolean).join(' · ');
                     card.appendChild(also);
                 }
                 return card;

@@ -36,3 +36,5 @@
 
 
 [AMENDED 2026-11-18]: Account and profile screens use a mobile-first reading size, 48px minimum tap targets, clear field groups, a sticky profile-save action that respects safe-area insets, and single-column filters/cards on narrow screens. Preserve simple labels and visible keyboard focus; keep secondary account tasks such as password change collapsed until requested.
+
+[AMENDED 2026-11-19]: For roster entries, keep the primary facility in `location`; use `alsoAt` for a regular secondary site and `temporaryAt` for a temporary assignment. Render temporary status in the employee card and include all assignments in roster filtering and site search. Put familiar nicknames in double quotes within the full displayed name (for example, `Patrick "Pat" Martin`).
