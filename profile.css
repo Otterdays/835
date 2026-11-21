@@ -253,6 +253,13 @@
 .adm-ai-note{margin:0;min-height:1.2em}
 .adm-ai-log{display:grid;gap:.7rem;align-content:start;max-height:26rem;min-height:5rem;overflow-y:auto;padding:.85rem;border:1px solid var(--pf-line);border-radius:12px;background:#f7f9fc}
 .adm-ai-empty{margin:0}
+.adm-empty-section{margin:0 0 1.25rem}
+.adm-empty-section>summary{display:flex;align-items:center;gap:.55rem;min-height:52px;cursor:pointer;list-style:none}
+.adm-empty-section>summary::-webkit-details-marker{display:none}
+.adm-empty-section>summary::before{content:'▸';font-size:.9rem;color:var(--accent-strong)}
+.adm-empty-section[open]>summary::before{content:'▾'}
+.adm-empty-section-body{white-space:normal}
+.adm-empty-section-placeholder{margin:0;padding:.85rem 1rem;border:1px dashed var(--border-color);border-radius:10px;background:var(--bg-muted);color:var(--text-secondary)}
 .adm-ai-msg{display:grid;gap:.28rem;padding:.65rem .75rem;border:1px solid var(--pf-line);border-radius:10px;background:#fff}
 .adm-ai-msg--user{background:#eef3fa;border-color:#cfdbea}
 .adm-ai-who{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#1b3d66}

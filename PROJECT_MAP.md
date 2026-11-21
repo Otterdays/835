@@ -59,6 +59,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
 | where the admin panel lives and how it is locked | `admin.html`, `js/admin-app.js`, `api/admin/index.js`, `middleware.js` (see `DOCS/ACCOUNTS.md`) |
+| where admin-only documents and future content sections are reserved | `admin.html` → `#adm-documents` and `#adm-future-section` (page is gated by `middleware.js`) |
 | where the admin-only AI assistant (free OpenRouter models only) is built | `admin.html`, `js/admin-ai.js`, `api/admin/index.js` (`?ai=1`, `action:"ask"`), `api/_lib/ai-catalog.js`, `api/_lib/ai-context.js`, `api/_lib/ai.js`, `api/_lib/admin-ai.js`; curated public roster/steward context, sensitive status/account data excluded, current-key daily usage and structured rate feedback; see `DOCS/LLM_INTEGRATION.md` |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
@@ -82,7 +83,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `package-lock.json` | Locked npm dependency tree |
 | `vercel.json` | Vercel API rewrite configuration |
 | `middleware.js` | Vercel middleware; blocks the source folder and serves `/admin*` and `/api/admin` only to a verified admin session |
-| `admin.html` | Admin panel page (admins only; gated by `middleware.js`); includes the lazy-loaded AI assistant section |
+| `admin.html` | Admin panel page (admins only; gated by `middleware.js`); includes the AI assistant, admin document placeholder, and future-content section |
 | `launch.bat` | Windows static server launcher |
 | `live-setup.md` | MongoDB, Vercel, environment, and deploy setup steps |
 | `local.auth.example.json` | Example local user configuration; values are placeholders |
