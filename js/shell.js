@@ -1,3 +1,10 @@
+let pendingInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    pendingInstallPrompt = event;
+    window.dispatchEvent(new Event('oe835installavailable'));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuBtn = document.getElementById('menu-btn');
     const sidePanel = document.getElementById('side-panel');
@@ -217,6 +224,160 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(link);
     };
 
+    const renderInstallPrompt = () => {
+        const installed = window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone === true;
+        if (installed) {
+            return;
+        }
+
+        const iosDevice = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const manualInstall = iosDevice || /Android/i.test(navigator.userAgent);
+        let deferredInstall = pendingInstallPrompt;
+        let showTimer = 0;
+
+        const readSnooze = () => {
+            try {
+                return Number(localStorage.getItem('oe835_install_snooze_until')) || 0;
+            } catch (err) {
+                console.warn('Install prompt preference could not be read', err);
+                return 0;
+            }
+        };
+        const snooze = (days = 30) => {
+            try {
+                localStorage.setItem('oe835_install_snooze_until', String(Date.now() + days * 86400000));
+            } catch (err) {
+                console.warn('Install prompt preference could not be saved', err);
+            }
+        };
+        if (readSnooze() > Date.now()) {
+            return;
+        }
+
+        const card = document.createElement('aside');
+        card.className = 'pwa-install-card';
+        card.hidden = true;
+        card.setAttribute('aria-label', 'Install Local 835');
+        card.setAttribute('aria-live', 'polite');
+
+        const heading = document.createElement('h2');
+        heading.textContent = 'Add Local 835 to your home screen';
+        const message = document.createElement('p');
+        message.textContent = 'Open the member portal from an app icon for quicker access.';
+
+        const actions = document.createElement('div');
+        actions.className = 'pwa-install-actions';
+        const installButton = document.createElement('button');
+        installButton.type = 'button';
+        installButton.className = 'pwa-install-primary';
+        installButton.textContent = manualInstall && !deferredInstall ? 'How to add' : 'Install app';
+        const dismissButton = document.createElement('button');
+        dismissButton.type = 'button';
+        dismissButton.className = 'pwa-install-dismiss';
+        dismissButton.textContent = 'Not now';
+        actions.append(installButton, dismissButton);
+
+        let instructions = null;
+        if (manualInstall) {
+            instructions = document.createElement('ol');
+            instructions.className = 'pwa-install-steps';
+            instructions.hidden = true;
+            const steps = iosDevice
+                ? ['Open this page in Safari.', 'Tap Share, then choose Add to Home Screen.', 'Tap Add to finish.']
+                : ['Open your browser menu.', 'Choose Install app or Add to Home screen.', 'Confirm the install.'];
+            steps.forEach((step) => {
+                const item = document.createElement('li');
+                item.textContent = step;
+                instructions.appendChild(item);
+            });
+        }
+
+        card.append(heading, message, actions);
+        if (instructions) {
+            card.appendChild(instructions);
+        }
+        document.body.appendChild(card);
+
+        const hide = () => {
+            window.clearTimeout(showTimer);
+            card.hidden = true;
+        };
+        const show = () => {
+            if (readSnooze() > Date.now()) {
+                return;
+            }
+            if (!card.hidden) {
+                return;
+            }
+            card.hidden = false;
+        };
+        const scheduleShow = (delay = 4000) => {
+            window.clearTimeout(showTimer);
+            showTimer = window.setTimeout(show, delay);
+        };
+
+        dismissButton.addEventListener('click', () => {
+            snooze();
+            hide();
+        });
+
+        if (manualInstall) {
+            installButton.setAttribute('aria-expanded', 'false');
+            if (!deferredInstall) {
+                scheduleShow(7000); // Android browsers without a native prompt still get menu steps.
+            }
+        }
+
+        installButton.addEventListener('click', async () => {
+            if (!deferredInstall) {
+                if (instructions) {
+                    instructions.hidden = !instructions.hidden;
+                    installButton.setAttribute('aria-expanded', String(!instructions.hidden));
+                    installButton.textContent = instructions.hidden ? 'How to add' : 'Hide steps';
+                }
+                return;
+            }
+            const promptEvent = deferredInstall;
+            deferredInstall = null;
+            installButton.disabled = true;
+            try {
+                const result = await promptEvent.prompt();
+                hide();
+                if (result?.outcome === 'dismissed') {
+                    snooze(14);
+                }
+            } catch (err) {
+                console.warn('Browser install prompt could not be opened', err);
+                message.textContent = 'Use your browser menu to install or add this site to your home screen.';
+                installButton.hidden = true;
+            }
+        });
+
+        if (!iosDevice) {
+            const onInstallAvailable = () => {
+                deferredInstall = pendingInstallPrompt;
+                installButton.disabled = false;
+                installButton.hidden = false;
+                installButton.textContent = 'Install app';
+                if (instructions) {
+                    instructions.hidden = true;
+                    installButton.setAttribute('aria-expanded', 'false');
+                }
+                scheduleShow();
+            };
+            window.addEventListener('oe835installavailable', onInstallAvailable);
+            if (deferredInstall) {
+                scheduleShow();
+            }
+            window.addEventListener('appinstalled', () => {
+                deferredInstall = null;
+                pendingInstallPrompt = null;
+                hide();
+            });
+        }
+    };
+
     const renderBreadcrumb = () => {
         const crumb = document.querySelector('.breadcrumb[data-page-title]');
         if (!crumb || currentPageId() === 'home') {
@@ -249,6 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderNav();
     renderAppearance();
     renderForumBubble();
+    renderInstallPrompt();
     window.Auth?.whenReady?.().then(renderAccount).catch((err) => console.error('Account menu failed', err));
     renderBreadcrumb();
 

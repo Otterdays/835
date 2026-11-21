@@ -205,3 +205,4 @@
 
 [AMENDED 2026-11-19]: Site Roster: added Mark (Project Management Assistant, CFCF).
 [AMENDED 2026-11-20]: Corrected the temporary worksite label and filter to DOC (Department of Corrections) and transcribed the supplied DOC Hospital temporary-project side letter into the searchable scan archive. The agreement states staffing counts and terms; it does not identify which named roster members fill each role.
+[AMENDED 2026-11-20]: Added an installable Local 835 web app and shared home-screen prompt; supporting browsers receive a native install action, while iPhone/iPad and Android users receive platform-specific steps.

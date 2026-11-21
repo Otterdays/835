@@ -1,0 +1,25 @@
+{
+  "id": "/home.html",
+  "name": "Operating Engineers Local 835",
+  "short_name": "Local 835",
+  "description": "Operating Engineers Local 835 State Road member portal",
+  "start_url": "/home.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1522",
+  "theme_color": "#0b3558",
+  "icons": [
+    {
+      "src": "/images/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `DOCS/` | Project overview, workflow, architecture, and audits | `DOCS/_MAP.md` |
 | `api/` | Vercel auth, profile, and community-forum endpoints | `api/_MAP.md` |
 | `js/` | Browser auth, profiles, shared shell/search, and page behavior | `js/_MAP.md` |
-| `images/` | 30 CBA page scans, 3 tentative-agreement scans, the DOC Hospital side-letter scan, and tool-policy scans/icons; individual images omitted | — |
+| `images/` | 30 CBA page scans, 3 tentative-agreement scans, DOC Hospital side-letter scan, app icons, and tool-policy scans/icons; individual images omitted | — |
 | `scripts/` | User seeding and deployment checks; see Files below | — |
 | `source/` | Offline Word/Markdown working drafts, excluded from deploy | — |
 | `tests/` | Smoke checks; see Files below | — |
@@ -32,6 +32,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | how to add a new member page | Add a root HTML page, then connect shared nav in `js/nav-config.js` and search in `js/site-search.js` as needed |
 | where shared navigation groups and page IDs live | `js/nav-config.js` → `SITE_NAV`, `SITE_PAGE_IDS` |
 | where the slide-out menu and breadcrumbs render | `js/shell.js` |
+| how home-screen app installation is configured and prompted | `manifest.webmanifest`, page manifest links, install icon assets in `images/`, and `js/shell.js` |
 | where light/dark appearance is set and styled | `js/theme.js`, dark tokens at the end of `style.css`/`forum.css`/`profile.css`, generated `dark.css` (`npm run build:dark`) |
 | how to add a new navigation destination | `js/nav-config.js` → `SITE_NAV`, `SITE_PAGE_IDS` |
 | how sitewide search builds and routes results | `js/site-search.js` |
@@ -77,6 +78,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `CLAUDE.md` | Imports `AGENTS.md` for Claude Code |
 | `README.md` | Project description, features, and local run instructions |
 | `package.json` | Dependencies and `npm` scripts |
+| `manifest.webmanifest` | Installable Local 835 web app name, icons, launch page and standalone display mode |
 | `package-lock.json` | Locked npm dependency tree |
 | `vercel.json` | Vercel API rewrite configuration |
 | `middleware.js` | Vercel middleware; blocks the source folder and serves `/admin*` and `/api/admin` only to a verified admin session |
