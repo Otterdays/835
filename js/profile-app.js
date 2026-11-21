@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if(profile.isSelf){const edit=P.el('a','pf-btn','Edit profile');edit.href='profile-edit.html';mast.append(edit);} page.append(mast);
         const columns=P.el('div','pf-profile-columns'); const main=P.el('div','pf-profile-main'), rail=P.el('aside','pf-profile-rail');
         const box=(title,text)=>{const b=P.el('section','pf-box');b.append(P.el('h2','pf-box-title',title),P.el('div','pf-box-body',text||'Nothing here yet.'));return b;};
-        main.append(box('About me',profile.aboutMe),box('Interests',profile.interests),box("Who I'd like to meet",profile.wantToMeet));
+        main.append(box('About me',profile.aboutMe),box('Interests',profile.interests));
         const details=P.el('section','pf-box');details.append(P.el('h2','pf-box-title','Member details'));const dl=document.createElement('dl');[['Job title',profile.jobTitle?`${profile.jobTitle} (self-reported)`:'' ],['Facility',profile.facility],['Member since',P.formatDate(profile.memberSince)],['Profile views',String(profile.views||0)]].forEach(([k,v])=>{if(!v)return;dl.append(P.el('dt','',k),P.el('dd','',v));});details.append(dl);rail.append(details);
         if((profile.links||[]).length){rail.append(P.linksBox(profile.links));}
         const top=P.el('section','pf-box');top.append(P.el('h2','pf-box-title','Top 8'));const topgrid=P.el('div','pf-top8');(profile.top8||[]).forEach(m=>topgrid.append(card(m)));if(!topgrid.children.length)topgrid.append(P.el('p','pf-muted','No Top 8 members added yet.'));top.append(topgrid);rail.append(top);columns.append(main,rail);page.append(columns);

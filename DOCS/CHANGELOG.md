@@ -213,3 +213,5 @@
 [AMENDED 2026-11-20]: **Install app:** menu and Home buttons, quicker prompt, 3-day snooze.
 
 [AMENDED 2026-11-20]: **Case Notebook:** rebranded and reworded the Evidence Log page; fixed duplicate `ev-status` id.
+
+[AMENDED 2026-11-20]: **Profiles:** removed `wantToMeet`; added 30 avatar glyphs.

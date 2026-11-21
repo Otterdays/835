@@ -107,7 +107,37 @@ const AVATAR_GLYPHS = {
     star: '⭐',
     anchor: '⚓',
     eagle: '🦅',
-    shield: '🛡️'
+    shield: '🛡️',
+    hammer: '🔨',
+    toolbox: '🧰',
+    nut: '🔩',
+    screwdriver: '🪛',
+    saw: '🪚',
+    ruler: '📐',
+    crane: '🏗️',
+    cone: '🚧',
+    vest: '🦺',
+    brick: '🧱',
+    ladder: '🪜',
+    paint: '🎨',
+    water: '🚰',
+    drop: '💧',
+    plug: '🔌',
+    flashlight: '🔦',
+    thermo: '🌡️',
+    lock: '🔒',
+    extinguisher: '🧯',
+    clipboard: '📋',
+    kitchen: '🍳',
+    box: '📦',
+    building: '🏢',
+    factory: '🏭',
+    handshake: '🤝',
+    megaphone: '📣',
+    scales: '⚖️',
+    flag: '🇺🇸',
+    medal: '🎖️',
+    trophy: '🏆'
 };
 
 const AVATAR_LABELS = {
@@ -126,7 +156,37 @@ const AVATAR_LABELS = {
     star: 'Star',
     anchor: 'Anchor',
     eagle: 'Eagle',
-    shield: 'Shield'
+    shield: 'Shield',
+    hammer: 'Hammer',
+    toolbox: 'Toolbox',
+    nut: 'Nut and bolt',
+    screwdriver: 'Screwdriver',
+    saw: 'Saw',
+    ruler: 'Ruler',
+    crane: 'Crane',
+    cone: 'Construction',
+    vest: 'Safety vest',
+    brick: 'Brick',
+    ladder: 'Ladder',
+    paint: 'Painter',
+    water: 'Water',
+    drop: 'Droplet',
+    plug: 'Plug',
+    flashlight: 'Flashlight',
+    thermo: 'Heating and cooling',
+    lock: 'Lock',
+    extinguisher: 'Extinguisher',
+    clipboard: 'Clipboard',
+    kitchen: 'Kitchen',
+    box: 'Warehouse',
+    building: 'Building',
+    factory: 'Plant',
+    handshake: 'Handshake',
+    megaphone: 'Megaphone',
+    scales: 'Scales',
+    flag: 'Flag',
+    medal: 'Medal',
+    trophy: 'Trophy'
 };
 
 const AVATAR_COLORS = {
@@ -150,7 +210,6 @@ const LIMITS = {
     jobTitle: { min: 0, max: 40 },
     aboutMe: { min: 0, max: 1500 },
     interests: { min: 0, max: 800 },
-    wantToMeet: { min: 0, max: 800 },
     comment: { min: 1, max: 500 },
     links: 5,
     linkLabel: { min: 1, max: 40 },
@@ -246,7 +305,6 @@ function defaultProfile(handle, displayName) {
         mood: '',
         aboutMe: '',
         interests: '',
-        wantToMeet: '',
         theme: 'classic',
         pattern: 'none',
         avatar: { glyph: 'hardhat', color: 'blue' },
@@ -341,7 +399,7 @@ function cleanProfileUpdate(body, { allowReservedName = false } = {}) {
     if (has('displayName')) {
         out.displayName = validateDisplayName(body.displayName, { allowReserved: allowReservedName });
     }
-    ['headline', 'aboutMe', 'interests', 'wantToMeet'].forEach((key) => {
+    ['headline', 'aboutMe', 'interests'].forEach((key) => {
         if (has(key)) {
             out[key] = forum.cleanText(body[key], LIMITS[key], key);
             if (key === 'headline') {

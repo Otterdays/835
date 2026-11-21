@@ -99,7 +99,6 @@ function fullProfileOut(profile, { top8 = [], isSelf = false, isAdmin = false } 
         mood: profile.mood || '',
         aboutMe: profile.aboutMe || '',
         interests: profile.interests || '',
-        wantToMeet: profile.wantToMeet || '',
         theme: profile.theme || 'classic',
         pattern: profile.pattern || 'none',
         visibility: profile.visibility || 'members',

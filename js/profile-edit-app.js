@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     backLink.href = profileUrl;
 
     const limits = options.limits;
-    const hasLimit = { displayName: limits.displayName.max, headline: limits.headline.max, aboutMe: limits.aboutMe.max, interests: limits.interests.max, wantToMeet: limits.wantToMeet.max };
+    const hasLimit = { displayName: limits.displayName.max, headline: limits.headline.max, aboutMe: limits.aboutMe.max, interests: limits.interests.max };
     let dirty = false;
 
     /* ---------- field builders ---------- */
@@ -124,11 +124,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         selectField('Facility', 'facility', [{ id: '', label: 'Not listed / prefer not to say' }, ...options.facilities.map((f) => ({ id: f, label: f }))], profile.facility)
     );
 
-    const about = group('About you', 'Share only what you are comfortable sharing with other signed-in members.');
+    const about = group('About you', 'Keep it professional. This is visible to other signed-in members.');
     about.append(
         textField('About me', 'aboutMe', profile.aboutMe, { area: true }),
-        textField('Interests', 'interests', profile.interests, { area: true }),
-        textField("Who I'd like to meet", 'wantToMeet', profile.wantToMeet, { area: true })
+        textField('Interests', 'interests', profile.interests, { area: true })
+
     );
 
     // Theme swatches grouped into light and dark. Colors come from profile.css (one source).
@@ -430,7 +430,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             mood: value('mood'),
             aboutMe: value('aboutMe'),
             interests: value('interests'),
-            wantToMeet: value('wantToMeet'),
             theme: value('theme'),
             pattern: value('pattern'),
             visibility: value('visibility'),
