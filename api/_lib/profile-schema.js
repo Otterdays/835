@@ -14,23 +14,22 @@ const FACILITIES = ['CFCF', 'RCF', 'PICC', 'Other'];
 // Steward titles are verified badges. tests/smoke.js fails if this drifts from the roster.
 const JOB_TITLES = [
     'Building Engineer',
+    'Carpenter/Locksmith',
     'Data Clerk',
     'Electrician',
     'Electronic Security',
-    'Engineer',
+    'Electronic/Locksmith',
     'Helper',
     'Kitchen Mechanic',
-    'Kitchen Mechanic Helper',
     'Kitchen Supervisor',
     'Laborer',
-    'Locksmith',
+    'Maintenance Mechanic',
+    'On-Call Trades Helper',
     'Painter',
     'Plumber',
-    'Project Management Assistant',
     'Stationary Engineer',
-    'Trades Helper',
-    'Warehouse Crew',
-    'Welder'
+    'Stores Clerk',
+    'Trades Helper'
 ];
 
 // Verified titles. Only an admin can award these (scripts/manage-user.js);

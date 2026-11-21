@@ -207,3 +207,5 @@
 [AMENDED 2026-11-20]: Corrected the temporary worksite label and filter to DOC (Department of Corrections) and transcribed the supplied DOC Hospital temporary-project side letter into the searchable scan archive. The agreement states staffing counts and terms; it does not identify which named roster members fill each role.
 [AMENDED 2026-11-20]: Added an installable Local 835 web app and shared home-screen prompt; supporting browsers receive a native install action, while iPhone/iPad and Android users receive platform-specific steps.
 [AMENDED 2026-11-20]: Added collapsible Admin Documents and Additional admin content placeholders to the admin-only panel.
+
+[AMENDED 2026-11-20]: **Roster / Admin Documents:** Roster refreshed from the 11/20/2026 report; profile job titles realigned to roster trades; report pages added under Admin Documents (`images/admin/`, admin-gated).

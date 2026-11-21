@@ -282,3 +282,9 @@
 /* Dark appearance for the account pages' own chrome. A member's chosen profile theme
    (.pf-profile / .pf-theme--*) sets these same variables on its own element and still wins. */
 :root[data-theme="dark"]{--pf-ink:#e9eff8;--pf-muted:#b5c3d5;--pf-line:#30435f}
+
+.adm-doc-heading{margin:1rem 0 .6rem;font-size:1rem}
+.adm-doc-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.75rem}
+.adm-doc-grid a{display:block;text-decoration:none;color:var(--text-secondary);text-align:center}
+.adm-doc-grid img{display:block;width:100%;height:auto;border:1px solid var(--border-color);border-radius:8px;background:#fff}
+.adm-doc-grid span{display:block;margin-top:.3rem;font-size:.85rem}

@@ -201,6 +201,7 @@
 :where(:root[data-theme="dark"]) .adm-ai-msg--assistant .adm-ai-who { color: #bbe4c9; }
 :where(:root[data-theme="dark"]) .adm-ai-link { color: #89b4e2; }
 :where(:root[data-theme="dark"]) .adm-ai-link:hover { color: #a7c6e9; }
+:where(:root[data-theme="dark"]) .adm-doc-grid img { background: #19232e; }
 @media (max-width: 767px) {
   :where(:root[data-theme="dark"]) .roster-index { background: rgba(25, 35, 46, 0.94); }
 }

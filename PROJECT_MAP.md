@@ -20,7 +20,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `DOCS/` | Project overview, workflow, architecture, and audits | `DOCS/_MAP.md` |
 | `api/` | Vercel auth, profile, and community-forum endpoints | `api/_MAP.md` |
 | `js/` | Browser auth, profiles, shared shell/search, and page behavior | `js/_MAP.md` |
-| `images/` | 30 CBA page scans, 3 tentative-agreement scans, DOC Hospital side-letter scan, app icons, and tool-policy scans/icons; individual images omitted | — |
+| `images/` | 30 CBA page scans, 3 tentative-agreement scans, DOC Hospital side-letter scan, `images/admin/` (admin-only roster report scans), app icons, and tool-policy scans/icons; individual images omitted | — |
 | `scripts/` | User seeding and deployment checks; see Files below | — |
 | `source/` | Offline Word/Markdown working drafts, excluded from deploy | — |
 | `tests/` | Smoke checks; see Files below | — |
@@ -59,7 +59,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | where login, logout, and session lookup routes live | `api/auth/` (see `api/auth/_MAP.md`) |
 | where Vercel request routing is configured | `vercel.json` and `middleware.js` |
 | where the admin panel lives and how it is locked | `admin.html`, `js/admin-app.js`, `api/admin/index.js`, `middleware.js` (see `DOCS/ACCOUNTS.md`) |
-| where admin-only documents and future content sections are reserved | `admin.html` → `#adm-documents` and `#adm-future-section` (page is gated by `middleware.js`) |
+| where admin-only documents and future content sections are reserved | `admin.html` → `#adm-documents` (roster report scans in `images/admin/`, served only to admins) and `#adm-future-section` (page is gated by `middleware.js`) |
 | where the admin-only AI assistant (free OpenRouter models only) is built | `admin.html`, `js/admin-ai.js`, `api/admin/index.js` (`?ai=1`, `action:"ask"`), `api/_lib/ai-catalog.js`, `api/_lib/ai-context.js`, `api/_lib/ai.js`, `api/_lib/admin-ai.js`; curated public roster/steward context, sensitive status/account data excluded, current-key daily usage and structured rate feedback; see `DOCS/LLM_INTEGRATION.md` |
 | where production setup and deploy safety are documented | `live-setup.md`, `.env.example`, `DOCS/debugs/` |
 | how to add a runtime environment setting | Document its name in `.env.example` and update the deploy/setup docs |
