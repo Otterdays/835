@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const entries = [];
     const form = document.getElementById('evidence-form');
     const listEl = document.getElementById('ev-list');
-    const statusEl = document.getElementById('ev-status');
+    const statusEl = document.getElementById('ev-message');
 
     const showStatus = (text, type = 'info') => {
         if (!statusEl) {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         if (!entries.length) {
-            listEl.innerHTML = '<p class="action-lead">No entries yet.</p>';
+            listEl.innerHTML = '<p class="action-lead">No notes yet. Add your first note above.</p>';
             return;
         }
         listEl.innerHTML = entries
@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 (e, i) => `<article class="evidence-card">
                 <p class="evidence-tag">${e.status}</p>
                 <h3>${escapeHtml(e.item)}</h3>
-                <p><strong>Source:</strong> ${escapeHtml(e.source || '—')}</p>
+                <p><strong>Where from:</strong> ${escapeHtml(e.source || '—')}</p>
                 <p><strong>Date:</strong> ${escapeHtml(e.date || '—')}</p>
-                <p><strong>Proves:</strong> ${escapeHtml(e.proves || '—')}</p>
-                <p><strong>Does not prove:</strong> ${escapeHtml(e.doesNotProve || '—')}</p>
-                <p><strong>Follow-up:</strong> ${escapeHtml(e.followUp || '—')}</p>
+                <p><strong>Shows:</strong> ${escapeHtml(e.proves || '—')}</p>
+                <p><strong>Does not show:</strong> ${escapeHtml(e.doesNotProve || '—')}</p>
+                <p><strong>Next step:</strong> ${escapeHtml(e.followUp || '—')}</p>
                 <button type="button" class="btn-secondary" data-remove="${i}">Remove</button>
             </article>`
             )
@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .replace(/\n/g, '<br>');
         const rows = entries.map(
             (e, i) =>
-                `| E-${String(i + 1).padStart(3, '0')} | ${cell(e.status)} | ${cell(e.item)} | ${cell(e.source)} | ${cell(e.date)} | ${cell(e.proves)} / NOT: ${cell(e.doesNotProve)} | ${cell(e.followUp)} |`
+                `| E-${String(i + 1).padStart(3, '0')} | ${cell(e.status)} | ${cell(e.item)} | ${cell(e.source)} | ${cell(e.date)} | ${cell(e.proves)} / DOES NOT SHOW: ${cell(e.doesNotProve)} | ${cell(e.followUp)} |`
         );
         return [
-            '# Evidence log export',
+            '# Case Notebook export',
             '',
-            '| ID | Status | Item | Source | Date | Proves / does not | Follow-up |',
+            '| ID | Solidity (V/R/A/Q/L) | What happened | Where from | Date | Shows / does not show | Next step |',
             '|---|---|---|---|---|---|---|',
             ...rows
         ].join('\n');
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         form.reset();
         render();
-        showStatus('Entry added (memory only).', 'success');
+        showStatus('Note added. Download before you close this page.', 'success');
     });
 
     listEl?.addEventListener('click', (event) => {
@@ -106,26 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('ev-export-md')?.addEventListener('click', () => {
         if (!entries.length) {
-            showStatus('Add an entry first.', 'error');
+            showStatus('Add a note first.', 'error');
             return;
         }
-        download('oe835-evidence-log.md', toMarkdown(), 'text/markdown');
-        showStatus('Markdown downloaded.', 'success');
+        download('oe835-case-notes.md', toMarkdown(), 'text/markdown');
+        showStatus('Notes downloaded.', 'success');
     });
 
     document.getElementById('ev-export-json')?.addEventListener('click', () => {
         if (!entries.length) {
-            showStatus('Add an entry first.', 'error');
+            showStatus('Add a note first.', 'error');
             return;
         }
-        download('oe835-evidence-log.json', JSON.stringify(entries, null, 2), 'application/json');
-        showStatus('JSON downloaded.', 'success');
+        download('oe835-case-notes.json', JSON.stringify(entries, null, 2), 'application/json');
+        showStatus('Data file downloaded.', 'success');
     });
 
     document.getElementById('ev-clear')?.addEventListener('click', () => {
         entries.length = 0;
         render();
-        showStatus('Cleared.', 'info');
+        showStatus('All notes cleared.', 'info');
     });
 
     render();

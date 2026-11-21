@@ -59,7 +59,7 @@ const PAGES = [
     { href: 'tool-program.html', title: 'Tool Program', summary: 'Facility Tool Control Program policy scans and text.' },
     { href: 'member-documents.html', title: 'Member Documents', summary: 'Summaries of member documents and forms; no source-file downloads.' },
     { href: 'member-action.html', title: 'Action Center', summary: 'Grievance preparation, issue-to-article lookup and steward preparation steps.' },
-    { href: 'evidence-log.html', title: 'Evidence Log', summary: 'In-browser evidence log with V/R/A/Q/L accountability labels; data stays in the page.' },
+    { href: 'evidence-log.html', title: 'Case Notebook', summary: 'In-browser notebook for writing down the facts of a workplace issue, labeled V/R/A/Q/L by how solid each fact is; notes stay on the screen until downloaded.' },
     { href: 'bargaining.html', title: 'Bargaining Tools', summary: 'Factual bargaining checklists and contract references.' },
     { href: 'suggestions.html', title: 'Suggestions', summary: 'Member suggestion form with a privacy notice.' },
     { href: 'forum.html', title: 'Forum', summary: 'Signed-in member discussion threads. User-generated forum content is not included in the assistant context.' },

@@ -101,7 +101,7 @@ This is a private, static HTML/CSS/JavaScript member portal for Operating Engine
 | `contract-updates.html` | Member-facing contract and employment notices |
 | `calendar.html` | Upcoming member meetings and events |
 | `member-action.html` | Grievance preparation and issue-to-article links |
-| `evidence-log.html` | In-memory evidence worksheet and export UI |
+| `evidence-log.html` | Case Notebook (formerly Evidence Log): in-memory notes worksheet and download UI |
 | `bargaining.html` | Factual bargaining checklists and meeting language |
 | `member-documents.html` | Member summaries and tool links |
 | `contract.html` | Agreement-first reader: guided 2026–27 terms, then searchable 2022–26 CBA and separate papers |

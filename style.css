@@ -4817,3 +4817,23 @@ video {
 @media print {
     .nav-install, [data-install-app] { display: none !important; }
 }
+
+/* Case Notebook how-to */
+.notebook-guide {
+    margin: 0 0 1rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    background: var(--surface-strong);
+    color: var(--text-primary);
+}
+.notebook-guide h2 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+.notebook-guide ol { margin: 0 0 0.75rem; padding-left: 1.3rem; display: grid; gap: 0.4rem; }
+.notebook-example > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 700; color: var(--accent-strong); }
+.notebook-example dl { margin: 0.25rem 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+.notebook-example dt { font-weight: 700; }
+.notebook-example dd { margin: 0; color: var(--text-secondary); }
+@media (max-width: 560px) {
+    .notebook-example dl { grid-template-columns: 1fr; gap: 0; }
+    .notebook-example dd { margin-bottom: 0.5rem; }
+}

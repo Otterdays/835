@@ -157,9 +157,9 @@
             },
             {
                 category: 'Member Tools',
-                title: 'Evidence Log',
-                body: 'evidence log V R A Q L record source date proves does not prove follow up export markdown JSON in memory',
-                meta: 'Organize evidence and export notes',
+                title: 'Case Notebook',
+                body: 'case notebook evidence log notes grievance prepare steward V R A Q L record source date proves does not prove follow up export markdown JSON in memory',
+                meta: 'Write down the facts of an issue and download your notes',
                 href: 'evidence-log.html'
             },
             {

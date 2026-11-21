@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Local 835">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Local 835 — Evidence log</title>
+    <title>Local 835 — Case Notebook</title>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="dark.css">
@@ -34,58 +34,79 @@
     <div id="panel-overlay" class="panel-overlay"></div>
 
     <div class="container" id="main-container">
-        <nav class="breadcrumb" aria-label="Breadcrumb" data-page-title="Evidence log"></nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb" data-page-title="Case Notebook"></nav>
         <header class="hero-header doc-hero">
             <div class="hero-heading">
                 <div class="eyebrow-row">
                     <span class="eyebrow">Local 835</span>
-                    <span class="status-chip">Export only</span>
+                    <span class="status-chip">Stays on your device</span>
                 </div>
-                <h1>Evidence log</h1>
-                <p class="subtitle">Tag sources as Verified / Reported / Allegation / Question / Legal. Entries stay in this browser tab until you export — nothing is uploaded.</p>
+                <h1>Case Notebook</h1>
+                <p class="subtitle">Write down the facts of a workplace issue, one note at a time, so you are ready for a grievance, a steward meeting, or a conversation with your Business Agent.</p>
             </div>
         </header>
 
-        <aside class="document-notice" aria-label="Guardrails">
-            <strong>Do not enter:</strong> inmate information, prison-security material, access codes, post orders, personal medical data, privileged legal advice, or secret recordings. Keep originals intact; export a working copy.
+        <section class="notebook-guide" aria-labelledby="nb-how">
+            <h2 id="nb-how">How it works</h2>
+            <ol>
+                <li><strong>Add a note</strong> for each thing that happened or each document you have: a schedule change, a written warning, a text from a supervisor.</li>
+                <li><strong>Pick how solid it is.</strong> Do you have proof, or did someone just tell you?</li>
+                <li><strong>Download your notes</strong> and bring them to your steward. Notes are kept only on this screen. Nothing is saved or sent to the union or anyone else, so download before you close the page.</li>
+            </ol>
+            <details class="notebook-example">
+                <summary>See an example note</summary>
+                <dl>
+                    <dt>How solid</dt><dd>V — Verified (I have the paper)</dd>
+                    <dt>What happened</dt><dd>Written warning for attendance, handed to me at the start of shift</dd>
+                    <dt>Where it came from</dt><dd>Shift supervisor; my copy is in my locker</dd>
+                    <dt>Date</dt><dd>Nov 12, 2026</dd>
+                    <dt>What this shows</dt><dd>I was disciplined on this date and what the warning says</dd>
+                    <dt>What this does not show</dt><dd>That the absence was unexcused; it was an approved STO day</dd>
+                    <dt>Next step</dt><dd>Ask the steward to request my time-bank record; check Articles IV and XI</dd>
+                </dl>
+            </details>
+        </section>
+
+        <aside class="document-notice" aria-label="What to leave out">
+            <strong>Leave out:</strong> inmate information, prison-security material, access codes, post orders, personal medical details, legal advice from a lawyer, or secret recordings. Keep your originals as they are and use these notes as a working copy.
         </aside>
 
         <section class="action-section">
             <form id="evidence-form" class="action-form">
-                <label class="form-label" for="ev-status">Source status</label>
+                <label class="form-label" for="ev-status">How solid is this?</label>
                 <select id="ev-status" class="form-control" required>
-                    <option value="V">V — Verified</option>
-                    <option value="R">R — Reported</option>
-                    <option value="A">A — Allegation</option>
-                    <option value="Q">Q — Question</option>
-                    <option value="L">L — Legal issue</option>
+                    <option value="V">V — Verified: I have the document or saw it myself</option>
+                    <option value="R">R — Reported: someone told me</option>
+                    <option value="A">A — Allegation: claimed, not backed up yet</option>
+                    <option value="Q">Q — Question: I need to find this out</option>
+                    <option value="L">L — Contract or legal issue: ask the union</option>
                 </select>
 
-                <label class="form-label" for="ev-item">Item</label>
-                <input type="text" id="ev-item" class="form-control" required>
+                <label class="form-label" for="ev-item">What happened, or what is the document?</label>
+                <input type="text" id="ev-item" class="form-control" required maxlength="200" placeholder="Example: Schedule changed with one day of notice">
 
-                <label class="form-label" for="ev-source">Source / custodian</label>
-                <input type="text" id="ev-source" class="form-control">
+                <label class="form-label" for="ev-source">Where it came from, or who has it</label>
+                <input type="text" id="ev-source" class="form-control" maxlength="200" placeholder="Example: Text from my shift supervisor; screenshot on my phone">
 
-                <label class="form-label" for="ev-date">Date</label>
+                <label class="form-label" for="ev-date">Date it happened or was received</label>
                 <input type="date" id="ev-date" class="form-control">
 
-                <label class="form-label" for="ev-proves">What it proves</label>
-                <textarea id="ev-proves" class="form-control form-control--textarea" rows="2"></textarea>
+                <label class="form-label" for="ev-proves">What this shows</label>
+                <textarea id="ev-proves" class="form-control form-control--textarea" rows="2" placeholder="Example: I was told about the change on Tuesday for a Wednesday shift"></textarea>
 
-                <label class="form-label" for="ev-not">What it does not prove</label>
-                <textarea id="ev-not" class="form-control form-control--textarea" rows="2"></textarea>
+                <label class="form-label" for="ev-not">What this does not show</label>
+                <textarea id="ev-not" class="form-control form-control--textarea" rows="2" placeholder="Example: Why the change was made, or whether others were told earlier"></textarea>
 
-                <label class="form-label" for="ev-follow">Follow-up</label>
-                <textarea id="ev-follow" class="form-control form-control--textarea" rows="2"></textarea>
+                <label class="form-label" for="ev-follow">Next step</label>
+                <textarea id="ev-follow" class="form-control form-control--textarea" rows="2" placeholder="Example: Ask my steward to request the posted schedule; find the related article"></textarea>
 
                 <div class="suggestion-actions">
-                    <button type="submit" class="btn-primary">Add entry</button>
-                    <button type="button" id="ev-export-md" class="btn-secondary">Export Markdown</button>
-                    <button type="button" id="ev-export-json" class="btn-secondary">Export JSON</button>
-                    <button type="button" id="ev-clear" class="btn-secondary">Clear list</button>
+                    <button type="submit" class="btn-primary">Add note</button>
+                    <button type="button" id="ev-export-md" class="btn-secondary">Download notes (.md)</button>
+                    <button type="button" id="ev-export-json" class="btn-secondary">Download data (.json)</button>
+                    <button type="button" id="ev-clear" class="btn-secondary">Clear all notes</button>
                 </div>
-                <p id="ev-status" class="suggestion-status" hidden aria-live="polite"></p>
+                <p id="ev-message" class="suggestion-status" hidden aria-live="polite"></p>
             </form>
 
             <div id="ev-list" class="evidence-list" aria-live="polite"></div>

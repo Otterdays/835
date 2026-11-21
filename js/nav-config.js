@@ -14,7 +14,7 @@ const SITE_NAV = [
         label: 'Member tools',
         items: [
             { href: 'member-action.html', label: 'Action Center', id: 'member-action' },
-            { href: 'evidence-log.html', label: 'Evidence log', id: 'evidence-log' },
+            { href: 'evidence-log.html', label: 'Case Notebook', id: 'evidence-log' },
             { href: 'bargaining.html', label: 'Bargaining tools', id: 'bargaining' }
         ]
     },
