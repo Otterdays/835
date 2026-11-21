@@ -158,13 +158,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         return set;
     };
 
-    const look = group('Profile look', 'Pick a theme, a background pattern, and your picture.');
+    const look = group('Profile look', 'Pick a theme, a background pattern, your picture, and a frame for it.');
     look.append(
         selectField('Mood', 'mood', [{ id: '', label: 'No mood' }, ...options.moods.map((m) => ({ id: m.id, label: `${m.emoji} ${m.label}` }))], profile.mood),
         themePicker(),
         selectField('Background pattern', 'pattern', options.patterns, profile.pattern),
         choiceGrid('Picture', 'avatarGlyph', options.avatarGlyphs, profile.avatar.glyph, (face, item) => { face.textContent = item.emoji; }),
-        choiceGrid('Picture color', 'avatarColor', options.avatarColors.map((c) => ({ ...c, label: c.id.charAt(0).toUpperCase() + c.id.slice(1) })), profile.avatar.color, (face, item) => { face.style.background = item.hex; })
+        choiceGrid('Picture color', 'avatarColor', options.avatarColors.map((c) => ({ ...c, label: c.id.charAt(0).toUpperCase() + c.id.slice(1) })), profile.avatar.color, (face, item) => { face.style.background = item.hex; }),
+        choiceGrid('Picture frame', 'avatarFrame', options.avatarFrames, profile.avatar.frame || 'none', (face, item) => { face.append(P.el('span', `pf-frame-sample pf-avatar--frame-${item.id}`)); })
     );
 
     /* ---------- Links ---------- */
@@ -367,7 +368,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const mood = options.moods.find((m) => m.id === value('mood'));
         const page = P.el('div', `pf-profile pf-theme--${value('theme')} pf-pattern--${value('pattern')}`);
         const mast = P.el('section', 'pf-box pf-masthead');
-        const avatar = { glyph: value('avatarGlyph'), color: value('avatarColor') };
+        const avatar = { glyph: value('avatarGlyph'), color: value('avatarColor'), frame: value('avatarFrame') };
         mast.append(P.avatarNode(avatar, 'md'));
         const info = P.el('div', 'pf-preview-info');
         const facility = value('facility');
@@ -433,7 +434,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             theme: value('theme'),
             pattern: value('pattern'),
             visibility: value('visibility'),
-            avatar: { glyph: value('avatarGlyph'), color: value('avatarColor') },
+            avatar: { glyph: value('avatarGlyph'), color: value('avatarColor'), frame: value('avatarFrame') },
             links: links.filter((l) => l.label.trim() || l.url.trim()),
             top8: top8.map((m) => m.handle)
         };

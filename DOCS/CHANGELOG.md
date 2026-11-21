@@ -215,3 +215,5 @@
 [AMENDED 2026-11-20]: **Case Notebook:** rebranded and reworded the Evidence Log page; fixed duplicate `ev-status` id.
 
 [AMENDED 2026-11-20]: **Profiles:** removed `wantToMeet`; added 30 avatar glyphs.
+
+[AMENDED 2026-11-20]: **Profiles:** 5 themes, 3 patterns, 8 moods, picture frames (`avatar.frame`).

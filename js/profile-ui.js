@@ -93,7 +93,8 @@ window.ProfileUI = (() => {
 
     /** Round "profile picture": a chosen glyph on a chosen color. */
     const avatarNode = (avatar, size = 'md') => {
-        const node = el('span', `pf-avatar pf-avatar--${size}`, glyphOf(avatar));
+        const frame = /^[a-z]+$/.test(avatar?.frame || '') ? avatar.frame : 'none';
+        const node = el('span', `pf-avatar pf-avatar--${size} pf-avatar--frame-${frame}`, glyphOf(avatar));
         node.style.background = colorOf(avatar);
         node.setAttribute('aria-hidden', 'true');
         return node;

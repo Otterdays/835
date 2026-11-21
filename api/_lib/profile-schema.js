@@ -57,7 +57,12 @@ const THEMES = {
     midnight: 'Midnight',
     graphite: 'Graphite',
     ember: 'Ember',
-    forest: 'Dark Forest'
+    forest: 'Dark Forest',
+    sky: 'Sky',
+    lavender: 'Lavender',
+    sunrise: 'Sunrise',
+    plum: 'Plum',
+    ocean: 'Deep Ocean'
 };
 
 // Light or dark, so the editor can group them. The colors themselves live in profile.css.
@@ -70,14 +75,22 @@ const THEME_MODES = {
     midnight: 'dark',
     graphite: 'dark',
     ember: 'dark',
-    forest: 'dark'
+    forest: 'dark',
+    sky: 'light',
+    lavender: 'light',
+    sunrise: 'light',
+    plum: 'dark',
+    ocean: 'dark'
 };
 
 const PATTERNS = {
     none: 'Plain',
     dots: 'Dots',
     stripes: 'Stripes',
-    grid: 'Graph paper'
+    grid: 'Graph paper',
+    checks: 'Checkerboard',
+    crosshatch: 'Crosshatch',
+    blueprint: 'Blueprint'
 };
 
 const MOODS = {
@@ -88,7 +101,15 @@ const MOODS = {
     hopeful: { emoji: '🙂', label: 'Hopeful' },
     ready: { emoji: '🛠️', label: 'Ready to work' },
     solid: { emoji: '✊', label: 'Union strong' },
-    off: { emoji: '🎣', label: 'Off the clock' }
+    off: { emoji: '🎣', label: 'Off the clock' },
+    overtime: { emoji: '⏰', label: 'Working overtime' },
+    safe: { emoji: '🦺', label: 'Working safe' },
+    proud: { emoji: '🇺🇸', label: 'Proud member' },
+    helping: { emoji: '🤝', label: 'Here to help' },
+    learning: { emoji: '📚', label: 'Learning something new' },
+    lunch: { emoji: '🥪', label: 'Lunch time' },
+    weekend: { emoji: '🎉', label: 'Weekend mode' },
+    tired: { emoji: '😴', label: 'Need a nap' }
 };
 
 const AVATAR_GLYPHS = {
@@ -200,6 +221,16 @@ const AVATAR_COLORS = {
     gray: '#44566b'
 };
 
+// Border around the profile picture.
+const AVATAR_FRAMES = {
+    none: 'No frame',
+    gold: 'Gold ring',
+    double: 'Double ring',
+    steel: 'Steel ring',
+    dashed: 'Dashed ring',
+    glow: 'Glow'
+};
+
 const VISIBILITY = { members: 'Visible to signed-in members', hidden: 'Hidden (only me)' };
 
 const LIMITS = {
@@ -307,7 +338,7 @@ function defaultProfile(handle, displayName) {
         interests: '',
         theme: 'classic',
         pattern: 'none',
-        avatar: { glyph: 'hardhat', color: 'blue' },
+        avatar: { glyph: 'hardhat', color: 'blue', frame: 'none' },
         top8: [],
         links: [],
         visibility: 'members',
@@ -433,7 +464,8 @@ function cleanProfileUpdate(body, { allowReservedName = false } = {}) {
         const avatar = body.avatar && typeof body.avatar === 'object' ? body.avatar : {};
         out.avatar = {
             glyph: pick(AVATAR_GLYPHS, avatar.glyph, 'avatar picture'),
-            color: pick(AVATAR_COLORS, avatar.color, 'avatar color')
+            color: pick(AVATAR_COLORS, avatar.color, 'avatar color'),
+            frame: avatar.frame === undefined || avatar.frame === '' ? 'none' : pick(AVATAR_FRAMES, avatar.frame, 'picture frame')
         };
     }
     if (has('links')) {
@@ -463,6 +495,7 @@ function options() {
         moods: Object.entries(MOODS).map(([id, m]) => ({ id, ...m })),
         avatarGlyphs: Object.entries(AVATAR_GLYPHS).map(([id, emoji]) => ({ id, emoji, label: AVATAR_LABELS[id] || id })),
         avatarColors: Object.entries(AVATAR_COLORS).map(([id, hex]) => ({ id, hex })),
+        avatarFrames: labelled(AVATAR_FRAMES),
         limits: LIMITS
     };
 }

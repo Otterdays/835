@@ -175,3 +175,5 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-20]: Evidence Log rebranded as Case Notebook with plainer wording, usage steps and an example; fixed a duplicate-id bug in its status message.
 
 [AMENDED 2026-11-20]: Profiles: removed "Who I'd like to meet" and added 30 more trade and union profile icons.
+
+[AMENDED 2026-11-20]: Added profile themes, patterns, moods and picture frames.
