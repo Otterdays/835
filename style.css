@@ -4789,3 +4789,31 @@ video {
 :root[data-theme="dark"] .breadcrumb-sep {
     color: rgba(170, 184, 204, 0.85);
 }
+
+/* Install-the-app button in the slide-out menu */
+.nav-install {
+    flex: none;
+    padding: 0.7rem 1.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.nav-install-btn {
+    width: 100%;
+    min-height: 44px;
+    border: 0;
+    border-radius: 12px;
+    background: #f2c94c;
+    color: #1a1a1a;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.nav-install-btn:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+}
+
+@media print {
+    .nav-install, [data-install-app] { display: none !important; }
+}

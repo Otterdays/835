@@ -224,6 +224,36 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(link);
     };
 
+    // "Install the app" buttons (menu + any [data-install-app] on a page). Hidden once the app is installed.
+    const isInstalledApp = () => window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone === true;
+    const wireInstallButtons = () => {
+        if (isInstalledApp()) {
+            return;
+        }
+        if (sidePanel && !sidePanel.querySelector('.nav-install')) {
+            const wrap = document.createElement('section');
+            wrap.className = 'nav-install';
+            wrap.setAttribute('aria-label', 'Install the app');
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'nav-install-btn';
+            b.setAttribute('data-install-app', '');
+            b.textContent = 'Install Local 835 app';
+            wrap.appendChild(b);
+            sidePanel.appendChild(wrap);
+        }
+        document.querySelectorAll('[data-install-app]').forEach((b) => {
+            b.hidden = false;
+            b.addEventListener('click', () => {
+                if (sidePanel?.classList.contains('open')) {
+                    closeBtn?.click();
+                }
+                window.oe835InstallApp?.();
+            });
+        });
+        window.addEventListener('appinstalled', () => document.querySelectorAll('[data-install-app]').forEach((b) => { b.hidden = true; }));
+    };
+
     const renderInstallPrompt = () => {
         const installed = window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone === true;
         if (installed) {
@@ -244,16 +274,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return 0;
             }
         };
-        const snooze = (days = 30) => {
+        const snooze = (days = 3) => {
             try {
                 localStorage.setItem('oe835_install_snooze_until', String(Date.now() + days * 86400000));
             } catch (err) {
                 console.warn('Install prompt preference could not be saved', err);
             }
         };
-        if (readSnooze() > Date.now()) {
-            return;
-        }
 
         const card = document.createElement('aside');
         card.className = 'pwa-install-card';
@@ -262,16 +289,16 @@ document.addEventListener('DOMContentLoaded', () => {
         card.setAttribute('aria-live', 'polite');
 
         const heading = document.createElement('h2');
-        heading.textContent = 'Add Local 835 to your home screen';
+        heading.textContent = 'Use Local 835 as an app';
         const message = document.createElement('p');
-        message.textContent = 'Open the member portal from an app icon for quicker access.';
+        message.textContent = 'Add the member portal to your phone so it opens from an icon, full screen, with no browser bars. It takes about 10 seconds.';
 
         const actions = document.createElement('div');
         actions.className = 'pwa-install-actions';
         const installButton = document.createElement('button');
         installButton.type = 'button';
         installButton.className = 'pwa-install-primary';
-        installButton.textContent = manualInstall && !deferredInstall ? 'How to add' : 'Install app';
+        installButton.textContent = deferredInstall ? 'Install app' : 'How to add';
         const dismissButton = document.createElement('button');
         dismissButton.type = 'button';
         dismissButton.className = 'pwa-install-dismiss';
@@ -279,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         actions.append(installButton, dismissButton);
 
         let instructions = null;
-        if (manualInstall) {
+        {
             instructions = document.createElement('ol');
             instructions.className = 'pwa-install-steps';
             instructions.hidden = true;
@@ -299,6 +326,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         document.body.appendChild(card);
 
+        // Used by the menu and Home buttons: always opens the card, ignoring "Not now", with steps when there is no native prompt.
+        window.oe835InstallApp = () => {
+            card.hidden = false;
+            if (instructions && !deferredInstall) {
+                instructions.hidden = false;
+                installButton.textContent = 'Hide steps';
+                installButton.setAttribute('aria-expanded', 'true');
+            }
+            installButton.focus({ preventScroll: true });
+        };
+
         const hide = () => {
             window.clearTimeout(showTimer);
             card.hidden = true;
@@ -312,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             card.hidden = false;
         };
-        const scheduleShow = (delay = 4000) => {
+        const scheduleShow = (delay = 2000) => {
             window.clearTimeout(showTimer);
             showTimer = window.setTimeout(show, delay);
         };
@@ -322,10 +360,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hide();
         });
 
-        if (manualInstall) {
+        {
             installButton.setAttribute('aria-expanded', 'false');
-            if (!deferredInstall) {
-                scheduleShow(7000); // Android browsers without a native prompt still get menu steps.
+            if (manualInstall && !deferredInstall) {
+                scheduleShow(3000); // Android browsers without a native prompt still get menu steps.
             }
         }
 
@@ -345,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const result = await promptEvent.prompt();
                 hide();
                 if (result?.outcome === 'dismissed') {
-                    snooze(14);
+                    snooze(7);
                 }
             } catch (err) {
                 console.warn('Browser install prompt could not be opened', err);
@@ -411,6 +449,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderAppearance();
     renderForumBubble();
     renderInstallPrompt();
+    wireInstallButtons();
     window.Auth?.whenReady?.().then(renderAccount).catch((err) => console.error('Account menu failed', err));
     renderBreadcrumb();
 

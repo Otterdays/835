@@ -169,3 +169,5 @@ A single-page contract viewer application for "Operating Engineers 835". It prov
 [AMENDED 2026-11-20]: Added an Admin Documents section and a separate reserved section for future admin content. Both appear only on the existing admin-gated page and currently contain clear empty-state copy.
 
 [AMENDED 2026-11-20]: Updated the roster from the 11/20/2026 report (new hires, site moves, spelling and title corrections, management titles) and added the three report scans to the admin-only Documents section (`images/admin/`, served only to admins).
+
+[AMENDED 2026-11-20]: Added install-app buttons (menu, Home) and a faster, more persistent home-screen install prompt.

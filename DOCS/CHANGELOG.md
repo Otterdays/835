@@ -209,3 +209,5 @@
 [AMENDED 2026-11-20]: Added collapsible Admin Documents and Additional admin content placeholders to the admin-only panel.
 
 [AMENDED 2026-11-20]: **Roster / Admin Documents:** Roster refreshed from the 11/20/2026 report; profile job titles realigned to roster trades; report pages added under Admin Documents (`images/admin/`, admin-gated).
+
+[AMENDED 2026-11-20]: **Install app:** menu and Home buttons, quicker prompt, 3-day snooze.

@@ -479,3 +479,9 @@ const ingestionGuide = fs.readFileSync(ingestionGuidePath, 'utf8');
     ok(themeJs.includes("? value : 'dark'"), 'appearance defaults to dark when no choice is saved');
     ok(/:root\[data-theme="dark"\] \.forum-page\s*\{/.test(fs.readFileSync(path.join(root, 'forum.css'), 'utf8')), 'forum has dark tokens');
 }
+
+// Install-the-app: menu and Home buttons open the shared install card.
+{
+    const shellJs = fs.readFileSync(path.join(root, 'js/shell.js'), 'utf8');
+    ok(shellJs.includes('window.oe835InstallApp') && shellJs.includes('nav-install-btn') && fs.readFileSync(path.join(root, 'home.html'), 'utf8').includes('data-install-app'), 'menu and Home have an install-the-app button');
+}
