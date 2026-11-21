@@ -54,7 +54,7 @@ const PAGES = [
     { href: 'updates.html', title: 'Project Updates', summary: 'Dated log of portal and content changes. Body text is not included in the assistant context because it contains member names.' },
     { href: 'contract-updates.html', title: 'Contract & Employment Updates', summary: 'Dated contract and employment notices.' },
     { href: 'agreement-2026-27.html', title: '2026–27 Tentative Agreement', summary: 'Guided reader for the tentative 2026–27 terms, subject to ratification.' },
-    { href: 'contract.html', title: 'Contract (2022–26)', summary: 'Searchable 2022–2026 CBA articles, exhibits and wage/benefit tables by article.' },
+    { href: 'contract.html', title: 'Agreements & Contract', summary: 'Searchable 2022–2026 CBA articles, exhibits and wage/benefit tables by article.' },
     { href: 'scans.html', title: 'Scanned Pages', summary: 'Scanned CBA and tentative-agreement page images with transcriptions.' },
     { href: 'tool-program.html', title: 'Tool Program', summary: 'Facility Tool Control Program policy scans and text.' },
     { href: 'member-documents.html', title: 'Member Documents', summary: 'Summaries of member documents and forms; no source-file downloads.' },

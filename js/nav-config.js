@@ -13,7 +13,7 @@ const SITE_NAV = [
     {
         label: 'Member tools',
         items: [
-            { href: 'member-action.html', label: 'Action Center', id: 'member-action' },
+            { href: 'member-action.html', label: 'Member Action Center', id: 'member-action' },
             { href: 'evidence-log.html', label: 'Case Notebook', id: 'evidence-log' },
             { href: 'bargaining.html', label: 'Bargaining tools', id: 'bargaining' }
         ]
@@ -21,7 +21,7 @@ const SITE_NAV = [
     {
         label: 'Documents',
         items: [
-            { href: 'contract.html', label: 'Contract (2022–26)', id: 'contract' },
+            { href: 'contract.html', label: 'Agreements & Contract', id: 'contract' },
             { href: 'agreement-2026-27.html', label: '2026–27 Tentative Agreement', id: 'agreement-2026-27' },
             { href: 'scans.html', label: 'Scanned Pages', id: 'scans' },
             { href: 'member-documents.html', label: 'Member Documents', id: 'member-documents' },

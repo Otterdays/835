@@ -4837,3 +4837,35 @@ video {
     .notebook-example dl { grid-template-columns: 1fr; gap: 0; }
     .notebook-example dd { margin-bottom: 0.5rem; }
 }
+
+/* Short phones: the whole menu scrolls as one column so the links never get squeezed by the footer controls. */
+@media (max-height: 780px) {
+    .side-panel {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .panel-header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        flex: none;
+        padding-block: 0.9rem;
+        background: #0b1827;
+    }
+
+    .nav-links {
+        flex: none;
+        overflow: visible;
+    }
+
+    .nav-account {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .nav-appearance,
+    .nav-install {
+        padding-block: 0.5rem;
+    }
+}

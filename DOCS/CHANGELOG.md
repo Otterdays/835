@@ -217,3 +217,5 @@
 [AMENDED 2026-11-20]: **Profiles:** removed `wantToMeet`; added 30 avatar glyphs.
 
 [AMENDED 2026-11-20]: **Profiles:** 5 themes, 3 patterns, 8 moods, picture frames (`avatar.frame`).
+
+[AMENDED 2026-11-20]: **Menu:** consistent page labels; whole menu scrolls on short phones.
